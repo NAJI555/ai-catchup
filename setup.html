@@ -26,12 +26,13 @@ button:active{opacity:.7}
 
 <div class="box">
 <pre id="p">このフォルダの notebooklm_raw.ipynb のセットアップ手順どおりに環境を準備し、捨てノートブックで動作確認して。NotebookLM の操作はこのフォルダの nlm_client.py だけを使う（他の NotebookLM の MCP・ツールは併用しない）。
-補足: nlm_client.py の88行目付近のエラーメッセージ内 "Invoke-NotebookLM login" は古い表記で、正しくは "python nlm_client.py login"。</pre>
+補足: nlm_client.py 内の文字列 "Invoke-NotebookLM login" を "python nlm_client.py login" に全置換して（Cookie未検出時のエラーメッセージの表記・通常1箇所だけ）。行番号は版で変わるので、行番号でなく文字列で探すこと。</pre>
 </div>
 <button onclick="navigator.clipboard.writeText(document.getElementById('p').innerText).then(()=>{document.getElementById('s').textContent='コピーしました'})">プロンプトをコピー</button><span id="s" class="ok"></span>
 
 <h1 style="margin-top:28px">補足</h1>
 <ul class="note">
+<li><strong>修正は文字列で</strong>：<code>Invoke-NotebookLM login</code> → <code>python nlm_client.py login</code> に全置換（1箇所）。行番号（88 や 63 等）は版で変わるので行で探さない＝同じ1箇所を指しているだけ。</li>
 <li>login 時は<strong>会社の Google アカウント</strong>でログイン（会社の NotebookLM 契約を使う）。</li>
 <li>必要環境：Python 3.10 以上 / <code>pip install httpx playwright</code> / Google Chrome。</li>
 <li>社内のネットワーク制限（プロキシ・pip 制限・Chrome デバッグ起動のブロック）で止まる場合あり。その時は管理者/IT に確認。</li>

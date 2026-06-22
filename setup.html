@@ -31,11 +31,32 @@ li{margin:8px 0}
 <li><strong>1箇所だけ修正</strong>：<code>nlm_client.py</code> 内の文字列 <code>Invoke-NotebookLM login</code> を <code>python nlm_client.py login</code> に全置換する。これは Cookie 未検出時に出るエラーメッセージの表記（古い表記の取り残し）で、機能には影響しないコスメ修正。<strong>行番号でなく文字列で探すこと</strong>（版により行番号が変わる＝同じ1箇所を指す）。</li>
 <li><code>python nlm_client.py login</code> を実行し、<strong>会社の Google アカウント</strong>でログインする（会社の NotebookLM 契約を使う・2FA は画面の指示どおり）。Cookie が <code>~/.notebooklm/profiles/default/storage_state.json</code> に保存される。</li>
 <li>捨てノートブックで動作確認する：notebook を新規作成 → <code>add_source_text</code> でテキストを取り込み → <code>ask</code> で内容を質問 → 回答を確認 → その notebook を削除（後始末）。</li>
+<li><strong>最後に必ず「実行レポート」を出力する</strong>（下のテンプレートに沿って）。これはユーザーがコピーして共有する用なので、<strong>1つのコードブロックにまとめて、そのままコピペできる形で出力</strong>すること。</li>
 </ol>
 
 <div class="imp">
 <strong>重要な制約</strong>：NotebookLM の操作は<strong>このフォルダの <code>nlm_client.py</code> だけ</strong>を使うこと。他の NotebookLM の MCP・ツールは併用しない（Cookie・認証の混線／ポート競合を避ける）。必要なら <code>--profile &lt;名前&gt;</code> と <code>--port &lt;番号&gt;</code> で隔離する。
 </div>
+
+<h2>最後に出力する実行レポート（テンプレート）</h2>
+<p class="note">セットアップが完了（または途中で詰まっても）したら、以下を埋めて<strong>1つのコードブロックで出力</strong>してください。ユーザーがこれをコピーして共有し、フィードバックを受け取ります。事実のみ・推測は「不明」と書く。</p>
+<pre><code>==== NotebookLM セットアップ実行レポート ====
+日時:
+環境: OS / Python版 / Chrome有無
+1. 環境準備 (pip install httpx playwright): OK / NG（詳細・エラー全文）
+2. 修正 (Invoke-NotebookLM login → python nlm_client.py login): 置換 N 箇所 / OK / NG
+3. login (会社Googleアカウント): 成功 / 失敗（Cookie保存先・取得cookie数・SID等の有無）
+4. 動作確認:
+   - create_notebook: OK / NG（返ったid）
+   - add_source_text: OK / NG
+   - ask（出典付きで正答したか）: OK / NG（質問と回答の抜粋）
+   - delete_notebook（後始末・捨てNB消えたか）: OK / NG
+5. NotebookLM操作は nlm_client.py のみ使用したか: はい / いいえ（使った場合は何を）
+エラー・詰まった点（あれば全文をそのまま貼る）:
+手順からの逸脱・独自判断（あれば）:
+気づき・質問（あれば）:
+総合: 動いた / 部分的 / 動かない ＋ 一言
+==== ここまで ====</code></pre>
 
 <h2>つまずいたら</h2>
 <ul class="note">

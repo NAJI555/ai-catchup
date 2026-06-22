@@ -5,38 +5,44 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="color-scheme" content="light dark">
-<title>NotebookLM セットアップ用プロンプト</title>
+<title>NotebookLM セットアップ指示</title>
 <style>
 :root{color-scheme:light dark}
-body{font-family:-apple-system,'Segoe UI','Yu Gothic UI',Meiryo,sans-serif;line-height:1.7;max-width:760px;margin:0 auto;padding:24px 18px;color:#1a2233;background:#f4f6f9}
-@media(prefers-color-scheme:dark){body{color:#e6e9ef;background:#181b20}.box{background:#23272e !important;border-color:#3a3f47 !important}}
+body{font-family:-apple-system,'Segoe UI','Yu Gothic UI',Meiryo,sans-serif;line-height:1.7;max-width:780px;margin:0 auto;padding:24px 18px;color:#1a2233;background:#f4f6f9}
+@media(prefers-color-scheme:dark){body{color:#e6e9ef;background:#181b20}code,pre{background:#23272e !important}}
 h1{font-size:1.25rem;border-left:5px solid #d97706;padding-left:10px}
-.box{position:relative;background:#fff;border:1px solid #e2e6ec;border-radius:10px;padding:16px;margin:14px 0}
-pre{white-space:pre-wrap;word-break:break-word;margin:0;font-family:'Consolas','Courier New',monospace;font-size:.95rem}
-button{background:#d97706;color:#fff;border:0;border-radius:8px;padding:9px 16px;font-size:1rem;cursor:pointer}
-button:active{opacity:.7}
-.note{font-size:.9rem;color:#5b6675}
+h2{font-size:1.05rem;margin-top:22px}
+code{background:#eef1f5;padding:1px 5px;border-radius:4px;font-family:'Consolas',monospace}
+ol{padding-left:1.3em}
+li{margin:8px 0}
+.note{font-size:.92rem;color:#5b6675}
 @media(prefers-color-scheme:dark){.note{color:#9aa4b2}}
-.ok{color:#16a34a;font-weight:bold;margin-left:8px}
+.imp{background:#fff4e5;border-left:4px solid #d97706;padding:8px 12px;border-radius:6px}
+@media(prefers-color-scheme:dark){.imp{background:#2a2418}}
 </style>
 </head>
 <body>
-<h1>NotebookLM セットアップ用プロンプト</h1>
-<p class="note">会社PCの Claude Code に貼り付けるプロンプトです。受け取った <code>notebooklm_std</code> フォルダを開いた状態で使ってください。</p>
+<h1>NotebookLM セットアップ指示</h1>
+<p class="note">これは、受け取った <code>notebooklm_std</code> フォルダをセットアップするための作業指示です。このページを読んだ AI（Claude Code 等）は、フォルダを開いた状態で以下を順に実行してください。</p>
 
-<div class="box">
-<pre id="p">このフォルダの notebooklm_raw.ipynb のセットアップ手順どおりに環境を準備し、捨てノートブックで動作確認して。NotebookLM の操作はこのフォルダの nlm_client.py だけを使う（他の NotebookLM の MCP・ツールは併用しない）。
-補足: nlm_client.py 内の文字列 "Invoke-NotebookLM login" を "python nlm_client.py login" に全置換して（Cookie未検出時のエラーメッセージの表記・通常1箇所だけ）。行番号は版で変わるので、行番号でなく文字列で探すこと。</pre>
+<h2>手順</h2>
+<ol>
+<li>フォルダ内の <code>notebooklm_raw.ipynb</code> のセットアップ手順に従って環境を準備する。必要環境：Python 3.10 以上 / <code>pip install httpx playwright</code> / Google Chrome。</li>
+<li><strong>1箇所だけ修正</strong>：<code>nlm_client.py</code> 内の文字列 <code>Invoke-NotebookLM login</code> を <code>python nlm_client.py login</code> に全置換する。これは Cookie 未検出時に出るエラーメッセージの表記（古い表記の取り残し）で、機能には影響しないコスメ修正。<strong>行番号でなく文字列で探すこと</strong>（版により行番号が変わる＝同じ1箇所を指す）。</li>
+<li><code>python nlm_client.py login</code> を実行し、<strong>会社の Google アカウント</strong>でログインする（会社の NotebookLM 契約を使う・2FA は画面の指示どおり）。Cookie が <code>~/.notebooklm/profiles/default/storage_state.json</code> に保存される。</li>
+<li>捨てノートブックで動作確認する：notebook を新規作成 → <code>add_source_text</code> でテキストを取り込み → <code>ask</code> で内容を質問 → 回答を確認 → その notebook を削除（後始末）。</li>
+</ol>
+
+<div class="imp">
+<strong>重要な制約</strong>：NotebookLM の操作は<strong>このフォルダの <code>nlm_client.py</code> だけ</strong>を使うこと。他の NotebookLM の MCP・ツールは併用しない（Cookie・認証の混線／ポート競合を避ける）。必要なら <code>--profile &lt;名前&gt;</code> と <code>--port &lt;番号&gt;</code> で隔離する。
 </div>
-<button onclick="navigator.clipboard.writeText(document.getElementById('p').innerText).then(()=>{document.getElementById('s').textContent='コピーしました'})">プロンプトをコピー</button><span id="s" class="ok"></span>
 
-<h1 style="margin-top:28px">補足</h1>
+<h2>つまずいたら</h2>
 <ul class="note">
-<li><strong>修正は文字列で</strong>：<code>Invoke-NotebookLM login</code> → <code>python nlm_client.py login</code> に全置換（1箇所）。行番号（88 や 63 等）は版で変わるので行で探さない＝同じ1箇所を指しているだけ。</li>
-<li>login 時は<strong>会社の Google アカウント</strong>でログイン（会社の NotebookLM 契約を使う）。</li>
-<li>必要環境：Python 3.10 以上 / <code>pip install httpx playwright</code> / Google Chrome。</li>
-<li>社内のネットワーク制限（プロキシ・pip 制限・Chrome デバッグ起動のブロック）で止まる場合あり。その時は管理者/IT に確認。</li>
-<li>このページは検索非掲載（noindex）。用が済んだら削除して構いません。</li>
+<li>社内ネットワークの制限（プロキシ / <code>pip</code> 制限 / Chrome デバッグ起動のブロック）で止まる場合あり。その時は管理者・IT 部門に確認。</li>
+<li><code>notebooklm.google.com</code> への通信が通らない場合も社内ネットワーク制限を疑う。</li>
 </ul>
+
+<p class="note">（このページは検索非掲載。用が済んだら削除して構わない。）</p>
 </body>
 </html>

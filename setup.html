@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="color-scheme" content="light dark">
+<title>NotebookLM セットアップ用プロンプト</title>
+<style>
+:root{color-scheme:light dark}
+body{font-family:-apple-system,'Segoe UI','Yu Gothic UI',Meiryo,sans-serif;line-height:1.7;max-width:760px;margin:0 auto;padding:24px 18px;color:#1a2233;background:#f4f6f9}
+@media(prefers-color-scheme:dark){body{color:#e6e9ef;background:#181b20}.box{background:#23272e !important;border-color:#3a3f47 !important}}
+h1{font-size:1.25rem;border-left:5px solid #d97706;padding-left:10px}
+.box{position:relative;background:#fff;border:1px solid #e2e6ec;border-radius:10px;padding:16px;margin:14px 0}
+pre{white-space:pre-wrap;word-break:break-word;margin:0;font-family:'Consolas','Courier New',monospace;font-size:.95rem}
+button{background:#d97706;color:#fff;border:0;border-radius:8px;padding:9px 16px;font-size:1rem;cursor:pointer}
+button:active{opacity:.7}
+.note{font-size:.9rem;color:#5b6675}
+@media(prefers-color-scheme:dark){.note{color:#9aa4b2}}
+.ok{color:#16a34a;font-weight:bold;margin-left:8px}
+</style>
+</head>
+<body>
+<h1>NotebookLM セットアップ用プロンプト</h1>
+<p class="note">会社PCの Claude Code に貼り付けるプロンプトです。受け取った <code>notebooklm_std</code> フォルダを開いた状態で使ってください。</p>
+
+<div class="box">
+<pre id="p">このフォルダの notebooklm_raw.ipynb のセットアップ手順どおりに環境を準備し、捨てノートブックで動作確認して。NotebookLM の操作はこのフォルダの nlm_client.py だけを使う（他の NotebookLM の MCP・ツールは併用しない）。
+補足: nlm_client.py の88行目付近のエラーメッセージ内 "Invoke-NotebookLM login" は古い表記で、正しくは "python nlm_client.py login"。</pre>
+</div>
+<button onclick="navigator.clipboard.writeText(document.getElementById('p').innerText).then(()=>{document.getElementById('s').textContent='コピーしました'})">プロンプトをコピー</button><span id="s" class="ok"></span>
+
+<h1 style="margin-top:28px">補足</h1>
+<ul class="note">
+<li>login 時は<strong>会社の Google アカウント</strong>でログイン（会社の NotebookLM 契約を使う）。</li>
+<li>必要環境：Python 3.10 以上 / <code>pip install httpx playwright</code> / Google Chrome。</li>
+<li>社内のネットワーク制限（プロキシ・pip 制限・Chrome デバッグ起動のブロック）で止まる場合あり。その時は管理者/IT に確認。</li>
+<li>このページは検索非掲載（noindex）。用が済んだら削除して構いません。</li>
+</ul>
+</body>
+</html>

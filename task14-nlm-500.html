@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>task14 NotebookLM upload 500 詰まり 切り分けレポート</title>
+<style>
+:root{
+  --bg:#f1f5f9; --card:#ffffff; --ink:#1e293b; --sub:#64748b;
+  --line:#e2e8f0; --hdr:#0f172a; --hdr-ink:#f1f5f9;
+  --link:#2563eb; --code-bg:#0f172a; --code-ink:#e2e8f0;
+  --ok:#15803d; --ok-bg:#dcfce7; --bad:#b91c1c; --bad-bg:#fee2e2;
+  --warn:#b45309; --warn-bg:#fef3c7;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0b1120; --card:#111827; --ink:#e5e7eb; --sub:#94a3b8;
+    --line:#1f2937; --hdr:#020617; --hdr-ink:#f1f5f9;
+    --link:#7dd3fc; --code-bg:#020617; --code-ink:#e5e7eb;
+    --ok:#86efac; --ok-bg:#14532d; --bad:#fca5a5; --bad-bg:#3f1d1d;
+    --warn:#fbbf24; --warn-bg:#3a2c0c;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.75;
+  font-family:-apple-system,'Segoe UI','Hiragino Kaku Gothic ProN','Yu Gothic UI',Meiryo,sans-serif;
+  font-size:16px;word-break:break-word;overflow-wrap:anywhere}
+a{color:var(--link)}
+.hdr{position:sticky;top:0;z-index:20;background:var(--hdr);color:var(--hdr-ink);
+  box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.hdr-in{max-width:880px;margin:0 auto;padding:12px 16px}
+.hdr h1{margin:0;font-size:1.15rem;line-height:1.4}
+.hdr .upd{margin-top:2px;font-size:.78rem;opacity:.8}
+.wrap{max-width:880px;margin:0 auto;padding:14px 14px 48px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:16px 18px;margin:0 0 16px;box-shadow:0 1px 3px rgba(15,23,42,.06)}
+.card h2{margin:0 0 12px;font-size:1.05rem;border-left:4px solid var(--link);padding-left:10px}
+.card h3{margin:14px 0 6px;font-size:.98rem}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.04em;
+  padding:2px 8px;border-radius:6px;margin-right:6px;vertical-align:1px}
+.tag-ok{color:var(--ok);background:var(--ok-bg)}
+.tag-bad{color:var(--bad);background:var(--bad-bg)}
+.tag-warn{color:var(--warn);background:var(--warn-bg)}
+.tag-prio{color:#fff;background:var(--bad);font-weight:800}
+table{width:100%;border-collapse:collapse;margin:8px 0 4px;font-size:.92rem}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:color-mix(in srgb,var(--link) 10%,transparent)}
+code{background:color-mix(in srgb,var(--ink) 8%,transparent);padding:1px 6px;border-radius:4px;
+  font-family:'Cascadia Mono','Consolas','Hiragino Sans',monospace;font-size:.92em}
+pre{background:var(--code-bg);color:var(--code-ink);padding:12px 14px;border-radius:8px;
+  overflow-x:auto;font-family:'Cascadia Mono','Consolas',monospace;font-size:.88rem;
+  line-height:1.55;margin:8px 0}
+pre code{background:transparent;padding:0;color:inherit}
+.step{background:color-mix(in srgb,var(--link) 6%,transparent);
+  border-left:4px solid var(--link);padding:10px 14px;border-radius:6px;margin:10px 0}
+.step-prio{background:var(--bad-bg);border-left-color:var(--bad)}
+.alert{background:var(--warn-bg);border-left:5px solid var(--warn);
+  border-radius:8px;padding:14px 16px;margin:0 0 16px;font-size:.94rem}
+.alert b{color:var(--warn)}
+ul,ol{padding-left:1.4em;margin:6px 0}
+li{margin:3px 0}
+.footer{font-size:.82rem;color:var(--sub);text-align:center;margin-top:24px;padding:14px;
+  border-top:1px solid var(--line)}
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:6px 0}
+.kv dt{color:var(--sub);font-size:.86rem}
+.kv dd{margin:0;font-size:.92rem}
+.hyp{border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:10px 0}
+.hyp-1{border-left:5px solid var(--bad)}
+.hyp-2{border-left:5px solid var(--warn)}
+.hyp-3{border-left:5px solid var(--sub)}
+.hyp h3{margin-top:0}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-in">
+    <h1>task14 NotebookLM upload HTTP 500 詰まり 切り分けレポート</h1>
+    <div class="upd">配信: 2026-06-24 JST &middot; 宛先: 会社PC Claude Code</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<div class="alert">
+  <b>⚠ 会社環境への適用注意（最初に読む）</b><br>
+  このHTMLは <strong>LEVEL機（自宅 Windows）</strong> での実証結果です。会社PCでは以下が異なります：
+  <ul>
+    <li><strong>リポジトリ clone 先パス</strong> → 固定パスを書いていないので <code>git rev-parse --show-toplevel</code> で各自取得</li>
+    <li><strong>Google アカウント</strong> → 会社用（自宅は naotakatsuji0805@gmail.com）。NotebookLM ノートID も別物なので会社側で <code>nlm_client.py list</code> し直す</li>
+    <li><strong>Cookie</strong> → 自宅機の pickle は会社PCには無い／別物。<code>python scripts/notebooklm/nlm_client.py login</code> で <strong>会社アカウントの cookie 取得が前提</strong></li>
+    <li><strong>業務データを個人アカウント経由で処理する暫定策（後述 C）はユーザー（人間）判断必須</strong>。AIから自動推奨しない</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>1. 結論（先に1行）</h2>
+  <p><span class="tag tag-bad">CONFIRMED</span>
+  <strong>会社環境固有要因で確定</strong>。<code>nlm_client.py</code> のコード／サイズ閾値／resumable プロトコル実装は<strong>シロ</strong>。
+  第一容疑は <strong>会社プロキシの SSL inspection</strong>、次点で <strong>Workspace 管理者ポリシー</strong> / <strong>Google側 rate-limit・abuse-detection</strong>。</p>
+
+  <h3>自宅 (LEVEL機) クロステスト結果</h3>
+  <p>同一 <code>nlm_client.py</code> + 同一エンドポイントで 3点全完走：</p>
+  <table>
+    <thead><tr><th>ファイル</th><th>サイズ</th><th>upload</th><th>post-ingest</th><th>所要</th></tr></thead>
+    <tbody>
+      <tr><td>small.mp3</td><td>500KB</td><td><span class="tag tag-ok">200</span></td><td>READY</td><td>12s</td></tr>
+      <tr><td>medium.mp3</td><td>5MB</td><td><span class="tag tag-ok">200</span></td><td>READY</td><td>19s</td></tr>
+      <tr><td>large.mp3</td><td>50MB</td><td><span class="tag tag-ok">200</span></td><td>READY</td><td>123s</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:.86rem;color:var(--sub)">サンプル元: Rebuild.fm RSS 最新エピソード mp3 (95MB) から Python でバイト切り出し。線形 12→19→123 秒で素直にスケール。</p>
+</div>
+
+<div class="card">
+  <h2>2. 会社側で既に試行済み（ノート <code>f56f9aff</code>）</h2>
+  <p>下記 <strong>13 パターン全て 500 final で固定</strong>。HTTP リクエスト署名側ではない：</p>
+  <ul>
+    <li><code>authuser=0..3</code></li>
+    <li><code>Content-Type</code>: json / form 切替</li>
+    <li><code>Referer</code> / <code>Origin</code> 追加</li>
+    <li><code>X-Same-Domain</code></li>
+    <li><code>Authorization: SAPISIDHASH</code> (SAPISID / __Secure-1PAPISID の 2 系統)</li>
+    <li>ファイル種別 <code>txt</code> / <code>wav</code> / <code>pdf</code></li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>3. 推定原因（仮説 Top3・確度順）</h2>
+
+  <div class="hyp hyp-1">
+    <h3><span class="tag tag-bad">最有力</span> H1. 会社プロキシの SSL inspection（中間者証明書差し替え）</h3>
+    <dl class="kv">
+      <dt>証跡</dt><dd>自宅で 500 再現せず／サーバ側は Web UI で正常動作している前提があるなら経路差／<code>/upload/_/</code> の resumable session URL が中継先で書き換わると multipart 整合が崩れ 500 が出やすい</dd>
+      <dt>検証</dt><dd><code>curl -v https://notebooklm.google.com/</code> で証明書 chain 確認（社内CAが挟まれば確定）</dd>
+      <dt>対策方向</dt><dd>IT に <code>notebooklm.google.com</code> / <code>*.googleusercontent.com</code> / <code>*.googleapis.com</code> の <strong>inspection bypass 申請</strong>、または <code>nlm_client.py</code> に <code>REQUESTS_CA_BUNDLE</code> 経由で社内CA注入</dd>
+    </dl>
+  </div>
+
+  <div class="hyp hyp-2">
+    <h3><span class="tag tag-warn">次点</span> H2. 会社 Workspace 管理者ポリシー（NotebookLM upload 制限）</h3>
+    <dl class="kv">
+      <dt>証跡</dt><dd>13 切り分けパターン全 500 固定 → form/json / auth 系全部試行済 → 経路ではなく <strong>認可</strong>で弾かれている可能性</dd>
+      <dt>検証</dt><dd>HAR レスポンス body に <code>policy</code> / <code>denied</code> / <code>forbidden</code> 文字列、または <code>Server:</code> ヘッダが Google 以外</dd>
+      <dt>対策方向</dt><dd>Workspace 管理者へ <strong>NotebookLM API 利用許可申請</strong>。手動 UI も 500 なら確度上がる</dd>
+    </dl>
+  </div>
+
+  <div class="hyp hyp-3">
+    <h3><span class="tag tag-warn">あり得る</span> H3. 会社 IP / アカウントの Google 側 rate-limit / abuse detection</h3>
+    <dl class="kv">
+      <dt>証跡</dt><dd>13 パターン同じ 500（Google 側シグナルベース block の典型）</dd>
+      <dt>検証</dt><dd>HAR レスポンス body JSON の <code>error.code</code> / <code>status</code> 確認、別アカウント or 別ネットワーク（テザリング等）での再現テスト</dd>
+      <dt>対策方向</dt><dd>時間を置いて再試行、または短期は H1/H2 切り分けに集中</dd>
+    </dl>
+  </div>
+</div>
+
+<div class="card">
+  <h2>4. 次アクション（会社PC側、上から順）</h2>
+
+  <div class="step step-prio">
+    <p><span class="tag tag-prio">A: 最優先・5秒</span> <strong>SSL inspection 有無の即判定</strong></p>
+    <p>会社PCの shell（PowerShell / bash 何でも可）で：</p>
+    <pre><code>curl -v https://notebooklm.google.com/</code></pre>
+    <p>出力全文を自宅 Gmail 宛 <code>naotakatsuji0805@gmail.com</code> に貼り付け送信。判定軸：</p>
+    <ul>
+      <li>証明書 chain に <strong>社内CA</strong>（Issuer に Google 以外の組織名）が挟まる → <span class="tag tag-bad">SSL inspection 確定</span> → H1 確定</li>
+      <li>chain が全部 Google 純正 → 経路装置は素通し。次は B へ</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <p><span class="tag tag-warn">B: 5分</span> <strong>HAR を 2 本キャプチャ（手動UI vs API の差分採取）</strong></p>
+    <p><strong>前提条件</strong>：会社アカウントの cookie が取得済みであること（後述「成功した手順」の login ステップを完了）。</p>
+    <ol>
+      <li>会社 Chrome で <a href="https://notebooklm.google.com/">notebooklm.google.com</a> にログイン状態</li>
+      <li>F12 → Network タブ → <strong>"Preserve log" ON</strong> + <strong>"Disable cache" ON</strong></li>
+      <li>ノートを開く → 「ソース追加」→ 小さい wav を <strong>手動UI</strong> でアップロード（手動が通るか確認も兼ねる）</li>
+      <li>Network パネルで <code>upload/_/</code> を含む行を全選択 → 右クリック <strong>Save all as HAR with content</strong> → <code>HAR-A.har</code></li>
+      <li>同セッションで下記コマンド実行 → 500 確認：
+        <pre><code>python scripts/notebooklm/nlm_client.py add-file &lt;会社側nb_id&gt; &lt;同じwav&gt;</code></pre>
+      </li>
+      <li>もう一度 <code>upload/_/</code> 行を HAR 保存 → <code>HAR-B.har</code></li>
+      <li>HAR-A / HAR-B を自宅 Gmail 宛 <code>naotakatsuji0805@gmail.com</code> に自己送信（ダミー wav なら機密マスク不要）</li>
+    </ol>
+  </div>
+
+  <div class="step">
+    <p><span class="tag tag-warn">C: 暫定回避策（業務継続用・人間判断必須）</span></p>
+    <p>会社PCで録った音声を Gmail で自宅に送付 → 自宅 LEVEL機 の <code>nlm_client</code> で投入 → 結果を会社で github.io 経由で閲覧。本日から運用可。</p>
+    <ul>
+      <li><strong>注意</strong>: 投入先の NotebookLM ノートは <strong>自宅 Google アカウント</strong>のノートになる（会社アカウントのノートには反映されない）</li>
+      <li><strong>業務データを個人アカウント経由で扱う妥当性は人間判断必須</strong>。AIから自動推奨しない</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <p><span class="tag tag-warn">D: 根本対策</span></p>
+    <ul>
+      <li>A/B 結果に基づき → <code>nlm_client.py</code> パッチ（CA bundle 注入等）<strong>または</strong>プロキシ／Workspace 申請</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <h2>5. HAR 取得時の追加確認項目</h2>
+  <p>HAR を送る前に目視で下記を確認して所見も添えると一発で確定する：</p>
+  <ul>
+    <li>レスポンス header の <code>Server:</code> / <code>Via:</code> / <code>X-Cache:</code> — <strong>中間装置の signature</strong>（Squid, BlueCoat/ProxySG, Zscaler, Netskope 等が出れば確定）</li>
+    <li>500 レスポンス body が <strong>JSON か HTML か</strong> — HTML なら社内プロキシ／DLP のブロック画面が濃厚</li>
+    <li>upload URL の <code>uploadType=resumable</code> セッション URL が <strong>Google ドメイン</strong>（<code>*.googleusercontent.com</code> / <code>*.googleapis.com</code>）のまま完走しているか — 途中で別ホストに書き換えられていれば経路差し替え</li>
+    <li>手動UIの upload (HAR-A) と API の upload (HAR-B) の URL / header が <strong>どこから違うか</strong>（行頭から diff を取る）</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>6. 切り分けマトリクス（結果別の次の一手）</h2>
+  <table>
+    <thead><tr><th>観測</th><th>有力仮説</th><th>次の一手</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>A: 社内CA chain あり</td>
+        <td>H1: SSL inspection が resumable upload を破壊</td>
+        <td>IT に inspection bypass を依頼 / CA bundle 注入で当座対処</td>
+      </tr>
+      <tr>
+        <td>B: 500 body が HTML / プロキシ signature</td>
+        <td>H1 派生: DLP のコンテンツ検査ブロック</td>
+        <td>該当ホストの除外申請</td>
+      </tr>
+      <tr>
+        <td>手動UI も 500</td>
+        <td>H2: Workspace ポリシー or 上限</td>
+        <td>Workspace 管理者に NotebookLM 利用許可申請</td>
+      </tr>
+      <tr>
+        <td>手動UI は OK / API のみ 500</td>
+        <td>API パスのみ DLP / 自動化検知</td>
+        <td>HAR-A と HAR-B の header 差分を <code>nlm_client.py</code> に取り込み再試行</td>
+      </tr>
+      <tr>
+        <td>500 body に <code>RATE_LIMIT</code> / <code>QUOTA</code></td>
+        <td>H3: Google 側 abuse-detection</td>
+        <td>時間置き／別ネットワークで再現テスト</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>7. 成功した手順（自宅で動いた・コピペ実行可能形式）</h2>
+  <p>自宅 LEVEL機で全て exit 0、<code>&lt;source_id&gt; READY &lt;filename&gt;</code> を出力した手順。
+  <strong>会社環境では【会社】注釈の箇所が異なる</strong>ので会社側で取り直す。</p>
+  <pre><code># 【共通】リポジトリ ルートへ (固定パスを書かない)
+cd "$(git rev-parse --show-toplevel)"
+
+# 【会社】最初に会社アカウントの cookie を取得（自宅機 pickle は使えない）
+python scripts/notebooklm/nlm_client.py login
+# → ブラウザが開く。会社 Google アカウントでログイン → cookie 保存
+
+# 【共通】cookie が有効か確認
+python scripts/notebooklm/nlm_client.py list
+# → エラーなら login やり直し。空ならノートが無いだけなので Web UI で1つ作る
+
+# 【共通】テスト用音声を入手
+curl -o sample.mp3 https://cache.rebuild.fm/podcast-ep428.mp3
+
+# 【共通】サイズ別生成 (Python 1発)
+python -c "src=open('sample.mp3','rb').read(); [open(f'{n}.mp3','wb').write(src[:s]) for n,s in [('small',500_000),('medium',5_000_000),('large',50_000_000)]]"
+
+# 【会社】ノートIDを会社アカウント側で取得 (自宅の f56f9aff... とは別物)
+python scripts/notebooklm/nlm_client.py list
+# → 結果から target ノートID をメモ
+
+# 【期待結果】自宅では 3 つとも 200 OK + READY。会社では 500 詰まり再現の有無を確認するのが目的
+python scripts/notebooklm/nlm_client.py add-file &lt;会社側nb_id&gt; small.mp3
+python scripts/notebooklm/nlm_client.py add-file &lt;会社側nb_id&gt; medium.mp3
+python scripts/notebooklm/nlm_client.py add-file &lt;会社側nb_id&gt; large.mp3
+
+# 【共通・後片付け】source の削除は call delete_source 形式
+python scripts/notebooklm/nlm_client.py call delete_source &lt;会社側nb_id&gt; &lt;source_id&gt;
+</code></pre>
+  <p style="font-size:.86rem;color:var(--sub)">注: <code>delete-source</code> というサブコマンドは無い（<code>delete</code> はノート削除専用）。混同注意。</p>
+</div>
+
+<div class="card">
+  <h2>8. その他の修正（同セッション内の副産物）</h2>
+  <ul>
+    <li><strong>commit <code>b156b42</code></strong>: docs(notebooklm) — <code>delete source</code> の正しい呼び出し形式を <code>call delete_source &lt;nb_id&gt; &lt;src_id&gt;</code> に統一</li>
+    <li><code>CLAUDE.md</code> の NotebookLM 節 + <code>scripts/notebooklm/README.md</code> に明記</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>9. 会社のClaudeへの引き継ぎ指示</h2>
+  <ol>
+    <li>自宅最新 commit を取り込む（会社PC = readonly でも fetch/pull は可）：
+      <pre><code>cd "$(git rev-parse --show-toplevel)"
+git fetch origin
+git checkout main
+git pull --ff-only</code></pre>
+    </li>
+    <li>「4. 次アクション」の <strong>A → B</strong> の順に実行し、<code>curl</code> 出力 / HAR を Gmail 自己送信で自宅へ</li>
+    <li>結果待ちの間は <strong>暫定回避策 C を使うか</strong>はユーザー判断を仰ぎ、勝手に業務データを動かさない</li>
+    <li>進行は会社側 PROJECTS.md / handoff に小粒で commit（会社PC ローカル git は使える、push 不可）</li>
+  </ol>
+</div>
+
+<div class="card">
+  <h2>10. 参考情報</h2>
+  <dl class="kv">
+    <dt>関連メモリ</dt><dd><code>reference_company_github_readonly</code>（会社PCは GitHub Pages 経由閲覧のみ）</dd>
+    <dt>本レポートの配信経路</dt><dd>自宅 LEVEL機 → 公開リポ <code>NAJI555/ai-catchup</code> → GitHub Pages → 会社 Chrome 閲覧</dd>
+    <dt>自宅クロステスト実施</dt><dd>2026-06-24 JST / LEVEL機 / <code>scripts/notebooklm/nlm_client.py add-file</code></dd>
+    <dt>シロ確定</dt><dd>サイズ閾値 / resumable プロトコル / nlm_client.py 実装 / 13 パターンの header 組合せ</dd>
+  </dl>
+</div>
+
+<div class="footer">
+  Generated 2026-06-24 JST &middot; 返信先 Gmail: <a href="mailto:naotakatsuji0805@gmail.com">naotakatsuji0805@gmail.com</a><br>
+  noindex / nofollow / noarchive &middot; 公開リポ: NAJI555/ai-catchup (Pages)
+</div>
+
+</div>
+</body>
+</html>

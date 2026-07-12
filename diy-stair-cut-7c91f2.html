@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>切断寸法表 — bunk-bed-stair</title>
+<style>
+  :root { color-scheme: dark; }
+  html,body { margin:0; padding:0; background:#14161a; color:#e2e6ee; font-family:"Meiryo UI",sans-serif; }
+  body { padding:16px 14px 48px; font-size:17px; line-height:1.65; }
+  h1 { font-size:1.5em; border-bottom:2px solid #3a4150; padding-bottom:8px; margin-top:0; }
+  h2 { font-size:1.28em; margin-top:1.8em; color:#8ecbff; border-left:4px solid #4a90d9; padding-left:8px; }
+  h3 { font-size:1.12em; margin-top:1.4em; color:#c9d4e6; }
+  h4,h5,h6 { font-size:1em; margin-top:1.2em; color:#c9d4e6; }
+  p { margin:0.7em 0; }
+  a { color:#7fc6ff; }
+  code { background:#232830; padding:0.1em 0.35em; border-radius:4px; font-size:0.92em; }
+  blockquote { margin:0.8em 0; padding:0.6em 0.9em; background:#1d2530; border-left:4px solid #4a90d9; border-radius:4px; font-size:0.95em; color:#b8c2d4; }
+  ul { padding-left:1.3em; margin:0.6em 0; }
+  li { margin:0.35em 0; }
+  .twrap { overflow-x:auto; margin:1em 0; -webkit-overflow-scrolling:touch; border:1px solid #2c3340; border-radius:6px; }
+  table { border-collapse:collapse; width:100%; min-width:480px; font-size:0.9em; }
+  th,td { border:1px solid #2c3340; padding:6px 9px; text-align:left; white-space:nowrap; }
+  th { background:#232a36; position:sticky; top:0; }
+  tr:nth-child(even) td { background:#191d24; }
+  .topbar { position:sticky; top:0; background:#14161a; padding:6px 0 10px; margin-bottom:4px; z-index:5; border-bottom:1px solid #2c3340; }
+  .topbar a { font-size:0.9em; text-decoration:none; color:#9fb3cc; }
+  .note { font-size:0.82em; color:#7a8496; margin-top:2.4em; padding-top:0.8em; border-top:1px solid #2c3340; }
+</style>
+</head>
+<body>
+<div class="topbar"><a href="diy-stair-index-7c91f2.html">&#8592; 入口へ戻る</a></div>
+<h1>切断寸法表（部品図相当） — bunk-bed-stair（WP3）</h1>
+<p>親: worker_runbook.md ／ 生成: skeleton.py / bom_cut.py / joint_dims.json</p>
+<p>作成: 2026-07-11 JST / <strong>CR-014反映: 土台フレーム＋40°ストリンガー方式・蹴上190×7段 ／ CR-018反映: 挿入50mm（開口面基準・メーカー推奨）</strong></p>
+<blockquote><strong>パイプ長の設計式（CR-010ポート分類＋CR-018挿入深さ規格）</strong>:<br>切断長 = 芯々距離 + Σ(端ごとの寄与)。端の寄与は接続先ポート型で機械決定——<br>- <strong>挿入穴（socket）端</strong>: <strong>−65.3mm</strong>（端面＝<strong>ソケット開口面から50mm奥</strong>＝CR-018メーカー推奨。底〔通し管クラウン24.3〕まで41.0mmの空き=非接触）<br>- <strong>貫通穴つら（ring）端</strong>: ＋27.3mm（リング/カラー外面と面一＝リング充填）<br>- 挿入穴端を含む材は<strong>切り上げ</strong>（挿入50を下回らない側へ丸め。＋側は底までの空き41.0mmが吸収）<br><br><strong>挿入量の基準面定義（CR-018オーナー図解・取り違え防止）</strong>: 挿入量＝ソケット<strong>開口面（mouth）を0</strong>としてパイプ端がそこから何mm奥か。旧「掴み代」定義（底24.3基準・満挿入91.0）とは別定義。換算: 挿入量＝115.3−パイプ端の節点距離。<br><strong>公式検算（CR-018追補2）</strong>: NTY公式パイプ長さ算出ツール <code>pipeB=floor(芯々−130)</code>（控除65mm/端・丸め=floor。出典: https://www.ntystainless.co.jp/products/pipe/ ＋ /assets/js/main.js・取得2026-07-11）との差分列を下表に併記＝<strong>全socket-socket材で差0〜+1mm（±1mm一致・G5ゴールデンテスト行で機械判定）</strong>。<br>ポート型・寄与量・担当ジョイントIDは全端が <code>bom_cut_data.json</code> cut_rows に記録（判定=G5全44端ゲート）。<br>値はSTEP機械抽出nominal＝<strong>切断ゲートで現物ノギス突合±1mm</strong>（測定台帳 M-JOINT-DIMS・STEP/公式/現物の三点照合）。<br><strong>as-built原則</strong>: モデル・本表・組立手順は一致。踏板のスロット逃げもモデルにBoolean実装済（CR-014）。</blockquote>
+<h2>設計主要値（CR-011: 蹴上=主・踊り場=従／CR-014: 過去図面方式）</h2>
+<div class="twrap"><table>
+<thead><tr><th>項目</th><th>値</th><th>由来</th></tr></thead>
+<tbody>
+<tr><td>蹴上</td><td><strong>190mm等配・特例なし</strong></td><td>家階段185±10帯（過去評価「190=違和感少」）。施行令230は参照上限（e-Gov 325CO0000000338・2026-07-11確認）</td></tr>
+<tr><td>段数／踊り場</td><td>7段／<strong>1330mm</strong>（=190×7）</td><td>参考目標1350との差<strong>−20mm</strong>（乗り移り段差=人間確認）</td></tr>
+<tr><td>傾斜／踏面</td><td><strong>40°</strong>／前縁間隔<strong>226.4mm</strong>（=190/tan40°）</td><td>傾斜=過去図面確定仕様（採用アーキの一部）。2R+G=606.4（Blondel帯内）・踏板200＋隙間26.4=オープンライザー</td></tr>
+<tr><td>足元</td><td><strong>土台フレーム接地</strong>（＋床保護シート）・支柱/ストリンガーはソケット挿入50mm＋クランプボルト保持（メーカー準拠・滑落backup=底まで41.0mm）</td><td>CR-014床保護「床を貫通で傷つけない」＋CR-018挿入50mm。第1段物理下限182.7≤190（クランプ位置は任意=CR-014再解釈）</td></tr>
+<tr><td>挿入深さ</td><td><strong>開口面から50mm</strong>（全挿入穴端36・けがきマーク工程=組立手順書§0/§1）</td><td>CR-018オーナー裁定+メーカー推奨（https://www.ntystainless.co.jp/products/desc/ 取得2026-07-11）</td></tr>
+</tbody></table></div>
+<h2>単管22本 切断寸法（ポート型・端寄与・担当ジョイントつき）</h2>
+<h3>貫通つら材（両端=貫通穴リング充填。正味＋54.6）</h3>
+<div class="twrap"><table>
+<thead><tr><th>部材ID</th><th>用途</th><th>芯々[mm]</th><th>切断長[mm]</th><th>端p1／端p2</th></tr></thead>
+<tbody>
+<tr><td>BBS-XBASE-F</td><td>土台前端X（アンカー行）</td><td>599.4</td><td><strong>654</strong></td><td>貫通+27.3@J3／貫通+27.3@J4</td></tr>
+<tr><td>BBS-XBASE-B</td><td>土台後端X（壁側行）</td><td>599.4</td><td><strong>654</strong></td><td>貫通+27.3@J1／貫通+27.3@J2</td></tr>
+<tr><td>BBS-XLAND-F</td><td>踊り場下辺X</td><td>599.4</td><td><strong>654</strong></td><td>貫通+27.3@J9／貫通+27.3@J10</td></tr>
+<tr><td>BBS-XLAND-B</td><td>踊り場上辺X（壁側）</td><td>599.4</td><td><strong>654</strong></td><td>貫通+27.3@J7／貫通+27.3@J8</td></tr>
+</tbody></table></div>
+<h3>挿入穴材（両端=ソケット挿入50mm・開口面基準=CR-018。正味−130.6・切り上げ）</h3>
+<div class="twrap"><table>
+<thead><tr><th>部材ID</th><th>本数</th><th>用途</th><th>芯々[mm]</th><th>切断長[mm]</th><th>公式式floor(芯々−130)</th><th>公式との差</th><th>接続先</th></tr></thead>
+<tbody>
+<tr><td>BBS-YBASE-{L,R}</td><td>2</td><td>土台Yパイプ</td><td>2046.6</td><td><strong>1917</strong></td><td>1916</td><td>+1</td><td>J3/J4アーム ↔ J1/J2アーム</td></tr>
+<tr><td>BBS-XBRC-{1,2}</td><td>2</td><td>土台X補強（Y125／Y1458.6行）</td><td>599.4</td><td><strong>469</strong></td><td>469</td><td>0</td><td>J5Y/J6Yアーム・J5/J6アーム</td></tr>
+<tr><td>BBS-POST-{FL,FR,BL,BR}</td><td>4</td><td>支柱（両端ソケット+ボルト保持）</td><td>1239.3</td><td><strong>1109</strong></td><td>1109</td><td>0</td><td>土台J1/J2/J5/J6 ↔ 踊り場J7/J8/J9/J10</td></tr>
+<tr><td>BBS-YLAND-{L,R}</td><td>2</td><td>踊り場Yパイプ</td><td>569.7</td><td><strong>440</strong></td><td>439</td><td>+1</td><td>J9/J10アーム ↔ J7/J8アーム</td></tr>
+<tr><td>BBS-STR-{L,R}</td><td>2</td><td><strong>40°ストリンガー</strong></td><td>1928.0</td><td><strong>1798</strong></td><td>1798</td><td>0</td><td>下端J3X/J4Xアーム ↔ 上端J9X/J10Xアーム</td></tr>
+<tr><td>BBS-CROSS-1〜6</td><td>6</td><td>踏板受けクロスパイプ</td><td>489.2</td><td><strong>359</strong></td><td>359</td><td>0</td><td>左右ストリンガークランプSL/SRアーム</td></tr>
+</tbody></table></div>
+<ul>
+<li>切断群集計: <strong>654×4・1917×2・1109×4・1798×2・469×2・440×2・359×6</strong>＝22本・総切断<strong>18,454mm</strong>（CR-016比 socket-socket材18本×−81mm=−1,458）。</li>
+<li>公式との差+1mmの2群（YBASE/YLAND）は丸め方向の違い（公式=floor／自前=ceil〔挿入50を下回らない側〕）＝G5ゴールデンテスト±1mm内。</li>
+<li>過去図面カット長との対応（参考・鵜呑み禁止=CR-014/018差分表）: 過去図面は挿入50mm仮定（INS=50）だった＝<strong>CR-018で設計値として正式採用</strong>。残る差は節点配置（幅内寄せ等）と丸め。</li>
+</ul>
+<h2>踏板・踊り場板（杉カフェ板 t30・7枚）</h2>
+<div class="twrap"><table>
+<thead><tr><th>part_id</th><th>W×D×T[mm]</th><th>加工（as-built・モデルBoolean実装済）</th></tr></thead>
+<tbody>
+<tr><td>BBS-TREAD-1〜6</td><td>660 × 200 × 30</td><td><strong>ストリンガー逃げスロット×2</strong>（後縁開放・ジグソー加工）: X範囲 [56.9, 113.9] と [546.1, 603.1]・奥行=後縁から112.8mm（節点−12.8まで）</td></tr>
+<tr><td>BBS-TREAD-7（踊り場板）</td><td>660 × 700 × 30</td><td>加工なし（ストリンガー/金物との干渉なし=OCCT確認済）</td></tr>
+</tbody></table></div>
+<ul>
+<li>スロット幅57.0（スリーブ54.6+クリア1.2×2）。<strong>スロット外側に幅56.9mmの板帯が残る</strong>（付け根から約113mm片持ち・割れ懸念=意味判定行。代替=帯を切り落とし全幅ノッチ化）。</li>
+<li>板厚実測は加工前必須（座面チェーン: 板厚が踊り場高さ1330へ直結・測定台帳 M-PLANK-T31）。</li>
+<li>手持ち踊り場板500×700×t25を使う場合: 幅500へ変更＋踊り場フレーム芯高を+5mm（1274.6）補正（人間選択・仮定台帳B4）。</li>
+</ul>
+<h2>切断前の必須停止（切断ゲート）</h2>
+<p>1. 現物ノギス突合: ソケット開口/底・リング半幅・座面オフセット（STEP抽出値±1mm・測定台帳＝STEP/公式/現物の三点照合）</p>
+<p>2. 板厚実測（M-PLANK-T31）</p>
+<p>3. 原管実長確認（4m呼びの実寸）</p>
+<p>4. 切断後・組立前: <strong>全挿入穴端36箇所に「端面から50mm」のけがき線</strong>（組立手順書§0・挿入深さの現場基準）</p>
+<p class="note">現場閲覧用モバイル版（noindex）。原本はプロジェクトrepo内Markdownを自動変換したものです。数値・手順は原本が正本です。</p>
+</body>
+</html>

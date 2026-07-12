@@ -13,6 +13,10 @@
 | `task14-nlm-500.html` | 既存 NotebookLM 500 調査レポート | 2026-05-26 | 履歴管理のみ |
 | `diy-stair-viewer-7c91f2.html` | 2段ベッド階段 3Dビューア | 2026-07-12 | `NJ_Life_with_AI/projects/DIY/2段ベッド階段/階段3Dビューア.html` |
 | `nvan-bed-viewer-a4e86d.html` | N-VANベッド 3Dビューア | 2026-07-12 | `NJ_Life_with_AI/projects/DIY/N-VANベッド/N-VANベッド3Dビューア.html` |
+| `diy-stair-index-7c91f2.html` | 2段ベッド階段 現場閲覧入口（資料3本+ビューア2本へのリンク集） | 2026-07-12 | 新規作成（モバイル現場閲覧用） |
+| `diy-stair-buy-7c91f2.html` | 購入部材リスト・切り出し割付（モバイル版） | 2026-07-12 | `NJ_Life_with_AI/projects/DIY/2段ベッド階段/購入部材リストと切り出し割付.md` |
+| `diy-stair-cut-7c91f2.html` | 切断寸法表（モバイル版） | 2026-07-12 | `NJ_Life_with_AI/projects/DIY/2段ベッド階段/切断寸法表.md` |
+| `diy-stair-build-7c91f2.html` | 組立手順書（モバイル版） | 2026-07-12 | `NJ_Life_with_AI/projects/DIY/2段ベッド階段/組立手順書.md` |
 
 ## noindex確認
 
@@ -20,6 +24,10 @@
 Invoke-WebRequest https://naji555.github.io/ai-catchup/robots.txt | Select-Object -ExpandProperty Content
 (Invoke-WebRequest https://naji555.github.io/ai-catchup/diy-stair-viewer-7c91f2.html).Content | Select-String 'noindex,nofollow,noarchive'
 (Invoke-WebRequest https://naji555.github.io/ai-catchup/nvan-bed-viewer-a4e86d.html).Content | Select-String 'noindex,nofollow,noarchive'
+(Invoke-WebRequest https://naji555.github.io/ai-catchup/diy-stair-index-7c91f2.html).Content | Select-String 'noindex,nofollow,noarchive'
+(Invoke-WebRequest https://naji555.github.io/ai-catchup/diy-stair-buy-7c91f2.html).Content | Select-String 'noindex,nofollow,noarchive'
+(Invoke-WebRequest https://naji555.github.io/ai-catchup/diy-stair-cut-7c91f2.html).Content | Select-String 'noindex,nofollow,noarchive'
+(Invoke-WebRequest https://naji555.github.io/ai-catchup/diy-stair-build-7c91f2.html).Content | Select-String 'noindex,nofollow,noarchive'
 ```
 
 ## rollback

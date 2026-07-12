@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>組立手順書 — bunk-bed-stair</title>
+<style>
+  :root { color-scheme: dark; }
+  html,body { margin:0; padding:0; background:#14161a; color:#e2e6ee; font-family:"Meiryo UI",sans-serif; }
+  body { padding:16px 14px 48px; font-size:17px; line-height:1.65; }
+  h1 { font-size:1.5em; border-bottom:2px solid #3a4150; padding-bottom:8px; margin-top:0; }
+  h2 { font-size:1.28em; margin-top:1.8em; color:#8ecbff; border-left:4px solid #4a90d9; padding-left:8px; }
+  h3 { font-size:1.12em; margin-top:1.4em; color:#c9d4e6; }
+  h4,h5,h6 { font-size:1em; margin-top:1.2em; color:#c9d4e6; }
+  p { margin:0.7em 0; }
+  a { color:#7fc6ff; }
+  code { background:#232830; padding:0.1em 0.35em; border-radius:4px; font-size:0.92em; }
+  blockquote { margin:0.8em 0; padding:0.6em 0.9em; background:#1d2530; border-left:4px solid #4a90d9; border-radius:4px; font-size:0.95em; color:#b8c2d4; }
+  ul { padding-left:1.3em; margin:0.6em 0; }
+  li { margin:0.35em 0; }
+  .twrap { overflow-x:auto; margin:1em 0; -webkit-overflow-scrolling:touch; border:1px solid #2c3340; border-radius:6px; }
+  table { border-collapse:collapse; width:100%; min-width:480px; font-size:0.9em; }
+  th,td { border:1px solid #2c3340; padding:6px 9px; text-align:left; white-space:nowrap; }
+  th { background:#232a36; position:sticky; top:0; }
+  tr:nth-child(even) td { background:#191d24; }
+  .topbar { position:sticky; top:0; background:#14161a; padding:6px 0 10px; margin-bottom:4px; z-index:5; border-bottom:1px solid #2c3340; }
+  .topbar a { font-size:0.9em; text-decoration:none; color:#9fb3cc; }
+  .note { font-size:0.82em; color:#7a8496; margin-top:2.4em; padding-top:0.8em; border-top:1px solid #2c3340; }
+</style>
+</head>
+<body>
+<div class="topbar"><a href="diy-stair-index-7c91f2.html">&#8592; 入口へ戻る</a></div>
+<h1>組立手順書 — bunk-bed-stair（WP3）</h1>
+<p>親: 製作用README ／ 研究runbook</p>
+<p>作成: 2026-07-11 JST / 作法カタログ D1・D3 / <strong>CR-014反映（土台フレーム＋40°ストリンガー方式・過去図面方式=オーナー裁定）</strong></p>
+<blockquote>施工前提: 幾何・組立順の設計であり施工可否の許可ではない（破壊モード表クローズ+施工ゲート後）。<br><code>NOT_FOR_LOAD_RATING</code>。手すりはスコープ外（CR-004）。3面=壁・ベッド（CR-006）。<br><strong>接合の型（CR-010＋CR-018）</strong>: 貫通穴（リング/カラー）=パイプが通る・止めボルトで位置固定／挿入穴（ソケット）=<br><strong>開口面から50mm差し込む</strong>（メーカー推奨・CR-018。出典: https://www.ntystainless.co.jp/products/desc/ 取得2026-07-11）。<br><strong>差込み操作の現場基準</strong>: 挿入穴に入る全パイプ端に<strong>端面から50mmのけがき線</strong>を引き、<br><strong>その線がソケット開口面に一致するまで差し込む</strong>（線が見える=挿入不足／線が隠れる=入れすぎ）。<br>底（通し管クラウン）までは41mmの空きがあるので突き当てで位置決めしない（突き当たる=切断長異常→停止）。<br><strong>床保護（CR-014）</strong>: 床を点荷重・貫通支持で傷つけない。接地は土台フレーム＋保護シートで分散。</blockquote>
+<h2>0. 準備（切断ゲート）</h2>
+<ul>
+<li><strong>現物照合が先</strong>: ジョイント実物のソケット深さ・座面高さをノギス実測→測定台帳 M-JOINT-DIMSのSTEP抽出値・公式値と±1mm突合（三点照合・超えたら切断表再生成）。</li>
+<li>単管<strong>22本</strong>を<a href="diy-stair-cut-7c91f2.html">切断寸法表</a>どおり切断→バリ取り・面取り。</li>
+<li><strong>挿入50mmけがき（CR-018・全挿入穴端36箇所）</strong>: 下表の各端に<strong>端面から50mmの線</strong>を全周に引く（スコヤ+白マーカー・公差±1mm）。</li>
+</ul>
+<div class="twrap"><table>
+<thead><tr><th>部材</th><th>けがき対象端</th></tr></thead>
+<tbody>
+<tr><td>BBS-YBASE-L/R・BBS-YLAND-L/R・BBS-XBRC-1/2・BBS-POST-FL/FR/BL/BR・BBS-STR-L/R・BBS-CROSS-1〜6</td><td><strong>両端</strong>（socket-socket材18本×2=36端）</td></tr>
+<tr><td>BBS-XBASE-F/B・BBS-XLAND-F/B（貫通つら材4本）</td><td>けがき不要（リングを通す・つら=リング外面と面一）</td></tr>
+</tbody></table></div>
+<ul>
+<li>板厚実測（M-PLANK-T31・座面チェーンに直結）。踏板6枚に<strong>ストリンガー逃げスロット×2</strong>（後縁開放・X位置は切断寸法表・ジグソー。スロット奥の角はφ10下穴で割れ止めを推奨=意味判定行）。踊り場板は加工なし。</li>
+</ul>
+<h2>1. マーキング（クランプ位置の事前けがき＝段高さ精度の要）</h2>
+<p>CR-014方式は<strong>ストリンガー上のクランプ位置が蹴上精度を決める</strong>。組む前にけがく（現場合わせ禁止）。</p>
+<h3>1a. ストリンガー2本（切断長1798・下端=土台側・CR-018更新）</h3>
+<p>下端の<strong>切断端面から</strong>リング中心位置をけがく（=クランプSL/SRの位置。旧・満挿入設計比で全行−41.0）:</p>
+<div class="twrap"><table>
+<thead><tr><th>段</th><th>下端からの距離[mm]</th></tr></thead>
+<tbody>
+<tr><td>第1段</td><td><strong>89.2</strong></td></tr>
+<tr><td>第2段</td><td>384.8</td></tr>
+<tr><td>第3段</td><td>680.4</td></tr>
+<tr><td>第4段</td><td>975.9</td></tr>
+<tr><td>第5段</td><td>1271.5</td></tr>
+<tr><td>第6段</td><td>1567.1</td></tr>
+</tbody></table></div>
+<p>（ピッチ=295.6mm一定＝蹴上190/sin40°。左右2本とも同一。下端は50mmけがき線=挿入基準と併記。）</p>
+<h3>1b. X貫通材（切断長654×4本）</h3>
+<p><strong>累積誤差を禁止する位置決め方法</strong>: 4本とも左切断端面を同じ平面ストッパー（基準面）へ当て、全位置をその基準面から直接測る。直前のけがき線やジョイント端から追い寸法しない。</p>
+<div class="twrap"><table>
+<thead><tr><th>部材</th><th>けがき位置[mm]</th></tr></thead>
+<tbody>
+<tr><td>BBS-XBASE-F（土台前端）</td><td>J3=<strong>27.3</strong>・J3X=<strong>82.4</strong>・J4X=<strong>571.6</strong>・J4=<strong>626.7</strong></td></tr>
+<tr><td>BBS-XBASE-B（土台後端）</td><td>J1=<strong>27.3</strong>・J2=<strong>626.7</strong></td></tr>
+<tr><td>BBS-XLAND-F（踊り場下辺）</td><td>J9=<strong>27.3</strong>・J9X=<strong>82.4</strong>・J10X=<strong>571.6</strong>・J10=<strong>626.7</strong></td></tr>
+<tr><td>BBS-XLAND-B（踊り場上辺）</td><td>J7=<strong>27.3</strong>・J8=<strong>626.7</strong></td></tr>
+</tbody></table></div>
+<p>組立時検尺ゲート: 左右隅ジョイントのボス最外面間を測り、<strong>全幅660.0mm（許容0〜+0.5mm、660.5mm超は本締め禁止）</strong>を4本それぞれで確認する。666mmになった場合は誤った24.3/629.7基準の再発なので、基準面から再けがきする。</p>
+<h3>1c. クロスパイプ（切断長359×6本・CR-018更新）: TA14中心=<strong>左端面から78.3と280.3</strong>。土台Yパイプ（切断長1917）: J5Y=前端面から<strong>78.0</strong>・J5=前端面から<strong>1411.6</strong>（節点Y1458.6相当）。</h3>
+<h3>1d. 組立誤差スタック（CR-018・メーカー注記「ボルトの締付け具合により、多少の誤差が生じます」への数値回答）</h3>
+<ul>
+<li>誤差源（1箇所あたり）: 切断±1mm（丸め込み）・50mmけがき±1mm・締付時の軸ずれ（けがき線と開口面の合わせ精度）±1mm。</li>
+<li><strong>部材1本の節点間距離誤差 ≈ ±3mm</strong>（切断+両端けがき）。</li>
+<li><strong>踊り場高さ1330への連鎖</strong>（土台基準→支柱の切断+両端マーク）＝<strong>±3mm</strong>。第7段蹴上の誤差（踊り場±3+第6クランプ±1.6）≦<strong>±4.6mm</strong> ＜ 蹴上違和感帯の余裕±10mm（家階段185±10・蹴上190）✓。</li>
+<li><strong>ジョイントあたりの許容値: ±3.3mm</strong>（帯余裕±10÷最悪連鎖3誤差源）。けがき公差±1mm運用なら余裕3倍。</li>
+<li>誤差の合計（≦5mm想定）は底までの空き41mmが吸収＝底当たりによる芯々押し広げは発生しない。</li>
+<li>検尺: §4で各段高さ・全高を実測し、ずれはクランプ/ジョイント位置の再調整で吸収（増し締め前）。</li>
+</ul>
+<h2>2. 土台フレーム（床ユニット・CR-014床保護）</h2>
+<p>1. <strong>床保護シート</strong>を敷く（コインマット幅660カット×2.11m・footprint全面）。</p>
+<p>2. 前端Xパイプ（654）へ <strong>J3・J3X・J4X・J4</strong> のリングを通し、けがき位置で仮締め（J3X/J4Xのアームは<strong>上り方向へ40°</strong>傾け＝ストリンガー受け。角度は後でストリンガー挿入時に自然に決まる）。後端Xパイプへ J1・J2。</p>
+<p>3. 土台Yパイプ（1917）へ <strong>J5Y（Y125行）とJ5（Y1458.6行）</strong> のリングを通してから、両端をJ3アーム/J1アームへ<strong>50mmけがき線が開口面に一致するまで</strong>挿入（右も同様）。</p>
+<p>4. X補強1（469）をJ5Y/J6Yアームへ、X補強2（469）をJ5/J6アームへ50mm線まで。</p>
+<p>5. 平面の直角・対角を確認。<strong>接地の確認</strong>: 接地はコーナー金物の底（TA1ボス4点+TA2スリーブ）。管は床+6mm浮きが正（潰して曲げない）。</p>
+<h2>3. 支柱と踊り場フレーム</h2>
+<p>1. 支柱4本（1109）を土台の上向きソケット（J1/J2/J5/J6）へ<strong>50mmけがき線が開口面に一致するまで</strong>挿入し、クランプボルトを仮締め（軸方向保持=ボルト・CR-018）。</p>
+<p>2. 踊り場下辺X（654）へ <strong>J9・J9X・J10X・J10</strong>、上辺Xへ J7・J8 のリングを通す（J9X/J10Xのアームは<strong>下り方向へ40°</strong>）。</p>
+<p>3. 踊り場コーナーTA2の下向きソケットを支柱頂部へ被せ、<strong>支柱頂部の50mm線がソケット開口面に一致する位置</strong>で保持してボルト仮締め。踊り場Yパイプ（440）を J9/J7・J10/J8 のアームへ50mm線まで挿入。水平・対角・<strong>踊り場高さ1330±5の検尺</strong>後に本締め。</p>
+<h2>4. ストリンガーとクロスパイプ</h2>
+<p>1. ストリンガー（1798）へ<strong>クランプTA1×6を先に通す</strong>（通し順を間違えると後入れ不可）。アームは全て<strong>内側水平</strong>向き。</p>
+<p>2. ストリンガー下端を J3X/J4X アームへ、上端を J9X/J10X アームへ<strong>50mmけがき線が開口面に一致するまで</strong>挿入・ボルト仮締め（40°は幾何で一意に決まる）。</p>
+<p>3. 各クランプを §1a のけがき線へ合わせ仮締め。</p>
+<p>4. クロスパイプ（359）へ TA14×2 を通し（§1cの位置）、両端を左右クランプのアームへ50mm線まで挿入。<strong>各段の高さ実測</strong>: クロスパイプ上端=踏板上面−60.4（第1段: 上端129.6+24.3=153.9mm）で検尺→ずれはクランプ位置で±調整→本締め。</p>
+<h2>5. 踏板・踊り場板</h2>
+<p>1. 踏板を後縁スロットにストリンガーを通しながら水平に載せ、TA14座面へ<strong>M10ボルト×2/枚</strong>で固定（板前後中心=クロスパイプ芯）。</p>
+<p>2. 踊り場板を載せ、下辺TA14×2+上辺TA13×2へ固定（TA13は木ビス）。</p>
+<p>3. 各段の蹴上を実測（190±公差の実見・第1段は床から190）。</p>
+<h2>6. 増し締め記録（G6意味判定行の判定材料・初回+定期）</h2>
+<p><strong>ストリンガー上クランプ12箇所は止めボルト+摩擦に加え、補強ドリルねじ貫通固定=機械的ロック（CR-020オーナー決裁「補強ドリルネジ採用する」・工程=§6a）</strong>（滑落backup=第1段11.9mm/他241mm・過去図面同方式の実運用実績あり）。</p>
+<p><strong>CR-018追加: 支柱4本・ストリンガー2本のソケット端も軸方向保持=クランプボルト</strong>（メーカー準拠・挿入50mm。滑落backup=底当たりまで41mm）＝13〜28番の増し締めは位置決めでなく<strong>荷重保持</strong>として扱う。トルク定格はメーカー非公開（2026-07-11確認）のため増し締め記録が判定材料。増し締め記録を残す:</p>
+<div class="twrap"><table>
+<thead><tr><th>#</th><th>箇所</th><th>規定トルク</th><th>初回</th><th>1週間後</th><th>1ヶ月後</th></tr></thead>
+<tbody>
+<tr><td>1〜12</td><td>SL1〜6・SR1〜6（ストリンガークランプ）<strong>最優先</strong></td><td>350kgf·cm（メーカー定格入手までの仮値）</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td>13〜16</td><td>J3X/J4X/J9X/J10X（アンカー止めボルト）</td><td>同上</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td>17〜28</td><td>J1〜J10・J5Y/J6Y（フレーム金物）</td><td>同上</td><td>☐</td><td>☐</td><td>☐</td></tr>
+<tr><td>29〜44</td><td>TA14×14・TA13×2（板受けクランプ+板ボルト）</td><td>同上</td><td>☐</td><td>☐</td><td>☐</td></tr>
+</tbody></table></div>
+<h2>6a. 補強ドリルねじ打ち込み（CR-020採用・<strong>不可逆工程</strong>）</h2>
+<p>対象=<strong>ストリンガー上クランプ12箇所（SL1〜6・SR1〜6）のみ</strong>・各1本（1箇所あたり本数はメーカー未公開=仮置き・予備3本=BOM要確認行）。</p>
+<p>支柱/ストリンガーのソケット端6部材には<strong>打たない</strong>（滑落backup41mm=形状backupあり+メーカー標準方式=過剰化回避・拡張採否は人間決裁）。</p>
+<p>1. <strong>打ち込みゲート（必須停止）</strong>: §4の各段検尺が全段OK・§1aけがき線とクランプ位置の一致を全12箇所で再確認してから打つ。</p>
+<p><strong>打ち込み後はクランプ位置の再調整・再分解が困難（パイプに穴が残る=不可逆）</strong>。</p>
+<p>2. 順序: クランプ位置確定（検尺）→ クランプ増し締め（§6初回） → <strong>補強ドリルねじをクランプからストリンガー管へ打ち込み</strong>。</p>
+<p>3. 工具: <strong>インパクトドライバ TD173D</strong>（保有）。低速で食い付かせてから増し切る（薄肉t2.4の座繰り過ぎ注意）。</p>
+<p>4. 記録: §6の1〜12行に「ドリルねじ打ち込み済み ☐」を併記しチェック。</p>
+<h2>7. 端部キャップ取付（CR-015条件「蓋をする」・<strong>CR-019=手持ちPPキャップ充当</strong>）</h2>
+<p>露出開口端<strong>8箇所</strong>に<strong>手持ちPPキャップ</strong>（単管パイプキャップ 24個入り・外径48mm級・PPタイプ=パーツ一覧.md記帳済み・CR-019オーナー決裁・購入不要）を打ち込む（対象一覧=<a href="diy-stair-buy-7c91f2.html">購入部材リスト</a>§6・機械抽出）:</p>
+<p>0. <strong>試嵌合ゲート</strong>: 取付前に<strong>1個を単管Φ48.6端へ試着</strong>し嵌合を確認（測定台帳 M-CAP-FIT）。NGなら代替=NTY純正TACAP/TAゴムCAP（CR-017）へ切替（人間確認）。</p>
+<p>1. <strong>土台X貫通材の4端</strong>（XBASE-F両端=前方アンカー行・XBASE-B両端=壁側）——切断バリを面取りしてから挿入。</p>
+<p>2. <strong>踊り場X貫通材の4端</strong>（XLAND-F/XLAND-B各両端・高さ1269.6=手が触れる高さ）。</p>
+<p>3. 挿入穴に入る36端と支柱頂部（踊り場金物ソケット内）は露出しない=キャップ不要（機械抽出で確認済み）。</p>
+<p>4. キャップはリング外面と面一の開口（つら端）へ。品種=手持ちPPキャップで確定（CR-019・必要8/保有24・試嵌合ゲートのみ残）。</p>
+<h2>8. 設置・最終確認</h2>
+<ul>
+<li>設置幅は<strong>660ちょうど</strong>（金物ボス先端=0/660）。壁/ベッドの実クリアランスを事前実測（入らない場合は人間判断へ差し戻し）。</li>
+<li>前方張り出し: 土台前端の金物は第1段前縁より<strong>48.6mm前</strong>に出る（構造必然）——<strong>CR-015で受容済み</strong>「エッジが飛び出していないから大丈夫（蓋をする）」＝§7のキャップ取付が受容条件。</li>
+<li>転倒: 自立の律速は横方向（H_tip=168N/17.2kgf・SF0.34・CR-018再計算=総質量76.2kg）→<strong>3面（壁/ベッド）拘束の確認 or 横アンカー</strong>が施工条件（感度解析レポート）。</li>
+<li>踊り場1330→ベッド乗り移り段差の実見（目標1350−20mm）。</li>
+</ul>
+<h2>9. 使用開始ゲート（実証試験）— CR-021</h2>
+<blockquote><strong>この節を省略して使用しない。試験中も人体を載せない。</strong> 本試験は、NTYジョイントの許容荷重が非公開であるため、<br>設計v6を実際の組立状態で鉛直プルーフ載荷し、G安全ゲートの「クランプ鉛直許容」を閉じるための受入試験である。<br>型式認証、産業用階段としての法令適合、繰返し疲労寿命、手すり・転倒・床強度を証明する試験ではない。<br>プロトコル状態: <strong>定義済み・実施待ち</strong>。全ケース合格記録が埋まるまで使用開始不可。</blockquote>
+<h3>9.1 試験成立条件と荷重の根拠</h3>
+<ul>
+<li>対象は<strong>完成状態そのもの</strong>（設計v6、全ボルト本締め記録済み、CR-020補強ドリルねじ12箇所施工済み、踏板・踊り場板固定済み、床保護材施工済み）。試験後に接合部、踏板、拘束条件を変更した場合は全ケース再試験する。</li>
+<li><strong>3面拘束または横アンカーを先に実装し、その接触・固定が目視できること</strong>。これは転倒T0の既存施工条件であり、載荷試験で代替しない。床・ベッド・壁側を含む試験支持条件を写真に残し、その条件が使用時と同じでなければ試験無効。</li>
+<li>使用者質量は既存仮定の成人1名 <strong>100kg</strong>。一時的に全体重が1足へ移るものとして荷重分配率=1.0とする。</li>
+<li>階段下降の鉛直床反力は文献で通常1.4〜2.0 body weight、条件によって<strong>最大2.6 body weight</strong>が報告されているため、動的係数は保守側の <strong>2.6</strong>を採用する。設計使用荷重は <code>100×9.80665×2.6 = 2.550kN</code>。</li>
+<li>プルーフ倍率は、OSHA 29 CFR 1926.1431(j)の人員用プラットフォームに対する<strong>定格の125%、5分保持</strong>を借用する。本件は保持を10分へ延長する。目標プルーフ荷重は <code>2.550×1.25 = 3.188kN</code>、実施値は切上げて<strong>3.20kN以上（載荷体・吊具・載荷治具を含む総質量327kg以上）</strong>。</li>
+<li>荷重倍率の表示は分離する。<strong>静止100kg比=3.25、動的設計使用荷重比=1.25</strong>。前者は動的係数を含む見かけの載荷倍率、後者はproof余裕であり、摩擦・すべり支配接合の材料安全率／破断安全率を意味しない。OSHAの可搬はしご4倍、一般階段5倍/最低1000lb、足場4倍は「破壊せず支える設計要求」の比較資料であり、本DIY試験がそれらへ適合したとは表示しない。</li>
+</ul>
+<h3>9.2 載荷体・治具（人体禁止）</h3>
+<p>第一選択は、入手しやすく荷重を細分化できる<strong>20Lポリタンク16個＋水</strong>とする。ホームセンターで入手でき、各容器を家庭用ではなく<strong>0.1kg目量以下の台秤</strong>で実測すれば容量目盛や水温に依存しない。砂袋、バーベルプレート、レンタル試験ウェイトも使用可だが、全品の実測質量を記録する。</p>
+<p>1. 踏面上に厚さ12mm以上・100×100mmの鋼板または健全な構造用合板パッドを置き、その下に3mm以上のゴムを敷く。ISO 14122-3の階段踏板集中荷重面積100×100mmを借用する。パッド中心を所定載荷点へ合わせ、位置をテープで記録する。</p>
+<p>2. パッドを跨ぐ定格<strong>0.5t以上</strong>のロードビーム／鋼製鞍と、定格表示のある0.5t以上のベルトスリング2本で、踏板下の鋼製ロードクレードルを吊る。クレードル底は床から<strong>30〜50mm</strong>に保ち、万一の落下距離を制限する。吊具の鋭角当たりと木材への直接ロープ掛けは禁止。</p>
+<p>3. クレードルへポリタンクを左右対称に固定し、給水ホースを試験体外から操作する。各段階の水量は容器を事前計量して作る。普通のポリタンク自体を吊る、踏板上へ高く積む、バケツを手持ちで載せる方法は禁止。</p>
+<p>4. 代替ウェイトを使う場合も、低床クレードルへ載せ、長柄フックまたは床上の横引き台車で立入禁止線外から追加・撤去できること。吊具・クレードル・容器を含む<strong>実荷重質量</strong>を測定台帳へ記録する。</p>
+<p>各ケースの前に空クレードルで<strong>鉛直プラム経路のドライラン</strong>を行い、下段踏板・クロスパイプ・ストリンガー・床との全周クリアランス25mm以上、スリング鉛直度±2°以内、鋼製鞍の回り止め／センタリング、満載時も底30〜50mmを確認する。1条件でも満たせなければ、この吊下げ法は使用しない。代替は、0.5t以上の定格・校正済ロードセルを備え、反力脚を階段支持域外へ置く専門業者の下向き反力フレームとする。床アンカー、ジャッキ、滑車を現場合わせで追加する即席代替は禁止。</p>
+<h3>9.3 載荷位置と必須10ケース</h3>
+<p>剛接梁の感度解析で最大たわみ側として抽出された代表最弱踏板は<strong>BBS-TREAD-5（第5段）</strong>であり、代表集中荷重点はその中央、BBS-CROSS-5直上である。ただし同解析はクランプすべりを順位付けできず、第1段は滑落backupが11.9mmで他段241mmより小さい。またas-builtの締結ばらつきは対称モデルで包絡できない。したがって第5段だけを代表させず、<strong>全6踏板の各クランプ対、左右偏心、踊り場前後</strong>を同じproofで確認する。</p>
+<div class="twrap"><table>
+<thead><tr><th>ケース</th><th>載荷面・位置（100×100パッド中心）</th><th>狙う荷重経路</th></tr></thead>
+<tbody>
+<tr><td>LC-T1</td><td>BBS-TREAD-1中央: x=330mm、BBS-CROSS-1直上</td><td>SL1/SR1。滑落backup最小11.9mm</td></tr>
+<tr><td>LC-T2</td><td>BBS-TREAD-2中央: x=330mm、BBS-CROSS-2直上</td><td>SL2/SR2のas-built施工対</td></tr>
+<tr><td>LC-T3</td><td>BBS-TREAD-3中央: x=330mm、BBS-CROSS-3直上</td><td>SL3/SR3のas-built施工対</td></tr>
+<tr><td>LC-T4</td><td>BBS-TREAD-4中央: x=330mm、BBS-CROSS-4直上</td><td>SL4/SR4のas-built施工対</td></tr>
+<tr><td>LC-T5</td><td><strong>BBS-TREAD-5中央</strong>: x=330mm、BBS-CROSS-5直上</td><td><strong>感度解析代表最弱</strong>。SL5/SR5→両ストリンガー→上下ソケット</td></tr>
+<tr><td>LC-T6</td><td>BBS-TREAD-6中央: x=330mm、BBS-CROSS-6直上</td><td>SL6/SR6のas-built施工対</td></tr>
+<tr><td>LC-E5L</td><td>BBS-TREAD-5左偏心: x=100mm、BBS-CROSS-5直上</td><td>左側板片持ち・SL5・左ストリンガー・J3X/J9Xを片側優先で励起</td></tr>
+<tr><td>LC-E5R</td><td>BBS-TREAD-5右偏心: x=560mm、BBS-CROSS-5直上</td><td>右側の鏡像as-builtを独立にproof（施工ばらつきを対称性で省略しない）</td></tr>
+<tr><td>LC-LF</td><td><strong>踊り場板 BBS-TREAD-7前縁</strong>: x=330mm、前縁から50mm</td><td>踊り場前TA14/XLAND-F、ストリンガー上端、前支柱ソケット</td></tr>
+<tr><td>LC-LB</td><td>踊り場板 BBS-TREAD-7後半中央: x=330mm、後縁から100mm</td><td>XLAND-B/TA13、後支柱ソケット、踊り場ラッキングの兆候監視</td></tr>
+</tbody></table></div>
+<p>載荷パッドは板端、ねじ頭、スロットへ直接掛けない。既存欠陥がある場合は先に補修せず中止扱いとする。各ケースは完全除荷・10分回復・点検後に次へ進む。</p>
+<h3>9.4 事前計測・マーキング</h3>
+<p>1. 全44ジョイント、ドリルねじ12本、踏板固定ボルト、木部の割れ、管の局部へこみ、床・拘束部を写真撮影する。</p>
+<p>2. <strong>すべり監視線</strong>を耐水ペイントマーカーで跨いで引く: SL1〜6/SR1〜6はクランプ対ストリンガー、支柱4本の上下8端とストリンガー上下4端はソケット開口対パイプ。線幅は0.5mm以下。ノギスで基準距離を0.1mm単位記録する。</p>
+<p>3. 変位計測は<strong>手持ち工具のみ</strong>で行う（CR-022オーナー裁定「最終的に現物合わせ。DIYだから」——精密変位計は要求しない）。主計測=GLM 50 Cで載荷域外の独立基準から踏板上面高さ・踊り場四隅・左右ストリンガー基準点を各3読し中央値（計器±1.5mm前提の目安計測）。三脚・ターゲットを途中で動かさない。</p>
+<p>4. 判定の主役は変位の絶対値でなく、<strong>すべり監視線のずれ（ノギス0.1mm読み）・同一荷重中に変位が増え続けないこと・異音・目視の変形/割れ</strong>とする。目視担当は立入禁止線外から全マークが見えるよう照明・カメラを配置する。</p>
+<h3>9.5 段階静荷重の実施</h3>
+<p>各ケースで、まず10%予荷重を2分保持して除荷し、治具のなじみ後にゼロを取り直す。その後、衝撃を与えず<strong>1分以上かけて</strong>各段階へ増荷する。</p>
+<div class="twrap"><table>
+<thead><tr><th>段階</th><th>最小荷重</th><th>総載荷質量の目安</th><th>保持</th><th>計測・点検</th></tr></thead>
+<tbody>
+<tr><td>予荷重</td><td>0.32kN</td><td>33kg</td><td>2分→全除荷</td><td>治具なじみ、ゼロ再設定</td></tr>
+<tr><td>25%</td><td>0.80kN</td><td>82kg</td><td>5分</td><td>1分・5分のGLM読値、監視線、異音、木部</td></tr>
+<tr><td>50%</td><td>1.60kN</td><td>164kg</td><td>5分</td><td>同上。段階間目視を省略しない</td></tr>
+<tr><td>75%</td><td>2.40kN</td><td>245kg</td><td>5分</td><td>同上。遠隔カメラでドリルねじ周囲を確認</td></tr>
+<tr><td>100% proof</td><td><strong>3.20kN以上</strong></td><td><strong>327kg以上</strong></td><td><strong>10分</strong></td><td>1分・5分・10分のGLM読値、全監視項目</td></tr>
+<tr><td>除荷後</td><td>0</td><td>0</td><td>直後・10分後</td><td>残留変形、監視線、ボルト、割れ、拘束部、写真</td></tr>
+</tbody></table></div>
+<p>各段階間の目視は荷重を保持したまま<strong>遠隔カメラ／双眼</strong>で行い、人は階段の下・正面・倒壊方向へ入らない。接近点検は完全除荷後だけとする。</p>
+<h3>9.6 安全配置と中止条件</h3>
+<ul>
+<li>階段平面投影＋全方向<strong>2m</strong>を立入禁止とし、特に階段下、入口正面、左右転倒側、踊り場下へ身体を入れない。操作員は壁・堅固な遮蔽物の外側、または構造物高さ以上離れた横後方に立つ。子供・ペットを別室へ隔離する。</li>
+<li>カメラ、GLM、給水・排水弁を立入禁止線外から操作する。緊急時は遠隔排水し、落下物を手で支えない。試験体へ立て掛けたはしご、ジャッキ、人力保持は使用しない。</li>
+<li>次のいずれかで<strong>即時増荷停止→立入禁止維持→遠隔除荷</strong>: 監視線の相対ずれ0.5mm以上、ボルト／ドリルねじの回転・浮き・穴の拡大、木材の新規割れ、管のへこみ・座屈、拘束部または床の移動、連続するきしみ・金属音、同一荷重中にGLM読値が増え続ける（5分→10分で+2mm以上）、GLM変位5mm超、クレードル／容器／吊具の不安定、撮影・計測不能。</li>
+<li>単発音でも原因不明ならその段階を合格扱いせず除荷点検する。中止後の増し締めだけで試験再開せず、原因是正後にLC-T1から全ケースをやり直す。</li>
+</ul>
+<h3>9.7 合格基準・G安全ゲートの閉じ方</h3>
+<p>次を<strong>全て</strong>満たした場合だけ、「クランプ鉛直許容」を<code>限定付き実証試験合格（当該as-built、使用者＋携行品100kg以下、同時1名、通常昇降、非疲労、動的係数2.6、proof 3.20kN）</code>として閉じる。G安全ゲートの他の破壊モードは別に閉じる必要があり、この行の合格でG全体を合格にしない。</p>
+<p>1. 必須10ケース（LC-T1〜T6、LC-E5L/E5R、LC-LF/LB）が各3.20kN以上を10分保持し、中止条件が一度も発生していない。</p>
+<p>2. 監視線・ノギスで接合部相対ずれ<strong>0.5mm未満</strong>、ボルト／ドリルねじの回転・浮き・亀裂・穴拡大なし。</p>
+<p>3. 載荷時のGLM変位<strong>5mm以下（±1.5mm計器の目安判定）</strong>、同一荷重5→10分でGLM読値が増え続けない（+2mm未満）、除荷10分後に直定規当てで<strong>新規の隙間・段差なし（目視+ノギス）</strong>。T0線形予測は約0.91mm@3.20kNなので、健全なら目安値に対し大きな余裕がある。精密変位計は用いない（CR-022オーナー裁定・DIY・最終は現物合わせ）。</p>
+<p>4. 木材の新規割れ・圧壊、鋼管の局部変形、クランプ・ソケット・床・3面拘束の移動なし。</p>
+<p>5. 各ケースについて、実荷重一覧、時刻、保持時間、GLM読値、監視線差、異音、前後写真を測定台帳へ記録する。空欄または「未確認」が1つでもあれば不合格。</p>
+<p>不合格時は使用禁止タグを付け、原因部品の交換／設計変更後に全ケースを再試験する。合格は<strong>試験時と同一の組立・拘束条件</strong>にだけ有効。使用場所に「<strong>使用者＋携行品100kg以下／同時1名／飛び乗り・飛び降り・走行・二段飛ばし・重量物運搬禁止</strong>」を掲示する。使用前目視、初回10往復後、1週間後、1か月後、以後3か月ごとに全監視線・ボルト・ドリルねじ・木割れを点検し、0.5mm以上のずれまたは増し締めを要した時点で使用停止・全ケース再試験とする。ボルト緩み、木割れ、腐食、移設、改造、強い衝撃があった場合も合格を無効化し、再試験する。</p>
+<h3>9.8 根拠資料（取得2026-07-11）</h3>
+<ul>
+<li><a href="https://www.sciencedirect.com/science/article/pii/S096663620300198X">Stacoffほか, Ground reaction forces on stairs: effects of stair inclination and age, Clinical Biomechanics 20 (2005)</a> — 上り1.2〜1.7 BW、下り1.4〜2.0 BW、一部最大2.6 BW。動的係数2.6の根拠。</li>
+<li><a href="https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1431">OSHA 29 CFR 1926.1431(j), Hoisting personnel — Proof testing</a> — 定格125%、5分保持、試験後点検。proof倍率・最短保持の借用元（本件は10分）。</li>
+<li><a href="https://www.iso.org/standard/61282.html">ISO 14122-3:2016公式書誌</a> / <a href="https://cdn.standards.iteh.ai/samples/61282/f500d4aca1184c609046b8cc187f344e/ISO-14122-3-2016.pdf">公開sample</a> — 幅1200mm未満の踏板に100×100mmで1.5kN、たわみはspan/300または6mmの小さい方。本件は集中面積だけを参考採用し、たわみ値は荷重・支持・測定対象が異なるため合否根拠に流用しない。</li>
+<li><a href="https://ladderassociation.org.uk/wp-content/uploads/2025/10/Stepping-It-Up-Telescopic-Ladder-Surveillance-Report-Version-1-Revision-0-Oct-2025.pdf">Ladder Association, EN 131-6試験解説 (2025)</a> — Professional強度試験2.7kN、段強度2.6kN。本件3.20kNがこれらの参考荷重を上回ることを確認。</li>
+<li><a href="https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1053">OSHA 29 CFR 1926.1053(a)(1)</a> / <a href="https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.25">OSHA 29 CFR 1910.25(b)(6)</a> / <a href="https://www.osha.gov/etools/scaffolding/general-requirements">OSHA scaffold eTool</a> — はしご4倍、階段5倍かつ1000lb以上、足場4倍の比較資料。いずれも本用途への直接適用ではなく、3.20kN試験で適合を名乗らない。</li>
+<li><a href="https://www.bosch-professional.com/binary/manualsmedia/o356093v21_160992A5E2_202102.pdf">Bosch GLM 50 C取扱説明書</a> — 通常条件の距離測定精度±1.5mm。前後差の合格余裕へ最悪値±3.0mmを織込み。</li>
+</ul>
+<blockquote><strong>規格から直接得ていない工学慣行</strong>: 段階載荷（25%刻み）、10%予荷重、各中間段5分、proof 10分、<br>一次変位3mm、進行0.5mm、ずれ0.5mm、残留1mm、2m立入禁止、10ケース、定期点検、全変更後の再試験は、本as-builtの異常を早期発見するために定めた保守的な受入試験慣行であり、上記規格の要求値とは称さない。</blockquote>
+<p class="note">現場閲覧用モバイル版（noindex）。原本はプロジェクトrepo内Markdownを自動変換したものです。数値・手順は原本が正本です。</p>
+</body>
+</html>

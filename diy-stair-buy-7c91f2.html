@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>購入部材リスト・切り出し割付 — bunk-bed-stair</title>
+<style>
+  :root { color-scheme: dark; }
+  html,body { margin:0; padding:0; background:#14161a; color:#e2e6ee; font-family:"Meiryo UI",sans-serif; }
+  body { padding:16px 14px 48px; font-size:17px; line-height:1.65; }
+  h1 { font-size:1.5em; border-bottom:2px solid #3a4150; padding-bottom:8px; margin-top:0; }
+  h2 { font-size:1.28em; margin-top:1.8em; color:#8ecbff; border-left:4px solid #4a90d9; padding-left:8px; }
+  h3 { font-size:1.12em; margin-top:1.4em; color:#c9d4e6; }
+  h4,h5,h6 { font-size:1em; margin-top:1.2em; color:#c9d4e6; }
+  p { margin:0.7em 0; }
+  a { color:#7fc6ff; }
+  code { background:#232830; padding:0.1em 0.35em; border-radius:4px; font-size:0.92em; }
+  blockquote { margin:0.8em 0; padding:0.6em 0.9em; background:#1d2530; border-left:4px solid #4a90d9; border-radius:4px; font-size:0.95em; color:#b8c2d4; }
+  ul { padding-left:1.3em; margin:0.6em 0; }
+  li { margin:0.35em 0; }
+  .twrap { overflow-x:auto; margin:1em 0; -webkit-overflow-scrolling:touch; border:1px solid #2c3340; border-radius:6px; }
+  table { border-collapse:collapse; width:100%; min-width:480px; font-size:0.9em; }
+  th,td { border:1px solid #2c3340; padding:6px 9px; text-align:left; white-space:nowrap; }
+  th { background:#232a36; position:sticky; top:0; }
+  tr:nth-child(even) td { background:#191d24; }
+  .topbar { position:sticky; top:0; background:#14161a; padding:6px 0 10px; margin-bottom:4px; z-index:5; border-bottom:1px solid #2c3340; }
+  .topbar a { font-size:0.9em; text-decoration:none; color:#9fb3cc; }
+  .note { font-size:0.82em; color:#7a8496; margin-top:2.4em; padding-top:0.8em; border-top:1px solid #2c3340; }
+</style>
+</head>
+<body>
+<div class="topbar"><a href="diy-stair-index-7c91f2.html">&#8592; 入口へ戻る</a></div>
+<h1>購入部材リスト＋切り出し割付 — bunk-bed-stair（WP3）</h1>
+<p>親: worker_runbook.md ／ 生成: bom_cut.py（仕様正本skeletonから独立再構成）</p>
+<p>作成: 2026-07-11 JST / <strong>CR-014反映（土台フレーム＋40°ストリンガー方式）／ CR-017/018反映（メーカー一次情報・挿入50mm）</strong></p>
+<blockquote>単位mm。切断長=芯々＋ポート型別端補正（挿入穴<strong>−65.3</strong>=開口面から50mm挿入〔CR-018メーカー推奨〕／貫通つら+27.3・STEP機械抽出=joint_dims.json）。<br>公式検算: NTY公式パイプ長さ算出ツール floor(芯々−130) と±1mm一致（G5ゴールデンテスト・出典=https://www.ntystainless.co.jp/products/pipe/ 取得2026-07-11）。<br>現物ノギス突合（切断ゲート・測定台帳＝STEP/公式/現物の三点照合）まで切断不可。調達既定=4m原管+自力切断。</blockquote>
+<h2>1. 単管パイプ（Φ48.6 × t2.4・STK500）</h2>
+<ul>
+<li>総ピース数: <strong>22本</strong> ／ 総切断長: <strong>18,454mm</strong> ／ 定尺4m材 <strong>5本</strong> ／ 歩留まり <strong>92.3%</strong>（CR-018で−1,458mm・4m材1本減）</li>
+<li>内訳: 土台フレーム6（X貫通2+Y2+X補強2）・支柱4・踊り場フレーム4・<strong>ストリンガー2</strong>・クロスパイプ6（切断長=<a href="diy-stair-cut-7c91f2.html">切断寸法表</a>）</li>
+<li>割付（first-fit-decreasing・カーフ3mm）: 残材 [160, 36, 7, 2, <strong>1275</strong>]mm →<strong>残1275mmは対角ブレース用端材に充当可</strong>（unresolved行）</li>
+<li>旧・満挿入設計（CR-016）比: socket-socket材18本×−81mm。過去図面の挿入50mm仮定はCR-018で設計値として正式採用（差分表=変更要求台帳CR-014/018）</li>
+</ul>
+<h2>2. NTYジョイント（実STEP形状・モデルと同一ソース・計44個）</h2>
+<div class="twrap"><table>
+<thead><tr><th>品番</th><th>用途（ポート構成）</th><th>数量</th><th>割当</th><th>過去図面比</th></tr></thead>
+<tbody>
+<tr><td>TA1</td><td>T字/コーナー/40°回転配置（貫通1+挿入1）</td><td>20</td><td>土台前隅J3/J4・ストリンガーアンカーJ3X/J4X/J9X/J10X（40°回転=専用型番でなく通常TA1）・補強クランプJ5Y/J6Y・<strong>ストリンガー上クランプSL/SR×12</strong></td><td>20 → <strong>±0</strong></td></tr>
+<tr><td>TA2</td><td>3方向隅（貫通1+挿入2直交）</td><td>8</td><td>土台J1/J2/J5/J6＋踊り場J7/J8/J9/J10</td><td>8 → <strong>±0</strong></td></tr>
+<tr><td>TA14</td><td>板受けW（両持ち±100.2・M10ボルト×2付属）</td><td>14</td><td>踏板 第1〜6段×2＋踊り場下辺×2（板前縁100mmを両持ちプレートで支持）</td><td>12 → <strong>+2</strong></td></tr>
+<tr><td>TA13</td><td>板受け（単・片持ちアーム）</td><td>2</td><td>踊り場上辺×2（アーム=板内側向き）</td><td>0 → <strong>+2</strong></td></tr>
+<tr><td><strong>合計</strong></td><td></td><td><strong>44</strong></td><td>構造28＋板受け16</td><td>40 → <strong>+4</strong>（現行WP3旧設計78比 <strong>−34</strong>）</td></tr>
+</tbody></table></div>
+<ul>
+<li>追加4個（TA14+2/TA13+2）は踊り場板の座面化（G6: 踏板=座面2点以上・過去図面は踊り場板の固定方法未記載だった箇所の充足）。</li>
+<li><strong>CR-017（メーカー一次情報・https://www.ntystainless.co.jp/products/desc/ 取得2026-07-11）</strong>: 適合径Φ48.6・挿入50mm推奨（→CR-018で設計採用）・<strong>許容荷重/トルク定格=記載なし（定格非公開）</strong>。純正ラインナップに<strong>TA7（角度自在）/TA12（角度自在W）</strong>が実在→「TA1回転配置で40°接続」（アンカー4箇所）は幾何成立だがメーカー想定用途かは未確認=意味判定行（採用ならTA7/TA12購入+cad-lib資産化）。<strong>TA15（筋交い45°）</strong>=踊り場ブレース候補の判定材料。</li>
+</ul>
+<h2>3. 踏板・踊り場板（杉カフェ板 t30・7枚）</h2>
+<div class="twrap"><table>
+<thead><tr><th>part_id</th><th>W×D×T[mm]</th><th>数量</th><th>加工</th></tr></thead>
+<tbody>
+<tr><td>BBS-TREAD-1〜6</td><td>660 × 200 × 30</td><td>6</td><td>ストリンガー逃げスロット×2（後縁開放・ジグソー・<a href="diy-stair-cut-7c91f2.html">切断寸法表</a>）</td></tr>
+<tr><td>BBS-TREAD-7（踊り場板）</td><td>660 × 700 × 30</td><td>1</td><td>加工なし</td></tr>
+</tbody></table></div>
+<ul>
+<li>手持ち踊り場板（500×700×t25）充当は人間選択（幅500+フレーム芯高+5補正・仮定台帳B4）。</li>
+</ul>
+<h2>4. 床保護シート（CR-014・設計要求）</h2>
+<ul>
+<li>必要: <strong>幅660 × 長さ2.11m</strong>（footprint奥行=前方張り出し−48.6〜板後縁2058.6）</li>
+<li>充当: 手持ち<strong>コインマット CO-3 2.3m</strong>（幅910→660カット・過去図面と同じ「土台と床の間」指定）→ <strong>余裕0.19m</strong></li>
+<li>注記: 厚1mmでは接地は初期=金物底（TA1ボス4点+TA2スリーブ）・荷重時に土台Yパイプのたわみ（約6mm/kN）で管が線接地。厚手ゴム（≥6mm）なら初期から線分散（人間選択=意味判定行）。</li>
+</ul>
+<h2>5. unmodeled_parts（購入するが3D実体化しない・理由つき＝gate A完全性）</h2>
+<div class="twrap"><table>
+<thead><tr><th>品目</th><th>理由</th><th>数量</th></tr></thead>
+<tbody>
+<tr><td>床保護シート（コインマットCO-3）</td><td>面材・構造非関与（上記4）</td><td>2.11m（手持ち充当）</td></tr>
+<tr><td>対角ブレース（A173-D自在クランプ＋端材単管。<strong>純正候補=TA15〔筋交い45°〕も実在=CR-017</strong>）</td><td>過去図面2026-05-04追記（踊り場筋交い）・cad-lib在庫なし・本数/位置は施工ゲート未確定=unresolved。割付残材1275mmを充当可</td><td>TBD（人間判断: A173-D vs TA15）</td></tr>
+<tr><td>板固定ボルト/木ビス</td><td>TA14はM10×2付属（過去図面）・TA13は木ビス。板受け16個従属</td><td>従属</td></tr>
+<tr><td><strong>単管端部キャップ（CR-019・手持ちPPキャップ充当）</strong></td><td><strong>手持ち充当</strong>。必要8個/保有24個。単管Φ48.6へ1個試嵌合し、NG時のみ条件付き代替としてNTY純正TACAP/TAゴムCAPへ切替</td><td><strong>8個（購入0）</strong></td></tr>
+<tr><td><strong>NTY補強ドリルねじ（CR-020採用）</strong></td><td><strong>購入</strong>。ストリンガー上クランプ12箇所を機械的ロック。1箇所1本12本+予備3本。打込み条件は組立手順書§6a</td><td><strong>15本</strong></td></tr>
+</tbody></table></div>
+<h2>6. 単管端部キャップの対象（CR-015・露出開口端の全数機械抽出）</h2>
+<p>露出開口端=貫通つら端+自由端（<code>bom_cut_data.json</code> pipe_end_caps）。挿入穴端36はソケット内=露出なし・<strong>支柱頂部も踊り場金物ソケット内=露出なし</strong>＝本アーキの露出開口はX貫通材の8端のみ:</p>
+<div class="twrap"><table>
+<thead><tr><th>#</th><th>部材/端</th><th>位置（世界座標）</th><th>レベル</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>BBS-XBASE-F / p1</td><td>(3.0, −18.3, 30.3)</td><td>床・前方アンカー行 左</td></tr>
+<tr><td>2</td><td>BBS-XBASE-F / p2</td><td>(657.0, −18.3, 30.3)</td><td>床・前方アンカー行 右</td></tr>
+<tr><td>3</td><td>BBS-XBASE-B / p1</td><td>(3.0, 2028.3, 30.3)</td><td>床・壁側 左</td></tr>
+<tr><td>4</td><td>BBS-XBASE-B / p2</td><td>(657.0, 2028.3, 30.3)</td><td>床・壁側 右</td></tr>
+<tr><td>5</td><td>BBS-XLAND-F / p1</td><td>(3.0, 1458.6, 1269.6)</td><td>踊り場・手が触れる高さ 左</td></tr>
+<tr><td>6</td><td>BBS-XLAND-F / p2</td><td>(657.0, 1458.6, 1269.6)</td><td>踊り場 右</td></tr>
+<tr><td>7</td><td>BBS-XLAND-B / p1</td><td>(3.0, 2028.3, 1269.6)</td><td>踊り場・壁側 左</td></tr>
+<tr><td>8</td><td>BBS-XLAND-B / p2</td><td>(657.0, 2028.3, 1269.6)</td><td>踊り場・壁側 右</td></tr>
+</tbody></table></div>
+<h2>7. 発注チェックリスト（<code>bom_cut_data.json</code> と同じ4状態）</h2>
+<ul>
+<li>ジョイント44個の予算（予算上限は未採取=AI指名#1）</li>
+<li>対角ブレースの追加購入要否（A173-D vs 純正TA15〔筋交い45°・CR-017〕）</li>
+<li>手持ち踊り場板の充当可否（幅500 vs 幅最大660）</li>
+<li><strong>購入</strong>: NTY補強ドリルねじ <strong>15本</strong>（CR-020、施工12+予備3）</li>
+<li><strong>手持ち充当</strong>: PP単管端部キャップ <strong>8個</strong>（CR-019、保有24。試嵌合必須）</li>
+<li><strong>条件付き代替</strong>: 手持ちキャップ試嵌合NG時のみNTY純正TACAP/TAゴムCAPを8個購入</li>
+<li><strong>未決</strong>: 対角ブレース、踊り場板、ストリンガーアンカー型式（上記各行）</li>
+<li>ストリンガーアンカーの型番選択（TA1回転流用〔幾何成立・現行設計〕 vs 角度自在TA7/TA12購入〔メーカー想定用途・cad-lib STEP無し=購入+資産化〕）</li>
+</ul>
+<p class="note">現場閲覧用モバイル版（noindex）。原本はプロジェクトrepo内Markdownを自動変換したものです。数値・手順は原本が正本です。</p>
+</body>
+</html>

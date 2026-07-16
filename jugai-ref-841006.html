@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>獣害相談 現場リファレンス</title>
+<style>
+  :root {
+    --bg: #f6f7f1;
+    --surface: #eceee2;
+    --surface-2: #e2e6d4;
+    --text: #14170f;
+    --text-muted: #45503c;
+    --border: #c7cdb6;
+    --accent: #24522b;
+    --accent-2: #7a4a1f;
+    --danger: #7a2020;
+    --focus: #24522b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #171310;
+      --surface: #221c16;
+      --surface-2: #2b2318;
+      --text: #f2efe6;
+      --text-muted: #c7c2b3;
+      --border: #4a4030;
+      --accent: #8fce87;
+      --accent-2: #e3a75c;
+      --danger: #ea9d8f;
+      --focus: #8fce87;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #171310;
+    --surface: #221c16;
+    --surface-2: #2b2318;
+    --text: #f2efe6;
+    --text-muted: #c7c2b3;
+    --border: #4a4030;
+    --accent: #8fce87;
+    --accent-2: #e3a75c;
+    --danger: #ea9d8f;
+    --focus: #8fce87;
+  }
+  :root[data-theme="light"] {
+    --bg: #f6f7f1;
+    --surface: #eceee2;
+    --surface-2: #e2e6d4;
+    --text: #14170f;
+    --text-muted: #45503c;
+    --border: #c7cdb6;
+    --accent: #24522b;
+    --accent-2: #7a4a1f;
+    --danger: #7a2020;
+    --focus: #24522b;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 0 0 3rem 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Noto Sans JP", "Meiryo", sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  a { color: var(--accent); text-decoration-thickness: 0.08em; text-underline-offset: 0.15em; }
+  a:visited { color: var(--accent); }
+
+  h1, h2, h3 { line-height: 1.4; }
+
+  .wrap {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* ---------- ヘッダ ---------- */
+  header.top {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 1.1rem 1rem 1.3rem;
+    border-bottom: 0.3rem solid var(--accent-2);
+  }
+  header.top .wrap { max-width: 40rem; }
+  header.top h1 {
+    margin: 0 0 0.4rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+  header.top .visit {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 0.7rem;
+  }
+  .call-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--bg);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.4rem;
+    text-decoration: none;
+    min-height: 44px;
+    width: fit-content;
+  }
+  .call-btn small {
+    display: block;
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  section { padding-top: 1.3rem; }
+
+  h2.sec-title {
+    font-size: 1.05rem;
+    margin: 0 0 0.7rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 0.15rem solid var(--accent-2);
+    color: var(--accent);
+  }
+
+  /* ---------- 質問リスト ---------- */
+  .progress {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+  }
+  #reset-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 0.3rem;
+    min-height: 36px;
+  }
+  ol.qlist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: qcount;
+  }
+  ol.qlist li {
+    counter-increment: qcount;
+    margin-bottom: 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+  }
+  ol.qlist li.q-sub { border-left: 0.3rem solid var(--accent-2); }
+  ol.qlist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.75rem 0.8rem;
+    min-height: 44px;
+    cursor: pointer;
+  }
+  ol.qlist input[type="checkbox"] {
+    width: 1.4rem;
+    height: 1.4rem;
+    flex: none;
+    margin-top: 0.15rem;
+    accent-color: var(--accent);
+  }
+  ol.qlist .qnum {
+    flex: none;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 1.6rem;
+  }
+  ol.qlist .qtext { flex: 1; }
+  ol.qlist input:checked ~ .qtext,
+  ol.qlist label:has(input:checked) .qtext {
+    color: var(--text-muted);
+    text-decoration: line-through;
+  }
+  .qnote {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: -0.3rem 0.8rem 0.75rem 3rem;
+  }
+  .qgroup-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-2);
+    margin: 1rem 0 0.4rem;
+  }
+
+  /* ---------- details / summary ---------- */
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    margin-bottom: 0.9rem;
+    overflow: hidden;
+  }
+  summary {
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 0.9rem 1rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: var(--accent);
+    list-style: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸";
+    display: inline-block;
+    margin-right: 0.6rem;
+    transition: transform 0.15s ease;
+    color: var(--accent-2);
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .inner {
+    padding: 0 1rem 1.1rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.9rem;
+  }
+
+  h3.sub {
+    font-size: 0.98rem;
+    margin: 1.1rem 0 0.4rem;
+    color: var(--text);
+  }
+  h3.sub:first-child { margin-top: 0; }
+
+  p { margin: 0.5rem 0; }
+  ul, ol.plain { padding-left: 1.3rem; margin: 0.5rem 0; }
+  ul li, ol.plain li { margin-bottom: 0.35rem; }
+
+  /* ---------- callout box ---------- */
+  .box {
+    background: var(--surface-2);
+    border-left: 0.3rem solid var(--accent-2);
+    border-radius: 0.3rem;
+    padding: 0.7rem 0.8rem;
+    margin: 0.7rem 0;
+    font-size: 0.95rem;
+  }
+  .box.warn { border-left-color: var(--danger); }
+  .box strong.hl { color: var(--accent-2); }
+  .box strong.warn-hl { color: var(--danger); }
+
+  .to-question {
+    display: inline-block;
+    margin-top: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  /* ---------- 補助金ハイライト ---------- */
+  .subsidy-figure {
+    background: var(--surface-2);
+    border: 2px solid var(--accent-2);
+    border-radius: 0.5rem;
+    padding: 0.9rem;
+    margin: 0.7rem 0;
+    text-align: left;
+  }
+  .subsidy-figure .num {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent-2);
+    display: block;
+  }
+  .subsidy-figure .cap {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  /* ---------- table ---------- */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 0.6rem 0;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--border);
+    border-radius: 0.4rem;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 30rem;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.6rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--surface-2);
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  td.price, th.price { white-space: nowrap; }
+
+  /* ---------- 出典 ---------- */
+  ol.sources {
+    padding-left: 1.4rem;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+  }
+  ol.sources li { margin-bottom: 0.5rem; word-break: break-word; }
+  ol.sources a { color: var(--text-muted); }
+  .src-group-title {
+    font-weight: 700;
+    color: var(--accent);
+    margin: 1rem 0 0.3rem;
+    font-size: 0.95rem;
+  }
+  .src-group-title:first-child { margin-top: 0; }
+
+  footer.foot {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    padding-top: 1.5rem;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <h1>獣害相談 現場リファレンス</h1>
+    <p class="visit">7/18(金) 那須塩原市 来訪相談</p>
+    <a class="call-btn" href="tel:0287742602">
+      📞 0287-74-2602
+      <small>環境戦略部 ネイチャーポジティブ課 自然共生係</small>
+    </a>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section id="questions">
+  <h2 class="sec-title">1. 質問リスト（優先度順）</h2>
+  <p class="progress" id="progress-text">0 / 14 チェック済み</p>
+  <ol class="qlist" id="qlist">
+    <li><label><input type="checkbox" data-qid="q1"><span class="qnum">1</span><span class="qtext">箱わなの貸出制度はあるか。あるなら条件（貸出期間・自己負担・設置場所の制約）は。<br><small>※市サイトに記載なし＝最優先の要確認事項</small></span></label></li>
+    <li><label><input type="checkbox" data-qid="q2"><span class="qnum">2</span><span class="qtext">有害鳥獣捕獲許可を自分で申請する場合の流れと必要書類は、既存の様式1号等で全てか。</span></label></li>
+    <li><label><input type="checkbox" data-qid="q3"><span class="qnum">3</span><span class="qtext">捕獲後の個体の処分（殺処分・運搬）は誰が担うのか。自分で処分できない場合は。</span></label></li>
+    <li><label><input type="checkbox" data-qid="q4"><span class="qnum">4</span><span class="qtext">自宅周辺での過去のハクビシン・アライグマ等の捕獲実績・目撃情報はあるか。</span></label></li>
+    <li><label><input type="checkbox" data-qid="q5"><span class="qnum">5</span><span class="qtext">防除柵補助金は、自家消費のみの家庭菜園でも「継続的に農作物を生産している」に該当するか。<br><small>※要件文言が曖昧</small></span></label></li>
+    <li><label><input type="checkbox" data-qid="q6"><span class="qnum">6</span><span class="qtext">ハクビシン／アライグマ／タヌキの種類確定を市で対応してもらえるか（写真判定・現地調査等）。</span></label></li>
+    <li><label><input type="checkbox" data-qid="q7"><span class="qnum">7</span><span class="qtext">狩猟免許なしでも捕獲許可は下りるか。免許が要る場合、狩猟免許等取得費補助金の対象になるか。</span></label></li>
+    <li><label><input type="checkbox" data-qid="q8"><span class="qnum">8</span><span class="qtext">「とちぎ獣害対策アドバイザー派遣事業」は個人宅・小規模菜園でも使えるか。<br><small>※市サイトは集落単位の記載</small></span></label></li>
+    <li><label><input type="checkbox" data-qid="q9"><span class="qnum">9</span><span class="qtext">箱わなを自費購入・自主設置する場合でも捕獲許可は別途必要か。許可なし設置だけは可能か。</span></label></li>
+    <li><label><input type="checkbox" data-qid="q10"><span class="qnum">10</span><span class="qtext">今後も被害が続く場合、継続的な相談窓口・報告先はどこか。</span></label></li>
+
+    <li class="qgroup-label" style="list-style:none;">捕獲後の処分（③処分ガイド関連・当日確認事項を集約）</li>
+    <li class="q-sub"><label><input type="checkbox" data-qid="q11"><span class="qnum">11</span><span class="qtext">許可書に殺処分方法（CO2注入・電気止めさし等）の指定は付くか。水没など自己流の方法は不可とされるか。</span></label></li>
+    <li class="q-sub"><label><input type="checkbox" data-qid="q12"><span class="qnum">12</span><span class="qtext">殺処分・死体の運搬を市または猟友会に依頼（引き渡し）できるか。自分で全部行う場合との違い（費用・所要期間・立会い）は。</span></label></li>
+    <li class="q-sub"><label><input type="checkbox" data-qid="q13"><span class="qnum">13</span><span class="qtext">那須塩原クリーンセンターへの持込は小動物（ハクビシン等）でも可能か。不可なら敷地内埋設は認められるか、深さ・場所の目安は。</span></label></li>
+    <li class="q-sub"><label><input type="checkbox" data-qid="q14"><span class="qnum">14</span><span class="qtext">捕獲許可条件に、わなの見回り頻度の具体的な指定はあるか。</span></label></li>
+  </ol>
+  <button type="button" id="reset-btn">チェックを全部リセット</button>
+</section>
+
+<section id="disposal">
+  <details>
+    <summary>2. 処分ガイド（捕獲できた場合）</summary>
+    <div class="inner">
+      <p class="box warn"><strong class="warn-hl">大前提</strong>：無許可捕獲は個人でも1年以下の懲役または100万円以下の罰金<sup>[9,10]</sup>。処分行為も許可の枠内で行う。</p>
+
+      <h3 class="sub">殺処分方法</h3>
+      <p>環境省の基本指針は「捕獲物は原則持ち帰り」「致死させる場合はできる限り苦痛を与えない方法」と規定<sup>[19]</sup>。東京都環境局資料はハクビシン等中型哺乳類への具体例として<strong>①高濃度CO2注入が「最も優れている」</strong>と明記（②銃器③麻酔薬④電気止めさし器も例示）<sup>[20]</sup>。</p>
+      <p class="box warn"><strong class="warn-hl">水没は公式な例示リストに含まれていない</strong>。動物福祉NPOは水没での実施実態を問題視しているが、これは団体見解であり一次通知文は未発見。</p>
+
+      <h3 class="sub">死体の処理</h3>
+      <p>原則持ち帰り。やむを得ない場合のみ「生態系に影響しない方法」で埋設（cm単位の基準は一次出典なし）。那須塩原クリーンセンターは「大型動物の死体」を持込不可と明記するが、小動物が該当するかは市サイトに記載なし<sup>[21,22]</sup>。</p>
+
+      <h3 class="sub">衛生リスク</h3>
+      <p><strong>SFTS（マダニ媒介感染症）</strong>：厚労省は野生動物・死体との接触回避、マスク・手袋着用を明確に求める<sup>[23]</sup>。<strong>疥癬</strong>：人へは一時的寄生で軽症のことが多い（JIHS）<sup>[24]</sup>。素手厳禁・作業後手洗い消毒・長袖長ズボンを徹底。</p>
+
+      <h3 class="sub">実務Tips</h3>
+      <ul>
+        <li>檻を布・シートで覆う（ストレス軽減）：経験則であり公的な効果の裏付けは未発見</li>
+        <li>見回りは毎日が一般的な許可条件（放置は動物衰弱・脱走・食害のリスク）</li>
+      </ul>
+
+      <p class="to-question">→ 当日確認すべき詳細は<a href="#questions">質問リスト Q11〜14</a>にまとめてあります。</p>
+    </div>
+  </details>
+</section>
+
+<section id="subsidy">
+  <details>
+    <summary>3. 市の制度まとめ</summary>
+    <div class="inner">
+      <h3 class="sub">担当課・窓口</h3>
+      <p>環境戦略部 ネイチャーポジティブ課 自然共生係<br>
+      〒325-8501 那須塩原市共墾社108-2 / <a href="tel:0287742602">0287-74-2602</a> / FAX 0287-62-7202<br>
+      開庁 月〜金 9:00〜16:00（祝日・年末年始を除く）</p>
+      <p class="qnote" style="margin-left:0;">※有害鳥獣防除柵設置事業費補助金の担当は令和8年4月から農務畜産課へ変更予定</p>
+
+      <h3 class="sub">箱わな貸出</h3>
+      <p class="box warn">市サイトに<strong class="warn-hl">貸出制度の明記なし</strong>。捕獲は許可申請が前提としか書かれていない。→ <a href="#questions">質問1</a></p>
+
+      <h3 class="sub">有害鳥獣捕獲許可の流れ</h3>
+      <p>目的は「生活環境・農林水産業・生態系への被害防止」。必要書類は許可申請書（様式1・2号）／区域図／従事者名簿（様式3号）／従事者証交付申請書（様式4号）／有害捕獲依頼書（様式5号）／狩猟免状の写し等<sup>[3]</sup>。事前相談が推奨されている。</p>
+
+      <h3 class="sub">電気柵等の補助金</h3>
+      <div class="subsidy-figure">
+        <span class="num">個人 3分の2補助・上限20万円</span>
+        <span class="cap">新設（電気柵・金網柵・ワイヤーメッシュ柵・ネット柵）。団体は3分の2・上限100万円、法人は3分の2・上限30万円。修繕・機能強化は全対象者2分の1・上限10万円<sup>[4]</sup>。</span>
+      </div>
+      <p>対象者：市内在住個人／受益者3戸以上の団体／法人で、市内農地で継続的に農作物を生産し市税滞納なし。令和3年度から個人も申請可能に。</p>
+      <p class="box">自家消費のみの家庭菜園が「継続的に農作物を生産」に該当するかは文言上不明確。→ <a href="#questions">質問5</a></p>
+
+      <h3 class="sub">その他の関連制度</h3>
+      <ul>
+        <li>狩猟免許等取得費補助金（内容は今回未精読）</li>
+        <li>とちぎ獣害対策アドバイザー派遣事業：鳥獣管理士による被害状況分析・環境改善助言。「派遣は集落単位」と明記あり、個人宅対象は不明。→ <a href="#questions">質問8</a></li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section id="identify">
+  <details>
+    <summary>4. 犯人特定ガイド</summary>
+    <div class="inner">
+      <h3 class="sub">足跡</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>動物</th><th>サイズ・指の数</th><th>形状</th></tr>
+          <tr><td>ハクビシン</td><td>前足4.0〜5.0×4.5cm、後足8〜10×4cm、指5本＋爪跡</td><td>5本指がはっきり分かれる丸みのある形</td></tr>
+          <tr><td>タヌキ</td><td>長さ3〜4cm、指4本＋爪痕</td><td>梅の花のような形。ハクビシンより小さい</td></tr>
+          <tr><td>アライグマ</td><td>前足4.0〜5.5×6.0cm、後足6.5〜8.0×5.0〜6.5cm、指5本</td><td>切れ目のない「人の手形」状。木登りで爪跡が斜めに残る</td></tr>
+          <tr><td>イタチ</td><td>長さ2.0〜3.0×1.5〜3.0cm</td><td>とても小さい指球跡が4〜5個並ぶ</td></tr>
+        </table>
+      </div>
+      <p class="qnote" style="margin-left:0;">出典<sup>[12]</sup></p>
+
+      <h3 class="sub">糞</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>動物</th><th>特徴</th></tr>
+          <tr><td>ハクビシン</td><td>約5〜10cmの円柱形。種・昆虫残骸を含むことも。強い臭い。<strong>同一場所での「ため糞」</strong></td></tr>
+          <tr><td>タヌキ</td><td>丸く2〜3cm、黒色。複数個体の「ため糞」で「フン場」を形成。臭いは強い</td></tr>
+          <tr><td>アライグマ</td><td>5〜18cmと長め。あまり咀嚼せず種・虫の羽等が混ざる。臭いが特にひどい</td></tr>
+          <tr><td>イタチ</td><td>個別記述なし（一般に細長く小型）</td></tr>
+        </table>
+      </div>
+      <p class="qnote" style="margin-left:0;">出典<sup>[12,6]</sup></p>
+
+      <h3 class="sub">食害痕</h3>
+      <ul>
+        <li><strong>アライグマ</strong>：外皮をむいてから食べる。スイカは直径約5cmの穴からきれいにくり抜く</li>
+        <li><strong>ハクビシン</strong>：直接口で食べ散らかる。スイカは大きな穴から頭を突っ込むことも。屋根裏に生息しやすい</li>
+        <li><strong>タヌキ・イタチ</strong>：個別比較記述なし（消去法で判断）</li>
+      </ul>
+      <p class="qnote" style="margin-left:0;">出典<sup>[13]</sup></p>
+
+      <h3 class="sub">法的な位置づけの違い</h3>
+      <p><strong>ハクビシン</strong>：特定外来生物ではないが鳥獣保護管理法の「狩猟鳥獣」。狩猟期間・免許なしの捕獲は原則違法。<br>
+      <strong>アライグマ</strong>：「特定外来生物」に指定。鳥獣保護管理法と外来生物法の両方で規制。防除は自治体の「アライグマ防除実施計画」の枠組み<sup>[13,11]</sup>。</p>
+    </div>
+  </details>
+</section>
+
+<section id="measures">
+  <details>
+    <summary>5. 対策選択肢と概算費用</summary>
+    <div class="inner">
+      <h3 class="sub">法規制の要点</h3>
+      <p class="box warn">鳥獣保護管理法は狩猟による場合を除き捕獲・殺傷を<strong class="warn-hl">原則禁止</strong>。市町村長等の許可があって初めて捕獲可能。<strong class="warn-hl">無許可捕獲は個人でも1年以下の懲役または100万円以下の罰金</strong><sup>[9,10]</sup>。アライグマは外来生物法も適用<sup>[11]</sup>。</p>
+
+      <h3 class="sub">対策の優先順位（DIY前提）</h3>
+      <ol class="plain">
+        <li><strong>収穫残渣・落果の管理</strong>：費用ほぼゼロ。放置野菜の完全収穫・生ゴミ管理・ヤブの刈払いが市の最優先対策<sup>[2]</sup></li>
+        <li><strong>侵入経路の封鎖</strong>：ハクビシンはゴルフボール大（直径3〜4cm）の隙間から侵入。主に家屋側の対策</li>
+        <li><strong>電気柵</strong>：畑周囲を囲う主対策。ハクビシン向けは低い位置での多段張り（例：4段・総高35cm、地上5/10/10/10cm間隔）。最下段5cmは漏電リスクに注意。ネット併用の複合柵（高さ40cm弱）も選択肢<sup>[14]</sup></li>
+        <li><strong>忌避剤</strong>：木酢液・ハッカ油等。効果は一時的、他対策と併用前提</li>
+      </ol>
+
+      <h3 class="sub">概算費用（2026-07-16時点の実売価格）</h3>
+      <p>電気柵キット（カインズ通販・小規模菜園向け）<sup>[17,18]</sup></p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>商品</th><th class="price">価格</th></tr>
+          <tr><td>電柵セット100m FRP-14-900</td><td class="price">9,665円</td></tr>
+          <tr><td>アポロ エリアシステム菜園用（2段張り・約100m・ハクビシン等対応明記）</td><td class="price">22,800円</td></tr>
+          <tr><td>アポロ ソーラーパネルSP菜園セット用</td><td class="price">14,800円</td></tr>
+          <tr><td>アポロ SP2018用1段増設キット</td><td class="price">3,980円</td></tr>
+          <tr><td>アポロ エリアシステム ソーラーセット</td><td class="price">34,800円</td></tr>
+          <tr><td>防獣くん ソーラー600 お手軽100mセット</td><td class="price">35,800円</td></tr>
+        </table>
+      </div>
+
+      <p>DIY家屋・敷地対策一式（電気柵除く）<sup>[15]</sup></p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>項目</th><th class="price">費用目安</th></tr>
+          <tr><td>捕獲器（箱わな）レンタル/購入</td><td class="price">5,000〜2万円</td></tr>
+          <tr><td>忌避剤</td><td class="price">3,000〜1万円</td></tr>
+          <tr><td>侵入口封鎖材料</td><td class="price">5,000〜2万円</td></tr>
+          <tr><td>消毒剤・消臭剤</td><td class="price">3,000〜5,000円</td></tr>
+          <tr><td>防護服・マスク・手袋</td><td class="price">3,000〜5,000円</td></tr>
+          <tr><td><strong>DIY合計目安</strong></td><td class="price"><strong>約2万〜5万円</strong></td></tr>
+        </table>
+      </div>
+      <p class="qnote" style="margin-left:0;">同出典は「封鎖不足による再侵入で結局高コストになるリスク」も指摘</p>
+
+      <p>参考：専門業者への依頼費用<sup>[16]</sup></p>
+      <ul>
+        <li>簡単な追い出し作業：3万〜5万円</li>
+        <li>罠による捕獲・駆除：5万〜10万円</li>
+        <li>屋根裏清掃・消毒・修繕込み：10万〜30万円</li>
+      </ul>
+
+      <p class="box warn"><strong class="warn-hl">箱わなは無許可の設置・使用そのものが違法</strong>。レンタル・購入は市の許可取得とセットで検討する。</p>
+    </div>
+  </details>
+</section>
+
+<section id="sources">
+  <details>
+    <summary>6. 出典一覧（全18＋7件・取得日2026-07-16）</summary>
+    <div class="inner">
+      <p class="src-group-title">那須塩原市公式サイト</p>
+      <ol class="sources">
+        <li>[1] <a href="https://www.city.nasushiobara.tochigi.jp/soshikikarasagasu/np/choujuhigai/index.html">鳥獣被害対策（トップ）</a></li>
+        <li>[2] <a href="https://www.city.nasushiobara.tochigi.jp/soshikikarasagasu/np/choujuhigai/14806.html">ハクビシンなどの小動物による被害にお困りの方へ</a></li>
+        <li>[3] <a href="https://www.city.nasushiobara.tochigi.jp/soshikikarasagasu/np/choujuhigai/12931.html">野生鳥獣の捕獲許可申請</a></li>
+        <li>[4] <a href="https://www.city.nasushiobara.tochigi.jp/soshikikarasagasu/np/choujuhigai/6270.html">有害鳥獣防除柵設置事業費補助金について</a></li>
+        <li>[5] <a href="https://www.city.nasushiobara.tochigi.jp/soshikikarasagasu/np/choujuhigai/4256.html">野生鳥獣被害対策</a></li>
+        <li>[6] <a href="https://www.city.nasushiobara.tochigi.jp/soshikikarasagasu/np/choujuhigai/4255.html">野生鳥獣の生態と特徴</a></li>
+        <li>[7] <a href="https://www.city.nasushiobara.tochigi.jp/soshikikarasagasu/np/choujuhigai/4257.html">とちぎ獣害対策アドバイザー派遣事業</a></li>
+        <li>[8] <a href="https://www.city.nasushiobara.tochigi.jp/shigoto_sangyo/yaseityoujuutaisaku/index.html">野生鳥獣対策（まとめページ）</a></li>
+      </ol>
+      <p class="qnote" style="margin-left:0;">※ .lg.jp の同パスは全て .tochigi.jp へ301リダイレクト（実機確認済み）</p>
+
+      <p class="src-group-title">法規制・一次情報（環境省）</p>
+      <ol class="sources" start="9">
+        <li>[9] <a href="https://www.env.go.jp/nature/choju/capture/capture2.html">環境省「野生鳥獣の違法捕獲の防止」</a></li>
+        <li>[10] <a href="https://www.env.go.jp/nature/choju/capture/capture1.html">環境省「捕獲許可制度の概要」</a></li>
+        <li>[11] <a href="https://www.env.go.jp/press/press_04809.html">環境省「アライグマ防除の手引き（改訂版）」公表について</a></li>
+      </ol>
+
+      <p class="src-group-title">犯人特定・法的位置づけ</p>
+      <ol class="sources" start="12">
+        <li>[12] <a href="https://www.choujuhigai.com/f/trace_check">鳥獣被害対策ドットコム「動物の痕跡一覧」</a></li>
+        <li>[13] <a href="https://hw-control.or.jp/guide/14149">害獣駆除ガイド「アライグマ・ハクビシンの違い」</a></li>
+      </ol>
+
+      <p class="src-group-title">対策・費用</p>
+      <ol class="sources" start="14">
+        <li>[14] <a href="https://www.choujuhigai.com/c/electric-fence-lp/electric-fence-lp04">鳥獣被害対策ドットコム「電気柵の選び方」</a></li>
+        <li>[15] <a href="https://kujo-plus.com/gaiju/hakubishin/market-price/">駆除アンサー「ハクビシン駆除の費用相場」</a></li>
+        <li>[16] <a href="https://www.shiroarikujyo.com/27917">あい営繕「ハクビシン寄せ付けない方法」</a></li>
+        <li>[17] <a href="https://www.cainz.com/search/?category=611815">カインズ「電気柵」商品一覧</a></li>
+        <li>[18] <a href="https://www.cainz.com/g/4562143383830.html">カインズ「アポロエリアシステム菜園用電気柵セット」</a></li>
+      </ol>
+
+      <p class="src-group-title">処分ガイド関連</p>
+      <ol class="sources" start="19">
+        <li>[19] <a href="https://www.env.go.jp/hourei/18/000251.html">環境省「鳥獣の保護を図るための事業を実施するための基本的な指針」</a></li>
+        <li>[20] <a href="https://www.kankyo.metro.tokyo.lg.jp/documents/d/kankyo/03-12-01_siryou2-5-1-">東京都環境局「捕獲した鳥獣を致死させる場合のできる限り苦痛を与えない方法」</a></li>
+        <li>[21] <a href="https://www.city.nasushiobara.tochigi.jp/soshikikarasagasu/ce/gomishorishisetsu/2226.html">那須塩原市「クリーンセンターへ持ち込めないごみ」</a></li>
+        <li>[22] <a href="https://www.city.nasushiobara.tochigi.jp/soshikikarasagasu/ce/gomishorishisetsu/2201.html">那須塩原市「クリーンセンターでよくある質問」</a></li>
+        <li>[23] <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/kenkou/kekkaku-kansenshou19/sfts_qa.html">厚生労働省「SFTSに関するＱ＆Ａ」</a></li>
+        <li>[24] <a href="https://id-info.jihs.go.jp/infectious-diseases/scabies/detail/index.html">国立健康危機管理研究機構「疥癬（詳細版）」</a></li>
+      </ol>
+
+      <p class="src-group-title">参考扱い（一次情報ではない）</p>
+      <ul>
+        <li><a href="https://www.choujuhigai.com/blog02/archives/3897">鳥獣被害対策ドットコム「有害鳥獣を捕獲した後は？」</a></li>
+        <li><a href="https://arcj.org/issues/other/other985/">認定NPO法人アニマルライツセンター「野生動物の殺され方－ワナ」</a></li>
+      </ul>
+
+      <p class="src-group-title">一次出典未発見＝当日確認（質問11〜14に集約）</p>
+      <ul>
+        <li>許可書に殺処分方法（CO2等）の具体的指定が付されるか</li>
+        <li>家庭で高濃度CO2環境を安全に作る具体的手順</li>
+        <li>埋設の深さ・場所のcm単位の基準</li>
+        <li>クリーンセンターが小動物の死体を受け入れるか</li>
+        <li>捕獲許可条件における見回り頻度の具体的指定</li>
+        <li>檻を布・シートで覆う工夫の公的な効果の裏付け</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<footer class="foot">
+  作成日 2026-07-16 JST／出典取得日はすべて2026-07-16／全18＋6件アクセス確認済み
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var KEY_PREFIX = "jugai_pack_q_";
+  var boxes = document.querySelectorAll('#qlist input[type="checkbox"]');
+  var progressText = document.getElementById("progress-text");
+  var resetBtn = document.getElementById("reset-btn");
+
+  function updateProgress() {
+    var total = boxes.length;
+    var checked = 0;
+    boxes.forEach(function (b) { if (b.checked) checked++; });
+    progressText.textContent = checked + " / " + total + " チェック済み";
+  }
+
+  boxes.forEach(function (box) {
+    var id = box.getAttribute("data-qid");
+    try {
+      var saved = localStorage.getItem(KEY_PREFIX + id);
+      if (saved === "1") box.checked = true;
+    } catch (e) {}
+    box.addEventListener("change", function () {
+      try {
+        localStorage.setItem(KEY_PREFIX + id, box.checked ? "1" : "0");
+      } catch (e) {}
+      updateProgress();
+    });
+  });
+
+  if (resetBtn) {
+    resetBtn.addEventListener("click", function () {
+      boxes.forEach(function (box) {
+        box.checked = false;
+        try {
+          localStorage.setItem(KEY_PREFIX + box.getAttribute("data-qid"), "0");
+        } catch (e) {}
+      });
+      updateProgress();
+    });
+  }
+
+  updateProgress();
+})();
+</script>
+
+</body>
+</html>

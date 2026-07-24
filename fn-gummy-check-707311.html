@@ -18,7 +18,7 @@
     --gap: 12px;
   }
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
+  html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden;}
   body{
     background:var(--bg);
     color:var(--text);
@@ -26,6 +26,7 @@
     -webkit-tap-highlight-color: transparent;
     padding-bottom:40px;
   }
+  button{font-family:inherit;}
   header{
     position:sticky;
     top:0;
@@ -140,6 +141,20 @@
   .celebrate.show{
     display:block;
   }
+  .view-toggle-row{
+    margin-bottom:8px;
+  }
+  .view-toggle-btn{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid var(--accent);
+    background:transparent;
+    color:var(--accent);
+    font-size:0.9rem;
+    font-weight:700;
+    min-height:44px;
+  }
   .reset-btn{
     width:100%;
     padding:10px;
@@ -153,6 +168,126 @@
   main{
     padding:10px 12px 0 12px;
   }
+  .view-hidden{
+    display:none !important;
+  }
+
+  /* --- マトリクスビュー --- */
+  .matrix-wrap{
+    margin-bottom:18px;
+  }
+  .matrix-header-row,
+  .matrix-body{
+    display:grid;
+    grid-template-columns: minmax(64px, 1.5fr) repeat(4, 1fr);
+    gap:4px;
+  }
+  .matrix-header-row{
+    margin-bottom:6px;
+  }
+  .matrix-rank-header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    border-radius:8px;
+    padding:6px 2px;
+    font-size:0.68rem;
+    font-weight:700;
+    line-height:1.3;
+    text-align:center;
+  }
+  .rank-header-progress{
+    font-size:0.6rem;
+    font-weight:600;
+    opacity:0.9;
+    margin-top:2px;
+  }
+  .matrix-row{
+    display:contents;
+  }
+  .matrix-name-cell{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:4px;
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:8px;
+    padding:6px;
+    min-height:44px;
+    color:var(--text);
+    font-size:0.76rem;
+    text-align:left;
+    overflow:hidden;
+    appearance:none;
+    cursor:pointer;
+  }
+  .matrix-jp-name{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    word-break:break-word;
+  }
+  .matrix-expand-icon{
+    flex:none;
+    font-size:0.7rem;
+    color:var(--muted);
+    transition:transform 0.15s ease;
+  }
+  .matrix-name-cell.expanded .matrix-expand-icon{
+    transform:rotate(180deg);
+  }
+  .matrix-cell{
+    min-height:44px;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.05rem;
+    font-weight:800;
+    padding:0;
+    background:transparent;
+  }
+  .matrix-cell.inactive{
+    border:1px dashed var(--panel-border);
+    opacity:0.3;
+  }
+  .matrix-cell.active{
+    border:2px solid var(--cell-color);
+    color:var(--cell-color);
+    cursor:pointer;
+  }
+  .matrix-cell.active.checked{
+    background:var(--cell-color);
+    color:var(--cell-text);
+  }
+  .matrix-detail{
+    grid-column: 1 / -1;
+    background:var(--bg);
+    border:1px solid var(--panel-border);
+    border-radius:8px;
+    padding:8px 10px;
+    margin:2px 0 4px 0;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    font-size:0.8rem;
+  }
+  .matrix-detail[hidden]{
+    display:none;
+  }
+  .matrix-detail .en-name{
+    color:var(--muted);
+    font-style:italic;
+  }
+  .matrix-detail .how{
+    color:var(--muted);
+  }
+
+  /* --- カードビュー（既存） --- */
   .rarity-section{
     margin-bottom:18px;
   }
@@ -292,11 +427,326 @@
     </div>
     <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
     <div class="breakdown" id="breakdown"></div>
+    <div class="view-toggle-row">
+      <button type="button" class="view-toggle-btn" id="viewToggleBtn">表示: マトリクス</button>
+    </div>
     <button class="reset-btn" id="resetBtn">このプレイヤーの記録をリセット</button>
   </div>
 </header>
 
 <main>
+  <div class="matrix-wrap" id="matrixView">
+    <div class="matrix-header-row">
+      <div class="matrix-name-header"></div>
+      <div class="matrix-rank-header" style="background:#2563eb;color:#ffffff">
+        <span class="rank-header-label">レア</span>
+        <span class="rank-header-progress" data-category-progress="Rare">0/0</span>
+      </div>
+      <div class="matrix-rank-header" style="background:#7c3aed;color:#ffffff">
+        <span class="rank-header-label">エピ</span>
+        <span class="rank-header-progress" data-category-progress="Epic">0/0</span>
+      </div>
+      <div class="matrix-rank-header" style="background:#eab308;color:#1a1200">
+        <span class="rank-header-label">レジェ</span>
+        <span class="rank-header-progress" data-category-progress="Legendary">0/0</span>
+      </div>
+      <div class="matrix-rank-header" style="background:#c2410c;color:#ffffff">
+        <span class="rank-header-label">ミシ</span>
+        <span class="rank-header-progress" data-category-progress="Mythic">0/0</span>
+      </div>
+    </div>
+    <div class="matrix-body" id="matrixBody">
+      <div class="matrix-row" data-category="Rare">
+        <button type="button" class="matrix-name-cell" data-id="gummy-water-sprite">
+          <span class="matrix-jp-name">グミの水の精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <button type="button" class="matrix-cell active" data-id="gummy-water-sprite" data-category="Rare"
+          style="--cell-color:#2563eb;--cell-text:#ffffff"
+          aria-pressed="false" aria-label="グミの水の精霊（レア）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-water-sprite" hidden>
+          <span class="en-name">Gummy Water Sprite</span>
+          <span class="how">水辺で入手・水中シールド回復＋ダスト+10%</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Rare">
+        <button type="button" class="matrix-name-cell" data-id="gummy-earth-sprite">
+          <span class="matrix-jp-name">グミの地の精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <button type="button" class="matrix-cell active" data-id="gummy-earth-sprite" data-category="Rare"
+          style="--cell-color:#2563eb;--cell-text:#ffffff"
+          aria-pressed="false" aria-label="グミの地の精霊（レア）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-earth-sprite" hidden>
+          <span class="en-name">Gummy Earth Sprite</span>
+          <span class="how">森で入手・宝箱レア率UP</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Rare">
+        <button type="button" class="matrix-name-cell" data-id="gummy-fire-sprite">
+          <span class="matrix-jp-name">グミの炎の精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <button type="button" class="matrix-cell active" data-id="gummy-fire-sprite" data-category="Rare"
+          style="--cell-color:#2563eb;--cell-text:#ffffff"
+          aria-pressed="false" aria-label="グミの炎の精霊（レア）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-fire-sprite" hidden>
+          <span class="en-name">Gummy Fire Sprite</span>
+          <span class="how">都市部POIで入手・被ダメ後爆発</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Rare">
+        <button type="button" class="matrix-name-cell" data-id="gummy-fishy-sprite">
+          <span class="matrix-jp-name">グミのフィッシュ精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <button type="button" class="matrix-cell active" data-id="gummy-fishy-sprite" data-category="Rare"
+          style="--cell-color:#2563eb;--cell-text:#ffffff"
+          aria-pressed="false" aria-label="グミのフィッシュ精霊（レア）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-fishy-sprite" hidden>
+          <span class="en-name">Gummy Fishy Sprite</span>
+          <span class="how">釣り・水場・遊泳で入手・移動速度UP</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Rare">
+        <button type="button" class="matrix-name-cell" data-id="gummy-air-sprite">
+          <span class="matrix-jp-name">グミの風の精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <button type="button" class="matrix-cell active" data-id="gummy-air-sprite" data-category="Rare"
+          style="--cell-color:#2563eb;--cell-text:#ffffff"
+          aria-pressed="false" aria-label="グミの風の精霊（レア）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-air-sprite" hidden>
+          <span class="en-name">Gummy Air Sprite</span>
+          <span class="how">高所山岳・ダッシュで入手・ジャンプ強化＋落下無効</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Epic">
+        <button type="button" class="matrix-name-cell" data-id="gummy-striker-sprite">
+          <span class="matrix-jp-name">グミのストライカー精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <button type="button" class="matrix-cell active" data-id="gummy-striker-sprite" data-category="Epic"
+          style="--cell-color:#7c3aed;--cell-text:#ffffff"
+          aria-pressed="false" aria-label="グミのストライカー精霊（エピック）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-striker-sprite" hidden>
+          <span class="en-name">Gummy Striker Sprite</span>
+          <span class="how">精霊宝箱・サッカーゴール・よじ登りで入手・オーバードライブ</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Epic">
+        <button type="button" class="matrix-name-cell" data-id="gummy-aura-sprite">
+          <span class="matrix-jp-name">グミのオーラ精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <button type="button" class="matrix-cell active" data-id="gummy-aura-sprite" data-category="Epic"
+          style="--cell-color:#7c3aed;--cell-text:#ffffff"
+          aria-pressed="false" aria-label="グミのオーラ精霊（エピック）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-aura-sprite" hidden>
+          <span class="en-name">Gummy Aura Sprite</span>
+          <span class="how">精霊宝箱限定で入手・一定ダメ後ショック</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Epic">
+        <button type="button" class="matrix-name-cell" data-id="gummy-duck-sprite">
+          <span class="matrix-jp-name">グミのダック精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <button type="button" class="matrix-cell active" data-id="gummy-duck-sprite" data-category="Epic"
+          style="--cell-color:#7c3aed;--cell-text:#ffffff"
+          aria-pressed="false" aria-label="グミのダック精霊（エピック）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-duck-sprite" hidden>
+          <span class="en-name">Gummy Duck Sprite</span>
+          <span class="how">保管庫（Sinister Strip等）で入手・エモート中シールド回復</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Epic">
+        <button type="button" class="matrix-name-cell" data-id="gummy-ghost-sprite">
+          <span class="matrix-jp-name">グミのゴースト精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <button type="button" class="matrix-cell active" data-id="gummy-ghost-sprite" data-category="Epic"
+          style="--cell-color:#7c3aed;--cell-text:#ffffff"
+          aria-pressed="false" aria-label="グミのゴースト精霊（エピック）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-ghost-sprite" hidden>
+          <span class="en-name">Gummy Ghost Sprite</span>
+          <span class="how">夜間に各地で入手・リロード中透明化</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Epic">
+        <button type="button" class="matrix-name-cell" data-id="gummy-demon-sprite">
+          <span class="matrix-jp-name">グミの悪魔の精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <button type="button" class="matrix-cell active" data-id="gummy-demon-sprite" data-category="Epic"
+          style="--cell-color:#7c3aed;--cell-text:#ffffff"
+          aria-pressed="false" aria-label="グミの悪魔の精霊（エピック）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-demon-sprite" hidden>
+          <span class="en-name">Gummy Demon Sprite</span>
+          <span class="how">精霊宝箱・レア宝箱で入手・撃破時HP回復</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Epic">
+        <button type="button" class="matrix-name-cell" data-id="gummy-king-sprite">
+          <span class="matrix-jp-name">グミの王様の精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <button type="button" class="matrix-cell active" data-id="gummy-king-sprite" data-category="Epic"
+          style="--cell-color:#7c3aed;--cell-text:#ffffff"
+          aria-pressed="false" aria-label="グミの王様の精霊（エピック）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-king-sprite" hidden>
+          <span class="en-name">Gummy King Sprite</span>
+          <span class="how">精霊宝箱・AIボット撃破で入手・ツルハシダメ増</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Legendary">
+        <button type="button" class="matrix-name-cell" data-id="gummy-punk-sprite">
+          <span class="matrix-jp-name">グミのパンク精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <button type="button" class="matrix-cell active" data-id="gummy-punk-sprite" data-category="Legendary"
+          style="--cell-color:#eab308;--cell-text:#1a1200"
+          aria-pressed="false" aria-label="グミのパンク精霊（レジェンダリー）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-punk-sprite" hidden>
+          <span class="en-name">Gummy Punk Sprite</span>
+          <span class="how">キーカード保管庫宝箱で入手・Lv5で弾薬無限</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Legendary">
+        <button type="button" class="matrix-name-cell" data-id="gummy-dream-sprite">
+          <span class="matrix-jp-name">グミの夢の精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <button type="button" class="matrix-cell active" data-id="gummy-dream-sprite" data-category="Legendary"
+          style="--cell-color:#eab308;--cell-text:#1a1200"
+          aria-pressed="false" aria-label="グミの夢の精霊（レジェンダリー）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-dream-sprite" hidden>
+          <span class="en-name">Gummy Dream Sprite</span>
+          <span class="how">保管庫内精霊宝箱で入手・レベル毎レジェンド戦利品</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Legendary">
+        <button type="button" class="matrix-name-cell" data-id="gummy-boss-sprite">
+          <span class="matrix-jp-name">グミのボス精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <button type="button" class="matrix-cell active" data-id="gummy-boss-sprite" data-category="Legendary"
+          style="--cell-color:#eab308;--cell-text:#1a1200"
+          aria-pressed="false" aria-label="グミのボス精霊（レジェンダリー）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-boss-sprite" hidden>
+          <span class="en-name">Gummy Boss Sprite</span>
+          <span class="how">ボス撃破・保管庫宝箱で入手・最大HP増</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Legendary">
+        <button type="button" class="matrix-name-cell" data-id="gummy-seven-sprite">
+          <span class="matrix-jp-name">グミのセブン精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <button type="button" class="matrix-cell active" data-id="gummy-seven-sprite" data-category="Legendary"
+          style="--cell-color:#eab308;--cell-text:#1a1200"
+          aria-pressed="false" aria-label="グミのセブン精霊（レジェンダリー）"></button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-detail" data-id="gummy-seven-sprite" hidden>
+          <span class="en-name">Gummy Seven Sprite</span>
+          <span class="how">高所山岳で入手・敵の足跡表示</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Mythic">
+        <button type="button" class="matrix-name-cell" data-id="gummy-grim-sprite">
+          <span class="matrix-jp-name">グミの死神の精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <button type="button" class="matrix-cell active" data-id="gummy-grim-sprite" data-category="Mythic"
+          style="--cell-color:#c2410c;--cell-text:#ffffff"
+          aria-pressed="false" aria-label="グミの死神の精霊（ミシック）"></button>
+        <div class="matrix-detail" data-id="gummy-grim-sprite" hidden>
+          <span class="en-name">Gummy Grim Sprite</span>
+          <span class="how">精霊宝箱（激レア）で入手・攻撃者マーク</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Mythic">
+        <button type="button" class="matrix-name-cell" data-id="gummy-zero-point-sprite">
+          <span class="matrix-jp-name">グミのゼロポイントの精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <button type="button" class="matrix-cell active" data-id="gummy-zero-point-sprite" data-category="Mythic"
+          style="--cell-color:#c2410c;--cell-text:#ffffff"
+          aria-pressed="false" aria-label="グミのゼロポイントの精霊（ミシック）"></button>
+        <div class="matrix-detail" data-id="gummy-zero-point-sprite" hidden>
+          <span class="en-name">Gummy Zero Point Sprite</span>
+          <span class="how">保管庫精霊宝箱（超激レア）で入手・回復時シールドバブルJr</span>
+        </div>
+      </div>
+      <div class="matrix-row" data-category="Mythic">
+        <button type="button" class="matrix-name-cell" data-id="gummy-batman-sprite">
+          <span class="matrix-jp-name">グミのバットマン精霊</span>
+          <span class="matrix-expand-icon">&#9662;</span>
+        </button>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <div class="matrix-cell inactive" aria-hidden="true"></div>
+        <button type="button" class="matrix-cell active" data-id="gummy-batman-sprite" data-category="Mythic"
+          style="--cell-color:#c2410c;--cell-text:#ffffff"
+          aria-pressed="false" aria-label="グミのバットマン精霊（ミシック）"></button>
+        <div class="matrix-detail" data-id="gummy-batman-sprite" hidden>
+          <span class="en-name">Gummy Batman Sprite</span>
+          <span class="how">精霊宝箱（激レア）コラボ限定で入手・グライダー再展開</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-view view-hidden" id="cardView">
 
     <section class="rarity-section" data-category="Rare">
       <h2 class="rarity-heading" style="border-color:#2563eb">
@@ -550,6 +1000,7 @@
       </label>
       </div>
     </section>
+  </div>
 </main>
 
 <footer>
@@ -561,7 +1012,9 @@
 (function(){
   var SPRITES = [{"jp": "グミの水の精霊", "en": "Gummy Water Sprite", "category": "Rare", "how": "水辺で入手・水中シールド回復＋ダスト+10%"}, {"jp": "グミの地の精霊", "en": "Gummy Earth Sprite", "category": "Rare", "how": "森で入手・宝箱レア率UP"}, {"jp": "グミの炎の精霊", "en": "Gummy Fire Sprite", "category": "Rare", "how": "都市部POIで入手・被ダメ後爆発"}, {"jp": "グミのフィッシュ精霊", "en": "Gummy Fishy Sprite", "category": "Rare", "how": "釣り・水場・遊泳で入手・移動速度UP"}, {"jp": "グミの風の精霊", "en": "Gummy Air Sprite", "category": "Rare", "how": "高所山岳・ダッシュで入手・ジャンプ強化＋落下無効"}, {"jp": "グミのストライカー精霊", "en": "Gummy Striker Sprite", "category": "Epic", "how": "精霊宝箱・サッカーゴール・よじ登りで入手・オーバードライブ"}, {"jp": "グミのオーラ精霊", "en": "Gummy Aura Sprite", "category": "Epic", "how": "精霊宝箱限定で入手・一定ダメ後ショック"}, {"jp": "グミのダック精霊", "en": "Gummy Duck Sprite", "category": "Epic", "how": "保管庫（Sinister Strip等）で入手・エモート中シールド回復"}, {"jp": "グミのゴースト精霊", "en": "Gummy Ghost Sprite", "category": "Epic", "how": "夜間に各地で入手・リロード中透明化"}, {"jp": "グミの悪魔の精霊", "en": "Gummy Demon Sprite", "category": "Epic", "how": "精霊宝箱・レア宝箱で入手・撃破時HP回復"}, {"jp": "グミの王様の精霊", "en": "Gummy King Sprite", "category": "Epic", "how": "精霊宝箱・AIボット撃破で入手・ツルハシダメ増"}, {"jp": "グミのパンク精霊", "en": "Gummy Punk Sprite", "category": "Legendary", "how": "キーカード保管庫宝箱で入手・Lv5で弾薬無限"}, {"jp": "グミの夢の精霊", "en": "Gummy Dream Sprite", "category": "Legendary", "how": "保管庫内精霊宝箱で入手・レベル毎レジェンド戦利品"}, {"jp": "グミのボス精霊", "en": "Gummy Boss Sprite", "category": "Legendary", "how": "ボス撃破・保管庫宝箱で入手・最大HP増"}, {"jp": "グミのセブン精霊", "en": "Gummy Seven Sprite", "category": "Legendary", "how": "高所山岳で入手・敵の足跡表示"}, {"jp": "グミの死神の精霊", "en": "Gummy Grim Sprite", "category": "Mythic", "how": "精霊宝箱（激レア）で入手・攻撃者マーク"}, {"jp": "グミのゼロポイントの精霊", "en": "Gummy Zero Point Sprite", "category": "Mythic", "how": "保管庫精霊宝箱（超激レア）で入手・回復時シールドバブルJr"}, {"jp": "グミのバットマン精霊", "en": "Gummy Batman Sprite", "category": "Mythic", "how": "精霊宝箱（激レア）コラボ限定で入手・グライダー再展開"}];
   var CATEGORY_ORDER = ["Rare", "Epic", "Legendary", "Mythic"];
+  // 保存キーは初版から変更しない（既存のチェック記録を壊さないため）
   var STORAGE_PREFIX = "fnGummyChecklist_v1_";
+  var VIEW_KEY = STORAGE_PREFIX + "viewMode";
   var players = ["p1", "p2"];
   var defaultNames = {p1:"プレイヤー1", p2:"プレイヤー2"};
   var activePlayer = "p1";
@@ -583,6 +1036,13 @@
   }
   function saveChecks(p, obj){
     localStorage.setItem(checksKey(p), JSON.stringify(obj));
+  }
+  function loadViewMode(){
+    var v = localStorage.getItem(VIEW_KEY);
+    return v === "card" ? "card" : "matrix";
+  }
+  function saveViewMode(mode){
+    localStorage.setItem(VIEW_KEY, mode);
   }
 
   function renderTabNames(){
@@ -617,6 +1077,8 @@
       breakdownEl.appendChild(chip);
       var countEl = document.querySelector('[data-category-count="' + c + '"]');
       if(countEl){ countEl.textContent = byCategory[c].done + "/" + byCategory[c].total; }
+      var progEl = document.querySelector('[data-category-progress="' + c + '"]');
+      if(progEl){ progEl.textContent = byCategory[c].done + "/" + byCategory[c].total; }
     });
 
     var celebrateEl = document.getElementById("celebrate");
@@ -638,12 +1100,33 @@
     });
   }
 
+  function renderMatrix(){
+    var checks = loadChecks(activePlayer);
+    document.querySelectorAll(".matrix-cell.active").forEach(function(cell){
+      var id = cell.getAttribute("data-id");
+      var isChecked = !!checks[id];
+      cell.classList.toggle("checked", isChecked);
+      cell.setAttribute("aria-pressed", isChecked ? "true" : "false");
+      cell.textContent = isChecked ? "✓" : "";
+    });
+  }
+
+  function setChecked(id, isChecked){
+    var checks = loadChecks(activePlayer);
+    checks[id] = isChecked;
+    saveChecks(activePlayer, checks);
+    renderChecks();
+    renderMatrix();
+    renderProgress();
+  }
+
   function switchPlayer(p){
     activePlayer = p;
     document.querySelectorAll(".tab").forEach(function(tab){
       tab.classList.toggle("active", tab.getAttribute("data-player") === p);
     });
     renderChecks();
+    renderMatrix();
     renderProgress();
   }
 
@@ -671,14 +1154,61 @@
   function bindCards(){
     document.querySelectorAll("input.check").forEach(function(input){
       input.addEventListener("change", function(){
-        var id = input.getAttribute("data-id");
-        var checks = loadChecks(activePlayer);
-        checks[id] = input.checked;
-        saveChecks(activePlayer, checks);
-        var card = input.closest(".card");
-        card.classList.toggle("checked", input.checked);
-        renderProgress();
+        setChecked(input.getAttribute("data-id"), input.checked);
       });
+    });
+  }
+
+  function bindMatrixCells(){
+    document.querySelectorAll(".matrix-cell.active").forEach(function(cell){
+      cell.addEventListener("click", function(){
+        var id = cell.getAttribute("data-id");
+        var checks = loadChecks(activePlayer);
+        var newState = !checks[id];
+        setChecked(id, newState);
+      });
+    });
+  }
+
+  function bindMatrixNameToggle(){
+    document.querySelectorAll(".matrix-name-cell").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var id = btn.getAttribute("data-id");
+        var detail = document.querySelector('.matrix-detail[data-id="' + id + '"]');
+        if(!detail) return;
+        var isHidden = detail.hasAttribute("hidden");
+        if(isHidden){
+          detail.removeAttribute("hidden");
+          btn.classList.add("expanded");
+        }else{
+          detail.setAttribute("hidden", "");
+          btn.classList.remove("expanded");
+        }
+      });
+    });
+  }
+
+  function applyViewMode(mode){
+    var matrixEl = document.getElementById("matrixView");
+    var cardEl = document.getElementById("cardView");
+    var btn = document.getElementById("viewToggleBtn");
+    if(mode === "card"){
+      matrixEl.classList.add("view-hidden");
+      cardEl.classList.remove("view-hidden");
+      btn.textContent = "表示: カード";
+    }else{
+      cardEl.classList.add("view-hidden");
+      matrixEl.classList.remove("view-hidden");
+      btn.textContent = "表示: マトリクス";
+    }
+  }
+
+  function bindViewToggle(){
+    document.getElementById("viewToggleBtn").addEventListener("click", function(){
+      var current = loadViewMode();
+      var next = current === "card" ? "matrix" : "card";
+      saveViewMode(next);
+      applyViewMode(next);
     });
   }
 
@@ -689,6 +1219,7 @@
       if(ok){
         saveChecks(activePlayer, {});
         renderChecks();
+        renderMatrix();
         renderProgress();
       }
     });
@@ -697,7 +1228,11 @@
   renderTabNames();
   bindTabs();
   bindCards();
+  bindMatrixCells();
+  bindMatrixNameToggle();
   bindReset();
+  bindViewToggle();
+  applyViewMode(loadViewMode());
   switchPlayer("p1");
 })();
 </script>

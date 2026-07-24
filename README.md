@@ -17,7 +17,7 @@
 | `diy-stair-buy-7c91f2.html` | 購入部材リスト・切り出し割付（モバイル版） | 2026-07-12 | `NJ_Life_with_AI/projects/DIY/2段ベッド階段/購入部材リストと切り出し割付.md` |
 | `diy-stair-cut-7c91f2.html` | 切断寸法表（モバイル版） | 2026-07-12 | `NJ_Life_with_AI/projects/DIY/2段ベッド階段/切断寸法表.md` |
 | `diy-stair-build-7c91f2.html` | 組立手順書（モバイル版） | 2026-07-12 | `NJ_Life_with_AI/projects/DIY/2段ベッド階段/組立手順書.md` |
-| `fn-gummy-check-707311.html` | フォートナイト「グミ精霊」所持チェックリスト（2人分・スマホ向け） | 2026-07-25 | `NJ_Life_with_AI/projects/ゲーム/フォートナイト_グミ精霊チェックリスト/グミ精霊チェックリスト.html` |
+| `fn-gummy-check-707311.html` | フォートナイト「グミ精霊」所持チェックリスト（2人分・スマホ向け・既定=マトリクス表示） | 2026-07-25（2026-07-25 マトリクスビュー追加で更新・同一ファイル名を維持） | `NJ_Life_with_AI/projects/ゲーム/フォートナイト_グミ精霊チェックリスト/グミ精霊チェックリスト.html` |
 
 ## noindex確認
 

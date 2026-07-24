@@ -17,6 +17,7 @@
 | `diy-stair-buy-7c91f2.html` | 購入部材リスト・切り出し割付（モバイル版） | 2026-07-12 | `NJ_Life_with_AI/projects/DIY/2段ベッド階段/購入部材リストと切り出し割付.md` |
 | `diy-stair-cut-7c91f2.html` | 切断寸法表（モバイル版） | 2026-07-12 | `NJ_Life_with_AI/projects/DIY/2段ベッド階段/切断寸法表.md` |
 | `diy-stair-build-7c91f2.html` | 組立手順書（モバイル版） | 2026-07-12 | `NJ_Life_with_AI/projects/DIY/2段ベッド階段/組立手順書.md` |
+| `fn-gummy-check-707311.html` | フォートナイト「グミ精霊」所持チェックリスト（2人分・スマホ向け） | 2026-07-25 | `NJ_Life_with_AI/projects/ゲーム/フォートナイト_グミ精霊チェックリスト/グミ精霊チェックリスト.html` |
 
 ## noindex確認
 
@@ -28,6 +29,7 @@ Invoke-WebRequest https://naji555.github.io/ai-catchup/robots.txt | Select-Objec
 (Invoke-WebRequest https://naji555.github.io/ai-catchup/diy-stair-buy-7c91f2.html).Content | Select-String 'noindex,nofollow,noarchive'
 (Invoke-WebRequest https://naji555.github.io/ai-catchup/diy-stair-cut-7c91f2.html).Content | Select-String 'noindex,nofollow,noarchive'
 (Invoke-WebRequest https://naji555.github.io/ai-catchup/diy-stair-build-7c91f2.html).Content | Select-String 'noindex,nofollow,noarchive'
+(Invoke-WebRequest https://naji555.github.io/ai-catchup/fn-gummy-check-707311.html).Content | Select-String 'noindex,nofollow,noarchive'
 ```
 
 ## rollback

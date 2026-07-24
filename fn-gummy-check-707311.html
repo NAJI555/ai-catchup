@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>グミ精霊 所持チェックリスト</title>
+<style>
+  :root{
+    color-scheme: dark;
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel-border: #2a313c;
+    --text: #e6edf3;
+    --muted: #b7c0cc;
+    --accent: #4f8cff;
+    --danger: #f04747;
+    --gap: 12px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Hiragino Sans","Yu Gothic",system-ui,-apple-system,sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    padding-bottom:40px;
+  }
+  header{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:var(--panel);
+    border-bottom:1px solid var(--panel-border);
+    padding:10px 12px 0 12px;
+  }
+  h1{
+    font-size:1.05rem;
+    margin:2px 0 10px 0;
+    text-align:center;
+  }
+  .tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:10px;
+  }
+  .tab{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:10px 6px;
+    border-radius:10px 10px 0 0;
+    background:#0d1117;
+    color:var(--muted);
+    font-size:0.95rem;
+    border:1px solid var(--panel-border);
+    border-bottom:none;
+    min-height:44px;
+  }
+  .tab.active{
+    background:var(--panel);
+    color:var(--text);
+    font-weight:700;
+    border-color:var(--accent);
+  }
+  .tab-name{
+    max-width:9em;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .edit-name-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:28px;
+    height:28px;
+    min-width:28px;
+    border-radius:50%;
+    background:transparent;
+    color:inherit;
+    border:1px solid currentColor;
+    font-size:0.85rem;
+    opacity:0.8;
+  }
+  .progress-wrap{
+    padding:10px 12px 12px 12px;
+  }
+  .progress-headline{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:6px;
+  }
+  .progress-headline .count{
+    font-size:1.3rem;
+    font-weight:800;
+  }
+  .progress-bar-track{
+    width:100%;
+    height:10px;
+    border-radius:6px;
+    background:#22272e;
+    overflow:hidden;
+    margin-bottom:8px;
+  }
+  .progress-bar-fill{
+    height:100%;
+    background:linear-gradient(90deg,#4f8cff,#7c3aed);
+    width:0%;
+    transition:width 0.25s ease;
+  }
+  .breakdown{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:8px;
+  }
+  .breakdown-chip{
+    font-size:0.78rem;
+    padding:3px 8px;
+    border-radius:999px;
+    background:#22272e;
+    color:var(--muted);
+    border:1px solid var(--panel-border);
+  }
+  .celebrate{
+    display:none;
+    background:linear-gradient(90deg,#eab308,#f04747);
+    color:#1a1200;
+    font-weight:800;
+    text-align:center;
+    padding:8px;
+    border-radius:8px;
+    margin-bottom:8px;
+    font-size:0.95rem;
+  }
+  .celebrate.show{
+    display:block;
+  }
+  .reset-btn{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid var(--danger);
+    background:transparent;
+    color:var(--danger);
+    font-size:0.9rem;
+    min-height:44px;
+  }
+  main{
+    padding:10px 12px 0 12px;
+  }
+  .rarity-section{
+    margin-bottom:18px;
+  }
+  .rarity-heading{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:0.95rem;
+    border-left:4px solid;
+    padding-left:8px;
+    margin:0 0 8px 0;
+  }
+  .rarity-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    display:none;
+  }
+  .rarity-count{
+    margin-left:auto;
+    color:var(--muted);
+    font-weight:700;
+    font-size:0.85rem;
+  }
+  .card-list{
+    display:flex;
+    flex-direction:column;
+    gap:var(--gap);
+  }
+  .card{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:12px;
+    padding:12px;
+    min-height:44px;
+  }
+  .card input.check{
+    position:absolute;
+    opacity:0;
+    width:1px;
+    height:1px;
+  }
+  .check-visual{
+    flex:none;
+    width:30px;
+    height:30px;
+    border-radius:8px;
+    border:2px solid var(--muted);
+    background:transparent;
+    position:relative;
+    margin-top:2px;
+  }
+  .card input.check:checked + .check-visual{
+    background:var(--accent);
+    border-color:var(--accent);
+  }
+  .card input.check:checked + .check-visual::after{
+    content:"";
+    position:absolute;
+    left:9px;
+    top:4px;
+    width:8px;
+    height:15px;
+    border-right:3px solid #fff;
+    border-bottom:3px solid #fff;
+    transform:rotate(40deg);
+  }
+  .card.checked{
+    opacity:0.6;
+  }
+  .card-body{
+    flex:1;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .card-top{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .jp-name{
+    font-weight:700;
+    font-size:1.02rem;
+  }
+  .badge{
+    font-size:0.72rem;
+    padding:2px 8px;
+    border-radius:999px;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .en-name{
+    font-size:0.82rem;
+    color:var(--muted);
+    font-style:italic;
+  }
+  .how{
+    font-size:0.85rem;
+    color:var(--muted);
+    margin-top:2px;
+    line-height:1.4;
+  }
+  footer{
+    padding:16px 12px 8px 12px;
+    text-align:center;
+    font-size:0.72rem;
+    color:var(--muted);
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>グミ精霊 所持チェックリスト</h1>
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-player="p1">
+      <span class="tab-name" id="tabName-p1">プレイヤー1</span>
+      <span class="edit-name-btn" data-player="p1" title="名前を編集">&#9998;</span>
+    </div>
+    <div class="tab" data-player="p2">
+      <span class="tab-name" id="tabName-p2">プレイヤー2</span>
+      <span class="edit-name-btn" data-player="p2" title="名前を編集">&#9998;</span>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="celebrate" id="celebrate">&#127881; コンプリート！全18種そろいました &#127881;</div>
+    <div class="progress-headline">
+      <span>進捗</span>
+      <span class="count"><span id="totalChecked">0</span>/18</span>
+    </div>
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
+    <div class="breakdown" id="breakdown"></div>
+    <button class="reset-btn" id="resetBtn">このプレイヤーの記録をリセット</button>
+  </div>
+</header>
+
+<main>
+
+    <section class="rarity-section" data-category="Rare">
+      <h2 class="rarity-heading" style="border-color:#2563eb">
+        <span class="rarity-dot" style="background:#2563eb"></span>
+        レア
+        <span class="rarity-count" data-category-count="Rare">0/5</span>
+      </h2>
+      <div class="card-list">
+      <label class="card" data-id="gummy-water-sprite" data-category="Rare">
+        <input type="checkbox" class="check" data-id="gummy-water-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミの水の精霊</span>
+            <span class="badge" style="background:#2563eb;color:#ffffff">レア</span>
+          </span>
+          <span class="en-name">Gummy Water Sprite</span>
+          <span class="how">水辺で入手・水中シールド回復＋ダスト+10%</span>
+        </span>
+      </label>
+      <label class="card" data-id="gummy-earth-sprite" data-category="Rare">
+        <input type="checkbox" class="check" data-id="gummy-earth-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミの地の精霊</span>
+            <span class="badge" style="background:#2563eb;color:#ffffff">レア</span>
+          </span>
+          <span class="en-name">Gummy Earth Sprite</span>
+          <span class="how">森で入手・宝箱レア率UP</span>
+        </span>
+      </label>
+      <label class="card" data-id="gummy-fire-sprite" data-category="Rare">
+        <input type="checkbox" class="check" data-id="gummy-fire-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミの炎の精霊</span>
+            <span class="badge" style="background:#2563eb;color:#ffffff">レア</span>
+          </span>
+          <span class="en-name">Gummy Fire Sprite</span>
+          <span class="how">都市部POIで入手・被ダメ後爆発</span>
+        </span>
+      </label>
+      <label class="card" data-id="gummy-fishy-sprite" data-category="Rare">
+        <input type="checkbox" class="check" data-id="gummy-fishy-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミのフィッシュ精霊</span>
+            <span class="badge" style="background:#2563eb;color:#ffffff">レア</span>
+          </span>
+          <span class="en-name">Gummy Fishy Sprite</span>
+          <span class="how">釣り・水場・遊泳で入手・移動速度UP</span>
+        </span>
+      </label>
+      <label class="card" data-id="gummy-air-sprite" data-category="Rare">
+        <input type="checkbox" class="check" data-id="gummy-air-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミの風の精霊</span>
+            <span class="badge" style="background:#2563eb;color:#ffffff">レア</span>
+          </span>
+          <span class="en-name">Gummy Air Sprite</span>
+          <span class="how">高所山岳・ダッシュで入手・ジャンプ強化＋落下無効</span>
+        </span>
+      </label>
+      </div>
+    </section>
+    <section class="rarity-section" data-category="Epic">
+      <h2 class="rarity-heading" style="border-color:#7c3aed">
+        <span class="rarity-dot" style="background:#7c3aed"></span>
+        エピック
+        <span class="rarity-count" data-category-count="Epic">0/6</span>
+      </h2>
+      <div class="card-list">
+      <label class="card" data-id="gummy-striker-sprite" data-category="Epic">
+        <input type="checkbox" class="check" data-id="gummy-striker-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミのストライカー精霊</span>
+            <span class="badge" style="background:#7c3aed;color:#ffffff">エピック</span>
+          </span>
+          <span class="en-name">Gummy Striker Sprite</span>
+          <span class="how">精霊宝箱・サッカーゴール・よじ登りで入手・オーバードライブ</span>
+        </span>
+      </label>
+      <label class="card" data-id="gummy-aura-sprite" data-category="Epic">
+        <input type="checkbox" class="check" data-id="gummy-aura-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミのオーラ精霊</span>
+            <span class="badge" style="background:#7c3aed;color:#ffffff">エピック</span>
+          </span>
+          <span class="en-name">Gummy Aura Sprite</span>
+          <span class="how">精霊宝箱限定で入手・一定ダメ後ショック</span>
+        </span>
+      </label>
+      <label class="card" data-id="gummy-duck-sprite" data-category="Epic">
+        <input type="checkbox" class="check" data-id="gummy-duck-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミのダック精霊</span>
+            <span class="badge" style="background:#7c3aed;color:#ffffff">エピック</span>
+          </span>
+          <span class="en-name">Gummy Duck Sprite</span>
+          <span class="how">保管庫（Sinister Strip等）で入手・エモート中シールド回復</span>
+        </span>
+      </label>
+      <label class="card" data-id="gummy-ghost-sprite" data-category="Epic">
+        <input type="checkbox" class="check" data-id="gummy-ghost-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミのゴースト精霊</span>
+            <span class="badge" style="background:#7c3aed;color:#ffffff">エピック</span>
+          </span>
+          <span class="en-name">Gummy Ghost Sprite</span>
+          <span class="how">夜間に各地で入手・リロード中透明化</span>
+        </span>
+      </label>
+      <label class="card" data-id="gummy-demon-sprite" data-category="Epic">
+        <input type="checkbox" class="check" data-id="gummy-demon-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミの悪魔の精霊</span>
+            <span class="badge" style="background:#7c3aed;color:#ffffff">エピック</span>
+          </span>
+          <span class="en-name">Gummy Demon Sprite</span>
+          <span class="how">精霊宝箱・レア宝箱で入手・撃破時HP回復</span>
+        </span>
+      </label>
+      <label class="card" data-id="gummy-king-sprite" data-category="Epic">
+        <input type="checkbox" class="check" data-id="gummy-king-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミの王様の精霊</span>
+            <span class="badge" style="background:#7c3aed;color:#ffffff">エピック</span>
+          </span>
+          <span class="en-name">Gummy King Sprite</span>
+          <span class="how">精霊宝箱・AIボット撃破で入手・ツルハシダメ増</span>
+        </span>
+      </label>
+      </div>
+    </section>
+    <section class="rarity-section" data-category="Legendary">
+      <h2 class="rarity-heading" style="border-color:#eab308">
+        <span class="rarity-dot" style="background:#eab308"></span>
+        レジェンダリー
+        <span class="rarity-count" data-category-count="Legendary">0/4</span>
+      </h2>
+      <div class="card-list">
+      <label class="card" data-id="gummy-punk-sprite" data-category="Legendary">
+        <input type="checkbox" class="check" data-id="gummy-punk-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミのパンク精霊</span>
+            <span class="badge" style="background:#eab308;color:#1a1200">レジェンダリー</span>
+          </span>
+          <span class="en-name">Gummy Punk Sprite</span>
+          <span class="how">キーカード保管庫宝箱で入手・Lv5で弾薬無限</span>
+        </span>
+      </label>
+      <label class="card" data-id="gummy-dream-sprite" data-category="Legendary">
+        <input type="checkbox" class="check" data-id="gummy-dream-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミの夢の精霊</span>
+            <span class="badge" style="background:#eab308;color:#1a1200">レジェンダリー</span>
+          </span>
+          <span class="en-name">Gummy Dream Sprite</span>
+          <span class="how">保管庫内精霊宝箱で入手・レベル毎レジェンド戦利品</span>
+        </span>
+      </label>
+      <label class="card" data-id="gummy-boss-sprite" data-category="Legendary">
+        <input type="checkbox" class="check" data-id="gummy-boss-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミのボス精霊</span>
+            <span class="badge" style="background:#eab308;color:#1a1200">レジェンダリー</span>
+          </span>
+          <span class="en-name">Gummy Boss Sprite</span>
+          <span class="how">ボス撃破・保管庫宝箱で入手・最大HP増</span>
+        </span>
+      </label>
+      <label class="card" data-id="gummy-seven-sprite" data-category="Legendary">
+        <input type="checkbox" class="check" data-id="gummy-seven-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミのセブン精霊</span>
+            <span class="badge" style="background:#eab308;color:#1a1200">レジェンダリー</span>
+          </span>
+          <span class="en-name">Gummy Seven Sprite</span>
+          <span class="how">高所山岳で入手・敵の足跡表示</span>
+        </span>
+      </label>
+      </div>
+    </section>
+    <section class="rarity-section" data-category="Mythic">
+      <h2 class="rarity-heading" style="border-color:#c2410c">
+        <span class="rarity-dot" style="background:#c2410c"></span>
+        ミシック
+        <span class="rarity-count" data-category-count="Mythic">0/3</span>
+      </h2>
+      <div class="card-list">
+      <label class="card" data-id="gummy-grim-sprite" data-category="Mythic">
+        <input type="checkbox" class="check" data-id="gummy-grim-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミの死神の精霊</span>
+            <span class="badge" style="background:#c2410c;color:#ffffff">ミシック</span>
+          </span>
+          <span class="en-name">Gummy Grim Sprite</span>
+          <span class="how">精霊宝箱（激レア）で入手・攻撃者マーク</span>
+        </span>
+      </label>
+      <label class="card" data-id="gummy-zero-point-sprite" data-category="Mythic">
+        <input type="checkbox" class="check" data-id="gummy-zero-point-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミのゼロポイントの精霊</span>
+            <span class="badge" style="background:#c2410c;color:#ffffff">ミシック</span>
+          </span>
+          <span class="en-name">Gummy Zero Point Sprite</span>
+          <span class="how">保管庫精霊宝箱（超激レア）で入手・回復時シールドバブルJr</span>
+        </span>
+      </label>
+      <label class="card" data-id="gummy-batman-sprite" data-category="Mythic">
+        <input type="checkbox" class="check" data-id="gummy-batman-sprite">
+        <span class="check-visual"></span>
+        <span class="card-body">
+          <span class="card-top">
+            <span class="jp-name">グミのバットマン精霊</span>
+            <span class="badge" style="background:#c2410c;color:#ffffff">ミシック</span>
+          </span>
+          <span class="en-name">Gummy Batman Sprite</span>
+          <span class="how">精霊宝箱（激レア）コラボ限定で入手・グライダー再展開</span>
+        </span>
+      </label>
+      </div>
+    </section>
+</main>
+
+<footer>
+  チェックはこの端末に保存されます（端末ごとに別）。<br>
+  2026-07-25時点の18種・シーズン中に追加されたらデータを更新します。
+</footer>
+
+<script>
+(function(){
+  var SPRITES = [{"jp": "グミの水の精霊", "en": "Gummy Water Sprite", "category": "Rare", "how": "水辺で入手・水中シールド回復＋ダスト+10%"}, {"jp": "グミの地の精霊", "en": "Gummy Earth Sprite", "category": "Rare", "how": "森で入手・宝箱レア率UP"}, {"jp": "グミの炎の精霊", "en": "Gummy Fire Sprite", "category": "Rare", "how": "都市部POIで入手・被ダメ後爆発"}, {"jp": "グミのフィッシュ精霊", "en": "Gummy Fishy Sprite", "category": "Rare", "how": "釣り・水場・遊泳で入手・移動速度UP"}, {"jp": "グミの風の精霊", "en": "Gummy Air Sprite", "category": "Rare", "how": "高所山岳・ダッシュで入手・ジャンプ強化＋落下無効"}, {"jp": "グミのストライカー精霊", "en": "Gummy Striker Sprite", "category": "Epic", "how": "精霊宝箱・サッカーゴール・よじ登りで入手・オーバードライブ"}, {"jp": "グミのオーラ精霊", "en": "Gummy Aura Sprite", "category": "Epic", "how": "精霊宝箱限定で入手・一定ダメ後ショック"}, {"jp": "グミのダック精霊", "en": "Gummy Duck Sprite", "category": "Epic", "how": "保管庫（Sinister Strip等）で入手・エモート中シールド回復"}, {"jp": "グミのゴースト精霊", "en": "Gummy Ghost Sprite", "category": "Epic", "how": "夜間に各地で入手・リロード中透明化"}, {"jp": "グミの悪魔の精霊", "en": "Gummy Demon Sprite", "category": "Epic", "how": "精霊宝箱・レア宝箱で入手・撃破時HP回復"}, {"jp": "グミの王様の精霊", "en": "Gummy King Sprite", "category": "Epic", "how": "精霊宝箱・AIボット撃破で入手・ツルハシダメ増"}, {"jp": "グミのパンク精霊", "en": "Gummy Punk Sprite", "category": "Legendary", "how": "キーカード保管庫宝箱で入手・Lv5で弾薬無限"}, {"jp": "グミの夢の精霊", "en": "Gummy Dream Sprite", "category": "Legendary", "how": "保管庫内精霊宝箱で入手・レベル毎レジェンド戦利品"}, {"jp": "グミのボス精霊", "en": "Gummy Boss Sprite", "category": "Legendary", "how": "ボス撃破・保管庫宝箱で入手・最大HP増"}, {"jp": "グミのセブン精霊", "en": "Gummy Seven Sprite", "category": "Legendary", "how": "高所山岳で入手・敵の足跡表示"}, {"jp": "グミの死神の精霊", "en": "Gummy Grim Sprite", "category": "Mythic", "how": "精霊宝箱（激レア）で入手・攻撃者マーク"}, {"jp": "グミのゼロポイントの精霊", "en": "Gummy Zero Point Sprite", "category": "Mythic", "how": "保管庫精霊宝箱（超激レア）で入手・回復時シールドバブルJr"}, {"jp": "グミのバットマン精霊", "en": "Gummy Batman Sprite", "category": "Mythic", "how": "精霊宝箱（激レア）コラボ限定で入手・グライダー再展開"}];
+  var CATEGORY_ORDER = ["Rare", "Epic", "Legendary", "Mythic"];
+  var STORAGE_PREFIX = "fnGummyChecklist_v1_";
+  var players = ["p1", "p2"];
+  var defaultNames = {p1:"プレイヤー1", p2:"プレイヤー2"};
+  var activePlayer = "p1";
+
+  function nameKey(p){ return STORAGE_PREFIX + p + "_name"; }
+  function checksKey(p){ return STORAGE_PREFIX + p + "_checks"; }
+
+  function loadName(p){
+    var v = localStorage.getItem(nameKey(p));
+    return v && v.length > 0 ? v : defaultNames[p];
+  }
+  function saveName(p, name){
+    localStorage.setItem(nameKey(p), name);
+  }
+  function loadChecks(p){
+    var raw = localStorage.getItem(checksKey(p));
+    if(!raw) return {};
+    try{ return JSON.parse(raw); }catch(e){ return {}; }
+  }
+  function saveChecks(p, obj){
+    localStorage.setItem(checksKey(p), JSON.stringify(obj));
+  }
+
+  function renderTabNames(){
+    players.forEach(function(p){
+      document.getElementById("tabName-" + p).textContent = loadName(p);
+    });
+  }
+
+  function renderProgress(){
+    var checks = loadChecks(activePlayer);
+    var totalChecked = 0;
+    var byCategory = {};
+    CATEGORY_ORDER.forEach(function(c){ byCategory[c] = {done:0, total:0}; });
+    SPRITES.forEach(function(sp){
+      var id = sp.en.toLowerCase().split(" ").join("-");
+      byCategory[sp.category].total += 1;
+      if(checks[id]){
+        totalChecked += 1;
+        byCategory[sp.category].done += 1;
+      }
+    });
+    document.getElementById("totalChecked").textContent = totalChecked;
+    var pct = SPRITES.length ? Math.round((totalChecked / SPRITES.length) * 100) : 0;
+    document.getElementById("progressFill").style.width = pct + "%";
+
+    var breakdownEl = document.getElementById("breakdown");
+    breakdownEl.innerHTML = "";
+    CATEGORY_ORDER.forEach(function(c){
+      var chip = document.createElement("span");
+      chip.className = "breakdown-chip";
+      chip.textContent = c + " " + byCategory[c].done + "/" + byCategory[c].total;
+      breakdownEl.appendChild(chip);
+      var countEl = document.querySelector('[data-category-count="' + c + '"]');
+      if(countEl){ countEl.textContent = byCategory[c].done + "/" + byCategory[c].total; }
+    });
+
+    var celebrateEl = document.getElementById("celebrate");
+    if(totalChecked === SPRITES.length){
+      celebrateEl.classList.add("show");
+    }else{
+      celebrateEl.classList.remove("show");
+    }
+  }
+
+  function renderChecks(){
+    var checks = loadChecks(activePlayer);
+    document.querySelectorAll(".card").forEach(function(card){
+      var id = card.getAttribute("data-id");
+      var input = card.querySelector("input.check");
+      var isChecked = !!checks[id];
+      input.checked = isChecked;
+      card.classList.toggle("checked", isChecked);
+    });
+  }
+
+  function switchPlayer(p){
+    activePlayer = p;
+    document.querySelectorAll(".tab").forEach(function(tab){
+      tab.classList.toggle("active", tab.getAttribute("data-player") === p);
+    });
+    renderChecks();
+    renderProgress();
+  }
+
+  function bindTabs(){
+    document.querySelectorAll(".tab").forEach(function(tab){
+      tab.addEventListener("click", function(e){
+        if(e.target.classList.contains("edit-name-btn")) return;
+        switchPlayer(tab.getAttribute("data-player"));
+      });
+    });
+    document.querySelectorAll(".edit-name-btn").forEach(function(btn){
+      btn.addEventListener("click", function(e){
+        e.stopPropagation();
+        var p = btn.getAttribute("data-player");
+        var current = loadName(p);
+        var next = window.prompt("プレイヤー名を入力してください", current);
+        if(next !== null && next.trim().length > 0){
+          saveName(p, next.trim());
+          renderTabNames();
+        }
+      });
+    });
+  }
+
+  function bindCards(){
+    document.querySelectorAll("input.check").forEach(function(input){
+      input.addEventListener("change", function(){
+        var id = input.getAttribute("data-id");
+        var checks = loadChecks(activePlayer);
+        checks[id] = input.checked;
+        saveChecks(activePlayer, checks);
+        var card = input.closest(".card");
+        card.classList.toggle("checked", input.checked);
+        renderProgress();
+      });
+    });
+  }
+
+  function bindReset(){
+    document.getElementById("resetBtn").addEventListener("click", function(){
+      var name = loadName(activePlayer);
+      var ok = window.confirm(name + " の記録をリセットしますか？（チェックが全て消えます）");
+      if(ok){
+        saveChecks(activePlayer, {});
+        renderChecks();
+        renderProgress();
+      }
+    });
+  }
+
+  renderTabNames();
+  bindTabs();
+  bindCards();
+  bindReset();
+  switchPlayer("p1");
+})();
+</script>
+
+</body>
+</html>

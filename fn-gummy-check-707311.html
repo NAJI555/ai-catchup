@@ -87,6 +87,27 @@
     font-size:0.85rem;
     opacity:0.8;
   }
+  .lock-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:28px;
+    height:28px;
+    min-width:28px;
+    border-radius:50%;
+    background:transparent;
+    color:inherit;
+    border:1px solid currentColor;
+    font-size:0.85rem;
+    opacity:0.8;
+    margin-left:2px;
+  }
+  .lock-btn.locked{
+    background:var(--danger);
+    border-color:var(--danger);
+    color:#ffffff;
+    opacity:1;
+  }
   .progress-wrap{
     padding:10px 12px 12px 12px;
   }
@@ -561,6 +582,44 @@
     color:var(--star);
     border-color:var(--star);
   }
+  .detail-locked-notice{
+    display:inline-block;
+    font-size:0.72rem;
+    color:var(--danger);
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  .star-picker.locked .star-btn{
+    opacity:0.5;
+    cursor:not-allowed;
+  }
+  /* トースト（ロック中の操作を止めた時の1秒フィードバック。既存Legendary配色と同じ
+     bg/text比率(#eab308/#1a1200)を再利用しコントラスト再計算を省く） */
+  .toast{
+    position:fixed;
+    left:50%;
+    bottom:24px;
+    transform:translateX(-50%) translateY(20px);
+    background:#eab308;
+    color:#1a1200;
+    padding:9px 18px;
+    border-radius:999px;
+    font-size:0.82rem;
+    font-weight:800;
+    z-index:60;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.15s ease, transform 0.15s ease;
+    white-space:nowrap;
+    box-shadow:0 4px 16px rgba(0,0,0,0.35);
+    max-width:88vw;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+  }
   footer{
     padding:16px 12px 8px 12px;
     text-align:center;
@@ -684,10 +743,12 @@
     <div class="tab active" data-player="p1">
       <span class="tab-name" id="tabName-p1">ナッツ</span>
       <span class="edit-name-btn" data-player="p1" title="名前を編集">&#9998;</span>
+      <span class="lock-btn" data-player="p1" id="lockBtn-p1" role="button" tabindex="0" title="編集ロック"></span>
     </div>
     <div class="tab" data-player="p2">
       <span class="tab-name" id="tabName-p2">メガネ</span>
       <span class="edit-name-btn" data-player="p2" title="名前を編集">&#9998;</span>
+      <span class="lock-btn" data-player="p2" id="lockBtn-p2" role="button" tabindex="0" title="編集ロック"></span>
     </div>
   </div>
   <div class="progress-wrap">
@@ -3106,6 +3167,8 @@
   <div id="detailContent"></div>
 </div>
 
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
 (function(){
   var FAMILIES = [{"id": "esd_fossilmealsprite", "sort_order": 1, "jp": "バットマンの精霊", "jp_short": "バットマン", "en": "Batman Sprite", "rarity": "Mythic", "how": "空中でバットケープを展開できるようになる！", "variants": ["base", "gold", "candy", "galaxy", "holofoil"]}, {"id": "esd_water", "sort_order": 2, "jp": "水の精霊", "jp_short": "水", "en": "Water Sprite", "rarity": "Rare", "how": "水中でシールドが回復する！ レベルアップのたびにパワーアップする: 2シールド -> 3シールド -> 4シールド -> 6シールドが1度に回復する", "variants": ["base", "gold", "candy", "galaxy", "holofoil"]}, {"id": "esd_earthsprite", "sort_order": 3, "jp": "地の精霊", "jp_short": "地", "en": "Earth Sprite", "rarity": "Rare", "how": "宝箱から追加のレアなアイテムが見つかる可能性がある。", "variants": ["base", "gold", "candy", "galaxy", "cube"]}, {"id": "esd_spitfire", "sort_order": 4, "jp": "炎の精霊", "jp_short": "炎", "en": "Fire Sprite", "rarity": "Rare", "how": "敵に一定量のダメージを与えると爆発が発生する！ レベルアップのたびに所要ダメージ量が減少: 150ダメージ -> 125ダメージ -> 100ダメージ -> 75ダメージ -> 50ダメージで発動する", "variants": ["base", "gold", "candy", "galaxy", "holofoil", "cube"]}, {"id": "esd_ducksprite", "sort_order": 5, "jp": "ダックの精霊", "jp_short": "ダック", "en": "Duck Sprite", "rarity": "Epic", "how": "エモートかジャムセッションでシールドが回復する。", "variants": ["base", "gold", "candy", "galaxy"]}, {"id": "esd_ghostsprite", "sort_order": 6, "jp": "ゴーストの精霊", "jp_short": "ゴースト", "en": "Ghost Sprite", "rarity": "Epic", "how": "リロード時に一定時間クロークを付与する。", "variants": ["base", "gold", "candy", "galaxy", "holofoil"]}, {"id": "esd_sleepysprite", "sort_order": 7, "jp": "夢の精霊", "jp_short": "夢", "en": "Dream Sprite", "rarity": "Legendary", "how": "レベルごとにランダムなアイテムを獲得し、最大レベルではなんとレジェンドの戦利品を入手する。", "variants": ["base", "gold", "candy", "galaxy", "cube"]}, {"id": "esd_demonsprite", "sort_order": 8, "jp": "デーモンの精霊", "jp_short": "デーモン", "en": "Demon Sprite", "rarity": "Epic", "how": "敵を撃破すると、サイフォン効果で体力とシールドが回復する。", "variants": ["base", "gold", "candy", "galaxy"]}, {"id": "esd_punksprite", "sort_order": 9, "jp": "パンクの精霊", "jp_short": "パンク", "en": "Punk Sprite", "rarity": "Legendary", "how": "無か… 無限か。", "variants": ["base", "gold", "candy", "galaxy", "cube"]}, {"id": "esd_kingsprite", "sort_order": 10, "jp": "王様の精霊", "jp_short": "王様", "en": "King Sprite", "rarity": "Epic", "how": "ツルハシの与ダメージが増加する。", "variants": ["base", "gold", "candy", "galaxy", "holofoil"]}, {"id": "esd_cokeparmesan", "sort_order": 11, "jp": "Vini Jr.の精霊", "jp_short": "Vini Jr.", "en": "Vini Jr. Sprite", "rarity": "Mythic", "how": "短時間ダッシュをすると、スライディングの威力が向上する。", "variants": ["base"]}, {"id": "eid_burntpeanut", "sort_order": 12, "jp": "TheBurntPeanut", "jp_short": "TheBurntPeanut", "en": "Burnt Peanut Sprite", "rarity": "Mythic", "how": "べとべと！ プレイヤーを撃破した際に、戦利品が増えることがある。", "variants": ["base"]}, {"id": "esd_zeropointsprite", "sort_order": 13, "jp": "ゼロポイントの精霊", "jp_short": "ゼロポイント", "en": "Zero Point Sprite", "rarity": "Mythic", "how": "回復アイテム(スプラッシュとグレネードを除く)を自分に使用すると、シールドバブルJr.が出現する。", "variants": ["base", "gold", "candy", "galaxy", "cube"]}, {"id": "esd_grimsprite", "sort_order": 14, "jp": "死の精霊", "jp_short": "死", "en": "Grim Sprite", "rarity": "Mythic", "how": "自分を攻撃したプレイヤーを一定時間マーキングする。", "variants": ["base", "gold", "candy", "galaxy", "cube"]}, {"id": "esd_fishysprite", "sort_order": 15, "jp": "フィッシュの精霊", "jp_short": "フィッシュ", "en": "Fishy Sprite", "rarity": "Rare", "how": "泳ぐ速度が大幅に上昇。", "variants": ["base", "gold", "candy", "galaxy", "cube"]}, {"id": "esd_soccersprite", "sort_order": 16, "jp": "ストライカーの精霊", "jp_short": "ストライカー", "en": "Striker Sprite", "rarity": "Epic", "how": "よじ登り、乗り越え、壁登りをすると、オーバードライブの効果を得る。", "variants": ["base", "gold", "candy", "galaxy", "holofoil"]}, {"id": "esd_driftersprite", "sort_order": 17, "jp": "オーラの精霊", "jp_short": "オーラ", "en": "Aura Sprite", "rarity": "Epic", "how": "敵に十分なダメージを与えると、ショックロックのチャージを得る！レベルアップのたびに所要ダメージ量が減少: 175ポイント -> 150ダメージ -> 125ダメージ -> 100ダメージ -> 75ダメージで発動する", "variants": ["base", "gold", "candy", "galaxy"]}, {"id": "esd_bosssprite", "sort_order": 18, "jp": "ボスの精霊", "jp_short": "ボス", "en": "Boss Sprite", "rarity": "Legendary", "how": "最大HPとシールドが増加する。", "variants": ["base", "gold", "candy", "galaxy", "cube"]}, {"id": "esd_airsprite", "sort_order": 19, "jp": "風の精霊", "jp_short": "風", "en": "Air Sprite", "rarity": "Rare", "how": "ダッシュスピードとダッシュジャンプの高さを向上させる。", "variants": ["base", "gold", "candy", "galaxy", "holofoil"]}, {"id": "esd_sevensprite", "sort_order": 20, "jp": "セブンの精霊", "jp_short": "セブン", "en": "Seven Sprite", "rarity": "Legendary", "how": "自分のスクワッドのワールドで、敵プレイヤーの足跡が見える。", "variants": ["base", "gold", "candy", "galaxy", "holofoil"]}, {"id": "esd_companystargazer", "sort_order": 21, "jp": "Polloの精霊", "jp_short": "Pollo", "en": "Pollo Sprite", "rarity": "Mythic", "how": "撃破のあと一定時の間、自分と近くにいるスクワッドメンバーのシールドが徐々に回復する。", "variants": ["base"]}];
@@ -3177,6 +3240,22 @@
     localStorage.setItem(levelsKey(p), JSON.stringify(obj));
   }
 
+  // プレイヤー別の編集ロック（誤操作防止・新規キー）。閲覧は常に可能、編集操作
+  // （所持トグル・★変更・名前編集・リセット・「くらべる」バッジ）だけを対象プレイヤー分止める。
+  function lockKey(p){ return STORAGE_PREFIX + p + "_locked"; }
+  function isLocked(p){ return localStorage.getItem(lockKey(p)) === "1"; }
+  function saveLocked(p, locked){ localStorage.setItem(lockKey(p), locked ? "1" : "0"); }
+
+  var LOCK_TOAST_MSG = "🔒 ロック中（鍵アイコンで解除）";
+  var toastTimer = null;
+  function showToast(msg){
+    var el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    if(toastTimer){ clearTimeout(toastTimer); }
+    toastTimer = setTimeout(function(){ el.classList.remove("show"); }, 1000);
+  }
+
   function loadViewMode(){
     var v = localStorage.getItem(VIEW_KEY);
     return (v === "family" || v === "compare") ? v : "variant";
@@ -3188,6 +3267,17 @@
   function renderTabNames(){
     players.forEach(function(p){
       document.getElementById("tabName-" + p).textContent = loadName(p);
+    });
+  }
+
+  function renderLockIcons(){
+    players.forEach(function(p){
+      var btn = document.getElementById("lockBtn-" + p);
+      var locked = isLocked(p);
+      btn.textContent = locked ? "🔒" : "🔓";
+      btn.classList.toggle("locked", locked);
+      btn.setAttribute("aria-pressed", locked ? "true" : "false");
+      btn.title = locked ? loadName(p) + "は編集ロック中（タップで解除）" : loadName(p) + "の編集ロック（タップでON）";
     });
   }
 
@@ -3354,6 +3444,7 @@
     document.querySelectorAll(".tab").forEach(function(tab){
       tab.addEventListener("click", function(e){
         if(e.target.classList.contains("edit-name-btn")) return;
+        if(e.target.classList.contains("lock-btn")) return;
         switchPlayer(tab.getAttribute("data-player"));
       });
     });
@@ -3361,11 +3452,30 @@
       btn.addEventListener("click", function(e){
         e.stopPropagation();
         var p = btn.getAttribute("data-player");
+        if(isLocked(p)){ showToast(LOCK_TOAST_MSG); return; }
         var current = loadName(p);
         var next = window.prompt("プレイヤー名を入力してください", current);
         if(next !== null && next.trim().length > 0){
           saveName(p, next.trim());
           renderTabNames();
+          renderLockIcons();
+        }
+      });
+    });
+  }
+
+  function bindLocks(){
+    document.querySelectorAll(".lock-btn").forEach(function(btn){
+      btn.addEventListener("click", function(e){
+        e.stopPropagation();
+        var p = btn.getAttribute("data-player");
+        saveLocked(p, !isLocked(p));
+        renderLockIcons();
+      });
+      btn.addEventListener("keydown", function(e){
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          btn.click();
         }
       });
     });
@@ -3375,6 +3485,7 @@
     document.querySelectorAll(".tile, .mini-tile").forEach(function(tile){
       tile.addEventListener("click", function(e){
         if(e.target.closest(".tile-info-btn")) return;
+        if(isLocked(activePlayer)){ showToast(LOCK_TOAST_MSG); return; }
         var id = tile.getAttribute("data-id");
         var checks = loadChecks(activePlayer);
         setChecked(id, !checks[id]);
@@ -3430,6 +3541,7 @@
       badge.addEventListener("click", function(e){
         e.stopPropagation();
         var player = badge.getAttribute("data-player");
+        if(isLocked(player)){ showToast(LOCK_TOAST_MSG); return; }
         var cellId = badge.getAttribute("data-cell");
         var checks = loadChecks(player);
         setCheckedFor(player, cellId, !checks[cellId]);
@@ -3456,14 +3568,17 @@
     currentDetailCellId = cellId;
     var color = RARITY_COLORS[fam.rarity];
     var variantLabel = VARIANT_LABELS[variant] || variant;
-    var starsHtml = '<div class="star-picker" id="starPicker">';
+    var locked = isLocked(activePlayer);
+    var starsHtml = '<div class="star-picker' + (locked ? ' locked' : '') + '" id="starPicker">';
     for(var n = 1; n <= STAR_MAX; n++){
       starsHtml += '<button type="button" class="star-btn" data-star-value="' + n + '">★</button>';
     }
     starsHtml += '</div>';
+    var lockedNoticeHtml = locked ? '<div class="detail-locked-notice">🔒 ' + loadName(activePlayer) + 'は閲覧のみ（ロック中）</div>' : '';
     var content = document.getElementById("detailContent");
     content.innerHTML =
       '<div class="detail-badge" style="background:' + color.bg + ';color:' + color.text + '">' + color.label_jp + '</div>' +
+      lockedNoticeHtml +
       '<div class="detail-title">' + fam.jp + '（' + variantLabel + '）</div>' +
       '<div class="detail-en">' + fam.en + '</div>' +
       '<div class="detail-how">' + fam.how + '</div>' +
@@ -3492,6 +3607,7 @@
     document.getElementById("detailContent").addEventListener("click", function(e){
       var starBtn = e.target.closest(".star-btn");
       if(!starBtn || !currentDetailCellId) return;
+      if(isLocked(activePlayer)){ showToast(LOCK_TOAST_MSG); return; }
       var val = parseInt(starBtn.getAttribute("data-star-value"), 10);
       var levels = loadLevels(activePlayer);
       var current = levels[currentDetailCellId] || 0;
@@ -3503,6 +3619,7 @@
 
   function bindReset(){
     document.getElementById("resetBtn").addEventListener("click", function(){
+      if(isLocked(activePlayer)){ showToast(LOCK_TOAST_MSG); return; }
       var name = loadName(activePlayer);
       var ok = window.confirm(name + "の" + TOTAL + "件のチェックを消します。元に戻せません。");
       if(ok){
@@ -3514,6 +3631,7 @@
   }
 
   renderTabNames();
+  renderLockIcons();
   bindTabs();
   bindTiles();
   bindDetail();
@@ -3521,6 +3639,7 @@
   bindViewToggle();
   bindCompareFilter();
   bindCompareBadges();
+  bindLocks();
   applyViewMode(loadViewMode());
   switchPlayer("p1");
 })();

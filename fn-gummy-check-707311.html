@@ -4086,10 +4086,13 @@ var qrcodegen;
   // 保存キーは初版から変更しない（既存のチェック記録を壊さないため）
   var STORAGE_PREFIX = "fnGummyChecklist_v1_";
   var VIEW_KEY = STORAGE_PREFIX + "viewMode";
+  var ACTIVE_PLAYER_KEY = STORAGE_PREFIX + "activePlayer";
+  var COMPARE_FILTER_KEY = STORAGE_PREFIX + "compareFilter";
   var players = ["p1", "p2"];
   var defaultNames = {p1:"ナッツ", p2:"メガネ"};
   var legacyDefaultNames = {p1:"プレイヤー1", p2:"プレイヤー2"}; // 旧既定名(完全一致の時だけ新既定名へ移行・手動変更名は上書きしない)
   var activePlayer = "p1";
+  var currentViewMode = "variant"; // 画面復元(前回と同じ画面)のためスクロール保存キーの判定に使う
   var currentDetailCellId = null;
   var currentShareUrl = null;
   var pendingImportData = null;
@@ -4445,6 +4448,59 @@ var qrcodegen;
     localStorage.setItem(VIEW_KEY, mode);
   }
 
+  // 選択中プレイヤータブの保存・復元（開いた時に前回操作していたタブへ戻すため）
+  function loadActivePlayer(){
+    var v = localStorage.getItem(ACTIVE_PLAYER_KEY);
+    return (v === "p1" || v === "p2") ? v : "p1";
+  }
+  function saveActivePlayer(p){
+    localStorage.setItem(ACTIVE_PLAYER_KEY, p);
+  }
+
+  // 「くらべる」ビューの絞り込みチップの保存・復元
+  function loadCompareFilter(){
+    var v = localStorage.getItem(COMPARE_FILTER_KEY);
+    return (v === "both" || v === "p1only" || v === "p2only") ? v : "all";
+  }
+  function saveCompareFilter(mode){
+    localStorage.setItem(COMPARE_FILTER_KEY, mode);
+  }
+  function applyStoredCompareFilter(){
+    currentCompareFilter = loadCompareFilter();
+    document.querySelectorAll(".filter-chip").forEach(function(c){
+      c.classList.toggle("active", c.getAttribute("data-filter") === currentCompareFilter);
+    });
+  }
+
+  // ビューごとのスクロール位置の保存・復元（「前回と同じ画面」復元の一部）。
+  // scroll中はdebounce(~200ms)で保存し、復元は描画完了後（画像埋め込みでの高さ変化に備え
+  // 二重requestAnimationFrameで1-2フレーム待つ）に行う。
+  function scrollKey(mode){ return STORAGE_PREFIX + "scroll_" + mode; }
+  function saveScrollPosition(mode){
+    localStorage.setItem(scrollKey(mode), String(window.scrollY || 0));
+  }
+  function loadScrollPosition(mode){
+    var v = localStorage.getItem(scrollKey(mode));
+    var n = v !== null ? parseInt(v, 10) : 0;
+    return isNaN(n) ? 0 : n;
+  }
+  function restoreScrollFor(mode){
+    var y = loadScrollPosition(mode);
+    if(y <= 0) return;
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        window.scrollTo(0, y);
+      });
+    });
+  }
+  var scrollSaveTimer = null;
+  function bindScrollSave(){
+    window.addEventListener("scroll", function(){
+      if(scrollSaveTimer){ clearTimeout(scrollSaveTimer); }
+      scrollSaveTimer = setTimeout(function(){ saveScrollPosition(currentViewMode); }, 200);
+    }, {passive:true});
+  }
+
   function renderTabNames(){
     players.forEach(function(p){
       document.getElementById("tabName-" + p).textContent = loadName(p);
@@ -4525,7 +4581,7 @@ var qrcodegen;
     });
   }
 
-  // 「くらべる」フィルタの現在値（絞り込みはlocalStorage保存対象外・毎回「すべて」から開始）
+  // 「くらべる」フィルタの現在値（localStorageに保存・復元は起動時のapplyStoredCompareFilter()で行う）
   var currentCompareFilter = "all";
 
   function renderCompare(){
@@ -4615,6 +4671,7 @@ var qrcodegen;
 
   function switchPlayer(p){
     activePlayer = p;
+    saveActivePlayer(p);
     document.querySelectorAll(".tab").forEach(function(tab){
       tab.classList.toggle("active", tab.getAttribute("data-player") === p);
     });
@@ -4681,6 +4738,7 @@ var qrcodegen;
   }
 
   function applyViewMode(mode){
+    currentViewMode = mode;
     var variantEl = document.getElementById("variantView");
     var familyEl = document.getElementById("familyView");
     var compareEl = document.getElementById("compareView");
@@ -4691,11 +4749,13 @@ var qrcodegen;
       btn.classList.toggle("active", btn.getAttribute("data-view") === mode);
     });
     if(mode === "compare"){ renderCompare(); }
+    restoreScrollFor(mode);
   }
 
   function bindViewToggle(){
     document.querySelectorAll(".segment-btn").forEach(function(btn){
       btn.addEventListener("click", function(){
+        saveScrollPosition(currentViewMode); // 離脱前の位置を即時保存（次に同ビューへ戻った時のため）
         var mode = btn.getAttribute("data-view");
         saveViewMode(mode);
         applyViewMode(mode);
@@ -4707,6 +4767,7 @@ var qrcodegen;
     document.querySelectorAll(".filter-chip").forEach(function(chip){
       chip.addEventListener("click", function(){
         currentCompareFilter = chip.getAttribute("data-filter");
+        saveCompareFilter(currentCompareFilter);
         document.querySelectorAll(".filter-chip").forEach(function(c){
           c.classList.toggle("active", c === chip);
         });
@@ -4875,8 +4936,10 @@ var qrcodegen;
   bindSheetChrome();
   bindSheetContentEvents();
   bindShareUi();
+  bindScrollSave();
+  applyStoredCompareFilter();
   applyViewMode(loadViewMode());
-  switchPlayer("p1");
+  switchPlayer(loadActivePlayer());
   checkIncomingShare();
   // フラグメントのみの変化(#s=...を後から付け足す等)はブラウザによっては同一文書内遷移扱いになり
   // スクリプト自体は再実行されない(初回読込時のcheckIncomingShare()呼び出しだけでは拾えない)。

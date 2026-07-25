@@ -368,7 +368,7 @@
 
     <section class="variant-section" data-variant="base">
       <h2 class="variant-heading">
-        <span>通常</span>
+        <span>ノーマル</span>
         <span class="variant-progress" data-variant-progress="base">0/21</span>
       </h2>
       <div class="tile-grid">
@@ -586,7 +586,7 @@
     </section>
     <section class="variant-section" data-variant="gold">
       <h2 class="variant-heading">
-        <span>金</span>
+        <span>ゴールド</span>
         <span class="variant-progress" data-variant-progress="gold">0/18</span>
       </h2>
       <div class="tile-grid">
@@ -962,7 +962,7 @@
     </section>
     <section class="variant-section" data-variant="galaxy">
       <h2 class="variant-heading">
-        <span>銀河</span>
+        <span>ギャラクシー</span>
         <span class="variant-progress" data-variant-progress="galaxy">0/18</span>
       </h2>
       <div class="tile-grid">
@@ -1150,7 +1150,7 @@
     </section>
     <section class="variant-section" data-variant="holofoil">
       <h2 class="variant-heading">
-        <span>ホロ</span>
+        <span>ホログラム</span>
         <span class="variant-progress" data-variant-progress="holofoil">0/8</span>
       </h2>
       <div class="tile-grid">
@@ -1342,7 +1342,7 @@
 (function(){
   var FAMILIES = [{"id": "esd_fishysprite", "jp": "フィッシュの精霊", "en": "Fishy Sprite", "rarity": "Rare", "how": "泳ぐ速度が大幅に上昇。", "variants": ["base", "gold", "candy", "galaxy", "cube"]}, {"id": "esd_earthsprite", "jp": "地の精霊", "en": "Earth Sprite", "rarity": "Rare", "how": "宝箱から追加のレアなアイテムが見つかる可能性がある。", "variants": ["base", "gold", "candy", "galaxy", "cube"]}, {"id": "esd_water", "jp": "水の精霊", "en": "Water Sprite", "rarity": "Rare", "how": "水中でシールドが回復する！ レベルアップのたびにパワーアップする: 2シールド -> 3シールド -> 4シールド -> 6シールドが1度に回復する", "variants": ["base", "gold", "candy", "galaxy", "holofoil"]}, {"id": "esd_spitfire", "jp": "炎の精霊", "en": "Fire Sprite", "rarity": "Rare", "how": "敵に一定量のダメージを与えると爆発が発生する！ レベルアップのたびに所要ダメージ量が減少: 150ダメージ -> 125ダメージ -> 100ダメージ -> 75ダメージ -> 50ダメージで発動する", "variants": ["base", "gold", "candy", "galaxy", "holofoil", "cube"]}, {"id": "esd_airsprite", "jp": "風の精霊", "en": "Air Sprite", "rarity": "Rare", "how": "ダッシュスピードとダッシュジャンプの高さを向上させる。", "variants": ["base", "gold", "candy", "galaxy", "holofoil"]}, {"id": "esd_driftersprite", "jp": "オーラの精霊", "en": "Aura Sprite", "rarity": "Epic", "how": "敵に十分なダメージを与えると、ショックロックのチャージを得る！レベルアップのたびに所要ダメージ量が減少: 175ポイント -> 150ダメージ -> 125ダメージ -> 100ダメージ -> 75ダメージで発動する", "variants": ["base", "gold", "candy", "galaxy"]}, {"id": "esd_ghostsprite", "jp": "ゴーストの精霊", "en": "Ghost Sprite", "rarity": "Epic", "how": "リロード時に一定時間クロークを付与する。", "variants": ["base", "gold", "candy", "galaxy", "holofoil"]}, {"id": "esd_soccersprite", "jp": "ストライカーの精霊", "en": "Striker Sprite", "rarity": "Epic", "how": "よじ登り、乗り越え、壁登りをすると、オーバードライブの効果を得る。", "variants": ["base", "gold", "candy", "galaxy", "holofoil"]}, {"id": "esd_ducksprite", "jp": "ダックの精霊", "en": "Duck Sprite", "rarity": "Epic", "how": "エモートかジャムセッションでシールドが回復する。", "variants": ["base", "gold", "candy", "galaxy"]}, {"id": "esd_demonsprite", "jp": "デーモンの精霊", "en": "Demon Sprite", "rarity": "Epic", "how": "敵を撃破すると、サイフォン効果で体力とシールドが回復する。", "variants": ["base", "gold", "candy", "galaxy"]}, {"id": "esd_kingsprite", "jp": "王様の精霊", "en": "King Sprite", "rarity": "Epic", "how": "ツルハシの与ダメージが増加する。", "variants": ["base", "gold", "candy", "galaxy", "holofoil"]}, {"id": "esd_sevensprite", "jp": "セブンの精霊", "en": "Seven Sprite", "rarity": "Legendary", "how": "自分のスクワッドのワールドで、敵プレイヤーの足跡が見える。", "variants": ["base", "gold", "candy", "galaxy", "holofoil"]}, {"id": "esd_punksprite", "jp": "パンクの精霊", "en": "Punk Sprite", "rarity": "Legendary", "how": "無か… 無限か。", "variants": ["base", "gold", "candy", "galaxy", "cube"]}, {"id": "esd_bosssprite", "jp": "ボスの精霊", "en": "Boss Sprite", "rarity": "Legendary", "how": "最大HPとシールドが増加する。", "variants": ["base", "gold", "candy", "galaxy", "cube"]}, {"id": "esd_sleepysprite", "jp": "夢の精霊", "en": "Dream Sprite", "rarity": "Legendary", "how": "レベルごとにランダムなアイテムを獲得し、最大レベルではなんとレジェンドの戦利品を入手する。", "variants": ["base", "gold", "candy", "galaxy", "cube"]}, {"id": "esd_companystargazer", "jp": "Polloの精霊", "en": "Pollo Sprite", "rarity": "Mythic", "how": "撃破のあと一定時の間、自分と近くにいるスクワッドメンバーのシールドが徐々に回復する。", "variants": ["base"]}, {"id": "eid_burntpeanut", "jp": "TheBurntPeanut", "en": "Burnt Peanut Sprite", "rarity": "Mythic", "how": "べとべと！ プレイヤーを撃破した際に、戦利品が増えることがある。", "variants": ["base"]}, {"id": "esd_cokeparmesan", "jp": "Vini Jr.の精霊", "en": "Vini Jr. Sprite", "rarity": "Mythic", "how": "短時間ダッシュをすると、スライディングの威力が向上する。", "variants": ["base"]}, {"id": "esd_zeropointsprite", "jp": "ゼロポイントの精霊", "en": "Zero Point Sprite", "rarity": "Mythic", "how": "回復アイテム(スプラッシュとグレネードを除く)を自分に使用すると、シールドバブルJr.が出現する。", "variants": ["base", "gold", "candy", "galaxy", "cube"]}, {"id": "esd_fossilmealsprite", "jp": "バットマンの精霊", "en": "Batman Sprite", "rarity": "Mythic", "how": "空中でバットケープを展開できるようになる！", "variants": ["base", "gold", "candy", "galaxy", "holofoil"]}, {"id": "esd_grimsprite", "jp": "死の精霊", "en": "Grim Sprite", "rarity": "Mythic", "how": "自分を攻撃したプレイヤーを一定時間マーキングする。", "variants": ["base", "gold", "candy", "galaxy", "cube"]}];
   var DISPLAY_VARIANTS = ["base", "gold", "candy", "galaxy", "holofoil", "cube"];
-  var VARIANT_LABELS = {"base": "通常", "gold": "金", "candy": "グミ", "galaxy": "銀河", "holofoil": "ホロ", "cube": "キューブ"};
+  var VARIANT_LABELS = {"base": "ノーマル", "gold": "ゴールド", "candy": "グミ", "galaxy": "ギャラクシー", "holofoil": "ホログラム", "cube": "キューブ"};
   var RARITY_COLORS = {"Rare": {"bg": "#2563eb", "text": "#ffffff", "label_jp": "レア"}, "Epic": {"bg": "#7c3aed", "text": "#ffffff", "label_jp": "エピック"}, "Legendary": {"bg": "#eab308", "text": "#1a1200", "label_jp": "レジェンダリー"}, "Mythic": {"bg": "#c2410c", "text": "#ffffff", "label_jp": "ミシック"}};
   var LEGACY_CANDY_MIGRATION = {"gummy-water-sprite": "esd_water", "gummy-earth-sprite": "esd_earthsprite", "gummy-fire-sprite": "esd_spitfire", "gummy-fishy-sprite": "esd_fishysprite", "gummy-air-sprite": "esd_airsprite", "gummy-striker-sprite": "esd_soccersprite", "gummy-aura-sprite": "esd_driftersprite", "gummy-duck-sprite": "esd_ducksprite", "gummy-ghost-sprite": "esd_ghostsprite", "gummy-demon-sprite": "esd_demonsprite", "gummy-king-sprite": "esd_kingsprite", "gummy-punk-sprite": "esd_punksprite", "gummy-dream-sprite": "esd_sleepysprite", "gummy-boss-sprite": "esd_bosssprite", "gummy-seven-sprite": "esd_sevensprite", "gummy-grim-sprite": "esd_grimsprite", "gummy-zero-point-sprite": "esd_zeropointsprite", "gummy-batman-sprite": "esd_fossilmealsprite"};
   var TOTAL = 91;

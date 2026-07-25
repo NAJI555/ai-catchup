@@ -126,16 +126,6 @@
   .celebrate.show{
     display:block;
   }
-  .reset-btn{
-    width:100%;
-    padding:10px;
-    border-radius:8px;
-    border:1px solid var(--danger);
-    background:transparent;
-    color:var(--danger);
-    font-size:0.9rem;
-    min-height:44px;
-  }
   main{
     padding:10px 12px 0 12px;
   }
@@ -335,6 +325,19 @@
     color:var(--muted);
     line-height:1.6;
   }
+  footer p{
+    margin:10px 0 0 0;
+  }
+  .reset-link{
+    background:none;
+    border:none;
+    padding:6px 4px;
+    color:var(--muted);
+    font-size:0.72rem;
+    text-decoration:underline;
+    opacity:0.75;
+    min-height:24px;
+  }
 </style>
 </head>
 <body>
@@ -343,11 +346,11 @@
   <h1>精霊コレクション 所持チェックリスト</h1>
   <div class="tabs" id="tabs">
     <div class="tab active" data-player="p1">
-      <span class="tab-name" id="tabName-p1">プレイヤー1</span>
+      <span class="tab-name" id="tabName-p1">ナッツ</span>
       <span class="edit-name-btn" data-player="p1" title="名前を編集">&#9998;</span>
     </div>
     <div class="tab" data-player="p2">
-      <span class="tab-name" id="tabName-p2">プレイヤー2</span>
+      <span class="tab-name" id="tabName-p2">メガネ</span>
       <span class="edit-name-btn" data-player="p2" title="名前を編集">&#9998;</span>
     </div>
   </div>
@@ -358,7 +361,6 @@
       <span class="count"><span id="totalChecked">0</span>/91</span>
     </div>
     <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
-    <button class="reset-btn" id="resetBtn">このプレイヤーの記録をリセット</button>
   </div>
 </header>
 
@@ -1326,7 +1328,8 @@
 
 <footer>
   チェックはこの端末に保存されます（端末ごとに別）。<br>
-  2026-07-25時点の21キャラ×最大6変異＝91種。画像は準備中のためアイコン表示（後日差し替え予定）。
+  2026-07-25時点の21キャラ×最大6変異＝91種。
+  <p><button type="button" class="reset-link" id="resetBtn">記録をリセット…</button></p>
 </footer>
 
 <div class="detail-backdrop" id="detailBackdrop"></div>
@@ -1347,7 +1350,8 @@
   // 保存キーは初版から変更しない（既存のチェック記録を壊さないため）
   var STORAGE_PREFIX = "fnGummyChecklist_v1_";
   var players = ["p1", "p2"];
-  var defaultNames = {p1:"プレイヤー1", p2:"プレイヤー2"};
+  var defaultNames = {p1:"ナッツ", p2:"メガネ"};
+  var legacyDefaultNames = {p1:"プレイヤー1", p2:"プレイヤー2"}; // 旧既定名(完全一致の時だけ新既定名へ移行・手動変更名は上書きしない)
   var activePlayer = "p1";
 
   function nameKey(p){ return STORAGE_PREFIX + p + "_name"; }
@@ -1355,6 +1359,7 @@
 
   function loadName(p){
     var v = localStorage.getItem(nameKey(p));
+    if(v === legacyDefaultNames[p]){ v = defaultNames[p]; saveName(p, v); }
     return v && v.length > 0 ? v : defaultNames[p];
   }
   function saveName(p, name){
@@ -1527,7 +1532,7 @@
   function bindReset(){
     document.getElementById("resetBtn").addEventListener("click", function(){
       var name = loadName(activePlayer);
-      var ok = window.confirm(name + " の記録をリセットしますか？（チェックが全て消えます）");
+      var ok = window.confirm(name + "の" + TOTAL + "件のチェックを消します。元に戻せません。");
       if(ok){
         saveChecks(activePlayer, {});
         renderTiles();

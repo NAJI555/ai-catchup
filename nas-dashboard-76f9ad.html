@@ -7,6 +7,8 @@
 <title>NAS選定ダッシュボード</title>
 </head>
 <body>
+<title>NAS選定ダッシュボード</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
   :root {
     color-scheme: light;
@@ -250,6 +252,7 @@
   }
   .decision .q { font-weight: 600; font-size: 0.88rem; }
   .decision .a { font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.2rem; }
+  .decision.resolved { border-left-color: var(--good); }
 
   footer {
     color: var(--text-muted);
@@ -266,7 +269,7 @@
 
   <header class="page-head">
     <h1>NAS選定ダッシュボード</h1>
-    <div class="meta">更新日時：2026-07-28 JST（クロスレビュー指摘対応・改訂版）／正本：<code>TCO試算_20260728.md</code>・<code>README.md</code>・<code>機種比較_deep_research_20260728.md</code>・<code>UGREEN深掘り_20260728.md</code>（数値はmdが正本・本ページは同値を表示するビューア）</div>
+    <div class="meta">更新日時：2026-07-28 JST（クロスレビュー指摘対応・改訂版／自作不採用のNJ裁定反映・買い時カレンダー現行情報化）／正本：<code>TCO試算_20260728.md</code>・<code>README.md</code>・<code>機種比較_deep_research_20260728.md</code>・<code>UGREEN深掘り_20260728.md</code>（数値はmdが正本・本ページは同値を表示するビューア）</div>
   </header>
 
   <nav class="jump">
@@ -282,7 +285,7 @@
   <!-- ① 結論サマリ -->
   <section class="card" id="summary">
     <h2><span class="num">①</span>結論サマリ</h2>
-    <p class="lede">must条件（RAM増設可・スナップショット対応 等）でふるいにかけた結果、確定した生き残り候補は4件＋UGREENは判定保留で条件付き。回収年数は<strong>基本ケース（スマホ低容量化便益ゼロ）</strong>を主表とし、旧版の2.5〜3.8年は前提未実証の上振れシナリオの数値。</p>
+    <p class="lede">must条件（RAM増設可・スナップショット対応 等）でふるいにかけ、かつ自作（TrueNAS/Unraid）は<strong>NJ裁定（2026-07-28）により不採用</strong>としたため、確定した生き残り候補は<strong>完成品3種＋UGREEN（判定保留・条件付き）</strong>。回収年数は<strong>基本ケース（スマホ低容量化便益ゼロ）</strong>を主表とし、旧版の2.5〜3.8年は前提未実証の上振れシナリオの数値。</p>
 
     <div class="stat-grid">
       <div class="stat-tile">
@@ -296,14 +299,14 @@
         <div class="sub">公式一次資料からは実装有無を確定できず。導入前に実機/公式確認が必要</div>
       </div>
       <div class="stat-tile accent">
-        <div class="label">回収最短・基本ケース（シナリオb）</div>
-        <div class="value">自作TrueNAS 約6.1〜7.4年</div>
-        <div class="sub">スマホ便益込みの上振れなら2.5〜3.8年（前提未実証・③参照）</div>
-      </div>
-      <div class="stat-tile">
-        <div class="label">完成品で最短・基本ケース</div>
+        <div class="label">回収最短・基本ケース（完成品基準）</div>
         <div class="value">QNAP TS-464-8G 8.42年</div>
         <div class="sub">総額¥176,400（上振れなら4.36年）</div>
+      </div>
+      <div class="stat-tile">
+        <div class="label">参考（不採用・NJ裁定 2026-07-28）</div>
+        <div class="value">自作TrueNAS 約6.1〜7.4年</div>
+        <div class="sub">金銭的には最短だったが構築・保守の時間コストを理由に不採用</div>
       </div>
     </div>
 
@@ -317,15 +320,15 @@
           <tr><td>Synology DS925+</td><td class="num">¥198,500</td><td class="num">8.80年</td><td class="num">5.03年</td><td><span class="flag warn"><span class="dot"></span>条件分岐(要32.2W削減)</span></td></tr>
           <tr><td>Asustor AS6704T</td><td class="num">¥187,100</td><td class="num">8.39年</td><td class="num">4.58年</td><td><span class="flag warn"><span class="dot"></span>条件分岐(要33.3W削減)</span></td></tr>
           <tr class="lead"><td>QNAP TS-464-8G</td><td class="num">¥176,400</td><td class="num">8.42年</td><td class="num">4.36年</td><td><span class="flag warn"><span class="dot"></span>条件分岐(要38.2W削減)</span></td></tr>
-          <tr><td>自作TrueNAS(¥145,600〜176,600)</td><td class="num">¥145,600〜176,600</td><td class="num">6.08〜7.37年</td><td class="num">2.53〜3.82年</td><td rowspan="2"><span class="flag warn"><span class="dot"></span>条件分岐(要27.1W削減)</span></td></tr>
-          <tr><td>自作Unraid(¥153,200〜184,200)</td><td class="num">¥153,200〜184,200</td><td class="num">6.39〜7.69年</td><td class="num">2.85〜4.14年</td></tr>
+          <tr class="dropped"><td>自作TrueNAS(¥145,600〜176,600)・参考</td><td class="num">¥145,600〜176,600</td><td class="num">6.08〜7.37年</td><td class="num">2.53〜3.82年</td><td rowspan="2">不採用(NJ裁定2026-07-28)</td></tr>
+          <tr class="dropped"><td>自作Unraid(¥153,200〜184,200)・参考</td><td class="num">¥153,200〜184,200</td><td class="num">6.39〜7.69年</td><td class="num">2.85〜4.14年</td></tr>
           <tr class="dropped"><td>UGREEN(判定保留)</td><td class="num">¥173,600</td><td class="num">8.20年(参考)</td><td class="num">4.18年(参考)</td><td>条件分岐(要37.3W削減・参考)</td></tr>
         </tbody>
-        <caption>※上振れ＝スマホ低容量化一時便益¥85,000を実質初期投資から控除した場合の参考値（前提未実証・iCloud/Google Photosの端末容量最適化機能で代替できる可能性あり）。回収年数(a)＝シナリオa（Google維持）は年間純便益が0Wでは負のため、PC1側ジョブ移管による平均消費電力削減が右記W数を上回れば黒字転換する条件分岐（実測なし・詳細③参照）。</caption>
+        <caption>※上振れ＝スマホ低容量化一時便益¥85,000を実質初期投資から控除した場合の参考値（前提未実証・iCloud/Google Photosの端末容量最適化機能で代替できる可能性あり）。回収年数(a)＝シナリオa（Google維持）は年間純便益が0Wでは負のため、PC1側ジョブ移管による平均消費電力削減が右記W数を上回れば黒字転換する条件分岐（実測なし・詳細③参照）。自作TrueNAS/Unraid行はNJ裁定（2026-07-28）により不採用・参考値。</caption>
       </table>
     </div>
 
-    <p class="fact">基本ケース（スマホ低容量化便益を計上しない）では、完成品3種の回収は8年台、自作は6〜8年台。旧版が強調した2.5〜3.8年は上振れシナリオ（未実証の一時便益込み）の数値であり、基本ケースの数値ではない。シナリオa（Google維持）は「回収不能」ではなく、PC1電力削減量（候補により約27〜38W）の実測次第の条件分岐。</p>
+    <p class="fact">基本ケース（スマホ低容量化便益を計上しない）では、完成品3種の回収は8年台。自作（不採用・参考値）は6〜8年台。旧版が強調した2.5〜3.8年は上振れシナリオ（未実証の一時便益込み）の数値であり、基本ケースの数値ではない。シナリオa（Google維持）は「回収不能」ではなく、PC1電力削減量（候補により約27〜38W）の実測次第の条件分岐。</p>
   </section>
 
   <!-- ② 機種比較表 -->
@@ -382,8 +385,8 @@
             <td class="num">¥176,400</td>
             <td><span class="flag ok"><span class="dot"></span>生き残り</span></td>
           </tr>
-          <tr>
-            <td>自作 TrueNAS SCALE(無償OS)</td>
+          <tr class="dropped">
+            <td>自作 TrueNAS SCALE(無償OS)・参考</td>
             <td><span class="flag ok"><span class="dot"></span>32GB非ECC(1スロット・非公式実績。ECC非対応)</span></td>
             <td><span class="flag ok"><span class="dot"></span>対応(ZFSネイティブ等)</span></td>
             <td><span class="flag ok"><span class="dot"></span>Community App/Docker</span></td>
@@ -391,10 +394,10 @@
             <td><span class="flag warn"><span class="dot"></span>ボード依存・要選定時確認</span></td>
             <td><span class="flag warn"><span class="dot"></span>ハード依存・要選定時確認</span></td>
             <td class="num">¥145,600〜176,600</td>
-            <td><span class="flag ok"><span class="dot"></span>生き残り</span></td>
+            <td><span class="flag warn"><span class="dot"></span>不採用（NJ裁定 2026-07-28）</span></td>
           </tr>
-          <tr>
-            <td>自作 Unraid(Starterライセンス+¥7,600)</td>
+          <tr class="dropped">
+            <td>自作 Unraid(Starterライセンス+¥7,600)・参考</td>
             <td><span class="flag ok"><span class="dot"></span>32GB非ECC(同上)</span></td>
             <td><span class="flag ok"><span class="dot"></span>対応(ZFSプール併用)</span></td>
             <td><span class="flag ok"><span class="dot"></span>Community App/Docker</span></td>
@@ -402,7 +405,7 @@
             <td><span class="flag warn"><span class="dot"></span>ボード依存・要選定時確認</span></td>
             <td><span class="flag warn"><span class="dot"></span>ハード依存・要選定時確認</span></td>
             <td class="num">¥153,200〜184,200</td>
-            <td><span class="flag ok"><span class="dot"></span>生き残り</span></td>
+            <td><span class="flag warn"><span class="dot"></span>不採用（NJ裁定 2026-07-28）</span></td>
           </tr>
           <tr class="dropped">
             <td>UGREEN DXP4800 Plus</td>
@@ -438,10 +441,10 @@
           <tr><td>Synology DS925+</td><td class="num">¥114,950</td><td class="num">¥60,570</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥198,500</td></tr>
           <tr><td>Asustor AS6704T</td><td class="num">¥103,500</td><td class="num">¥60,570</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥187,100</td></tr>
           <tr><td>QNAP TS-464-8G</td><td class="num">¥92,800</td><td class="num">¥60,570</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥176,400</td></tr>
-          <tr><td>自作TrueNAS(基板+RAM+ケース+電源・下限〜上限)</td><td class="num">¥62,000〜93,000</td><td class="num">¥60,570</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥145,600〜176,600</td></tr>
-          <tr><td>自作Unraid(同上＋Starterライセンス¥7,600)</td><td class="num">¥69,600〜100,600</td><td class="num">¥60,570</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥153,200〜184,200</td></tr>
+          <tr class="dropped"><td>自作TrueNAS(基板+RAM+ケース+電源・下限〜上限)・参考</td><td class="num">¥62,000〜93,000</td><td class="num">¥60,570</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥145,600〜176,600</td></tr>
+          <tr class="dropped"><td>自作Unraid(同上＋Starterライセンス¥7,600)・参考</td><td class="num">¥69,600〜100,600</td><td class="num">¥60,570</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥153,200〜184,200</td></tr>
         </tbody>
-        <caption>kakaku.com等・取得日2026-07-28（非監査・変動あり）。自作の本体列＝基板+RAM(32GB非ECC)+ケース+電源の部材見積り（円換算・国内調達価格は未確認）。Unraid列はTrueNAS(無償)にUnraid Starterライセンス$49(≒¥7,600、$1=¥155換算)を加算。</caption>
+        <caption>kakaku.com等・取得日2026-07-28（非監査・変動あり）。自作の本体列＝基板+RAM(32GB非ECC)+ケース+電源の部材見積り（円換算・国内調達価格は未確認）。Unraid列はTrueNAS(無償)にUnraid Starterライセンス$49(≒¥7,600、$1=¥155換算)を加算。自作2行はNJ裁定（2026-07-28）により不採用・参考値として残置。</caption>
       </table>
     </div>
   </section>
@@ -452,14 +455,14 @@
     <p class="lede">縦軸＝累積純負担（初期投資－経過年数×年間純便益）。ゼロを下回った年が回収年数。<strong>スマホ低容量化一時便益¥85,000は前提未実証のため、以下のグラフでは計上しない（基本ケース）。</strong>上振れ試算（便益込み）はTCO試算_20260728.md §5-2参照。</p>
 
     <h3>シナリオb（Google AI Pro解約が成立した場合・基本ケース）</h3>
-    <svg class="chart" id="chartB" viewBox="0 0 640 380" role="img" aria-label="シナリオbの累積純負担推移、基本ケースでは完成品3種が8年台、自作が6〜8年台で回収"></svg>
+    <svg class="chart" id="chartB" viewBox="0 0 640 380" role="img" aria-label="シナリオbの累積純負担推移、基本ケースでは完成品3種が8年台で回収（自作はNJ裁定により不採用のためグラフ対象外）"></svg>
     <div class="chart-legend" id="legendB"></div>
-    <p class="chart-note">線がゼロ(破線)を下回った時点＝投資回収完了。自作は「TrueNAS SCALE(下限〜上限中央値)」を実質初期投資として図示（レンジは②表参照。Unraidは追加ライセンス費で回収がやや遅れる）。</p>
+    <p class="chart-note">線がゼロ(破線)を下回った時点＝投資回収完了。自作（TrueNAS/Unraid）は<strong>NJ裁定（2026-07-28）により不採用</strong>のためグラフから除外した（参考値は②表・<code>TCO試算_20260728.md</code>参照）。</p>
 
     <h3>シナリオa（Google契約を維持した場合・PC1電力削減の実測次第の条件分岐）</h3>
-    <svg class="chart" id="chartA" viewBox="0 0 640 380" role="img" aria-label="シナリオaの累積純負担推移、PC1側の電力削減がゼロの場合は全候補が右肩上がりで回収に至らない"></svg>
+    <svg class="chart" id="chartA" viewBox="0 0 640 380" role="img" aria-label="シナリオaの累積純負担推移、PC1側の電力削減がゼロの場合は完成品3種が右肩上がりで回収に至らない条件分岐"></svg>
     <div class="chart-legend" id="legendA"></div>
-    <p class="chart-note fact">グラフはPC1側の電力削減効果を<strong>0Wと仮定した</strong>場合。年間運転費（うちシナリオaは最小オフサイト分の二重計上を除外済み）がiCloud解約分の節約を上回るため純便益がマイナスになるが、NASへのジョブ移管でPC1平均消費電力が約27〜38W（候補による。下表参照）下がれば黒字転換する条件分岐であり、「回収不能」と断定するものではない（実測なし）。</p>
+    <p class="chart-note fact">グラフはPC1側の電力削減効果を<strong>0Wと仮定した</strong>場合。年間運転費（うちシナリオaは最小オフサイト分の二重計上を除外済み）がiCloud解約分の節約を上回るため純便益がマイナスになるが、NASへのジョブ移管でPC1平均消費電力が約32〜38W（完成品3種・下表参照）下がれば黒字転換する条件分岐であり、「回収不能」と断定するものではない（実測なし）。</p>
     <div class="table-scroll">
       <table>
         <thead><tr><th>候補</th><th class="num">シナリオa年間純便益(0W時)</th><th class="num">黒字化に必要なPC1平均削減電力</th></tr></thead>
@@ -467,9 +470,10 @@
           <tr><td>Synology DS925+</td><td class="num">−¥8,750</td><td class="num">約32.2W</td></tr>
           <tr><td>Asustor AS6704T</td><td class="num">−¥9,029</td><td class="num">約33.3W</td></tr>
           <tr><td>QNAP TS-464-8G</td><td class="num">−¥10,367</td><td class="num">約38.2W</td></tr>
-          <tr><td>自作(TrueNAS/Unraid共通ハード)</td><td class="num">−¥7,359</td><td class="num">約27.1W</td></tr>
+          <tr class="dropped"><td>自作(TrueNAS/Unraid共通ハード)・参考</td><td class="num">−¥7,359</td><td class="num">約27.1W</td></tr>
           <tr class="dropped"><td>UGREEN(判定保留・参考)</td><td class="num">−¥10,140</td><td class="num">約37.3W</td></tr>
         </tbody>
+        <caption>自作行はNJ裁定（2026-07-28）により不採用・参考値（グラフには非表示）。</caption>
       </table>
     </div>
 
@@ -480,11 +484,8 @@
   <!-- ④ 買い時カレンダー -->
   <section class="card" id="calendar">
     <h2><span class="num">④</span>買い時カレンダー</h2>
-    <p class="lede">出典：<code>購入時期と入手先_20260728.md</code>（2026-07-28時点調査）。</p>
+    <p class="lede">出典：<code>購入時期と入手先_20260728.md</code>（2026-07-28時点調査・過去実績を含む全件は同ファイル参照）。本ビューアは<strong>現時点で今後有効なもののみ</strong>表示する。</p>
     <ul class="cal-list">
-      <li><div class="cal-date">2026-07-03〜16</div><div class="cal-body">UGREEN公式セール（最大25%OFF）<div class="state">終了済み</div></div></li>
-      <li><div class="cal-date">2026-07-07〜13</div><div class="cal-body">Amazonプライムデー（NAS/HDD最大15〜25%OFF実績）<div class="state">終了済み</div></div></li>
-      <li><div class="cal-date">2026-07-19〜26</div><div class="cal-body">楽天お買い物マラソン<div class="state">終了済み</div></div></li>
       <li><div class="cal-date">2026-07-29〜08-02</div><div class="cal-body">Amazon夏のポイント祭り（NAS/HDD対象か未確認）<div class="state">開催直前〜開催中</div></div></li>
       <li><div class="cal-date">2026年9月頃</div><div class="cal-body">楽天スーパーセール（年4回・次回は9月見込み）<div class="state">本命候補①</div></div></li>
       <li><div class="cal-date">2026年11月下旬</div><div class="cal-body">Amazonブラックフライデー（NAS/HDDカテゴリで15〜32%OFF実績あり）<div class="state">本命候補②</div></div></li>
@@ -497,7 +498,7 @@
     <h2><span class="num">⑤</span>運用設計の要点</h2>
     <ul>
       <li><strong>Tailscale限定・ポート開放ゼロ</strong>：ベンダークラウド中継（QuickConnect/myQNAPcloud等）は不使用。無料Personalプランは2026-04-08改定で<strong>6ユーザー・デバイス数無制限</strong>（旧上限は3ユーザー/100デバイス）。家族のスマホ4台＋PC1＋PC2＋NASの7台は無制限枠に収まる。</li>
-      <li><strong>スナップショット</strong>：確定した生き残り候補4種（Synology/Asustor/QNAP/自作）は全てBtrfs/ZFSベースのスケジュールスナップショットに対応（誤削除・ランサムウェア巻き戻し用）。UGREENは公式一次資料からは実装有無を確定できず<strong>判定保留</strong>（導入前に実機/公式確認が必要）。RAIDは冗長化であってバックアップの代替ではない点に注意（3-2-1原則の最小オフサイトは別途維持）。</li>
+      <li><strong>スナップショット</strong>：確定した生き残り候補3種（Synology/Asustor/QNAP）は全てBtrfsベースのスケジュールスナップショットに対応（誤削除・ランサムウェア巻き戻し用）。自作（TrueNAS/Unraid・ZFSネイティブ）も同等機能を備えるが、<strong>NJ裁定（2026-07-28）により不採用</strong>（参考情報として残す）。UGREENは公式一次資料からは実装有無を確定できず<strong>判定保留</strong>（導入前に実機/公式確認が必要）。RAIDは冗長化であってバックアップの代替ではない点に注意（3-2-1原則の最小オフサイトは別途維持）。</li>
       <li><strong>SMART監視・定期スクラブ・故障通知</strong>：Synology/QNAPは標準機能でスケジュール実行可能。Asustor・自作機は標準搭載の見込みだが一部詳細未確認（`機種比較_deep_research_20260728.md`§1-3参照）。</li>
       <li><strong>ノード相互復旧（データ可搬性）</strong>：完成品NASはいずれも「同ブランド内の機種変更」を前提とした公式復旧手順があるが、汎用Linuxでの直接読み出しはmdadm+LVMの多層構造のため相応の知識が必要（中程度）。自作TrueNAS/Unraid（ZFS/XFS）は業界標準形式のため復旧性が最も高い。</li>
       <li><strong>家族UX・移行計画</strong>：Immichで家族共有スペース＋各人固有スペースを両立（共有アルバム＋パートナー共有）。既存のGoogle Photos/iCloudと並行運用しながら段階的に移行し、スマホの自動バックアップ先を切り替える。</li>
@@ -514,12 +515,12 @@
         <thead><tr><th>候補</th><th>初期構築の手間</th><th>日常保守</th><th>障害復旧の難度</th></tr></thead>
         <tbody>
           <tr><td>完成品3種(Synology/Asustor/QNAP)</td><td>GUIで数十分〜1-2時間程度(意見)</td><td>ベンダーGUIの自動更新・通知が中心、負荷は低い(意見)</td><td>ベンダーサポート・公式KBあり、個人負担は小さい(意見)</td></tr>
-          <tr><td>自作TrueNAS/Unraid</td><td>パーツ調達〜OSインストール〜アレイ構成、数時間〜1日規模(意見)</td><td>コミュニティ情報は豊富だが自己解決が前提(意見)</td><td>ハード障害の切り分けを自分で行う必要があり負担大(意見)</td></tr>
+          <tr class="dropped"><td>自作TrueNAS/Unraid・参考(不採用)</td><td>パーツ調達〜OSインストール〜アレイ構成、数時間〜1日規模(意見)</td><td>コミュニティ情報は豊富だが自己解決が前提(意見)</td><td>ハード障害の切り分けを自分で行う必要があり負担大(意見)</td></tr>
           <tr class="dropped"><td>UGREEN(判定保留)</td><td>完成品同様に簡易な見込み(意見)</td><td>Docker経由のTailscale導入等やや手間大(意見)</td><td>汎用Linux読出し失敗の非公式報告あり、リスクやや高め(意見・非監査)</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="opinion">「自作が最短回収」という金銭指標だけでなく、時間コスト・障害対応の自己負担を含めた総合判断を推奨。許容度の判断はNJ自身の価値判断（原則2）。</p>
+    <p class="fact"><strong>【裁定済み・2026-07-28】</strong>自作は金銭的には基本ケースでも最短回収だったが、上表の時間コスト・障害対応の自己負担を理由にNJが不採用と確定裁定した。以降の検討対象は完成品3種＋UGREEN（判定保留）に限定する。</p>
   </section>
 
   <!-- ⑦ 人間裁定ポイント -->
@@ -537,9 +538,9 @@
       <div class="q">購入時期の最終決定</div>
       <div class="a">9月の楽天スーパーセールで機種を確定して購入するか、11月のブラックフライデー（15〜32%引き実績）まで待つか。③のブラックフライデー感応度（仮想割引率）を参考に判断。</div>
     </div>
-    <div class="decision">
-      <div class="q">完成品NAS3種 vs 自作（TrueNAS/Unraid）の最終選定</div>
-      <div class="a">基本ケースでは自作(TrueNAS)が最短(6.08〜7.37年)だが完成品(8年台)との差は上振れシナリオほど大きくなく、構築・保守の手間（⑥参照）が明確に大きい。完成品はQNAP TS-464-8Gが最短(基本ケース8.42年)だが公式スペックの直接確認がJS制約で一部間接確認に留まる。手間の許容度は価値判断（原則2）としてNJ自身が行う論点。</div>
+    <div class="decision resolved">
+      <div class="q">【裁定済み・2026-07-28 08:21】完成品NAS3種 vs 自作（TrueNAS/Unraid）</div>
+      <div class="a">基本ケースでは自作(TrueNAS)が金銭的に最短(6.08〜7.37年)だったが、構築・保守・障害復旧の時間コスト（⑥参照）を理由に<strong>NJが自作を不採用と確定裁定</strong>した。今後の検討対象は<strong>完成品3種＋UGREEN（判定保留・条件付き）</strong>に限定する。完成品の中ではQNAP TS-464-8Gが最短(基本ケース8.42年)だが公式スペックの直接確認がJS制約で一部間接確認に留まる。</div>
     </div>
     <div class="decision">
       <div class="q">UGREENを検討対象に残すか</div>
@@ -562,11 +563,11 @@
   "use strict";
 
   // ---- データ（TCO試算_20260728.md §5-1 基本ケースと同値・二重管理しない。スマホ低容量化便益¥85,000は計上しない） ----
+  // 自作TrueNAS/UnraidはNJ裁定（2026-07-28）により不採用のためグラフ対象から除外（参考値は②表・TCO試算_20260728.md参照）。
   var candidates = [
     { key: "ds925",  name: "Synology DS925+",     color: "var(--s1)", initial: 198500, benefitB: 22570, benefitA: -8750 },
     { key: "as6704", name: "Asustor AS6704T",      color: "var(--s2)", initial: 187100, benefitB: 22291, benefitA: -9029 },
-    { key: "qnap",   name: "QNAP TS-464-8G",       color: "var(--s3)", initial: 176400, benefitB: 20953, benefitA: -10367 },
-    { key: "diy",    name: "自作TrueNAS(中央値)",   color: "var(--s4)", initial: 161100, benefitB: 23961, benefitA: -7359 }
+    { key: "qnap",   name: "QNAP TS-464-8G",       color: "var(--s3)", initial: 176400, benefitB: 20953, benefitA: -10367 }
   ];
 
   var YEARS = 10; // 基本ケースは完成品が8年台のため、ゼロ線を下回る様子を表示するのに十分な期間を確保
@@ -722,6 +723,5 @@
   drawChart("chartA", "legendA", buildSeries("benefitA"));
 })();
 </script>
-
 </body>
 </html>

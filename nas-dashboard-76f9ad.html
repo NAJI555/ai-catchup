@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>NAS選定ダッシュボード</title>
+</head>
+<body>
+<style>
+  :root {
+    color-scheme: light;
+    --surface-page:   #f9f9f7;
+    --surface-card:   #fcfcfb;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --border:         rgba(11,11,11,0.10);
+    --link:           #184f95;
+    --good:           #0ca30c;
+    --critical:       #d03b3b;
+    --warning:        #b5790a;
+    --s1: #2a78d6; /* DS925+ (blue) */
+    --s2: #eb6834; /* AS6704T (orange) */
+    --s3: #1baf7a; /* QNAP TS-464-8G (aqua) */
+    --s4: #eda100; /* 自作N100 (yellow) */
+    --s5: #898781; /* 参考/脱落候補 */
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-page:   #0d0d0d;
+      --surface-card:   #1a1a19;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #9a988f;
+      --gridline:       #2c2c2a;
+      --border:         rgba(255,255,255,0.12);
+      --link:           #7fb0ee;
+      --good:           #2ecf2e;
+      --critical:       #ef7373;
+      --warning:        #e8b34a;
+      --s1: #3987e5;
+      --s2: #d95926;
+      --s3: #199e70;
+      --s4: #c98500;
+      --s5: #a4a29a;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-page:   #0d0d0d;
+    --surface-card:   #1a1a19;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #9a988f;
+    --gridline:       #2c2c2a;
+    --border:         rgba(255,255,255,0.12);
+    --link:           #7fb0ee;
+    --good:           #2ecf2e;
+    --critical:       #ef7373;
+    --warning:        #e8b34a;
+    --s1: #3987e5;
+    --s2: #d95926;
+    --s3: #199e70;
+    --s4: #c98500;
+    --s5: #a4a29a;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--surface-page);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0.75rem 0.9rem 3rem; }
+
+  header.page-head {
+    padding: 1rem 0 0.5rem;
+  }
+  header.page-head h1 {
+    font-size: 1.35rem;
+    margin: 0 0 0.25rem;
+    line-height: 1.35;
+  }
+  header.page-head .meta {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
+
+  nav.jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0.75rem 0 1.25rem;
+    padding: 0;
+    list-style: none;
+  }
+  nav.jump a {
+    display: inline-block;
+    font-size: 0.78rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    text-decoration: none;
+    background: var(--surface-card);
+  }
+
+  section.card {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem 1rem 1.15rem;
+    margin-bottom: 1rem;
+  }
+  section.card h2 {
+    font-size: 1.05rem;
+    margin: 0 0 0.15rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+  }
+  section.card h2 .num {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  section.card .lede {
+    color: var(--text-secondary);
+    font-size: 0.86rem;
+    margin: 0.15rem 0 0.9rem;
+  }
+  h3 { font-size: 0.92rem; margin: 1rem 0 0.4rem; }
+
+  p { margin: 0.5rem 0; }
+  ul, ol { padding-left: 1.15rem; margin: 0.4rem 0; }
+  li { margin: 0.3rem 0; }
+
+  .fact { color: var(--text-primary); }
+  .opinion { color: var(--text-secondary); font-style: italic; }
+  .opinion::before { content: "意見: "; font-style: normal; color: var(--text-muted); }
+
+  /* ---- スタットタイル(結論サマリ) ---- */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.55rem;
+    margin: 0.6rem 0 0.3rem;
+  }
+  .stat-tile {
+    background: var(--surface-page);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.6rem 0.65rem;
+  }
+  .stat-tile .label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-bottom: 0.15rem;
+  }
+  .stat-tile .value {
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-tile .sub {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    margin-top: 0.1rem;
+  }
+  .stat-tile.accent .value { color: var(--s3); }
+
+  /* ---- 表(横スクロールはコンテナ内のみ) ---- */
+  .table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--gridline);
+    border-radius: 10px;
+    -webkit-overflow-scrolling: touch;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 640px;
+    font-size: 0.82rem;
+  }
+  table caption { caption-side: bottom; font-size: 0.72rem; color: var(--text-muted); text-align: left; padding: 0.4rem 0.6rem; }
+  th, td {
+    padding: 0.45rem 0.55rem;
+    border-bottom: 1px solid var(--gridline);
+    text-align: left;
+    white-space: nowrap;
+  }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  thead th {
+    background: var(--surface-page);
+    position: sticky; top: 0;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tr.dropped td { color: var(--text-muted); }
+  tr.lead td { font-weight: 600; }
+
+  .flag { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; white-space: nowrap; }
+  .flag .dot { width: 0.55em; height: 0.55em; border-radius: 50%; flex: none; }
+  .flag.ok .dot { background: var(--good); }
+  .flag.ng .dot { background: var(--critical); }
+  .flag.warn .dot { background: var(--warning); }
+
+  /* ---- チャート ---- */
+  .chart-note { font-size: 0.76rem; color: var(--text-muted); margin-top: 0.3rem; }
+  .chart-legend {
+    display: flex; flex-wrap: wrap; gap: 0.5rem 0.9rem;
+    font-size: 0.78rem; margin-top: 0.5rem;
+  }
+  .chart-legend .item { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--text-secondary); }
+  .chart-legend .swatch { width: 0.9rem; height: 3px; border-radius: 2px; flex: none; }
+  .chart-legend .swatch.dashed { background: none; border-top: 2px dashed currentColor; height: 0; }
+  svg.chart { width: 100%; height: auto; display: block; }
+  svg.chart text { fill: var(--text-muted); font-size: 9.5px; font-family: inherit; }
+  svg.chart .axis-line { stroke: var(--text-muted); stroke-width: 1; }
+  svg.chart .grid-line { stroke: var(--gridline); stroke-width: 1; }
+  svg.chart .zero-line { stroke: var(--text-secondary); stroke-width: 1; stroke-dasharray: 3 3; }
+
+  /* ---- カレンダー ---- */
+  .cal-list { list-style: none; padding: 0; margin: 0.4rem 0; }
+  .cal-list li {
+    display: flex; gap: 0.6rem; align-items: flex-start;
+    padding: 0.5rem 0; border-bottom: 1px dashed var(--gridline);
+  }
+  .cal-list li:last-child { border-bottom: none; }
+  .cal-date { flex: 0 0 5.2rem; font-weight: 600; font-size: 0.82rem; color: var(--text-secondary); }
+  .cal-body { font-size: 0.85rem; }
+  .cal-body .state { font-size: 0.72rem; color: var(--text-muted); }
+
+  /* ---- 決裁ポイント ---- */
+  .decision {
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--warning);
+    border-radius: 8px;
+    padding: 0.6rem 0.7rem;
+    margin: 0.55rem 0;
+    background: var(--surface-page);
+  }
+  .decision .q { font-weight: 600; font-size: 0.88rem; }
+  .decision .a { font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.2rem; }
+
+  footer {
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    padding: 1rem 0 0;
+    border-top: 1px solid var(--gridline);
+    margin-top: 0.5rem;
+  }
+  footer a { color: var(--link); }
+  code { font-size: 0.85em; background: var(--surface-page); padding: 0.05em 0.35em; border-radius: 4px; }
+</style>
+
+<div class="wrap">
+
+  <header class="page-head">
+    <h1>NAS選定ダッシュボード</h1>
+    <div class="meta">更新日時：2026-07-28 JST（クロスレビュー指摘対応・改訂版）／正本：<code>TCO試算_20260728.md</code>・<code>README.md</code>・<code>機種比較_deep_research_20260728.md</code>・<code>UGREEN深掘り_20260728.md</code>（数値はmdが正本・本ページは同値を表示するビューア）</div>
+  </header>
+
+  <nav class="jump">
+    <a href="#summary">①結論サマリ</a>
+    <a href="#matrix">②機種比較表</a>
+    <a href="#breakeven">③損益分岐</a>
+    <a href="#calendar">④買い時</a>
+    <a href="#ops">⑤運用設計</a>
+    <a href="#timecost">⑥時間コスト</a>
+    <a href="#decisions">⑦人間裁定</a>
+  </nav>
+
+  <!-- ① 結論サマリ -->
+  <section class="card" id="summary">
+    <h2><span class="num">①</span>結論サマリ</h2>
+    <p class="lede">must条件（RAM増設可・スナップショット対応 等）でふるいにかけた結果、確定した生き残り候補は4件＋UGREENは判定保留で条件付き。回収年数は<strong>基本ケース（スマホ低容量化便益ゼロ）</strong>を主表とし、旧版の2.5〜3.8年は前提未実証の上振れシナリオの数値。</p>
+
+    <div class="stat-grid">
+      <div class="stat-tile">
+        <div class="label">脱落（RAM must未達）</div>
+        <div class="value">Synology DS425+</div>
+        <div class="sub">2GBはんだ付け＋上限6GB</div>
+      </div>
+      <div class="stat-tile">
+        <div class="label">判定保留（スナップショット未確認）</div>
+        <div class="value">UGREEN DXP4800 Plus</div>
+        <div class="sub">公式一次資料からは実装有無を確定できず。導入前に実機/公式確認が必要</div>
+      </div>
+      <div class="stat-tile accent">
+        <div class="label">回収最短・基本ケース（シナリオb）</div>
+        <div class="value">自作TrueNAS 約6.1〜7.4年</div>
+        <div class="sub">スマホ便益込みの上振れなら2.5〜3.8年（前提未実証・③参照）</div>
+      </div>
+      <div class="stat-tile">
+        <div class="label">完成品で最短・基本ケース</div>
+        <div class="value">QNAP TS-464-8G 8.42年</div>
+        <div class="sub">総額¥176,400（上振れなら4.36年）</div>
+      </div>
+    </div>
+
+    <h3>生き残り候補と回収年数・基本ケース（シナリオb・Google解約成立時・スマホ便益ゼロ）</h3>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>候補</th><th class="num">総額</th><th class="num">回収年数(b)基本</th><th class="num">回収年数(b)上振れ<sup>※</sup></th><th>回収年数(a)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Synology DS925+</td><td class="num">¥198,500</td><td class="num">8.80年</td><td class="num">5.03年</td><td><span class="flag warn"><span class="dot"></span>条件分岐(要32.2W削減)</span></td></tr>
+          <tr><td>Asustor AS6704T</td><td class="num">¥187,100</td><td class="num">8.39年</td><td class="num">4.58年</td><td><span class="flag warn"><span class="dot"></span>条件分岐(要33.3W削減)</span></td></tr>
+          <tr class="lead"><td>QNAP TS-464-8G</td><td class="num">¥176,400</td><td class="num">8.42年</td><td class="num">4.36年</td><td><span class="flag warn"><span class="dot"></span>条件分岐(要38.2W削減)</span></td></tr>
+          <tr><td>自作TrueNAS(¥145,600〜176,600)</td><td class="num">¥145,600〜176,600</td><td class="num">6.08〜7.37年</td><td class="num">2.53〜3.82年</td><td rowspan="2"><span class="flag warn"><span class="dot"></span>条件分岐(要27.1W削減)</span></td></tr>
+          <tr><td>自作Unraid(¥153,200〜184,200)</td><td class="num">¥153,200〜184,200</td><td class="num">6.39〜7.69年</td><td class="num">2.85〜4.14年</td></tr>
+          <tr class="dropped"><td>UGREEN(判定保留)</td><td class="num">¥173,600</td><td class="num">8.20年(参考)</td><td class="num">4.18年(参考)</td><td>条件分岐(要37.3W削減・参考)</td></tr>
+        </tbody>
+        <caption>※上振れ＝スマホ低容量化一時便益¥85,000を実質初期投資から控除した場合の参考値（前提未実証・iCloud/Google Photosの端末容量最適化機能で代替できる可能性あり）。回収年数(a)＝シナリオa（Google維持）は年間純便益が0Wでは負のため、PC1側ジョブ移管による平均消費電力削減が右記W数を上回れば黒字転換する条件分岐（実測なし・詳細③参照）。</caption>
+      </table>
+    </div>
+
+    <p class="fact">基本ケース（スマホ低容量化便益を計上しない）では、完成品3種の回収は8年台、自作は6〜8年台。旧版が強調した2.5〜3.8年は上振れシナリオ（未実証の一時便益込み）の数値であり、基本ケースの数値ではない。シナリオa（Google維持）は「回収不能」ではなく、PC1電力削減量（候補により約27〜38W）の実測次第の条件分岐。</p>
+  </section>
+
+  <!-- ② 機種比較表 -->
+  <section class="card" id="matrix">
+    <h2><span class="num">②</span>機種比較表（must/want充足マトリクス・予算内訳）</h2>
+    <p class="lede">出典・詳細は<code>TCO試算_20260728.md</code>§1〜2、<code>機種比較_deep_research_20260728.md</code>、<code>UGREEN深掘り_20260728.md</code>。</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>候補</th>
+            <th>RAM増設(must)</th>
+            <th>スナップショット(must)</th>
+            <th>Tailscale(must)</th>
+            <th>データ可搬性(重視)</th>
+            <th>HDMI(want)</th>
+            <th>WOL(want)</th>
+            <th class="num">総額</th>
+            <th>判定</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Synology DS925+</td>
+            <td><span class="flag ok"><span class="dot"></span>4→32GB</span></td>
+            <td><span class="flag ok"><span class="dot"></span>対応(Snapshot Replication)</span></td>
+            <td><span class="flag ok"><span class="dot"></span>公式対応</span></td>
+            <td>中（同社機へのDrive Migration公式あり・ext4+mdadm多層）</td>
+            <td><span class="flag ng"><span class="dot"></span>なし</span></td>
+            <td><span class="flag ok"><span class="dot"></span>対応(公式)</span></td>
+            <td class="num">¥198,500</td>
+            <td><span class="flag ok"><span class="dot"></span>生き残り</span></td>
+          </tr>
+          <tr>
+            <td>Asustor AS6704T</td>
+            <td><span class="flag ok"><span class="dot"></span>4→16GB(境界)</span></td>
+            <td><span class="flag ok"><span class="dot"></span>対応(Snapshot Center)</span></td>
+            <td><span class="flag ok"><span class="dot"></span>公式Appあり</span></td>
+            <td>中〜高（同社機へのSystem Migration公式・ホットスワップ対応）</td>
+            <td><span class="flag ok"><span class="dot"></span>HDMI 2.0b(公式データシート確認)</span></td>
+            <td><span class="flag ok"><span class="dot"></span>対応(公式・WoWも)</span></td>
+            <td class="num">¥187,100</td>
+            <td><span class="flag ok"><span class="dot"></span>生き残り</span></td>
+          </tr>
+          <tr class="lead">
+            <td>QNAP TS-464-8G</td>
+            <td><span class="flag ok"><span class="dot"></span>8→16GB(境界・公式値は間接確認)</span></td>
+            <td><span class="flag ok"><span class="dot"></span>対応(Snapshot Manager)</span></td>
+            <td><span class="flag ok"><span class="dot"></span>公式連携あり</span></td>
+            <td>中（QTSバージョン一致が条件の公式移行手順）</td>
+            <td><span class="flag ok"><span class="dot"></span>HDMI 2.1(独立ミラー確認・storagereview.comは2.0表記で不一致あり)</span></td>
+            <td><span class="flag warn"><span class="dot"></span>対応と言われるが本調査で未確認</span></td>
+            <td class="num">¥176,400</td>
+            <td><span class="flag ok"><span class="dot"></span>生き残り</span></td>
+          </tr>
+          <tr>
+            <td>自作 TrueNAS SCALE(無償OS)</td>
+            <td><span class="flag ok"><span class="dot"></span>32GB非ECC(1スロット・非公式実績。ECC非対応)</span></td>
+            <td><span class="flag ok"><span class="dot"></span>対応(ZFSネイティブ等)</span></td>
+            <td><span class="flag ok"><span class="dot"></span>Community App/Docker</span></td>
+            <td>高（ZFS/XFSは業界標準形式・汎用Linux復旧性高）</td>
+            <td><span class="flag warn"><span class="dot"></span>ボード依存・要選定時確認</span></td>
+            <td><span class="flag warn"><span class="dot"></span>ハード依存・要選定時確認</span></td>
+            <td class="num">¥145,600〜176,600</td>
+            <td><span class="flag ok"><span class="dot"></span>生き残り</span></td>
+          </tr>
+          <tr>
+            <td>自作 Unraid(Starterライセンス+¥7,600)</td>
+            <td><span class="flag ok"><span class="dot"></span>32GB非ECC(同上)</span></td>
+            <td><span class="flag ok"><span class="dot"></span>対応(ZFSプール併用)</span></td>
+            <td><span class="flag ok"><span class="dot"></span>Community App/Docker</span></td>
+            <td>高（XFSは業界標準形式・汎用Linux復旧性高）</td>
+            <td><span class="flag warn"><span class="dot"></span>ボード依存・要選定時確認</span></td>
+            <td><span class="flag warn"><span class="dot"></span>ハード依存・要選定時確認</span></td>
+            <td class="num">¥153,200〜184,200</td>
+            <td><span class="flag ok"><span class="dot"></span>生き残り</span></td>
+          </tr>
+          <tr class="dropped">
+            <td>UGREEN DXP4800 Plus</td>
+            <td><span class="flag ok"><span class="dot"></span>8→64GB(非公式一致)</span></td>
+            <td><span class="flag warn"><span class="dot"></span>判定保留(公式一次資料からは実装有無を確定不可)</span></td>
+            <td><span class="flag warn"><span class="dot"></span>Docker経由(非ネイティブ)</span></td>
+            <td>低〜不明（単独ソースでUGOS改変により汎用Linux読出し失敗の実地報告あり）</td>
+            <td><span class="flag ng"><span class="dot"></span>なし</span></td>
+            <td>未確認</td>
+            <td class="num">¥173,600</td>
+            <td><span class="flag warn"><span class="dot"></span>判定保留・条件付き掲載(導入前に実機/公式確認要)</span></td>
+          </tr>
+          <tr class="dropped">
+            <td>Synology DS425+</td>
+            <td><span class="flag ng"><span class="dot"></span>2GBはんだ付け＋上限6GB</span></td>
+            <td><span class="flag ok"><span class="dot"></span>対応(参考)</span></td>
+            <td><span class="flag ok"><span class="dot"></span>公式対応(参考)</span></td>
+            <td>中(参考)</td>
+            <td><span class="flag ng"><span class="dot"></span>なし</span></td>
+            <td><span class="flag ok"><span class="dot"></span>対応(参考)</span></td>
+            <td class="num">¥186,400</td>
+            <td><span class="flag ng"><span class="dot"></span>RAM mustで脱落</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>予算内訳（共通構成：HDD=WD Red Plus 4TB×3・RAID5/SHR、UPS=APC RS 400VA相当¥20,000、周辺機器¥3,000）</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>候補</th><th class="num">本体</th><th class="num">HDD×3</th><th class="num">UPS</th><th class="num">周辺機器</th><th class="num">合計</th></tr></thead>
+        <tbody>
+          <tr><td>Synology DS925+</td><td class="num">¥114,950</td><td class="num">¥60,570</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥198,500</td></tr>
+          <tr><td>Asustor AS6704T</td><td class="num">¥103,500</td><td class="num">¥60,570</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥187,100</td></tr>
+          <tr><td>QNAP TS-464-8G</td><td class="num">¥92,800</td><td class="num">¥60,570</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥176,400</td></tr>
+          <tr><td>自作TrueNAS(基板+RAM+ケース+電源・下限〜上限)</td><td class="num">¥62,000〜93,000</td><td class="num">¥60,570</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥145,600〜176,600</td></tr>
+          <tr><td>自作Unraid(同上＋Starterライセンス¥7,600)</td><td class="num">¥69,600〜100,600</td><td class="num">¥60,570</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥153,200〜184,200</td></tr>
+        </tbody>
+        <caption>kakaku.com等・取得日2026-07-28（非監査・変動あり）。自作の本体列＝基板+RAM(32GB非ECC)+ケース+電源の部材見積り（円換算・国内調達価格は未確認）。Unraid列はTrueNAS(無償)にUnraid Starterライセンス$49(≒¥7,600、$1=¥155換算)を加算。</caption>
+      </table>
+    </div>
+  </section>
+
+  <!-- ③ 損益分岐グラフ -->
+  <section class="card" id="breakeven">
+    <h2><span class="num">③</span>損益分岐（累積コスト比較・基本ケース＝スマホ低容量化便益ゼロ）</h2>
+    <p class="lede">縦軸＝累積純負担（初期投資－経過年数×年間純便益）。ゼロを下回った年が回収年数。<strong>スマホ低容量化一時便益¥85,000は前提未実証のため、以下のグラフでは計上しない（基本ケース）。</strong>上振れ試算（便益込み）はTCO試算_20260728.md §5-2参照。</p>
+
+    <h3>シナリオb（Google AI Pro解約が成立した場合・基本ケース）</h3>
+    <svg class="chart" id="chartB" viewBox="0 0 640 380" role="img" aria-label="シナリオbの累積純負担推移、基本ケースでは完成品3種が8年台、自作が6〜8年台で回収"></svg>
+    <div class="chart-legend" id="legendB"></div>
+    <p class="chart-note">線がゼロ(破線)を下回った時点＝投資回収完了。自作は「TrueNAS SCALE(下限〜上限中央値)」を実質初期投資として図示（レンジは②表参照。Unraidは追加ライセンス費で回収がやや遅れる）。</p>
+
+    <h3>シナリオa（Google契約を維持した場合・PC1電力削減の実測次第の条件分岐）</h3>
+    <svg class="chart" id="chartA" viewBox="0 0 640 380" role="img" aria-label="シナリオaの累積純負担推移、PC1側の電力削減がゼロの場合は全候補が右肩上がりで回収に至らない"></svg>
+    <div class="chart-legend" id="legendA"></div>
+    <p class="chart-note fact">グラフはPC1側の電力削減効果を<strong>0Wと仮定した</strong>場合。年間運転費（うちシナリオaは最小オフサイト分の二重計上を除外済み）がiCloud解約分の節約を上回るため純便益がマイナスになるが、NASへのジョブ移管でPC1平均消費電力が約27〜38W（候補による。下表参照）下がれば黒字転換する条件分岐であり、「回収不能」と断定するものではない（実測なし）。</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>候補</th><th class="num">シナリオa年間純便益(0W時)</th><th class="num">黒字化に必要なPC1平均削減電力</th></tr></thead>
+        <tbody>
+          <tr><td>Synology DS925+</td><td class="num">−¥8,750</td><td class="num">約32.2W</td></tr>
+          <tr><td>Asustor AS6704T</td><td class="num">−¥9,029</td><td class="num">約33.3W</td></tr>
+          <tr><td>QNAP TS-464-8G</td><td class="num">−¥10,367</td><td class="num">約38.2W</td></tr>
+          <tr><td>自作(TrueNAS/Unraid共通ハード)</td><td class="num">−¥7,359</td><td class="num">約27.1W</td></tr>
+          <tr class="dropped"><td>UGREEN(判定保留・参考)</td><td class="num">−¥10,140</td><td class="num">約37.3W</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>ブラックフライデー感応度（仮想割引率・1行・上振れシナリオ）</h3>
+    <p>QNAP TS-464-8Gの例（上振れシナリオ・シナリオb）：総額15%引きで実質初期投資¥64,940→回収<strong>3.10年</strong>、32%引きで¥34,952→回収<strong>1.67年</strong>。<span class="opinion">この15%・32%は他機種・他メーカーのセール実績から引用した仮想割引率であり、QNAP一式へそのまま適用できる保証はない。</span></p>
+  </section>
+
+  <!-- ④ 買い時カレンダー -->
+  <section class="card" id="calendar">
+    <h2><span class="num">④</span>買い時カレンダー</h2>
+    <p class="lede">出典：<code>購入時期と入手先_20260728.md</code>（2026-07-28時点調査）。</p>
+    <ul class="cal-list">
+      <li><div class="cal-date">2026-07-03〜16</div><div class="cal-body">UGREEN公式セール（最大25%OFF）<div class="state">終了済み</div></div></li>
+      <li><div class="cal-date">2026-07-07〜13</div><div class="cal-body">Amazonプライムデー（NAS/HDD最大15〜25%OFF実績）<div class="state">終了済み</div></div></li>
+      <li><div class="cal-date">2026-07-19〜26</div><div class="cal-body">楽天お買い物マラソン<div class="state">終了済み</div></div></li>
+      <li><div class="cal-date">2026-07-29〜08-02</div><div class="cal-body">Amazon夏のポイント祭り（NAS/HDD対象か未確認）<div class="state">開催直前〜開催中</div></div></li>
+      <li><div class="cal-date">2026年9月頃</div><div class="cal-body">楽天スーパーセール（年4回・次回は9月見込み）<div class="state">本命候補①</div></div></li>
+      <li><div class="cal-date">2026年11月下旬</div><div class="cal-body">Amazonブラックフライデー（NAS/HDDカテゴリで15〜32%OFF実績あり）<div class="state">本命候補②</div></div></li>
+    </ul>
+    <p class="opinion">機種が未確定な現段階では急いで買う理由はなく、9月の楽天セールか11月のブラックフライデーを本命に据えて待つのが合理的。</p>
+  </section>
+
+  <!-- ⑤ 運用設計 -->
+  <section class="card" id="ops">
+    <h2><span class="num">⑤</span>運用設計の要点</h2>
+    <ul>
+      <li><strong>Tailscale限定・ポート開放ゼロ</strong>：ベンダークラウド中継（QuickConnect/myQNAPcloud等）は不使用。無料Personalプランは2026-04-08改定で<strong>6ユーザー・デバイス数無制限</strong>（旧上限は3ユーザー/100デバイス）。家族のスマホ4台＋PC1＋PC2＋NASの7台は無制限枠に収まる。</li>
+      <li><strong>スナップショット</strong>：確定した生き残り候補4種（Synology/Asustor/QNAP/自作）は全てBtrfs/ZFSベースのスケジュールスナップショットに対応（誤削除・ランサムウェア巻き戻し用）。UGREENは公式一次資料からは実装有無を確定できず<strong>判定保留</strong>（導入前に実機/公式確認が必要）。RAIDは冗長化であってバックアップの代替ではない点に注意（3-2-1原則の最小オフサイトは別途維持）。</li>
+      <li><strong>SMART監視・定期スクラブ・故障通知</strong>：Synology/QNAPは標準機能でスケジュール実行可能。Asustor・自作機は標準搭載の見込みだが一部詳細未確認（`機種比較_deep_research_20260728.md`§1-3参照）。</li>
+      <li><strong>ノード相互復旧（データ可搬性）</strong>：完成品NASはいずれも「同ブランド内の機種変更」を前提とした公式復旧手順があるが、汎用Linuxでの直接読み出しはmdadm+LVMの多層構造のため相応の知識が必要（中程度）。自作TrueNAS/Unraid（ZFS/XFS）は業界標準形式のため復旧性が最も高い。</li>
+      <li><strong>家族UX・移行計画</strong>：Immichで家族共有スペース＋各人固有スペースを両立（共有アルバム＋パートナー共有）。既存のGoogle Photos/iCloudと並行運用しながら段階的に移行し、スマホの自動バックアップ先を切り替える。</li>
+      <li><strong>HDMI出力／WOL（want）</strong>：<strong>【訂正】</strong>Asustor AS6704Tは公式データシートでHDMI 2.0b搭載を確認、QNAP TS-464は独立ミラーでHDMI 2.1搭載を確認（storagereview.comは2.0表記で不一致あり）。HDMI非搭載はSynology（家庭用ラインナップ全般）と自作（ボード依存・要選定時確認）のみ。WOLはSynology・Asustorで公式確認、QNAP・自作機は未確認のため導入時に個別確認が必要。</li>
+    </ul>
+  </section>
+
+  <!-- ⑥ 時間コスト -->
+  <section class="card" id="timecost">
+    <h2><span class="num">⑥</span>定性軸：構築・保守・障害復旧の時間コスト（未計測・意見）</h2>
+    <p class="lede">北極星（人間の時間を実生活へ還す）に照らすと、金銭的な回収年数だけで「自作が最短だから優位」と結論づけるのは不完全。以下は金額換算していない定性比較（意見・非監査、詳細は<code>TCO試算_20260728.md</code>§7）。</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>候補</th><th>初期構築の手間</th><th>日常保守</th><th>障害復旧の難度</th></tr></thead>
+        <tbody>
+          <tr><td>完成品3種(Synology/Asustor/QNAP)</td><td>GUIで数十分〜1-2時間程度(意見)</td><td>ベンダーGUIの自動更新・通知が中心、負荷は低い(意見)</td><td>ベンダーサポート・公式KBあり、個人負担は小さい(意見)</td></tr>
+          <tr><td>自作TrueNAS/Unraid</td><td>パーツ調達〜OSインストール〜アレイ構成、数時間〜1日規模(意見)</td><td>コミュニティ情報は豊富だが自己解決が前提(意見)</td><td>ハード障害の切り分けを自分で行う必要があり負担大(意見)</td></tr>
+          <tr class="dropped"><td>UGREEN(判定保留)</td><td>完成品同様に簡易な見込み(意見)</td><td>Docker経由のTailscale導入等やや手間大(意見)</td><td>汎用Linux読出し失敗の非公式報告あり、リスクやや高め(意見・非監査)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="opinion">「自作が最短回収」という金銭指標だけでなく、時間コスト・障害対応の自己負担を含めた総合判断を推奨。許容度の判断はNJ自身の価値判断（原則2）。</p>
+  </section>
+
+  <!-- ⑦ 人間裁定ポイント -->
+  <section class="card" id="decisions">
+    <h2><span class="num">⑦</span>人間裁定ポイント</h2>
+    <div class="decision">
+      <div class="q">Google AI Pro（¥2,900/月・5TB）を解約できるか</div>
+      <div class="a">repo内にNotebookLM/Antigravityの正確な利用回数ログが存在せず<strong>未計測</strong>。git commit日数を代理指標にすると過去90日中26日（約29%）でNotebookLM関連の作業痕跡があるが、実際の呼出し回数とは相関が不確か。加えて解約で失うのは5TBストレージだけでなくGemini Proモデル・Deep Research・NotebookLM拡張枠・YouTube Premium Lite等の付帯価値も含む（未計測）。解約可否は財務的な回収可否そのものを左右する（③参照）ため、数週間の体感利用量で判断するか、専用ログを整備してから判断するかを決める必要がある。</div>
+    </div>
+    <div class="decision">
+      <div class="q">ストレージ実使用量の確認</div>
+      <div class="a">Google 5TB／iCloud 50GB×2の現在の実使用量（写真・動画・書類の内訳）は本調査では取得していない。NAS移行後の必要容量（3ベイ使用・4TB×3のRAID5/SHR＝実効8TB）が十分かは、実使用量の確認後に再検算が必要。最小オフサイト100GBを超過した場合の追加費用も未検討。</div>
+    </div>
+    <div class="decision">
+      <div class="q">購入時期の最終決定</div>
+      <div class="a">9月の楽天スーパーセールで機種を確定して購入するか、11月のブラックフライデー（15〜32%引き実績）まで待つか。③のブラックフライデー感応度（仮想割引率）を参考に判断。</div>
+    </div>
+    <div class="decision">
+      <div class="q">完成品NAS3種 vs 自作（TrueNAS/Unraid）の最終選定</div>
+      <div class="a">基本ケースでは自作(TrueNAS)が最短(6.08〜7.37年)だが完成品(8年台)との差は上振れシナリオほど大きくなく、構築・保守の手間（⑥参照）が明確に大きい。完成品はQNAP TS-464-8Gが最短(基本ケース8.42年)だが公式スペックの直接確認がJS制約で一部間接確認に留まる。手間の許容度は価値判断（原則2）としてNJ自身が行う論点。</div>
+    </div>
+    <div class="decision">
+      <div class="q">UGREENを検討対象に残すか</div>
+      <div class="a">スナップショット対応の判定を「must未達確定」から「判定保留」へ変更した（②参照）。価格・静音性は魅力的だが、導入前に実機確認または公式サポートへの直接照会でスナップショット機能の有無を確認することを推奨。</div>
+    </div>
+    <div class="decision">
+      <div class="q">シナリオaを黒字化するためのPC1電力削減の実測</div>
+      <div class="a">NASへの夜間ジョブ移管でPC1平均消費電力を約27〜38W（候補による・③参照）削減できれば、Google維持のままでも収支は黒字転換しうる。現時点は未実測のため、移管前後の消費電力比較を行うことを推奨。</div>
+    </div>
+  </section>
+
+  <footer>
+    数値正本：<code>projects/IoT/network/nas検討/TCO試算_20260728.md</code>。出典URL・取得日は同ファイル末尾の出典一覧を参照。本ページはビューアであり独自の数値算出は行っていない。
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---- データ（TCO試算_20260728.md §5-1 基本ケースと同値・二重管理しない。スマホ低容量化便益¥85,000は計上しない） ----
+  var candidates = [
+    { key: "ds925",  name: "Synology DS925+",     color: "var(--s1)", initial: 198500, benefitB: 22570, benefitA: -8750 },
+    { key: "as6704", name: "Asustor AS6704T",      color: "var(--s2)", initial: 187100, benefitB: 22291, benefitA: -9029 },
+    { key: "qnap",   name: "QNAP TS-464-8G",       color: "var(--s3)", initial: 176400, benefitB: 20953, benefitA: -10367 },
+    { key: "diy",    name: "自作TrueNAS(中央値)",   color: "var(--s4)", initial: 161100, benefitB: 23961, benefitA: -7359 }
+  ];
+
+  var YEARS = 10; // 基本ケースは完成品が8年台のため、ゼロ線を下回る様子を表示するのに十分な期間を確保
+
+  function buildSeries(field) {
+    return candidates.map(function (c) {
+      var pts = [];
+      for (var t = 0; t <= YEARS; t++) {
+        pts.push({ t: t, v: c.initial - c[field] * t });
+      }
+      return { name: c.name, color: c.color, points: pts };
+    });
+  }
+
+  function drawChart(svgId, legendId, series) {
+    var svg = document.getElementById(svgId);
+    var NS = "http://www.w3.org/2000/svg";
+    var W = 640, H = 380;
+    var marginL = 58, marginR = 16, marginT = 16, marginB = 34;
+    var plotW = W - marginL - marginR;
+    var plotH = H - marginT - marginB;
+
+    var allValues = [];
+    series.forEach(function (s) { s.points.forEach(function (p) { allValues.push(p.v); }); });
+    var vMax = Math.max.apply(null, allValues.concat([0]));
+    var vMin = Math.min.apply(null, allValues.concat([0]));
+    var padTop = (vMax - vMin) * 0.08 || 10000;
+    var padBot = (vMax - vMin) * 0.08 || 10000;
+    vMax += padTop; vMin -= padBot;
+
+    function x(t) { return marginL + (t / YEARS) * plotW; }
+    function y(v) { return marginT + (1 - (v - vMin) / (vMax - vMin)) * plotH; }
+
+    function el(tag, attrs) {
+      var e = document.createElementNS(NS, tag);
+      for (var k in attrs) e.setAttribute(k, attrs[k]);
+      return e;
+    }
+
+    // 横グリッド線（0, 4分割）
+    var gridSteps = 4;
+    for (var g = 0; g <= gridSteps; g++) {
+      var v = vMin + (vMax - vMin) * (g / gridSteps);
+      var yy = y(v);
+      svg.appendChild(el("line", { x1: marginL, x2: W - marginR, y1: yy, y2: yy, class: "grid-line" }));
+      var label = el("text", { x: marginL - 6, y: yy + 3, "text-anchor": "end" });
+      label.textContent = "¥" + Math.round(v / 1000) + "k";
+      svg.appendChild(label);
+    }
+
+    // ゼロ線（強調）
+    if (vMin < 0 && vMax > 0) {
+      var y0 = y(0);
+      svg.appendChild(el("line", { x1: marginL, x2: W - marginR, y1: y0, y2: y0, class: "zero-line" }));
+    }
+
+    // X軸（年）
+    svg.appendChild(el("line", { x1: marginL, x2: W - marginR, y1: marginT + plotH, y2: marginT + plotH, class: "axis-line" }));
+    for (var t = 0; t <= YEARS; t++) {
+      var xt = x(t);
+      var tl = el("text", { x: xt, y: marginT + plotH + 16, "text-anchor": "middle" });
+      tl.textContent = t + "年";
+      svg.appendChild(tl);
+    }
+
+    // 各系列の折れ線
+    // 注意：SVGのfill/strokeはプレゼンテーション属性のため、var(--x)をsetAttributeで
+    // 直接渡すとブラウザによって解決されない罠がある(html-ui-buildスキル§2)。
+    // ここでは必ず .style 経由(スタイル属性)で設定し、var()解決を保証する。
+    series.forEach(function (s) {
+      var d = s.points.map(function (p, i) {
+        return (i === 0 ? "M" : "L") + x(p.t).toFixed(1) + "," + y(p.v).toFixed(1);
+      }).join(" ");
+      var path = el("path", {
+        d: d, "stroke-width": 2.4,
+        "stroke-linecap": "round", "stroke-linejoin": "round"
+      });
+      path.style.fill = "none";
+      path.style.stroke = s.color;
+      svg.appendChild(path);
+      // マーカー
+      s.points.forEach(function (p) {
+        var c = el("circle", { cx: x(p.t), cy: y(p.v), r: 2.6 });
+        c.style.fill = s.color;
+        svg.appendChild(c);
+      });
+    });
+
+    // 直接ラベル（末尾）：実ブラウザ確認で近接値の系列ラベルが重なることが判明したため、
+    // Y順に並べ替えて最小間隔を強制する衝突回避を行う。文字色は系列色にせず中立インクにし、
+    // 色識別は線・マーカー・脇の色ドットに担わせる(dataviz非交渉ルール: テキストは系列色を着ない)。
+    var labelInfo = series.map(function (s) {
+      var last = s.points[s.points.length - 1];
+      return {
+        s: s,
+        x: Math.min(x(last.t), W - marginR - 4),
+        yTrue: y(last.v),
+        yLabel: y(last.v)
+      };
+    });
+    labelInfo.sort(function (a, b) { return a.yTrue - b.yTrue; });
+    var minGap = 12;
+    for (var li = 1; li < labelInfo.length; li++) {
+      if (labelInfo[li].yLabel - labelInfo[li - 1].yLabel < minGap) {
+        labelInfo[li].yLabel = labelInfo[li - 1].yLabel + minGap;
+      }
+    }
+    // プロット領域の下端に収まるようクランプ
+    var maxY = marginT + plotH - 2;
+    for (var lj = labelInfo.length - 1; lj >= 0; lj--) {
+      if (labelInfo[lj].yLabel > maxY) labelInfo[lj].yLabel = maxY;
+      if (lj > 0 && labelInfo[lj].yLabel - labelInfo[lj - 1].yLabel < minGap) {
+        labelInfo[lj - 1].yLabel = labelInfo[lj].yLabel - minGap;
+      }
+    }
+    labelInfo.forEach(function (info) {
+      var dotX = info.x - 30;
+      var needsLeader = Math.abs(info.yLabel - info.yTrue) > 3;
+      if (needsLeader) {
+        var leader = el("line", { x1: info.x + 2, x2: dotX + 4, y1: info.yTrue, y2: info.yLabel });
+        leader.style.stroke = "var(--text-muted)";
+        leader.setAttribute("stroke-width", "1");
+        leader.setAttribute("stroke-dasharray", "1 2");
+        svg.appendChild(leader);
+      }
+      var dotEl = el("circle", { cx: dotX, cy: info.yLabel, r: 2.8 });
+      dotEl.style.fill = info.s.color;
+      svg.appendChild(dotEl);
+      var lbl = el("text", {
+        x: info.x, y: info.yLabel + 3.2,
+        "text-anchor": "end", "font-weight": "600"
+      });
+      lbl.style.fill = "var(--text-primary)";
+      lbl.textContent = info.s.name;
+      svg.appendChild(lbl);
+    });
+
+    // 凡例
+    var legend = document.getElementById(legendId);
+    series.forEach(function (s) {
+      var item = document.createElement("span");
+      item.className = "item";
+      var sw = document.createElement("span");
+      sw.className = "swatch";
+      sw.style.background = s.color;
+      item.appendChild(sw);
+      item.appendChild(document.createTextNode(s.name));
+      legend.appendChild(item);
+    });
+  }
+
+  drawChart("chartB", "legendB", buildSeries("benefitB"));
+  drawChart("chartA", "legendA", buildSeries("benefitA"));
+})();
+</script>
+
+</body>
+</html>

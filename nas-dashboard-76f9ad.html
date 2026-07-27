@@ -269,7 +269,7 @@
 
   <header class="page-head">
     <h1>NAS選定ダッシュボード</h1>
-    <div class="meta">更新日時：2026-07-28 JST（クロスレビュー指摘対応・改訂版／自作不採用のNJ裁定反映・買い時カレンダー現行情報化）／正本：<code>TCO試算_20260728.md</code>・<code>README.md</code>・<code>機種比較_deep_research_20260728.md</code>・<code>UGREEN深掘り_20260728.md</code>（数値はmdが正本・本ページは同値を表示するビューア）</div>
+    <div class="meta">更新日時：2026-07-28 JST（クロスレビュー指摘対応・改訂版／自作不採用・UGREEN候補入りのNJ裁定反映／YouTube特典補正・ストレージ構成選択肢を追加）／正本：<code>TCO試算_20260728.md</code>・<code>README.md</code>・<code>機種比較_deep_research_20260728.md</code>・<code>UGREEN深掘り_20260728.md</code>（数値はmdが正本・本ページは同値を表示するビューア）</div>
   </header>
 
   <nav class="jump">
@@ -285,7 +285,7 @@
   <!-- ① 結論サマリ -->
   <section class="card" id="summary">
     <h2><span class="num">①</span>結論サマリ</h2>
-    <p class="lede">must条件（RAM増設可・スナップショット対応 等）でふるいにかけ、かつ自作（TrueNAS/Unraid）は<strong>NJ裁定（2026-07-28）により不採用</strong>としたため、確定した生き残り候補は<strong>完成品3種＋UGREEN（判定保留・条件付き）</strong>。回収年数は<strong>基本ケース（スマホ低容量化便益ゼロ）</strong>を主表とし、旧版の2.5〜3.8年は前提未実証の上振れシナリオの数値。</p>
+    <p class="lede">must条件（RAM増設可・スナップショット対応 等）でふるいにかけ、かつ自作（TrueNAS/Unraid）は<strong>NJ裁定（2026-07-28）により不採用</strong>としたため、確定した生き残り候補は<strong>完成品3種＋UGREEN（候補・条件付き）</strong>。回収年数は<strong>基本ケース（スマホ低容量化便益ゼロ）</strong>を主表とし、旧版の2.5〜3.8年は前提未実証の上振れシナリオの数値。</p>
 
     <div class="stat-grid">
       <div class="stat-tile">
@@ -294,9 +294,9 @@
         <div class="sub">2GBはんだ付け＋上限6GB</div>
       </div>
       <div class="stat-tile">
-        <div class="label">判定保留（スナップショット未確認）</div>
+        <div class="label">候補・条件付き（NJ裁定 2026-07-28）</div>
         <div class="value">UGREEN DXP4800 Plus</div>
-        <div class="sub">公式一次資料からは実装有無を確定できず。導入前に実機/公式確認が必要</div>
+        <div class="sub">候補として残す。ただし導入前にスナップショット機能の実機/公式確認が必要</div>
       </div>
       <div class="stat-tile accent">
         <div class="label">回収最短・基本ケース（完成品基準）</div>
@@ -322,9 +322,9 @@
           <tr class="lead"><td>QNAP TS-464-8G</td><td class="num">¥176,400</td><td class="num">8.42年</td><td class="num">4.36年</td><td><span class="flag warn"><span class="dot"></span>条件分岐(要38.2W削減)</span></td></tr>
           <tr class="dropped"><td>自作TrueNAS(¥145,600〜176,600)・参考</td><td class="num">¥145,600〜176,600</td><td class="num">6.08〜7.37年</td><td class="num">2.53〜3.82年</td><td rowspan="2">不採用(NJ裁定2026-07-28)</td></tr>
           <tr class="dropped"><td>自作Unraid(¥153,200〜184,200)・参考</td><td class="num">¥153,200〜184,200</td><td class="num">6.39〜7.69年</td><td class="num">2.85〜4.14年</td></tr>
-          <tr class="dropped"><td>UGREEN(判定保留)</td><td class="num">¥173,600</td><td class="num">8.20年(参考)</td><td class="num">4.18年(参考)</td><td>条件分岐(要37.3W削減・参考)</td></tr>
+          <tr><td>UGREEN(候補・条件付き)</td><td class="num">¥173,600</td><td class="num">8.20年(参考)</td><td class="num">4.18年(参考)</td><td>条件分岐(要37.3W削減・参考)</td></tr>
         </tbody>
-        <caption>※上振れ＝スマホ低容量化一時便益¥85,000を実質初期投資から控除した場合の参考値（前提未実証・iCloud/Google Photosの端末容量最適化機能で代替できる可能性あり）。回収年数(a)＝シナリオa（Google維持）は年間純便益が0Wでは負のため、PC1側ジョブ移管による平均消費電力削減が右記W数を上回れば黒字転換する条件分岐（実測なし・詳細③参照）。自作TrueNAS/Unraid行はNJ裁定（2026-07-28）により不採用・参考値。</caption>
+        <caption>※上振れ＝スマホ低容量化一時便益¥85,000を実質初期投資から控除した場合の参考値（前提未実証・iCloud/Google Photosの端末容量最適化機能で代替できる可能性あり）。回収年数(a)＝シナリオa（Google維持）は年間純便益が0Wでは負のため、PC1側ジョブ移管による平均消費電力削減が右記W数を上回れば黒字転換する条件分岐（実測なし・詳細③参照）。自作TrueNAS/Unraid行はNJ裁定（2026-07-28）により不採用・参考値。UGREENはNJ裁定（2026-07-28 08:47）により候補・条件付き（導入前にスナップショット実機/公式確認要）。</caption>
       </table>
     </div>
 
@@ -407,7 +407,7 @@
             <td class="num">¥153,200〜184,200</td>
             <td><span class="flag warn"><span class="dot"></span>不採用（NJ裁定 2026-07-28）</span></td>
           </tr>
-          <tr class="dropped">
+          <tr>
             <td>UGREEN DXP4800 Plus</td>
             <td><span class="flag ok"><span class="dot"></span>8→64GB(非公式一致)</span></td>
             <td><span class="flag warn"><span class="dot"></span>判定保留(公式一次資料からは実装有無を確定不可)</span></td>
@@ -416,7 +416,7 @@
             <td><span class="flag ng"><span class="dot"></span>なし</span></td>
             <td>未確認</td>
             <td class="num">¥173,600</td>
-            <td><span class="flag warn"><span class="dot"></span>判定保留・条件付き掲載(導入前に実機/公式確認要)</span></td>
+            <td><span class="flag warn"><span class="dot"></span>候補（条件付き・スナップショット要確認）</span></td>
           </tr>
           <tr class="dropped">
             <td>Synology DS425+</td>
@@ -447,6 +447,19 @@
         <caption>kakaku.com等・取得日2026-07-28（非監査・変動あり）。自作の本体列＝基板+RAM(32GB非ECC)+ケース+電源の部材見積り（円換算・国内調達価格は未確認）。Unraid列はTrueNAS(無償)にUnraid Starterライセンス$49(≒¥7,600、$1=¥155換算)を加算。自作2行はNJ裁定（2026-07-28）により不採用・参考値として残置。</caption>
       </table>
     </div>
+
+    <h3>参考：ストレージ構成の選択肢（NJ質問2026-07-28「1本あたり8TBが良いのか」・詳細は<code>TCO試算_20260728.md</code>§9）</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>構成</th><th class="num">HDD費用(3台分基準)</th><th>実効容量</th><th>20万円判定(4候補中)</th><th>拡張パス</th></tr></thead>
+        <tbody>
+          <tr class="lead"><td>(a) 4TB×3 RAID5/SHR(現行試算)</td><td class="num">¥60,570</td><td>約8TB</td><td>4候補とも○</td><td>残り1ベイに増設余地</td></tr>
+          <tr><td>(b) 8TB×2 RAID1</td><td class="num">¥71,720</td><td>8TB(ミラー)</td><td>DS925+のみ僅差超過・他3候補○</td><td>残り2ベイ自由・拡張自由度最大</td></tr>
+          <tr><td>(c) 8TB×3 RAID5</td><td class="num">¥107,580</td><td>約16TB</td><td>4候補ともmust超過</td><td>容量余裕大・増設の必要性が最も遠のく</td></tr>
+        </tbody>
+        <caption>実使用量は未計測。実使用量確定後に最終決定すべき参考比較（意見1案：(b)が現行(a)より拡張自由度・信頼性で優位と考えるが最終決定はNJの価値判断）。大容量ドライブほどRAID再構築時間が長くなり二重障害リスクが相対的に高まる点は一般的な工学知見として付記（本ラウンドで定量値までは未調査）。</caption>
+      </table>
+    </div>
   </section>
 
   <!-- ③ 損益分岐グラフ -->
@@ -471,7 +484,7 @@
           <tr><td>Asustor AS6704T</td><td class="num">−¥9,029</td><td class="num">約33.3W</td></tr>
           <tr><td>QNAP TS-464-8G</td><td class="num">−¥10,367</td><td class="num">約38.2W</td></tr>
           <tr class="dropped"><td>自作(TrueNAS/Unraid共通ハード)・参考</td><td class="num">−¥7,359</td><td class="num">約27.1W</td></tr>
-          <tr class="dropped"><td>UGREEN(判定保留・参考)</td><td class="num">−¥10,140</td><td class="num">約37.3W</td></tr>
+          <tr><td>UGREEN(候補・条件付き)</td><td class="num">−¥10,140</td><td class="num">約37.3W</td></tr>
         </tbody>
         <caption>自作行はNJ裁定（2026-07-28）により不採用・参考値（グラフには非表示）。</caption>
       </table>
@@ -516,11 +529,11 @@
         <tbody>
           <tr><td>完成品3種(Synology/Asustor/QNAP)</td><td>GUIで数十分〜1-2時間程度(意見)</td><td>ベンダーGUIの自動更新・通知が中心、負荷は低い(意見)</td><td>ベンダーサポート・公式KBあり、個人負担は小さい(意見)</td></tr>
           <tr class="dropped"><td>自作TrueNAS/Unraid・参考(不採用)</td><td>パーツ調達〜OSインストール〜アレイ構成、数時間〜1日規模(意見)</td><td>コミュニティ情報は豊富だが自己解決が前提(意見)</td><td>ハード障害の切り分けを自分で行う必要があり負担大(意見)</td></tr>
-          <tr class="dropped"><td>UGREEN(判定保留)</td><td>完成品同様に簡易な見込み(意見)</td><td>Docker経由のTailscale導入等やや手間大(意見)</td><td>汎用Linux読出し失敗の非公式報告あり、リスクやや高め(意見・非監査)</td></tr>
+          <tr><td>UGREEN(候補・条件付き)</td><td>完成品同様に簡易な見込み(意見)</td><td>Docker経由のTailscale導入等やや手間大(意見)</td><td>汎用Linux読出し失敗の非公式報告あり、リスクやや高め(意見・非監査)</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="fact"><strong>【裁定済み・2026-07-28】</strong>自作は金銭的には基本ケースでも最短回収だったが、上表の時間コスト・障害対応の自己負担を理由にNJが不採用と確定裁定した。以降の検討対象は完成品3種＋UGREEN（判定保留）に限定する。</p>
+    <p class="fact"><strong>【裁定済み・2026-07-28】</strong>自作は金銭的には基本ケースでも最短回収だったが、上表の時間コスト・障害対応の自己負担を理由にNJが不採用と確定裁定した。以降の検討対象は完成品3種＋UGREEN（候補・条件付き）に限定する。</p>
   </section>
 
   <!-- ⑦ 人間裁定ポイント -->
@@ -528,7 +541,7 @@
     <h2><span class="num">⑦</span>人間裁定ポイント</h2>
     <div class="decision">
       <div class="q">Google AI Pro（¥2,900/月・5TB）を解約できるか</div>
-      <div class="a">repo内にNotebookLM/Antigravityの正確な利用回数ログが存在せず<strong>未計測</strong>。git commit日数を代理指標にすると過去90日中26日（約29%）でNotebookLM関連の作業痕跡があるが、実際の呼出し回数とは相関が不確か。加えて解約で失うのは5TBストレージだけでなくGemini Proモデル・Deep Research・NotebookLM拡張枠・YouTube Premium Lite等の付帯価値も含む（未計測）。解約可否は財務的な回収可否そのものを左右する（③参照）ため、数週間の体感利用量で判断するか、専用ログを整備してから判断するかを決める必要がある。</div>
+      <div class="a">repo内にNotebookLM/Antigravityの正確な利用回数ログが存在せず<strong>未計測</strong>。git commit日数を代理指標にすると過去90日中26日（約29%）でNotebookLM関連の作業痕跡があるが、実際の呼出し回数とは相関が不確か。加えて解約で失うのは5TBストレージだけでなくGemini Proモデル・Deep Research・NotebookLM拡張枠・YouTube Premium Lite等の付帯価値も含む（未計測）。解約可否は財務的な回収可否そのものを左右する（③参照）ため、数週間の体感利用量で判断するか、専用ログを整備してから判断するかを決める必要がある。<strong>【YouTube特典補正・NJ申告2026-07-28 08:39】</strong>NJは「YouTube Premiumを利用している」と申告。家族契約棚卸しにYouTube単体契約の記載が無いため、Google AI Pro付帯特典（Premium Lite無料）経由の可能性が高いが未確認。もし特典経由なら解約後にPremium Lite単体契約（¥9,360/年）が必要になり、年間回避額合計は¥37,920→¥28,560に縮小、完成品3種の回収年数は基本ケースで8年台→14〜15年台へ後退する（独立契約なら影響なし）。詳細は<code>TCO試算_20260728.md</code>§3参照。</div>
     </div>
     <div class="decision">
       <div class="q">ストレージ実使用量の確認</div>
@@ -542,9 +555,9 @@
       <div class="q">【裁定済み・2026-07-28 08:21】完成品NAS3種 vs 自作（TrueNAS/Unraid）</div>
       <div class="a">基本ケースでは自作(TrueNAS)が金銭的に最短(6.08〜7.37年)だったが、構築・保守・障害復旧の時間コスト（⑥参照）を理由に<strong>NJが自作を不採用と確定裁定</strong>した。今後の検討対象は<strong>完成品3種＋UGREEN（判定保留・条件付き）</strong>に限定する。完成品の中ではQNAP TS-464-8Gが最短(基本ケース8.42年)だが公式スペックの直接確認がJS制約で一部間接確認に留まる。</div>
     </div>
-    <div class="decision">
-      <div class="q">UGREENを検討対象に残すか</div>
-      <div class="a">スナップショット対応の判定を「must未達確定」から「判定保留」へ変更した（②参照）。価格・静音性は魅力的だが、導入前に実機確認または公式サポートへの直接照会でスナップショット機能の有無を確認することを推奨。</div>
+    <div class="decision resolved">
+      <div class="q">【裁定済み＝候補として残す（NJ 2026-07-28）】UGREENを検討対象に残すか</div>
+      <div class="a">NJがUGREENを「候補として残す」と確定裁定した。ワーカー側の技術評価（スナップショット対応の一次資料からは実装有無を確定不可）自体は変わっておらず、<strong>導入前にスナップショット機能の実機確認または公式サポートへの直接照会が必要</strong>という条件は維持する（候補入りと購入前の技術確認は別問題）。</div>
     </div>
     <div class="decision">
       <div class="q">シナリオaを黒字化するためのPC1電力削減の実測</div>

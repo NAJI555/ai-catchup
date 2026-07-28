@@ -287,7 +287,7 @@
 
   <header class="page-head">
     <h1>NAS選定ダッシュボード</h1>
-    <div class="meta">更新日時：2026-07-28 JST／候補4件（Synology DS925+・Asustor AS6704T・QNAP TS-464-8G・UGREEN DXP4800 Plus〈条件付き〉）・HDD 4TB×2主構成／正本：<code>TCO試算_20260728.md</code>（数値はmdが正本。不採用・脱落の経緯や参考値はmd側に保持）</div>
+    <div class="meta">更新日時：2026-07-29 JST／<strong>機種確定＝UGREEN NASync DXP4800 GT（NJ最終裁定2026-07-29 05:27）</strong>・比較検討時の候補4件（Synology DS925+・Asustor AS6704T・QNAP TS-464-8G・UGREEN DXP4800 Plus〈条件付き〉）は履歴として本ページ②以降に残置・HDD 4TB×2主構成／正本：<code>購入チェックリスト_20260728.md</code>§7（最終確定）・<code>UGREEN_GT可搬性深掘り_20260729.md</code>（裁定経緯）・<code>TCO試算_20260728.md</code>（比較検討時数値）</div>
   </header>
 
   <nav class="jump">
@@ -303,22 +303,22 @@
   <!-- ① 結論サマリ -->
   <section class="card" id="summary">
     <h2><span class="num">①</span>結論サマリ</h2>
-    <p class="lede">候補4件：Synology DS925+／Asustor AS6704T／QNAP TS-464-8G／UGREEN DXP4800 Plus（条件付き・スナップショット要確認）。HDD構成は<strong>4TB×2 RAID1（実効4TB・空き2ベイ）を主構成に確定（NJ 2026-07-28）</strong>。4候補とも総額20万円以内。回収年数は基本ケース（スマホ低容量化便益ゼロ）を主表とする。</p>
+    <p class="lede"><strong>機種確定＝UGREEN NASync DXP4800 GT＋純正UPS US3000バンドル（NJ最終裁定2026-07-29 05:27）</strong>。比較検討時の候補4件（Synology DS925+／Asustor AS6704T／QNAP TS-464-8G／UGREEN DXP4800 Plus）との比較・回収年数試算は履歴として下表に残置。HDD構成は4TB×2 RAID1（実効4TB・空き2ベイ）。購入前最終確認・購入リスト最終版は<code>購入チェックリスト_20260728.md</code>§7を正本とする。</p>
 
     <div class="stat-grid">
       <div class="stat-tile accent">
-        <div class="label">最終2択（GT検証後・⑦参照）</div>
-        <div class="value">QNAP TS-464-8G vs Synology DS925+</div>
-        <div class="sub">DS925+は+¥2.2万円のプレミアム案。【2026-07-28 16:10更新】QNAP TS-464は国内代理店で終売掲載確認・統括見解はSynology優位へ傾く（意見・詳細⑦参照）</div>
+        <div class="label">機種確定（⑦参照）</div>
+        <div class="value">UGREEN NASync DXP4800 GT + US3000</div>
+        <div class="sub">Amazonバンドル¥103,284（<a href="https://www.amazon.co.jp/dp/B0H4PYTRLP" target="_blank" rel="noopener">B0H4PYTRLP</a>・販売元Ugreen Japan Co., Ltd）。データ可搬性は多ソース再検証+対称性検証で「must未達」→「条件付き軽微な後退」へ改定・条件=PC1自動バックアップ組込み+Tailscaleグレーはrunbook対処</div>
       </div>
       <div class="stat-tile">
         <div class="label">総額20万円判定</div>
-        <div class="value">4候補とも範囲内</div>
-        <div class="sub">最も高いDS925+でも余裕¥21,690</div>
+        <div class="value">GT確定案＝約¥169,300〜169,800</div>
+        <div class="sub">バンドル¥103,284＋HDD(WD40EFZZ×2)¥65,000＋LANケーブル約¥1,000〜1,500。20万円以内で余裕約¥30,000超。APC BR400S-JPは不要になった（US3000同梱のため）</div>
       </div>
     </div>
 
-    <h3>候補と回収年数・4TB×2主構成（シナリオb・Google解約成立時）</h3>
+    <h3>候補と回収年数・4TB×2主構成（シナリオb・Google解約成立時）<span class="flag warn" style="margin-left:8px"><span class="dot"></span>履歴（比較検討時点の試算・機種はGTで確定済み）</span></h3>
     <div class="table-scroll">
       <table>
         <thead>
@@ -583,13 +583,18 @@
       <div class="a">9月の楽天スーパーセールで機種を確定して購入するか、11月のブラックフライデー（15〜32%引き実績）まで待つか。③のブラックフライデー感応度（仮想割引率）を参考に判断。</div>
     </div>
     <div class="decision">
-      <div class="q">最終機種決定</div>
-      <div class="a"><strong>事実</strong>：Codexの敵対レビュー＋UGREEN GT検証（<code>UGREEN_GT検証_20260728.md</code>）を経て、構図は<strong>QNAP TS-464-8G vs Synology DS925+（+¥22,100のプレミアム案）</strong>の2択に整理された。UGREEN（Plus/GTとも）はデータ可搬性の確定的な不利により優先度低下、Asustor AS6704Tは僅差でQNAPに次ぐが決定的な差別化材料は無い。<strong>意見</strong>：価格・回収年数のみならQNAP TS-464-8G優位（DS925+のCPU優位性〈Ryzen〉やECC RAM等のプレミアム性は現要件では過剰）。ただし【2026-07-28 16:10更新・購入チェックリスト_20260728.md§4】QNAP TS-464が国内正規代理店フォースメディアで終売掲載を確認（在庫限りの可能性）＝統括見解はこれを踏まえてSynology DS925+側（2025年世代・現行販売中で終売リスク無し）に優位性が傾く方向へ更新。QNAPを選ぶ場合は「終売在庫を意図して安く拾う」選択という位置づけになる。最終選定はNJの価値判断。</div>
+      <div class="q">最終機種決定 <span class="flag ok"><span class="dot"></span>裁定済み（2026-07-29 05:27）</span></div>
+      <div class="a"><strong>事実</strong>：QNAP TS-464-8G vs Synology DS925+の2択比較（下記・履歴として保持）を経て、NJがUGREEN NASync DXP4800 GT＋純正UPS US3000のAmazonバンドル（<a href="https://www.amazon.co.jp/dp/B0H4PYTRLP" target="_blank" rel="noopener">B0H4PYTRLP</a>・¥103,284）で機種確定と最終裁定した。根拠＝<code>UGREEN_GT可搬性深掘り_20260729.md</code>の多ソース再検証＋対称性検証（QNAP側にも同一深さで4証拠種別を当て直した比較）により、データ可搬性の評価が「must未達（確定的欠陥）」から「条件付き軽微な後退（データ自体は複数経路で救えるが、無人・保証された最速復旧という点でQNAPに劣る）」へ改定されたため。<strong>条件</strong>＝(1) PC1への自動バックアップを移行設計に必須組込み、(2) Tailscale永続グレーはrunbookで対処。購入前最終確認・購入リスト最終版は<code>購入チェックリスト_20260728.md</code>§7参照。<strong>残る人間裁定はGoogle AI Pro解約可否のみ</strong>（本節1点目参照）。
+        <details>
+          <summary>裁定前の比較（履歴・QNAP vs Synology）を開く</summary>
+          <div class="detail-body"><strong>事実</strong>：Codexの敵対レビュー＋UGREEN GT検証（<code>UGREEN_GT検証_20260728.md</code>）を経て、構図は<strong>QNAP TS-464-8G vs Synology DS925+（+¥22,100のプレミアム案）</strong>の2択に整理された。UGREEN（Plus/GTとも）はデータ可搬性の確定的な不利により優先度低下、Asustor AS6704Tは僅差でQNAPに次ぐが決定的な差別化材料は無い。<strong>意見</strong>：価格・回収年数のみならQNAP TS-464-8G優位（DS925+のCPU優位性〈Ryzen〉やECC RAM等のプレミアム性は現要件では過剰）。ただし【2026-07-28 16:10更新・購入チェックリスト_20260728.md§4】QNAP TS-464が国内正規代理店フォースメディアで終売掲載を確認（在庫限りの可能性）＝統括見解はこれを踏まえてSynology DS925+側（2025年世代・現行販売中で終売リスク無し）に優位性が傾く方向へ更新。QNAPを選ぶ場合は「終売在庫を意図して安く拾う」選択という位置づけになる。</div>
+        </details>
+      </div>
     </div>
   </section>
 
   <footer>
-    数値正本：<code>projects/IoT/network/nas検討/TCO試算_20260728.md</code>。出典URL・取得日は同ファイル末尾の出典一覧を参照。本ページはビューアであり独自の数値算出は行っていない。裁定済み：自作不採用(2026-07-28)・UGREEN候補残留(2026-07-28)・HDD 4TB×2 RAID1を主構成に確定(2026-07-28)・UGREEN GT検証除外(2026-07-28)。不採用・脱落・旧8TB×2案の経緯や参考値は上記md参照。
+数値正本：<code>projects/IoT/network/nas検討/購入チェックリスト_20260728.md</code>§7（最終確定）・<code>UGREEN_GT可搬性深掘り_20260729.md</code>（裁定経緯）。比較検討時の数値は<code>TCO試算_20260728.md</code>（出典URL・取得日は同ファイル末尾）。本ページはビューアであり独自の数値算出は行っていない。裁定済み：自作不採用(2026-07-28)・UGREEN候補残留(2026-07-28)・HDD 4TB×2 RAID1を主構成に確定(2026-07-28)・UGREEN GT検証除外(2026-07-28)・<strong>UGREEN GT機種確定(2026-07-29 NJ最終裁定)</strong>。不採用・脱落・旧8TB×2案・比較検討経緯や参考値は上記md参照。
   </footer>
 
 </div>
@@ -759,5 +764,6 @@
   drawChart("chartA", "legendA", buildSeries("benefitA"));
 })();
 </script>
+
 </body>
 </html>

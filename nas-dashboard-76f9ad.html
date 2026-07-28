@@ -264,7 +264,7 @@
 
   <header class="page-head">
     <h1>NAS選定ダッシュボード</h1>
-    <div class="meta">更新日時：2026-07-28 JST／候補4件（Synology DS925+・Asustor AS6704T・QNAP TS-464-8G・UGREEN DXP4800 Plus〈条件付き〉）のみ表示／正本：<code>TCO試算_20260728.md</code>（数値はmdが正本。不採用・脱落の経緯や参考値はmd側に保持）</div>
+    <div class="meta">更新日時：2026-07-28 JST／候補4件（Synology DS925+・Asustor AS6704T・QNAP TS-464-8G・UGREEN DXP4800 Plus〈条件付き〉）・HDD 4TB×2主構成／正本：<code>TCO試算_20260728.md</code>（数値はmdが正本。不採用・脱落の経緯や参考値はmd側に保持）</div>
   </header>
 
   <nav class="jump">
@@ -280,38 +280,38 @@
   <!-- ① 結論サマリ -->
   <section class="card" id="summary">
     <h2><span class="num">①</span>結論サマリ</h2>
-    <p class="lede">候補4件：Synology DS925+／Asustor AS6704T／QNAP TS-464-8G／UGREEN DXP4800 Plus（条件付き・スナップショット要確認）。HDD構成は<strong>8TB×2 RAID1（実効8TB・空き2ベイ）を主構成に確定（NJ 2026-07-28）</strong>。回収年数は基本ケース（スマホ低容量化便益ゼロ）を主表とする。</p>
+    <p class="lede">候補4件：Synology DS925+／Asustor AS6704T／QNAP TS-464-8G／UGREEN DXP4800 Plus（条件付き・スナップショット要確認）。HDD構成は<strong>4TB×2 RAID1（実効4TB・空き2ベイ）を主構成に確定（NJ 2026-07-28）</strong>。4候補とも総額20万円以内。回収年数は基本ケース（スマホ低容量化便益ゼロ）を主表とする。</p>
 
     <div class="stat-grid">
       <div class="stat-tile accent">
         <div class="label">回収最短・基本ケース</div>
-        <div class="value">UGREEN 10.70年</div>
-        <div class="sub">総額¥184,750（上振れなら5.78年）</div>
+        <div class="value">UGREEN 7.24年</div>
+        <div class="sub">総額¥153,410（上振れなら3.23年）</div>
       </div>
       <div class="stat-tile">
-        <div class="label">総額20万円超過</div>
-        <div class="value">Synology DS925+（+¥9,650）</div>
-        <div class="sub">8TB×2確定に伴いmust超過。他3候補は範囲内</div>
+        <div class="label">総額20万円判定</div>
+        <div class="value">4候補とも範囲内</div>
+        <div class="sub">最も高いDS925+でも余裕¥21,690</div>
       </div>
     </div>
 
-    <h3>候補と回収年数・8TB×2主構成（シナリオb・Google解約成立時）</h3>
+    <h3>候補と回収年数・4TB×2主構成（シナリオb・Google解約成立時）</h3>
     <div class="table-scroll">
       <table>
         <thead>
           <tr><th>候補</th><th class="num">総額</th><th class="num">回収年数(b)基本</th><th class="num">YouTube補正後<sup>†</sup></th><th class="num">上振れ<sup>※</sup></th></tr>
         </thead>
         <tbody>
-          <tr><td>Synology DS925+</td><td class="num">¥209,650</td><td class="num">11.24年</td><td class="num">22.56年</td><td class="num">6.68年</td></tr>
-          <tr><td>Asustor AS6704T</td><td class="num">¥198,250</td><td class="num">10.79年</td><td class="num">21.99年</td><td class="num">6.16年</td></tr>
-          <tr><td>QNAP TS-464-8G</td><td class="num">¥187,550</td><td class="num">11.01年</td><td class="num">24.43年</td><td class="num">6.02年</td></tr>
-          <tr class="lead"><td>UGREEN DXP4800 Plus（条件付き）</td><td class="num">¥184,750</td><td class="num">10.70年</td><td class="num">23.38年</td><td class="num">5.78年</td></tr>
+          <tr><td>Synology DS925+</td><td class="num">¥178,310</td><td class="num">7.90年</td><td class="num">13.50年</td><td class="num">4.13年</td></tr>
+          <tr><td>Asustor AS6704T</td><td class="num">¥166,910</td><td class="num">7.49年</td><td class="num">12.91年</td><td class="num">3.67年</td></tr>
+          <tr><td>QNAP TS-464-8G</td><td class="num">¥156,210</td><td class="num">7.46年</td><td class="num">13.47年</td><td class="num">3.40年</td></tr>
+          <tr class="lead"><td>UGREEN DXP4800 Plus（条件付き）</td><td class="num">¥153,410</td><td class="num">7.24年</td><td class="num">12.98年</td><td class="num">3.23年</td></tr>
         </tbody>
         <caption>†YouTube補正＝Google AI Pro解約でPremium Lite特典（¥9,360/年相当）も失う前提のケースA（⑦参照・特典経由か未確認）。※上振れ＝スマホ低容量化一時便益¥85,000を控除した参考値（前提未実証）。</caption>
       </table>
     </div>
 
-    <p class="fact">HDD構成を4TB×3→8TB×2へ切り替えた結果、基本ケースの回収年数は全候補で8年台→10.7〜11.2年台へ後退した（HDD初期費用・交換引当ともに単価上昇のため）。YouTube補正が重なると21〜24年台に達する。</p>
+    <p class="fact">基本ケースの回収年数は4候補とも7.2〜7.9年。YouTube補正が重なると12.9〜13.5年に達する。</p>
   </section>
 
   <!-- ② 機種比較表 -->
@@ -343,8 +343,8 @@
             <td>中（同社機へのDrive Migration公式あり・ext4+mdadm多層）</td>
             <td><span class="flag ng"><span class="dot"></span>なし</span></td>
             <td><span class="flag ok"><span class="dot"></span>対応(公式)</span></td>
-            <td class="num">¥209,650</td>
-            <td><span class="flag warn"><span class="dot"></span>候補（総額20万円超過+¥9,650）</span></td>
+            <td class="num">¥178,310</td>
+            <td><span class="flag ok"><span class="dot"></span>候補</span></td>
           </tr>
           <tr>
             <td>Asustor AS6704T</td>
@@ -354,7 +354,7 @@
             <td>中〜高（同社機へのSystem Migration公式・ホットスワップ対応）</td>
             <td><span class="flag ok"><span class="dot"></span>HDMI 2.0b(公式データシート確認)</span></td>
             <td><span class="flag ok"><span class="dot"></span>対応(公式・WoWも)</span></td>
-            <td class="num">¥198,250</td>
+            <td class="num">¥166,910</td>
             <td><span class="flag ok"><span class="dot"></span>候補</span></td>
           </tr>
           <tr class="lead">
@@ -365,7 +365,7 @@
             <td>中（QTSバージョン一致が条件の公式移行手順）</td>
             <td><span class="flag ok"><span class="dot"></span>HDMI 2.1(独立ミラー確認・storagereview.comは2.0表記で不一致あり)</span></td>
             <td><span class="flag warn"><span class="dot"></span>対応と言われるが本調査で未確認</span></td>
-            <td class="num">¥187,550</td>
+            <td class="num">¥156,210</td>
             <td><span class="flag ok"><span class="dot"></span>候補</span></td>
           </tr>
           <tr>
@@ -376,23 +376,23 @@
             <td>低〜不明（単独ソースでUGOS改変により汎用Linux読出し失敗の実地報告あり）</td>
             <td><span class="flag ng"><span class="dot"></span>なし</span></td>
             <td>未確認</td>
-            <td class="num">¥184,750</td>
+            <td class="num">¥153,410</td>
             <td><span class="flag warn"><span class="dot"></span>候補（条件付き・スナップショット要確認）</span></td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <h3>予算内訳（主構成：HDD=WD Red Plus 8TB×2・RAID1、UPS=APC RS 400VA相当¥20,000、周辺機器¥3,000）</h3>
+    <h3>予算内訳（主構成：HDD=WD Red Plus 4TB×2・RAID1、UPS=APC RS 400VA相当¥20,000、周辺機器¥3,000）</h3>
     <div class="table-scroll">
       <table>
-        <thead><tr><th>候補</th><th class="num">本体</th><th class="num">HDD×2(8TB)</th><th class="num">UPS</th><th class="num">周辺機器</th><th class="num">合計</th></tr></thead>
+        <thead><tr><th>候補</th><th class="num">本体</th><th class="num">HDD×2(4TB)</th><th class="num">UPS</th><th class="num">周辺機器</th><th class="num">合計</th></tr></thead>
         <tbody>
-          <tr><td>Synology DS925+</td><td class="num">¥114,950</td><td class="num">¥71,720</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥209,650</td></tr>
-          <tr><td>Asustor AS6704T</td><td class="num">¥103,500</td><td class="num">¥71,720</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥198,250</td></tr>
-          <tr><td>QNAP TS-464-8G</td><td class="num">¥92,800</td><td class="num">¥71,720</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥187,550</td></tr>
+          <tr><td>Synology DS925+</td><td class="num">¥114,950</td><td class="num">¥40,380</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥178,310</td></tr>
+          <tr><td>Asustor AS6704T</td><td class="num">¥103,500</td><td class="num">¥40,380</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥166,910</td></tr>
+          <tr><td>QNAP TS-464-8G</td><td class="num">¥92,800</td><td class="num">¥40,380</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥156,210</td></tr>
         </tbody>
-        <caption>HDD=WD Red Plus WD80EFPX 8TB×2（kakaku.com最安値¥35,860/本、取得日2026-07-28）。本体価格はkakaku.com等・取得日2026-07-28（非監査・変動あり）。UGREENは本体単価が別建てのため②冒頭の比較表・①の総額を参照。</caption>
+        <caption>HDD=WD Red Plus 4TB×2（¥20,190/本、`機種比較_deep_research_20260728.md`・kakaku.com取得日2026-07-28）。本体価格はkakaku.com等・取得日2026-07-28（非監査・変動あり）。UGREENは本体単価が別建てのため②冒頭の比較表・①の総額を参照。</caption>
       </table>
     </div>
 
@@ -401,22 +401,22 @@
       <table>
         <thead><tr><th>構成</th><th class="num">HDD費用</th><th>実効容量</th><th>20万円判定(4候補中)</th><th>拡張パス</th></tr></thead>
         <tbody>
-          <tr class="lead"><td>8TB×2 RAID1（主構成・確定）</td><td class="num">¥71,720</td><td>8TB(ミラー)</td><td>DS925+のみ超過・他3候補○</td><td>残り2ベイ自由・拡張自由度最大</td></tr>
-          <tr><td>8TB×3 RAID5（増量オプション）</td><td class="num">¥107,580</td><td>約16TB</td><td>4候補ともmust超過</td><td>容量大幅増だが予算超過</td></tr>
+          <tr class="lead"><td>4TB×2 RAID1（主構成・確定）</td><td class="num">¥40,380</td><td>4TB(ミラー)</td><td>4候補とも○</td><td>下記「増設パス」参照</td></tr>
+          <tr><td>8TB×2 RAID1（増量オプション）</td><td class="num">¥71,720</td><td>8TB(ミラー)</td><td>4候補とも○</td><td>換装で実効容量倍増</td></tr>
         </tbody>
         <caption>大容量ドライブほどRAID再構築時間が長くなり二重障害リスクが相対的に高まる点は一般的な工学知見として付記（定量値は未調査）。詳細は<code>TCO試算_20260728.md</code>§9。</caption>
       </table>
     </div>
-    <p class="fact">実使用量は5TBプラン（Google）に対し余裕がある見込み（NJ申告・正確な値は未計測）。</p>
+    <p class="fact">実使用量は5TBプラン（Google）に対し余裕がある見込み（NJ申告・正確な値は未計測）。実使用が4TBに近づいた場合の増設パス：①空きの2ベイへ4TB×2を追加し4台構成でRAID10へ再構成＝実効8TBへ倍増、②8TB×2ペアへ換装＝実効8TB。実使用量確定後に要否を判断する。</p>
   </section>
 
   <!-- ③ 損益分岐グラフ -->
   <section class="card" id="breakeven">
-    <h2><span class="num">③</span>損益分岐（累積コスト比較・8TB×2主構成・基本ケース）</h2>
+    <h2><span class="num">③</span>損益分岐（累積コスト比較・4TB×2主構成・基本ケース）</h2>
     <p class="lede">縦軸＝累積純負担（初期投資－経過年数×年間純便益）。ゼロを下回った年が回収年数。スマホ低容量化一時便益¥85,000は前提未実証のため以下のグラフでは計上しない（上振れ試算は<code>TCO試算_20260728.md</code>§5-2・§9参照）。</p>
 
     <h3>シナリオb（Google AI Pro解約が成立した場合）</h3>
-    <svg class="chart" id="chartB" viewBox="0 0 640 380" role="img" aria-label="シナリオbの累積純負担推移、4候補とも10.7〜11.2年で回収"></svg>
+    <svg class="chart" id="chartB" viewBox="0 0 640 380" role="img" aria-label="シナリオbの累積純負担推移、4候補とも7.2〜7.9年で回収"></svg>
     <div class="chart-legend" id="legendB"></div>
     <p class="chart-note">線がゼロ(破線)を下回った時点＝投資回収完了。</p>
 
@@ -428,16 +428,16 @@
       <table>
         <thead><tr><th>候補</th><th class="num">シナリオa年間純便益(0W時)</th><th class="num">黒字化に必要なPC1平均削減電力</th></tr></thead>
         <tbody>
-          <tr><td>Synology DS925+</td><td class="num">−¥12,668</td><td class="num">約46.6W</td></tr>
-          <tr><td>Asustor AS6704T</td><td class="num">−¥12,946</td><td class="num">約47.7W</td></tr>
-          <tr><td>QNAP TS-464-8G</td><td class="num">−¥14,284</td><td class="num">約52.6W</td></tr>
-          <tr><td>UGREEN DXP4800 Plus（条件付き）</td><td class="num">−¥14,058</td><td class="num">約51.8W</td></tr>
+          <tr><td>Synology DS925+</td><td class="num">−¥8,750</td><td class="num">約32.2W</td></tr>
+          <tr><td>Asustor AS6704T</td><td class="num">−¥9,029</td><td class="num">約33.3W</td></tr>
+          <tr><td>QNAP TS-464-8G</td><td class="num">−¥10,367</td><td class="num">約38.2W</td></tr>
+          <tr><td>UGREEN DXP4800 Plus（条件付き）</td><td class="num">−¥10,140</td><td class="num">約37.3W</td></tr>
         </tbody>
       </table>
     </div>
 
     <h3>ブラックフライデー感応度（仮想割引率・1行・上振れシナリオ）</h3>
-    <p>QNAP TS-464-8Gの例（上振れシナリオ・シナリオb・8TB×2主構成）：総額15%引きで実質初期投資¥74,418→回収<strong>4.37年</strong>、32%引きで¥42,534→回収<strong>2.50年</strong>。<span class="opinion">この15%・32%は他機種・他メーカーのセール実績から引用した仮想割引率であり、QNAP一式へそのまま適用できる保証はない。</span></p>
+    <p>QNAP TS-464-8Gの例（上振れシナリオ・シナリオb・4TB×2主構成）：総額15%引きで実質初期投資¥47,778→回収<strong>2.28年</strong>、32%引きで¥21,223→回収<strong>1.01年</strong>。<span class="opinion">この15%・32%は他機種・他メーカーのセール実績から引用した仮想割引率であり、QNAP一式へそのまま適用できる保証はない。</span></p>
   </section>
 
   <!-- ④ 買い時カレンダー -->
@@ -493,12 +493,12 @@
     </div>
     <div class="decision">
       <div class="q">最終機種決定（4候補から）</div>
-      <div class="a">8TB×2主構成の確定により<strong>Synology DS925+は総額20万円mustを+¥9,650超過</strong>する。Asustor AS6704T・QNAP TS-464-8Gは予算内（回収年数は10.79〜11.01年）。UGREEN DXP4800 Plusは4候補中最短（10.70年）だが導入前にスナップショット機能の実機/公式確認が必要。この超過・条件をどう扱うかはNJの価値判断。</div>
+      <div class="a">4TB×2主構成では4候補とも総額20万円以内（回収年数は7.24〜7.90年）。UGREEN DXP4800 Plusが最短（7.24年）だが導入前にスナップショット機能の実機/公式確認が必要。QNAP TS-464-8Gは僅差の7.46年で条件付き前提が無い分の確実性がある。最終選定はNJの価値判断。</div>
     </div>
   </section>
 
   <footer>
-    数値正本：<code>projects/IoT/network/nas検討/TCO試算_20260728.md</code>。出典URL・取得日は同ファイル末尾の出典一覧を参照。本ページはビューアであり独自の数値算出は行っていない。裁定済み：自作不採用(2026-07-28)・UGREEN候補残留(2026-07-28)・8TB×2 RAID1を主構成に確定(2026-07-28)。不採用・脱落の経緯や参考値は上記md参照。
+    数値正本：<code>projects/IoT/network/nas検討/TCO試算_20260728.md</code>。出典URL・取得日は同ファイル末尾の出典一覧を参照。本ページはビューアであり独自の数値算出は行っていない。裁定済み：自作不採用(2026-07-28)・UGREEN候補残留(2026-07-28)・HDD 4TB×2 RAID1を主構成に確定(2026-07-28)。不採用・脱落・旧8TB×2案の経緯や参考値は上記md参照。
   </footer>
 
 </div>
@@ -507,15 +507,15 @@
 (function () {
   "use strict";
 
-  // ---- データ（TCO試算_20260728.md §9・8TB×2主構成と同値・二重管理しない。スマホ低容量化便益¥85,000は計上しない） ----
+  // ---- データ（TCO試算_20260728.md §9・4TB×2主構成と同値・二重管理しない。スマホ低容量化便益¥85,000は計上しない） ----
   var candidates = [
-    { key: "ds925",  name: "Synology DS925+",              color: "var(--s1)", initial: 209650, benefitB: 18652, benefitA: -12668 },
-    { key: "as6704", name: "Asustor AS6704T",               color: "var(--s2)", initial: 198250, benefitB: 18374, benefitA: -12946 },
-    { key: "qnap",   name: "QNAP TS-464-8G",                color: "var(--s3)", initial: 187550, benefitB: 17036, benefitA: -14284 },
-    { key: "ugreen", name: "UGREEN DXP4800 Plus(条件付き)", color: "var(--s4)", initial: 184750, benefitB: 17262, benefitA: -14058 }
+    { key: "ds925",  name: "Synology DS925+",              color: "var(--s1)", initial: 178310, benefitB: 22570, benefitA: -8750 },
+    { key: "as6704", name: "Asustor AS6704T",               color: "var(--s2)", initial: 166910, benefitB: 22291, benefitA: -9029 },
+    { key: "qnap",   name: "QNAP TS-464-8G",                color: "var(--s3)", initial: 156210, benefitB: 20953, benefitA: -10367 },
+    { key: "ugreen", name: "UGREEN DXP4800 Plus(条件付き)", color: "var(--s4)", initial: 153410, benefitB: 21180, benefitA: -10140 }
   ];
 
-  var YEARS = 12; // 8TB×2主構成では回収年数が10.7〜11.2年台のため、ゼロ線を下回る様子を表示するのに十分な期間を確保
+  var YEARS = 9; // 4TB×2主構成では回収年数が7.2〜7.9年台のため、ゼロ線を下回る様子を表示するのに十分な期間を確保
 
   function buildSeries(field) {
     return candidates.map(function (c) {

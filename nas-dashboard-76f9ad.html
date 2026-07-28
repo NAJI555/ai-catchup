@@ -249,6 +249,29 @@
   .decision .q { font-weight: 600; font-size: 0.88rem; }
   .decision .a { font-size: 0.82rem; color: var(--text-secondary); margin-top: 0.2rem; }
 
+  /* ---- 折りたたみ詳細(md正本の要点を1枚に取り込む) ---- */
+  details {
+    margin: 0.5rem 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface-page);
+  }
+  details summary {
+    cursor: pointer;
+    padding: 0.5rem 0.7rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--link);
+    list-style: none;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: "▸ "; }
+  details[open] summary::before { content: "▾ "; }
+  details .detail-body { padding: 0 0.7rem 0.7rem; font-size: 0.82rem; color: var(--text-secondary); }
+  details .detail-body table { font-size: 0.78rem; }
+  details .detail-body h4 { font-size: 0.82rem; margin: 0.6rem 0 0.3rem; color: var(--text-primary); }
+  details .detail-body p { margin: 0.4rem 0; }
+
   footer {
     color: var(--text-muted);
     font-size: 0.74rem;
@@ -383,6 +406,24 @@
       </table>
     </div>
 
+    <details>
+      <summary>詳細を開く：候補ごとの根拠（CPU・RAM上限・スナップショット方式・Tailscale経路・データ可搬性）</summary>
+      <div class="detail-body">
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>候補</th><th>CPU</th><th>RAM(初期→上限)</th><th>スナップショット方式</th><th>Tailscale経路</th><th>データ可搬性の詳細</th></tr></thead>
+            <tbody>
+              <tr><td>Synology DS925+</td><td>AMD Ryzen V1500B(4C8T・2.2GHz)</td><td>4GB ECC→32GB</td><td>Btrfs+Snapshot Replication(公式)</td><td>公式対応</td><td>ext4+mdadm多層。同社同系統機への公式Drive Migration機能あり</td></tr>
+              <tr><td>Asustor AS6704T</td><td>Intel Celeron N5105(4C4T)</td><td>4GB DDR4→16GB(境界)</td><td>Btrfs+Snapshot Center(公式・最大256世代)</td><td>公式App Central配信</td><td>同社同系統機への公式System Migration・ホットスワップ対応</td></tr>
+              <tr><td>QNAP TS-464-8G</td><td>Intel Celeron N5105(4C4T)</td><td>8GB→16GB(境界・公式値は間接確認)</td><td>Btrfs+Snapshot Manager(公式・時/日/週/月次)</td><td>公式ドキュメントに連携記載</td><td>同社同系統機への公式移行手順あり(QTSバージョン一致が条件)</td></tr>
+              <tr><td>UGREEN DXP4800 Plus</td><td>未確認(本調査では特定できず)</td><td>8GB→64GB(非公式一致)</td><td>判定保留(公式一次資料から実装有無を確定不可)</td><td>Docker経由(非ネイティブ)</td><td>低〜不明。UGOS改変により汎用Linux読出し失敗の実地報告あり</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>UGREENの購入前確認事項（2点）</strong>：①スナップショット機能の実機/公式確認、②導入予定UPSがUGOS Pro上で自動シャットダウンまで実際に機能するかの実機確認（<code>UPS選定_20260728.md</code>§3参照・汎用UPSの公式互換リストが存在しないため）。出典・詳細は<code>機種比較_deep_research_20260728.md</code>・<code>UGREEN深掘り_20260728.md</code>。</p>
+      </div>
+    </details>
+
     <h3>予算内訳（主構成：HDD=WD Red Plus 4TB×2・RAID1、UPS=APC RS 400VA相当¥20,000、周辺機器¥3,000）</h3>
     <div class="table-scroll">
       <table>
@@ -395,6 +436,7 @@
         <caption>HDD=WD Red Plus 4TB×2（¥20,190/本、`機種比較_deep_research_20260728.md`・kakaku.com取得日2026-07-28）。本体価格はkakaku.com等・取得日2026-07-28（非監査・変動あり）。UGREENは本体単価が別建てのため②冒頭の比較表・①の総額を参照。</caption>
       </table>
     </div>
+    <p class="fact">UPS実勢価格（推奨APC BR400S-JP）は¥17,825〜¥17,980で、表中の仮置き¥20,000との差額は許容範囲内（詳細は⑤「UPS選定」参照）。</p>
 
     <h3>ストレージ構成（主構成・増量オプション）</h3>
     <div class="table-scroll">
@@ -450,6 +492,16 @@
       <li><div class="cal-date">2026年11月下旬</div><div class="cal-body">Amazonブラックフライデー（NAS/HDDカテゴリで15〜32%OFF実績あり）<div class="state">本命候補②</div></div></li>
     </ul>
     <p class="opinion">機種が未確定な現段階では急いで買う理由はなく、9月の楽天セールか11月のブラックフライデーを本命に据えて待つのが合理的。</p>
+    <details>
+      <summary>過去実績を開く（セール割引の詳細）</summary>
+      <div class="detail-body">
+        <p><strong>Amazonプライムデー2026（7/7〜7/13・終了済み）</strong>：UGREEN NAS DH4300 Plusが¥59,880→25%OFFの¥44,900。WD Red Plus 8TB ¥44,980／12TB ¥64,280で最大15%OFF。TerraMaster最大20%OFF。（出典：週刊アスキー・ITmedia PC USER・PR TIMES、取得日2026-07-28）</p>
+        <p><strong>UGREEN公式「年中大感謝セール」（7/3〜7/16・終了済み）</strong>：最大25%OFF＋キャッシュバック。新製品は20%OFF（¥69,880→¥55,900）の実例あり。クーポン併用可。名称からして年中に近い頻度で開催している可能性が高い（意見）。（出典：nas.ugreen.jp、取得日2026-07-28）</p>
+        <p><strong>楽天お買い物マラソン（7/19 20:00〜7/26 01:59・終了済み）</strong>：複数店舗横断購入でポイント最大10倍、SPU込みで最大17.5倍（理論上限47.5倍・上限7,000ポイント）。実質値引き率は購入点数・店舗分散度に依存するため一律の%では言えない（意見）。（出典：media.yourmystar.jp、取得日2026-07-28）</p>
+        <p><strong>Amazonブラックフライデー2025実例（過去年）</strong>：外付けHDDは前年より対象少なめで15〜23%OFF。TerraMaster NAS 32%OFF、UGREEN NAS最大30%OFFの実例あり。年によって「対象少なめ」の当たり外れがある点に注意。（出典：ちもろぐ・がじぇっとりっぷ、取得日2026-07-28）</p>
+        <p>いずれも詳細・全件は<code>購入時期と入手先_20260728.md</code>参照。</p>
+      </div>
+    </details>
   </section>
 
   <!-- ⑤ 運用設計 -->
@@ -463,6 +515,17 @@
       <li><strong>家族UX・移行計画</strong>：Immichで家族共有スペース＋各人固有スペースを両立（共有アルバム＋パートナー共有）。既存のGoogle Photos/iCloudと並行運用しながら段階的に移行し、スマホの自動バックアップ先を切り替える。</li>
       <li><strong>HDMI出力／WOL（want）</strong>：Asustor AS6704Tは公式データシートでHDMI 2.0b搭載を確認、QNAP TS-464は独立ミラーでHDMI 2.1搭載を確認（storagereview.comは2.0表記で不一致あり）。Synology・UGREENは直結非搭載だが、<strong>NJがFire TV Stickを保有</strong>しておりメディア視聴はJellyfin＋Fire TV Stickの間接構成で確定（追加購入不要）。WOLはSynology・Asustorで公式確認、QNAP・UGREENは未確認のため導入時に個別確認が必要。</li>
     </ul>
+
+    <details>
+      <summary>UPS選定を開く（推奨APC BR400S-JP・詳細は<code>UPS選定_20260728.md</code>）</summary>
+      <div class="detail-body">
+        <p><strong>推奨：APC BR400S-JP</strong>（400VA/240W・ラインインタラクティブ・正弦波）。実勢価格¥17,825〜¥17,980（kakaku.com、取得日2026-07-28）。根拠：①NAS(35〜42W級)+ルーター/ONU(10〜15W級)の合計負荷45〜57Wに対し容量に十分な余裕、②4ベイ機はPFC電源のため正弦波が必須（矩形波の安価モデルは動作不安定・故障リスク）、③Synology・QNAP・Asustorの3社で互換確認が取れた（QNAP・Asustorはコミュニティ実績・ブランド一覧レベルの間接確認）。</p>
+        <p><strong>UGREENのみ注意</strong>：汎用サードパーティ製UPSの公式互換リストが存在せず、他社Omron機での非認識報告もあり。UGREENを選ぶ場合は導入前にUPSの自動シャットダウン動作を実機確認する追加条件が必要（②「詳細を開く」も参照）。</p>
+        <p><strong>第2候補：Omron BY50S</strong>（500VA/300W・常時商用給電・正弦波）。実勢価格¥22,000〜¥23,762。Omron公式の動作検証一覧でQNAP・Synologyの適合を確認（Asustorは片側確認のみ・UGREENは非推奨に近い状況証拠）。</p>
+        <p><strong>TCO試算との差額</strong>：仮置き¥20,000に対しBR400S-JPは-¥2,020〜-¥2,175（許容範囲内のためTCO試算_20260728.mdの数値修正は行わない・統括裁定済み）。</p>
+        <p><strong>購入直前の確認タスク</strong>：発注直前にSynology／QNAP／Asustor各社の公式互換DBで型番単位の最終確認を行うこと（本調査はJS描画・Excel配布のため一部間接確認に留まる）。</p>
+      </div>
+    </details>
   </section>
 
   <!-- ⑥ 時間コスト -->
@@ -485,7 +548,26 @@
     <h2><span class="num">⑦</span>人間裁定ポイント</h2>
     <div class="decision">
       <div class="q">Google AI Pro（¥2,900/月・5TB）を解約できるか（YouTube補正込み）</div>
-      <div class="a">repo内にNotebookLM/Antigravityの正確な利用回数ログが存在せず<strong>未計測</strong>。解約で失うのは5TBストレージだけでなくGemini Proモデル・Deep Research・NotebookLM拡張枠・YouTube Premium Lite等の付帯価値も含む。NJは「YouTube Premiumを利用している」と申告しており、単体契約か特典経由（Premium Lite無料付帯）かは未確認。特典経由なら解約後にPremium Lite単体契約（¥9,360/年）が必要になり、年間回避額合計は¥37,920→¥28,560に縮小、回収年数は基本ケースで10.7〜11.2年台→22〜24年台へ後退する（独立契約なら影響なし）。詳細は<code>TCO試算_20260728.md</code>§3・§9参照。</div>
+      <div class="a">repo内にNotebookLM/Antigravityの正確な利用回数ログが存在せず<strong>未計測</strong>。解約で失うのは5TBストレージだけでなくGemini Proモデル・Deep Research・NotebookLM拡張枠・YouTube Premium Lite等の付帯価値も含む。NJは「YouTube Premiumを利用している」と申告しており、単体契約か特典経由（Premium Lite無料付帯）かは未確認。特典経由なら解約後にPremium Lite単体契約（¥9,360/年）が必要になり、年間回避額合計は¥37,920→¥28,560に縮小、回収年数は基本ケースで7.24〜7.90年→12.9〜13.5年台へ後退する（独立契約なら影響なし）。詳細は<code>TCO試算_20260728.md</code>§3・§9参照。
+        <details>
+          <summary>判断材料を開く（解約メリデメ表）</summary>
+          <div class="detail-body">
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>軸</th><th>解約する場合（シナリオb）</th><th>維持する場合（シナリオa）</th></tr></thead>
+                <tbody>
+                  <tr><td>固定費</td><td>年¥34,800を回避</td><td>年¥34,800を維持で支払い続け</td></tr>
+                  <tr><td>移行猶予</td><td>Immichと並行運用しながら段階移行できる（急な打ち切りではない）</td><td>猶予は不要（移行自体を急がない前提）</td></tr>
+                  <tr><td>NotebookLM/Deep Research</td><td>無料枠（チャット50/日・Deep Research月10回）へ縮小</td><td>Pro拡張枠（4倍利用量・Deep Research上位アクセス）を維持</td></tr>
+                  <tr><td>YouTube視聴</td><td>Premium Lite特典（¥9,360/年相当）も失う＝単体契約するか広告ありに戻る</td><td>Premium Lite無料付帯を維持</td></tr>
+                  <tr><td>保険策</td><td>Deep Researchを多用する月だけ単月再加入（Google One月次課金のため月単位での出入りが可能）という運用で対応できる（意見）</td><td>該当なし</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>NotebookLM/Antigravityの実利用回数はrepo内に専用ログが無く<strong>未計測</strong>。数週間の体感利用量で判断するか、専用ログを整備してから判断するかを決める必要がある（詳細は<code>TCO試算_20260728.md</code>§6）。</p>
+          </div>
+        </details>
+      </div>
     </div>
     <div class="decision">
       <div class="q">購入時期の最終決定</div>

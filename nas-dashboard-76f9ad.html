@@ -387,7 +387,7 @@
             <td><span class="flag ok"><span class="dot"></span>公式連携あり</span></td>
             <td>中（QTSバージョン一致が条件の公式移行手順）</td>
             <td><span class="flag ok"><span class="dot"></span>HDMI 2.1(独立ミラー確認・storagereview.comは2.0表記で不一致あり)</span></td>
-            <td><span class="flag warn"><span class="dot"></span>対応と言われるが本調査で未確認</span></td>
+            <td><span class="flag ok"><span class="dot"></span>対応(公式・既定で有効)</span></td>
             <td class="num">¥156,210</td>
             <td><span class="flag ok"><span class="dot"></span>候補</span></td>
           </tr>
@@ -416,11 +416,12 @@
               <tr><td>Synology DS925+</td><td>AMD Ryzen V1500B(4C8T・2.2GHz)</td><td>4GB ECC→32GB</td><td>Btrfs+Snapshot Replication(公式)</td><td>公式対応</td><td>ext4+mdadm多層。同社同系統機への公式Drive Migration機能あり</td></tr>
               <tr><td>Asustor AS6704T</td><td>Intel Celeron N5105(4C4T)</td><td>4GB DDR4→16GB(境界)</td><td>Btrfs+Snapshot Center(公式・最大256世代)</td><td>公式App Central配信</td><td>同社同系統機への公式System Migration・ホットスワップ対応</td></tr>
               <tr><td>QNAP TS-464-8G</td><td>Intel Celeron N5105(4C4T)</td><td>8GB→16GB(境界・公式値は間接確認)</td><td>Btrfs+Snapshot Manager(公式・時/日/週/月次)</td><td>公式ドキュメントに連携記載</td><td>同社同系統機への公式移行手順あり(QTSバージョン一致が条件)</td></tr>
-              <tr><td>UGREEN DXP4800 Plus</td><td>未確認(本調査では特定できず)</td><td>8GB→64GB(非公式一致)</td><td>判定保留(公式一次資料から実装有無を確定不可)</td><td>Docker経由(非ネイティブ)</td><td>低〜不明。UGOS改変により汎用Linux読出し失敗の実地報告あり</td></tr>
+              <tr><td>UGREEN DXP4800 Plus</td><td>Intel Pentium Gold 8505(5C・最大4.40GHz)</td><td>8GB→64GB(非公式一致)</td><td>判定保留(公式一次資料から実装有無を確定不可)</td><td>Docker経由(非ネイティブ)</td><td>低〜不明。UGOS改変により汎用Linux読出し失敗の実地報告あり</td></tr>
             </tbody>
           </table>
         </div>
         <p><strong>UGREENの購入前確認事項（2点）</strong>：①スナップショット機能の実機/公式確認、②導入予定UPSがUGOS Pro上で自動シャットダウンまで実際に機能するかの実機確認（<code>UPS選定_20260728.md</code>§3参照・汎用UPSの公式互換リストが存在しないため）。出典・詳細は<code>機種比較_deep_research_20260728.md</code>・<code>UGREEN深掘り_20260728.md</code>。</p>
+        <p><strong>WOL（QNAP・2026-07-28 14:05追加確認）</strong>：QNAP公式ドキュメント「Wake-on-LANの有効化と無効化」＋公式FAQ（Qfinder ProのWOL）で対応確定・既定で有効（[docs.qnap.com](https://docs.qnap.com/operating-system/quts-hero/5.1.x/ja-jp/wake-on-lan-wol-%E3%81%AE%E6%9C%89%E5%8A%B9%E5%8C%96%E3%81%A8%E7%84%A1%E5%8A%B9%E5%8C%96-EA9D6789.html)、取得日2026-07-28）。一般的制約として、停電等で電源が完全に喪失した後はWOLは機能しない（コンセント通電が前提）。</p>
       </div>
     </details>
 
@@ -513,7 +514,7 @@
       <li><strong>SMART監視・定期スクラブ・故障通知</strong>：Synology/QNAPは標準機能でスケジュール実行可能。Asustorは標準搭載の見込みだが一部詳細未確認（`機種比較_deep_research_20260728.md`§1-3参照）。</li>
       <li><strong>ノード相互復旧（データ可搬性）</strong>：完成品NASはいずれも「同ブランド内の機種変更」を前提とした公式復旧手順があるが、汎用Linuxでの直接読み出しはmdadm+LVMの多層構造のため相応の知識が必要（中程度）。UGREENは非公式報告で汎用Linux読出し失敗のリスクが指摘されている（低〜不明）。</li>
       <li><strong>家族UX・移行計画</strong>：Immichで家族共有スペース＋各人固有スペースを両立（共有アルバム＋パートナー共有）。既存のGoogle Photos/iCloudと並行運用しながら段階的に移行し、スマホの自動バックアップ先を切り替える。</li>
-      <li><strong>HDMI出力／WOL（want）</strong>：Asustor AS6704Tは公式データシートでHDMI 2.0b搭載を確認、QNAP TS-464は独立ミラーでHDMI 2.1搭載を確認（storagereview.comは2.0表記で不一致あり）。Synology・UGREENは直結非搭載だが、<strong>NJがFire TV Stickを保有</strong>しておりメディア視聴はJellyfin＋Fire TV Stickの間接構成で確定（追加購入不要）。WOLはSynology・Asustorで公式確認、QNAP・UGREENは未確認のため導入時に個別確認が必要。</li>
+      <li><strong>HDMI出力／WOL（want）</strong>：Asustor AS6704Tは公式データシートでHDMI 2.0b搭載を確認、QNAP TS-464は独立ミラーでHDMI 2.1搭載を確認（storagereview.comは2.0表記で不一致あり）。Synology・UGREENは直結非搭載だが、<strong>NJがFire TV Stickを保有</strong>しておりメディア視聴はJellyfin＋Fire TV Stickの間接構成で確定（追加購入不要）。WOLはSynology・Asustor・QNAP（2026-07-28追加確認・既定で有効）で公式確認、UGREENのみ未確認のため導入時に個別確認が必要。</li>
     </ul>
 
     <details>

@@ -322,19 +322,19 @@
     <div class="table-scroll">
       <table>
         <thead>
-          <tr><th>候補</th><th class="num">総額</th><th class="num">回収年数(b)基本</th><th class="num">YouTube補正後<sup>†</sup></th><th class="num">上振れ<sup>※</sup></th></tr>
+          <tr><th>候補</th><th class="num">総額</th><th class="num">回収年数(b)基本</th><th class="num">上振れ<sup>※</sup></th></tr>
         </thead>
         <tbody>
-          <tr><td>Synology DS925+</td><td class="num">¥178,310</td><td class="num">7.90年</td><td class="num">13.50年</td><td class="num">4.13年</td></tr>
-          <tr><td>Asustor AS6704T</td><td class="num">¥166,910</td><td class="num">7.49年</td><td class="num">12.91年</td><td class="num">3.67年</td></tr>
-          <tr><td>QNAP TS-464-8G</td><td class="num">¥156,210</td><td class="num">7.46年</td><td class="num">13.47年</td><td class="num">3.40年</td></tr>
-          <tr class="lead"><td>UGREEN DXP4800 Plus（条件付き）</td><td class="num">¥153,410</td><td class="num">7.24年</td><td class="num">12.98年</td><td class="num">3.23年</td></tr>
+          <tr><td>Synology DS925+</td><td class="num">¥178,310</td><td class="num">7.90年</td><td class="num">4.13年</td></tr>
+          <tr><td>Asustor AS6704T</td><td class="num">¥166,910</td><td class="num">7.49年</td><td class="num">3.67年</td></tr>
+          <tr><td>QNAP TS-464-8G</td><td class="num">¥156,210</td><td class="num">7.46年</td><td class="num">3.40年</td></tr>
+          <tr class="lead"><td>UGREEN DXP4800 Plus（条件付き）</td><td class="num">¥153,410</td><td class="num">7.24年</td><td class="num">3.23年</td></tr>
         </tbody>
-        <caption>†YouTube補正＝Google AI Pro解約でPremium Lite特典（¥9,360/年相当）も失う前提のケースA（⑦参照・特典経由か未確認）。※上振れ＝スマホ低容量化一時便益¥85,000を控除した参考値（前提未実証）。</caption>
+        <caption>※上振れ＝スマホ低容量化一時便益¥85,000を控除した参考値（前提未実証）。YouTube Premiumは独立契約（NJ確定・2026-07-28）のためGoogle解約の損得に影響しない。</caption>
       </table>
     </div>
 
-    <p class="fact">基本ケースの回収年数は4候補とも7.2〜7.9年。YouTube補正が重なると12.9〜13.5年に達する。</p>
+    <p class="fact">基本ケースの回収年数は4候補とも7.2〜7.9年（YouTube Premiumは独立契約と確定したため補正なしの正値）。</p>
   </section>
 
   <!-- ② 機種比較表 -->
@@ -547,8 +547,8 @@
   <section class="card" id="decisions">
     <h2><span class="num">⑦</span>人間裁定ポイント</h2>
     <div class="decision">
-      <div class="q">Google AI Pro（¥2,900/月・5TB）を解約できるか（YouTube補正込み）</div>
-      <div class="a">repo内にNotebookLM/Antigravityの正確な利用回数ログが存在せず<strong>未計測</strong>。解約で失うのは5TBストレージだけでなくGemini Proモデル・Deep Research・NotebookLM拡張枠・YouTube Premium Lite等の付帯価値も含む。NJは「YouTube Premiumを利用している」と申告しており、単体契約か特典経由（Premium Lite無料付帯）かは未確認。特典経由なら解約後にPremium Lite単体契約（¥9,360/年）が必要になり、年間回避額合計は¥37,920→¥28,560に縮小、回収年数は基本ケースで7.24〜7.90年→12.9〜13.5年台へ後退する（独立契約なら影響なし）。詳細は<code>TCO試算_20260728.md</code>§3・§9参照。
+      <div class="q">Google AI Pro（¥2,900/月・5TB）を解約できるか</div>
+      <div class="a">repo内にNotebookLM/Antigravityの正確な利用回数ログが存在せず<strong>未計測</strong>。解約で失うのは5TBストレージだけでなくGemini Proモデル・Deep Research・NotebookLM拡張枠等の付帯価値も含む。<strong>YouTube＝独立契約のため解約影響なし（NJ確定07-28）</strong>。年間回避額¥37,920・回収年数は基本ケース7.24〜7.90年（4TB×2主構成）が正値。詳細は<code>TCO試算_20260728.md</code>§3・§6参照。
         <details>
           <summary>判断材料を開く（解約メリデメ表）</summary>
           <div class="detail-body">
@@ -559,7 +559,7 @@
                   <tr><td>固定費</td><td>年¥34,800を回避</td><td>年¥34,800を維持で支払い続け</td></tr>
                   <tr><td>移行猶予</td><td>Immichと並行運用しながら段階移行できる（急な打ち切りではない）</td><td>猶予は不要（移行自体を急がない前提）</td></tr>
                   <tr><td>NotebookLM/Deep Research</td><td>無料枠（チャット50/日・Deep Research月10回）へ縮小</td><td>Pro拡張枠（4倍利用量・Deep Research上位アクセス）を維持</td></tr>
-                  <tr><td>YouTube視聴</td><td>Premium Lite特典（¥9,360/年相当）も失う＝単体契約するか広告ありに戻る</td><td>Premium Lite無料付帯を維持</td></tr>
+                  <tr><td>YouTube視聴</td><td>独立契約のため影響なし（NJ確定07-28）</td><td>同左（影響なし）</td></tr>
                   <tr><td>保険策</td><td>Deep Researchを多用する月だけ単月再加入（Google One月次課金のため月単位での出入りが可能）という運用で対応できる（意見）</td><td>該当なし</td></tr>
                 </tbody>
               </table>

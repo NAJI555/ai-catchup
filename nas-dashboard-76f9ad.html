@@ -422,6 +422,14 @@
         </div>
         <p><strong>UGREENの購入前確認事項（2点）</strong>：①スナップショット機能の実機/公式確認、②導入予定UPSがUGOS Pro上で自動シャットダウンまで実際に機能するかの実機確認（<code>UPS選定_20260728.md</code>§3参照・汎用UPSの公式互換リストが存在しないため）。出典・詳細は<code>機種比較_deep_research_20260728.md</code>・<code>UGREEN深掘り_20260728.md</code>。</p>
         <p><strong>WOL（QNAP・2026-07-28 14:05追加確認）</strong>：QNAP公式ドキュメント「Wake-on-LANの有効化と無効化」＋公式FAQ（Qfinder ProのWOL）で対応確定・既定で有効（[docs.qnap.com](https://docs.qnap.com/operating-system/quts-hero/5.1.x/ja-jp/wake-on-lan-wol-%E3%81%AE%E6%9C%89%E5%8A%B9%E5%8C%96%E3%81%A8%E7%84%A1%E5%8A%B9%E5%8C%96-EA9D6789.html)、取得日2026-07-28）。一般的制約として、停電等で電源が完全に喪失した後はWOLは機能しない（コンセント通電が前提）。</p>
+        <p><strong>I/F・拡張性比較（最終2択限定・2026-07-28追記・詳細=<code>IF拡張比較_20260728.md</code>）</strong></p>
+        <ul>
+          <li>LAN・10GbE増設：両機とも2.5GbE×2＋リンクアグリゲーション標準。QNAPはPCIe Gen3 x2スロットで10GbE等NICを後付け可能、DS925+は前世代DS923+にあったPCIe/ネットワーク増設スロットが廃止され増設不可（本体買い替えのみ）。</li>
+          <li>M.2：DS925+はDSM 7.3後もキャッシュ/ストレージプール作成が事実上Synology純正SSD限定のまま。QNAPは社外NVMe SSDの実動作報告が複数あり技術的な締め出しは未確認。</li>
+          <li>拡張ユニット：Synology DX525（5ベイ・USB-C・ホットスワップ・電源連動の1択）対QNAP TR-004（USB・4ベイDAS）/TL-D400S（PCIeスロット占有・NAS本体ボリュームに統合不可のJBOD専用）の2系統。</li>
+          <li>RAM社外品：Synology公式データシートは「非純正RAM使用時は製品保証を完全には提供しない」と明記。QNAPは注意喚起レベルで社外DDR4の動作実績報告あり。</li>
+          <li>総括：I/F・拡張性の勝者はQNAP TS-464-8G（将来10GbE化したい場合に効く）。CPU性能・ECC RAM・終売リスク軸での既存推奨（Synology優位傾向）を覆すものではなく、判断軸が異なるため両立する。</li>
+        </ul>
       </div>
     </details>
 

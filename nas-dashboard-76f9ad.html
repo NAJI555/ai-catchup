@@ -290,267 +290,139 @@
 
   <header class="page-head">
     <h1>NAS選定ダッシュボード</h1>
-    <div class="meta">更新日時：2026-07-29 JST／<strong>機種確定＝UGREEN NASync DXP4800 GT（NJ最終裁定2026-07-29 05:27）</strong>・比較検討時の候補4件（Synology DS925+・Asustor AS6704T・QNAP TS-464-8G・UGREEN DXP4800 Plus〈条件付き〉）は履歴として本ページ②以降に残置・HDD 4TB×2主構成／正本：<code>購入チェックリスト_20260728.md</code>§7（最終確定）・<code>UGREEN_GT可搬性深掘り_20260729.md</code>（裁定経緯）・<code>TCO試算_20260728.md</code>（比較検討時数値）</div>
+    <div class="meta">更新日時：2026-07-29 JST／<strong>機種確定・購入実行済み＝UGREEN NASync DXP4800 GT＋純正UPS US3000バンドル</strong>（NJ最終裁定2026-07-29 05:27・購入チェックリスト§7）。残る人間裁定は<strong>①HDD構成（a/c/e）②Google AI Pro解約可否</strong>のみ（⑦参照）。買い時判定＝<strong>今すぐ（確定）</strong>。比較検討時の候補・過程は末尾「📜選定過程の記録」区画に集約（削除せず保持）。正本：<code>購入チェックリスト_20260728.md</code>§7〜8・<code>UGREEN_GT可搬性深掘り_20260729.md</code>・<code>HDD信頼性学習ノート_20260729.md</code></div>
   </header>
 
   <nav class="jump">
     <a href="#summary">①結論サマリ</a>
-    <a href="#matrix">②機種比較表</a>
+    <a href="#matrix">②HDD構成</a>
     <a href="#breakeven">③損益分岐</a>
     <a href="#calendar">④買い時</a>
     <a href="#ops">⑤運用設計</a>
     <a href="#timecost">⑥時間コスト</a>
     <a href="#decisions">⑦人間裁定</a>
+    <a href="#history">📜履歴</a>
   </nav>
 
   <!-- ① 結論サマリ -->
   <section class="card" id="summary">
     <h2><span class="num">①</span>結論サマリ</h2>
-    <p class="lede"><strong>機種確定＝UGREEN NASync DXP4800 GT＋純正UPS US3000バンドル（NJ最終裁定2026-07-29 05:27）</strong>。比較検討時の候補4件（Synology DS925+／Asustor AS6704T／QNAP TS-464-8G／UGREEN DXP4800 Plus）との比較・回収年数試算は履歴として下表に残置。HDD構成は4TB×2 RAID1（実効4TB・空き2ベイ）。購入前最終確認・購入リスト最終版は<code>購入チェックリスト_20260728.md</code>§7を正本とする。</p>
+    <p class="lede"><strong>機種確定・購入実行済み＝UGREEN NASync DXP4800 GT＋純正UPS US3000バンドル</strong>（NJ最終裁定2026-07-29 05:27）。<strong>残る人間裁定は2件のみ</strong>：①HDD構成の確定（a／c／e・②参照）②Google AI Pro解約可否（⑦参照）。比較検討の全過程（他候補・旧UPS案・旧買い時判断など）は末尾の「📜選定過程の記録」区画へ集約した（現在は無効・削除はしない）。</p>
 
     <div class="stat-grid">
       <div class="stat-tile accent">
-        <div class="label">機種確定（⑦参照）</div>
-        <div class="value">UGREEN NASync DXP4800 GT + US3000</div>
-        <div class="sub">Amazonバンドル¥103,284（<a href="https://www.amazon.co.jp/dp/B0H4PYTRLP" target="_blank" rel="noopener">B0H4PYTRLP</a>・販売元Ugreen Japan Co., Ltd）。データ可搬性は多ソース再検証+対称性検証で「must未達」→「条件付き軽微な後退」へ改定・条件=PC1自動バックアップ組込み+Tailscaleグレーはrunbook対処</div>
+        <div class="label">機種・購入状況</div>
+        <div class="value">GT + US3000（購入済み）</div>
+        <div class="sub">Amazonバンドル¥103,284（<a href="https://www.amazon.co.jp/dp/B0H4PYTRLP" target="_blank" rel="noopener">B0H4PYTRLP</a>・販売元Ugreen Japan Co., Ltd）。データ可搬性は多ソース再検証+対称性検証で「条件付き軽微な後退」に改定・条件=PC1自動バックアップ組込み+Tailscaleグレーはrunbook対処</div>
       </div>
       <div class="stat-tile">
-        <div class="label">確定総額</div>
-        <div class="value">約¥168,300</div>
-        <div class="sub">バンドル¥103,284＋WD40EFZZ×2約¥65,000（LANケーブルは手持ち充当・購入不要）。20万円以内で余裕約¥30,000超。APC BR400S-JPは不要になった（US3000同梱のため）。内訳・現在価格の正本は<code>購入チェックリスト_20260728.md</code>§7</div>
+        <div class="label">HDD構成（人間確定待ち）</div>
+        <div class="value">3案（a／c／e）</div>
+        <div class="sub">a:4TB×2 RAID1(¥65,000・現計画) ／c:4TB×3 RAID5(実効8TB・¥97,500) ／e:6TB×2 RAID1(実効6TB・¥81,960)。詳細=②・購入チェックリスト§8</div>
+      </div>
+      <div class="stat-tile">
+        <div class="label">UPS</div>
+        <div class="value">US3000（バンドル同梱）</div>
+        <div class="sub">DC直結120W方式・追加UPS購入なし。UGOS Pro対応機種リストにDXP4800 GT明記済み</div>
+      </div>
+      <div class="stat-tile">
+        <div class="label">買い時判定</div>
+        <div class="value">今すぐ（確定）</div>
+        <div class="sub">価格動向の実測により様子見の前提は崩れたため、季節の値引き待ちは不採用・失効（詳細=④）</div>
       </div>
     </div>
-
-    <h3>候補と回収年数・4TB×2主構成（シナリオb・Google解約成立時）<span class="flag warn" style="margin-left:8px"><span class="dot"></span>履歴（比較検討時点の試算・機種はGTで確定済み）</span></h3>
-    <div class="table-scroll">
-      <table>
-        <thead>
-          <tr><th>候補</th><th class="num">総額</th><th class="num">回収年数(b)基本</th><th class="num">上振れ<sup>※</sup></th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Synology DS925+</td><td class="num">¥178,310</td><td class="num">7.90年</td><td class="num">4.13年</td></tr>
-          <tr><td>Asustor AS6704T</td><td class="num">¥166,910</td><td class="num">7.49年</td><td class="num">3.67年</td></tr>
-          <tr><td>QNAP TS-464-8G</td><td class="num">¥156,210</td><td class="num">7.46年</td><td class="num">3.40年</td></tr>
-          <tr><td>UGREEN DXP4800 Plus（参考・優先度低下）</td><td class="num">¥153,410</td><td class="num">7.24年</td><td class="num">3.23年</td></tr>
-        </tbody>
-        <caption>※上振れ＝スマホ低容量化一時便益¥85,000を控除した参考値（前提未実証）。YouTube Premiumは独立契約（NJ確定・2026-07-28）のためGoogle解約の損得に影響しない。</caption>
-      </table>
-    </div>
-
-    <p class="fact">基本ケースの回収年数は4候補とも7.2〜7.9年（YouTube Premiumは独立契約と確定したため補正なしの正値）。</p>
   </section>
 
-  <!-- ② 機種比較表 -->
+  <!-- ② HDD構成比較 -->
   <section class="card" id="matrix">
-    <h2><span class="num">②</span>機種比較表（must/want充足マトリクス・予算内訳）</h2>
-    <p class="lede"><strong>採用・確定＝UGREEN NASync DXP4800 GT</strong>（下表1行目・最終裁定2026-07-29）。Synology DS925+／Asustor AS6704T／QNAP TS-464-8G／UGREEN DXP4800 Plusの4候補は比較検討時点の記録として下表に残す（<strong>削除しない＝選定過程そのものが記録として価値がある</strong>ため）。出典・詳細は<code>TCO試算_20260728.md</code>§1〜2、<code>機種比較_deep_research_20260728.md</code>、<code>UGREEN深掘り_20260728.md</code>、GT固有の裏取りは<code>UGREEN_GT検証_20260728.md</code>・<code>UGREEN_GT可搬性深掘り_20260729.md</code>。</p>
+    <h2><span class="num">②</span>HDD構成比較（人間確定待ち：a／c／e）</h2>
+    <p class="lede">機種はGT確定・購入済みのため、比較対象はHDD構成の3案に移行した（NJ着想2026-07-29 06:39「容量を下げる」検証より・購入チェックリスト§8）。b・d・f・g案は¥/実効TBが劣後するため検討対象から除外済み（詳細は末尾「📜選定過程の記録」参照）。出典・詳細＝<code>購入チェックリスト_20260728.md</code>§8。</p>
 
     <div class="table-scroll">
       <table>
         <thead>
-          <tr>
-            <th>候補</th>
-            <th>RAM増設(must)</th>
-            <th>スナップショット(must)</th>
-            <th>Tailscale(must)</th>
-            <th>データ可搬性(重視)</th>
-            <th>HDMI(want・Fire TV保有で間接充足)</th>
-            <th>WOL(want)</th>
-            <th class="num">総額</th>
-            <th>判定</th>
-          </tr>
+          <tr><th>案</th><th>実効容量</th><th class="num">総コスト</th><th class="num">¥/実効TB</th><th>備考</th><th>状態</th></tr>
         </thead>
         <tbody>
-          <tr class="lead" style="background: color-mix(in srgb, var(--s5) 12%, var(--surface-card));">
-            <td>UGREEN NASync DXP4800 GT</td>
-            <td><span class="flag ok"><span class="dot"></span>8→64GB(公式)</span></td>
-            <td><span class="flag ok"><span class="dot"></span>対応(UGOS Pro実装確認)</span></td>
-            <td><span class="flag warn"><span class="dot"></span>Docker経由(非ネイティブ)・OS更新後の設定リセット非公式報告あり</span></td>
-            <td>条件付き軽微な後退（データ自体は複数経路〈UGREEN機同士の実地移設2件・専門データ復旧業者〉で救出可・対称性検証済み。詳細=<code>UGREEN_GT可搬性深掘り_20260729.md</code>）</td>
-            <td><span class="flag ok"><span class="dot"></span>直結対応(4K60Hz・公式スペック確認)</span></td>
-            <td>未確認</td>
-            <td class="num">¥168,300</td>
-            <td><span class="flag ok"><span class="dot"></span>採用・確定</span></td>
-          </tr>
-          <tr>
-            <td colspan="9" style="background:var(--surface-page); color:var(--text-muted); font-size:0.76rem; font-style:italic; white-space:normal;">↓比較検討時点の記録（履歴・選定過程の価値ある記録として保持。削除はしない）</td>
-          </tr>
-          <tr>
-            <td>Synology DS925+</td>
-            <td><span class="flag ok"><span class="dot"></span>4→32GB</span></td>
-            <td><span class="flag ok"><span class="dot"></span>対応(Snapshot Replication)</span></td>
-            <td><span class="flag ok"><span class="dot"></span>公式対応</span></td>
-            <td>中（同社機へのDrive Migration公式あり・ext4+mdadm多層）</td>
-            <td><span class="flag ok"><span class="dot"></span>直結なし・間接(Jellyfin+Fire TV Stick)</span></td>
-            <td><span class="flag ok"><span class="dot"></span>対応(公式)</span></td>
-            <td class="num">¥178,310</td>
-            <td><span class="flag ok"><span class="dot"></span>候補</span></td>
-          </tr>
-          <tr>
-            <td>Asustor AS6704T</td>
-            <td><span class="flag ok"><span class="dot"></span>4→16GB(境界)</span></td>
-            <td><span class="flag ok"><span class="dot"></span>対応(Snapshot Center)</span></td>
-            <td><span class="flag ok"><span class="dot"></span>公式Appあり</span></td>
-            <td>中〜高（同社機へのSystem Migration公式・ホットスワップ対応）</td>
-            <td><span class="flag ok"><span class="dot"></span>HDMI 2.0b(公式データシート確認)</span></td>
-            <td><span class="flag ok"><span class="dot"></span>対応(公式・WoWも)</span></td>
-            <td class="num">¥166,910</td>
-            <td><span class="flag ok"><span class="dot"></span>候補</span></td>
-          </tr>
           <tr class="lead">
-            <td>QNAP TS-464-8G</td>
-            <td><span class="flag ok"><span class="dot"></span>8→16GB(境界・公式値は間接確認)</span></td>
-            <td><span class="flag ok"><span class="dot"></span>対応(Snapshot Manager)</span></td>
-            <td><span class="flag ok"><span class="dot"></span>公式連携あり</span></td>
-            <td>中（QTSバージョン一致が条件の公式移行手順）</td>
-            <td><span class="flag ok"><span class="dot"></span>HDMI 2.1(独立ミラー確認・storagereview.comは2.0表記で不一致あり)</span></td>
-            <td><span class="flag ok"><span class="dot"></span>対応(公式・既定で有効)</span></td>
-            <td class="num">¥156,210</td>
-            <td><span class="flag ok"><span class="dot"></span>候補</span></td>
+            <td>(a) 4TB×2 RAID1<span class="flag ok" style="margin-left:6px"><span class="dot"></span>現計画</span></td>
+            <td>4TB</td>
+            <td class="num">¥65,000</td>
+            <td class="num">¥16,250</td>
+            <td>2ベイ使用・2ベイ拡張余地あり。新規購入コスト最小・構成最単純</td>
+            <td>確定待ち</td>
           </tr>
           <tr>
-            <td>UGREEN DXP4800 Plus</td>
-            <td><span class="flag ok"><span class="dot"></span>8→64GB(非公式一致)</span></td>
-            <td><span class="flag warn"><span class="dot"></span>判定保留(公式一次資料からは実装有無を確定不可)</span></td>
-            <td><span class="flag warn"><span class="dot"></span>Docker経由(非ネイティブ)</span></td>
-            <td>低〜不明（単独ソースでUGOS改変により汎用Linux読出し失敗の実地報告あり）</td>
-            <td><span class="flag ok"><span class="dot"></span>直結なし・間接(Jellyfin+Fire TV Stick)</span></td>
-            <td>未確認</td>
-            <td class="num">¥153,410</td>
-            <td><span class="flag warn"><span class="dot"></span>参考（Plus自体はスナップショット判定保留・データ可搬性は非公式実地報告で懸念。eMMC非着脱の確定的欠陥はGT世代固有でPlusには非適用）</span></td>
+            <td>(c) 4TB×3 RAID5</td>
+            <td>8TB</td>
+            <td class="num">¥97,500</td>
+            <td class="num">¥12,188</td>
+            <td>3ベイ使用・1ベイ拡張余地。¥/実効TBは全案中最良（(a)より+¥32,500）</td>
+            <td>確定待ち</td>
+          </tr>
+          <tr>
+            <td>(e) 6TB×2 RAID1</td>
+            <td>6TB</td>
+            <td class="num">¥81,960</td>
+            <td class="num">¥13,660</td>
+            <td>2ベイ使用・2ベイ拡張余地維持。単純さと¥/TBの中庸案（(a)より+¥16,960）</td>
+            <td>確定待ち</td>
           </tr>
         </tbody>
+        <caption>実効容量あたり最安は(c)、総額・単純さで最小は(a)。判定はNJの価値判断。除外済みのb/d/f/g案（2TB・3TB構成）は末尾「📜選定過程の記録」参照。</caption>
       </table>
     </div>
+    <p class="fact">HDD信頼性の定量検証（1本故障時の交換猶予・主リスクはRAID再構築中のURE）は⑤参照。構成決定後は<code>購入チェックリスト_20260728.md</code>§7-2の購入リストを更新する。</p>
 
-    <details>
-      <summary>詳細を開く：候補ごとの根拠（CPU・RAM上限・スナップショット方式・Tailscale経路・データ可搬性）</summary>
-      <div class="detail-body">
-        <div class="table-scroll">
-          <table>
-            <thead><tr><th>候補</th><th>CPU</th><th>RAM(初期→上限)</th><th>スナップショット方式</th><th>Tailscale経路</th><th>データ可搬性の詳細</th></tr></thead>
-            <tbody>
-              <tr><td>Synology DS925+</td><td>AMD Ryzen V1500B(4C8T・2.2GHz)</td><td>4GB ECC→32GB</td><td>Btrfs+Snapshot Replication(公式)</td><td>公式対応</td><td>ext4+mdadm多層。同社同系統機への公式Drive Migration機能あり</td></tr>
-              <tr><td>Asustor AS6704T</td><td>Intel Celeron N5105(4C4T)</td><td>4GB DDR4→16GB(境界)</td><td>Btrfs+Snapshot Center(公式・最大256世代)</td><td>公式App Central配信</td><td>同社同系統機への公式System Migration・ホットスワップ対応</td></tr>
-              <tr><td>QNAP TS-464-8G</td><td>Intel Celeron N5105(4C4T)</td><td>8GB→16GB(境界・公式値は間接確認)</td><td>Btrfs+Snapshot Manager(公式・時/日/週/月次)</td><td>公式ドキュメントに連携記載</td><td>同社同系統機への公式移行手順あり(QTSバージョン一致が条件)</td></tr>
-              <tr><td>UGREEN DXP4800 Plus</td><td>Intel Pentium Gold 8505(5C・最大4.40GHz)</td><td>8GB→64GB(非公式一致)</td><td>判定保留(公式一次資料から実装有無を確定不可)</td><td>Docker経由(非ネイティブ)</td><td>低〜不明。UGOS改変により汎用Linux読出し失敗の実地報告あり</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p><strong>UGREENの購入前確認事項（2点）</strong>：①スナップショット機能の実機/公式確認、②導入予定UPSがUGOS Pro上で自動シャットダウンまで実際に機能するかの実機確認（<code>UPS選定_20260728.md</code>§3参照・汎用UPSの公式互換リストが存在しないため）。出典・詳細は<code>機種比較_deep_research_20260728.md</code>・<code>UGREEN深掘り_20260728.md</code>。</p>
-        <p><strong>WOL（QNAP・2026-07-28 14:05追加確認）</strong>：QNAP公式ドキュメント「Wake-on-LANの有効化と無効化」＋公式FAQ（Qfinder ProのWOL）で対応確定・既定で有効（[docs.qnap.com](https://docs.qnap.com/operating-system/quts-hero/5.1.x/ja-jp/wake-on-lan-wol-%E3%81%AE%E6%9C%89%E5%8A%B9%E5%8C%96%E3%81%A8%E7%84%A1%E5%8A%B9%E5%8C%96-EA9D6789.html)、取得日2026-07-28）。一般的制約として、停電等で電源が完全に喪失した後はWOLは機能しない（コンセント通電が前提）。</p>
-        <p><strong>I/F・拡張性比較（最終2択限定・2026-07-28追記・詳細=<code>IF拡張比較_20260728.md</code>）</strong></p>
-        <ul>
-          <li>LAN・10GbE増設：両機とも2.5GbE×2＋リンクアグリゲーション標準。QNAPはPCIe Gen3 x2スロットで10GbE等NICを後付け可能、DS925+は前世代DS923+にあったPCIe/ネットワーク増設スロットが廃止され増設不可（本体買い替えのみ）。</li>
-          <li>M.2：DS925+はDSM 7.3後もキャッシュ/ストレージプール作成が事実上Synology純正SSD限定のまま。QNAPは社外NVMe SSDの実動作報告が複数あり技術的な締め出しは未確認。</li>
-          <li>拡張ユニット：Synology DX525（5ベイ・USB-C・ホットスワップ・電源連動の1択）対QNAP TR-004（USB・4ベイDAS）/TL-D400S（PCIeスロット占有・NAS本体ボリュームに統合不可のJBOD専用）の2系統。</li>
-          <li>RAM社外品：Synology公式データシートは「非純正RAM使用時は製品保証を完全には提供しない」と明記。QNAPは注意喚起レベルで社外DDR4の動作実績報告あり。</li>
-          <li>総括：I/F・拡張性の勝者はQNAP TS-464-8G（将来10GbE化したい場合に効く）。CPU性能・ECC RAM・終売リスク軸での既存推奨（Synology優位傾向）を覆すものではなく、判断軸が異なるため両立する。</li>
-        </ul>
-      </div>
-    </details>
-
-    <h3>予算内訳（主構成：HDD=WD Red Plus 4TB×2・RAID1、UPS=APC RS 400VA相当¥20,000、周辺機器¥3,000）</h3>
-    <div class="table-scroll">
-      <table>
-        <thead><tr><th>候補</th><th class="num">本体</th><th class="num">HDD×2(4TB)</th><th class="num">UPS</th><th class="num">周辺機器</th><th class="num">合計</th></tr></thead>
-        <tbody>
-          <tr><td>Synology DS925+</td><td class="num">¥114,950</td><td class="num">¥40,380</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥178,310</td></tr>
-          <tr><td>Asustor AS6704T</td><td class="num">¥103,500</td><td class="num">¥40,380</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥166,910</td></tr>
-          <tr><td>QNAP TS-464-8G</td><td class="num">¥92,800</td><td class="num">¥40,380</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥156,210</td></tr>
-        </tbody>
-        <caption>HDD=WD Red Plus 4TB×2（¥20,190/本、`機種比較_deep_research_20260728.md`・kakaku.com取得日2026-07-28）。本体価格はkakaku.com等・取得日2026-07-28（非監査・変動あり・比較検討時点の記録）。採用・確定機種UGREEN GTはバンドル価格のため本表（07-28時点の個別コンポーネント価格ベース）には含めない。GTの内訳（本体分¥89,892＋UPS〈US3000〉分¥13,392、取得日2026-07-29）は<code>購入チェックリスト_20260728.md</code>§6-1・§7-2を参照。</caption>
-      </table>
-    </div>
-    <p class="fact">UPS実勢価格（推奨APC BR400S-JP）は¥17,825〜¥17,980で、表中の仮置き¥20,000との差額は許容範囲内（詳細は⑤「UPS選定」参照）。</p>
-
-    <h3>ストレージ構成（主構成・増量オプション）</h3>
-    <div class="table-scroll">
-      <table>
-        <thead><tr><th>構成</th><th class="num">HDD費用</th><th>実効容量</th><th>20万円判定(4候補中)</th><th>拡張パス</th></tr></thead>
-        <tbody>
-          <tr class="lead"><td>4TB×2 RAID1（主構成・確定）</td><td class="num">¥40,380</td><td>4TB(ミラー)</td><td>4候補とも○</td><td>下記「増設パス」参照</td></tr>
-          <tr><td>8TB×2 RAID1（増量オプション）</td><td class="num">¥71,720</td><td>8TB(ミラー)</td><td>4候補とも○</td><td>換装で実効容量倍増</td></tr>
-        </tbody>
-        <caption>大容量ドライブほどRAID再構築時間が長くなり二重障害リスクが相対的に高まる点は一般的な工学知見として付記（定量値は未調査）。詳細は<code>TCO試算_20260728.md</code>§9。</caption>
-      </table>
-    </div>
-    <p class="fact">実使用量は5TBプラン（Google）に対し余裕がある見込み（NJ申告・正確な値は未計測）。実使用が4TBに近づいた場合の増設パス：①空きの2ベイへ4TB×2を追加し4台構成でRAID10へ再構成＝実効8TBへ倍増、②8TB×2ペアへ換装＝実効8TB。実使用量確定後に要否を判断する。</p>
+    <h3>HDD容量とTB単価（実測2026-07-29）</h3>
+    <p class="lede">WD Red Plus（CMR）の容量別・現行実売価格（<code>購入チェックリスト_20260728.md</code>§8-1・取得日2026-07-29）。棒の高さ・上ラベル＝¥/TB（kakaku最安基準）、棒内の白字ラベル＝実売単価(¥/本)。3TBのみ現行モデルの流通が薄く、単調な右肩下がりから外れて跳ね上がる。</p>
+    <svg class="chart" id="chartTB" viewBox="0 0 640 340" role="img" aria-label="HDD容量別のTB単価、3TBのみ流通薄で価格が跳ね上がる異常値、4TB以上は容量が大きいほど単価が下がる"></svg>
+    <p class="chart-note">取得日2026-07-29・kakaku.com最安値基準（3TBのみkakaku現行世代が価格情報無しのためAmazon実売¥39,762を採用・図中で個別注記）。数値正本は<code>購入チェックリスト_20260728.md</code>§8-1。</p>
   </section>
 
   <!-- ③ 損益分岐グラフ -->
   <section class="card" id="breakeven">
-    <h2><span class="num">③</span>損益分岐（累積コスト比較・4TB×2主構成・基本ケース）</h2>
-    <p class="lede">縦軸＝累積純負担（初期投資－経過年数×年間純便益）。ゼロを下回った年が回収年数。スマホ低容量化一時便益¥85,000は前提未実証のため以下のグラフでは計上しない（上振れ試算は<code>TCO試算_20260728.md</code>§5-2・§9参照）。<strong>採用・確定機種UGREEN GT（総額¥168,300・購入チェックリスト§6-7）を主系列として追加</strong>。他4候補は比較検討時点の履歴として残す。</p>
+    <h2><span class="num">③</span>損益分岐（GT確定構成・累積コスト）</h2>
+    <p class="lede">縦軸＝累積純負担（初期投資－経過年数×年間純便益）。ゼロを下回った年が回収年数。初期投資はHDD構成(a)4TB×2 RAID1（総額¥168,300）を仮置き——②のHDD構成が(c)/(e)に変わると初期投資額が変動する（差額は購入チェックリスト§8参照）。年間純便益はGT本体の電力消費実測が無いため近似値（要実測更新・詳細=<code>TCO試算_20260728.md</code>§2）。比較検討時点の他候補との比較チャートは末尾「📜選定過程の記録」に保持。</p>
 
     <h3>シナリオb（Google AI Pro解約が成立した場合）</h3>
-    <svg class="chart" id="chartB" viewBox="0 0 640 380" role="img" aria-label="シナリオbの累積純負担推移、GT確定案含め7.2〜8.0年で回収"></svg>
+    <svg class="chart" id="chartB" viewBox="0 0 640 380" role="img" aria-label="GT確定構成の累積純負担推移、約8年で回収"></svg>
     <div class="chart-legend" id="legendB"></div>
-    <p class="chart-note">線がゼロ(破線)を下回った時点＝投資回収完了。<strong>GT(確定・主系列)</strong>の年間純便益はGT本体の電力消費実測が無いため、同一クラスのUGREEN DXP4800 Plus値を代理採用した近似値（要実測更新・詳細は<code>TCO試算_20260728.md</code>§2・購入チェックリスト§6参照）。</p>
+    <p class="chart-note">線がゼロ(破線)を下回った時点＝投資回収完了。</p>
 
     <h3>シナリオa（Google契約を維持した場合・PC1電力削減の実測次第の条件分岐）</h3>
-    <svg class="chart" id="chartA" viewBox="0 0 640 380" role="img" aria-label="シナリオaの累積純負担推移、PC1側の電力削減がゼロの場合は4候補とも右肩上がりで回収に至らない条件分岐"></svg>
+    <svg class="chart" id="chartA" viewBox="0 0 640 380" role="img" aria-label="GT確定構成のシナリオa累積純負担推移、PC1側の電力削減がゼロの場合は右肩上がりで回収に至らない条件分岐"></svg>
     <div class="chart-legend" id="legendA"></div>
-    <p class="chart-note fact">グラフはPC1側の電力削減効果を<strong>0Wと仮定した</strong>場合。年間運転費がiCloud解約分の節約を上回るため純便益がマイナスになるが、NASへのジョブ移管でPC1平均消費電力が下表のW数を上回れば黒字転換する条件分岐であり、「回収不能」と断定するものではない（実測なし）。</p>
-    <div class="table-scroll">
-      <table>
-        <thead><tr><th>候補</th><th class="num">シナリオa年間純便益(0W時)</th><th class="num">黒字化に必要なPC1平均削減電力</th></tr></thead>
-        <tbody>
-          <tr><td>Synology DS925+</td><td class="num">−¥8,750</td><td class="num">約32.2W</td></tr>
-          <tr><td>Asustor AS6704T</td><td class="num">−¥9,029</td><td class="num">約33.3W</td></tr>
-          <tr><td>QNAP TS-464-8G</td><td class="num">−¥10,367</td><td class="num">約38.2W</td></tr>
-          <tr><td>UGREEN DXP4800 Plus（条件付き）</td><td class="num">−¥10,140</td><td class="num">約37.3W</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3>ブラックフライデー感応度（仮想割引率・1行・上振れシナリオ）</h3>
-    <p>QNAP TS-464-8Gの例（上振れシナリオ・シナリオb・4TB×2主構成）：総額15%引きで実質初期投資¥47,778→回収<strong>2.28年</strong>、32%引きで¥21,223→回収<strong>1.01年</strong>。<span class="opinion">この15%・32%は他機種・他メーカーのセール実績から引用した仮想割引率であり、QNAP一式へそのまま適用できる保証はない。</span></p>
+    <p class="chart-note fact">グラフはPC1側の電力削減効果を<strong>0Wと仮定した</strong>場合。年間運転費がiCloud解約分の節約を上回るため純便益がマイナスになるが、NASへのジョブ移管でPC1平均消費電力が約37.3Wを上回れば黒字転換する条件分岐であり、「回収不能」と断定するものではない（実測なし）。</p>
   </section>
 
-  <!-- ④ 買い時カレンダー -->
+  <!-- ④ 買い時判定 -->
   <section class="card" id="calendar">
-    <h2><span class="num">④</span>買い時カレンダー</h2>
-    <p class="lede">出典：<code>購入時期と入手先_20260728.md</code>（2026-07-28時点調査・過去実績を含む全件は同ファイル参照）。本ビューアは<strong>現時点で今後有効なもののみ</strong>表示する。</p>
-    <ul class="cal-list">
-      <li><div class="cal-date">2026-07-29〜08-02</div><div class="cal-body">Amazon夏のポイント祭り（NAS/HDD対象か未確認）<div class="state">開催直前〜開催中</div></div></li>
-      <li><div class="cal-date">2026年9月頃</div><div class="cal-body">楽天スーパーセール（年4回・次回は9月見込み）<div class="state">本命候補①</div></div></li>
-      <li><div class="cal-date">2026年11月下旬</div><div class="cal-body">Amazonブラックフライデー（NAS/HDDカテゴリで15〜32%OFF実績あり）<div class="state">本命候補②</div></div></li>
-    </ul>
-    <p class="fact">【2026-07-29更新】機種確定後の価格動向実測により「待てば得」の前提は崩れた——NAS本体2機種・HDDとも直近1〜2日で+¥10,000前後の値上がりが実際に発生済み（<code>購入チェックリスト_20260728.md</code>§1・§5）。同ファイル§5は購入推奨を「今週買い」から<strong>「今すぐ買い」（確度：高）へ引き上げ済み</strong>。季節セール待ちは不採用とし、⑦の購入実行アクションへ進む。</p>
-    <details>
-      <summary>過去実績を開く（セール割引の詳細）</summary>
-      <div class="detail-body">
-        <p><strong>Amazonプライムデー2026（7/7〜7/13・終了済み）</strong>：UGREEN NAS DH4300 Plusが¥59,880→25%OFFの¥44,900。WD Red Plus 8TB ¥44,980／12TB ¥64,280で最大15%OFF。TerraMaster最大20%OFF。（出典：週刊アスキー・ITmedia PC USER・PR TIMES、取得日2026-07-28）</p>
-        <p><strong>UGREEN公式「年中大感謝セール」（7/3〜7/16・終了済み）</strong>：最大25%OFF＋キャッシュバック。新製品は20%OFF（¥69,880→¥55,900）の実例あり。クーポン併用可。名称からして年中に近い頻度で開催している可能性が高い（意見）。（出典：nas.ugreen.jp、取得日2026-07-28）</p>
-        <p><strong>楽天お買い物マラソン（7/19 20:00〜7/26 01:59・終了済み）</strong>：複数店舗横断購入でポイント最大10倍、SPU込みで最大17.5倍（理論上限47.5倍・上限7,000ポイント）。実質値引き率は購入点数・店舗分散度に依存するため一律の%では言えない（意見）。（出典：media.yourmystar.jp、取得日2026-07-28）</p>
-        <p><strong>Amazonブラックフライデー2025実例（過去年）</strong>：外付けHDDは前年より対象少なめで15〜23%OFF。TerraMaster NAS 32%OFF、UGREEN NAS最大30%OFFの実例あり。年によって「対象少なめ」の当たり外れがある点に注意。（出典：ちもろぐ・がじぇっとりっぷ、取得日2026-07-28）</p>
-        <p>いずれも詳細・全件は<code>購入時期と入手先_20260728.md</code>参照。</p>
-      </div>
-    </details>
+    <h2><span class="num">④</span>買い時判定</h2>
+    <p class="lede fact"><strong>今すぐ買い（確定・確度：高）</strong>。GT+US3000バンドルは既に購入実行済み（①参照）。価格動向の実測により「様子見の方が得」という前提は崩れた——NAS本体・HDDとも直近1〜2日で+¥10,000前後の値上がりが実際に発生済み（<code>購入チェックリスト_20260728.md</code>§1・§5）。年内の複数回のポイント還元セールを待つ判断は不採用・失効した。過去のセール実績・旧「待つ」判断の詳細は末尾「📜選定過程の記録」参照。</p>
   </section>
 
   <!-- ⑤ 運用設計 -->
   <section class="card" id="ops">
     <h2><span class="num">⑤</span>運用設計の要点</h2>
     <ul>
-      <li><strong>Tailscale限定・ポート開放ゼロ</strong>：ベンダークラウド中継（QuickConnect/myQNAPcloud等）は不使用。無料Personalプランは2026-04-08改定で<strong>6ユーザー・デバイス数無制限</strong>（旧上限は3ユーザー/100デバイス）。家族のスマホ4台＋PC1＋PC2＋NASの7台は無制限枠に収まる。</li>
-      <li><strong>スナップショット</strong>：Synology/Asustor/QNAP（履歴候補）は全てBtrfsベースのスケジュールスナップショットに対応（誤削除・ランサムウェア巻き戻し用）。<strong>採用・確定機種UGREEN GTは現行UGOS Proで実装確認済み</strong>（<code>UGREEN_GT検証_20260728.md</code>§1・保持世代数等の詳細は未確認のため導入時に実機確認を推奨）。RAIDは冗長化であってバックアップの代替ではない点に注意（3-2-1原則の最小オフサイトは別途維持）。</li>
-      <li><strong>SMART監視・定期スクラブ・故障通知</strong>：Synology/QNAPは標準機能でスケジュール実行可能。Asustorは標準搭載の見込みだが一部詳細未確認（`機種比較_deep_research_20260728.md`§1-3参照）。</li>
-      <li><strong>ノード相互復旧（データ可搬性・採用機種GT）</strong>：GTの評価は多ソース再検証＋対称性検証を経て「must未達（確定的欠陥）」から<strong>「条件付き軽微な後退」</strong>へ改定済み（<code>UGREEN_GT可搬性深掘り_20260729.md</code>）。復旧経路＝①UGREEN機同士の実地移設（独立2件で成功確認・ただし旧機が生存している計画的交換が前提）②専門データ復旧業者（Attingo・Data Forensics等がUGREEN対応を明記）。<strong>本体が完全に死んだ状態からの無人コールド復旧は実地報告なし（情報不足）</strong>、汎用Linuxでの直接読み出しも未文書化フラグにより構造的に不可（独立2ソースで裏付け）。このためPC1への自動バックアップをrunbook必須項目とし、RAID/NAS側の復旧経路に依存しない独立系統のコピーを保持する（購入条件(1)）。比較検討時点の履歴候補（Synology/Asustor/QNAP）は「同ブランド内の機種変更」を前提とした公式復旧手順があり、汎用Linux直接読み出しもmdadm+LVMの多層構造ながら実績豊富（中〜高）という記録として残す。</li>
+      <li><strong>Tailscale限定・ポート開放ゼロ</strong>：ベンダークラウド中継は不使用。無料Personalプランは2026-04-08改定で<strong>6ユーザー・デバイス数無制限</strong>（旧上限は3ユーザー/100デバイス）。家族のスマホ4台＋PC1＋PC2＋NASの7台は無制限枠に収まる。</li>
+      <li><strong>スナップショット</strong>：<strong>採用・確定機種UGREEN GTは現行UGOS Proで実装確認済み</strong>（<code>UGREEN_GT検証_20260728.md</code>§1・保持世代数等の詳細は未確認のため導入時に実機確認を推奨）。RAIDは冗長化であってバックアップの代替ではない点に注意（3-2-1原則の最小オフサイトは別途維持）。</li>
+      <li><strong>SMART監視・定期スクラブ・故障通知</strong>：導入後にrunbookで設定するNAS標準機能を使う（詳細=移行runbook作成時）。</li>
+      <li><strong>ノード相互復旧（データ可搬性・採用機種GT）</strong>：GTの評価は多ソース再検証＋対称性検証を経て「must未達（確定的欠陥）」から<strong>「条件付き軽微な後退」</strong>へ改定済み（<code>UGREEN_GT可搬性深掘り_20260729.md</code>）。復旧経路＝①UGREEN機同士の実地移設（独立2件で成功確認・ただし旧機が生存している計画的交換が前提）②専門データ復旧業者（Attingo・Data Forensics等がUGREEN対応を明記）。<strong>本体が完全に死んだ状態からの無人コールド復旧は実地報告なし（情報不足）</strong>、汎用Linuxでの直接読み出しも未文書化フラグにより構造的に不可（独立2ソースで裏付け）。このためPC1への自動バックアップをrunbook必須項目とし、RAID/NAS側の復旧経路に依存しない独立系統のコピーを保持する（購入条件(1)）。</li>
       <li><strong>家族UX・移行計画</strong>：Immichで家族共有スペース＋各人固有スペースを両立（共有アルバム＋パートナー共有）。既存のGoogle Photos/iCloudと並行運用しながら段階的に移行し、スマホの自動バックアップ先を切り替える。</li>
       <li><strong>HDD信頼性（RAID1・交換猶予）</strong>：1本故障時の交換猶予は予備HDDを手元保有で約0.5〜2日・無ければ約1.5〜9日、この猶予内に2本目が故障する確率はいずれのシナリオでも1%未満。むしろ主リスクは<strong>RAID1再構築中のURE（読み取りエラー）</strong>で仕様上限ベース約27%と一桁以上大きく、定期スクラブ＋PC1バックアップでの対処が本質的な対策（NJ実務知見の定量検証。詳細・出典は<code>HDD信頼性学習ノート_20260729.md</code>）。</li>
-      <li><strong>UGOS Pro運用注意（GT向け・履歴候補のQTS/cron注記からの差し替え）</strong>：①cronジョブはQTS等のホストOSではなく<strong>Dockerコンテナ内部のスケジューラ（cron/supervisord等）へ隔離</strong>し、ホストOS更新の影響を受けにくくする。②UGOSアップデート後にTailscale接続・Docker設定がリセットされた非公式報告があるため、<strong>OS更新後はTailscale永続性・Docker設定の再確認をrunbook必須項目化</strong>する（<code>UGREEN_GT検証_20260728.md</code>§2・§6）。③可搬性はUGREEN機同士の移設経路（実地成功2件・対称性検証済み）を一次手段としつつ、PC1への自動バックアップを必須の二段構えとする（購入条件(1)(2)）。</li>
-      <li><strong>HDMI出力／WOL（want）</strong>：<strong>採用・確定機種UGREEN GTはHDMI 4K60Hz直結出力に対応（公式スペック確認、`UGREEN_GT検証_20260728.md`§5）</strong>——比較検討時点の想定（Synology/UGREEN Plusは直結非搭載）から前進しており、直結でwant要件を満たす。念のため<strong>NJがFire TV Stickを保有</strong>しているため、Jellyfin＋Fire TV Stickの間接構成も併用可能。WOLはSynology・Asustor・QNAP（履歴候補・2026-07-28追加確認・既定で有効）で公式確認済みだが、GT個別のWOL対応は本調査群では未確認のため導入時に個別確認が必要。</li>
+      <li><strong>UGOS Pro運用注意</strong>：①cronジョブはホストOSではなく<strong>Dockerコンテナ内部のスケジューラ（cron/supervisord等）へ隔離</strong>し、ホストOS更新の影響を受けにくくする。②UGOSアップデート後にTailscale接続・Docker設定がリセットされた非公式報告があるため、<strong>OS更新後はTailscale永続性・Docker設定の再確認をrunbook必須項目化</strong>する（<code>UGREEN_GT検証_20260728.md</code>§2・§6）。③可搬性はUGREEN機同士の移設経路（実地成功2件・対称性検証済み）を一次手段としつつ、PC1への自動バックアップを必須の二段構えとする（購入条件(1)(2)）。</li>
+      <li><strong>HDMI出力／WOL（want）</strong>：<strong>採用・確定機種UGREEN GTはHDMI 4K60Hz直結出力に対応</strong>（公式スペック確認、`UGREEN_GT検証_20260728.md`§5）——直結でwant要件を満たす。念のため<strong>NJがFire TV Stickを保有</strong>しているため、Jellyfin＋Fire TV Stickの間接構成も併用可能。GT個別のWOL対応は本調査群では未確認のため導入時に個別確認が必要。</li>
     </ul>
 
     <details open>
-      <summary>UPS選定（確定：純正US3000バンドル・詳細は<code>購入チェックリスト_20260728.md</code>§6・<code>UGREEN_GT検証_20260728.md</code>§3）</summary>
+      <summary>UPS運用（確定：純正US3000・詳細は<code>購入チェックリスト_20260728.md</code>§6・<code>UGREEN_GT検証_20260728.md</code>§3）</summary>
       <div class="detail-body">
-        <p><strong>確定：UGREEN純正UPS「US3000」</strong>（GT+US3000バンドル¥103,284に同梱・単体販売価格¥14,880相当）。出力方式は<strong>AC出力（正弦波/矩形波）ではなく120W DC直接給電（DC-to-DC変換）</strong>のため、履歴候補検討時に適用していた「4ベイ機のPFC電源には正弦波が必須」という判定枠組み自体が<strong>そもそも適用対象外</strong>（構造が異なる製品カテゴリ・正弦波論点は不成立）。</p>
-        <p><strong>仕様</strong>：120W出力・12V 10Ah(12,000mAh)リチウムバッテリー内蔵。フル負荷時バックアップ時間は公式非公開（非公式レビューで約10分程度との言及があるが一次確認なし＝参考情報）。APC BR400S-JP（240W・実負荷の2〜4倍の余裕）と比べ絶対的な余裕は小さいが、自動シャットダウンを完走させる用途としては足りる可能性が高い。バッテリー交換可否は情報なし（要追加確認）。</p>
+        <p><strong>確定：UGREEN純正UPS「US3000」</strong>（GT+US3000バンドルに同梱・単体販売価格¥14,880相当）。出力方式は<strong>AC出力ではなく120W DC直接給電（DC-to-DC変換）</strong>のため、旧検討時に適用していた「4ベイ機の電源には特定波形の出力が必須」という判定枠組み自体がそもそも適用対象外（構造が異なる製品カテゴリ）。</p>
+        <p><strong>仕様</strong>：120W出力・12V 10Ah(12,000mAh)リチウムバッテリー内蔵。フル負荷時バックアップ時間は公式非公開（非公式レビューで約10分程度との言及があるが一次確認なし＝参考情報）。自動シャットダウンを完走させる用途としては足りる可能性が高いが、長時間停電への耐性は低い。バッテリー交換可否は情報なし（要追加確認）。</p>
         <p><strong>UGOS Pro対応（確度：高）</strong>：Amazon商品説明でUPS状態監視・停電時自動一時停止／アプリ経由の自動シャットダウン通知・電源復旧後の自動再起動（ボタン操作不要）を確認。<strong>対応機種リストにDXP4800 GTが個別に明記</strong>（DXP6800/DXP8800シリーズは非対応と明記）。</p>
-        <p><strong>不要になったもの</strong>：GT+US3000バンドル確定により、履歴候補検討時に想定していたAPC BR400S-JP（正弦波・AC出力型・実勢¥16,200〜17,980）およびOmron BY50S（第2候補）は<strong>購入対象から除外</strong>（`UPS選定_20260728.md`はAC出力型UPS前提の検討記録として残置・削除しない）。</p>
+        <p>旧検討時に想定していた外付けUPS案は購入対象から除外済み（US3000同梱のため不要）。比較の詳細は末尾「📜選定過程の記録」参照。</p>
       </div>
     </details>
   </section>
@@ -558,13 +430,12 @@
   <!-- ⑥ 時間コスト -->
   <section class="card" id="timecost">
     <h2><span class="num">⑥</span>定性軸：構築・保守・障害復旧の時間コスト（未計測・意見）</h2>
-    <p class="lede">金額換算していない定性比較（意見・非監査、詳細は<code>TCO試算_20260728.md</code>§7）。</p>
+    <p class="lede">金額換算していない定性比較（意見・非監査）。</p>
     <div class="table-scroll">
       <table>
-        <thead><tr><th>候補</th><th>初期構築の手間</th><th>日常保守</th><th>障害復旧の難度</th></tr></thead>
+        <thead><tr><th>構成</th><th>初期構築の手間</th><th>日常保守</th><th>障害復旧の難度</th></tr></thead>
         <tbody>
-          <tr><td>完成品3種(Synology/Asustor/QNAP)</td><td>GUIで数十分〜1-2時間程度(意見)</td><td>ベンダーGUIの自動更新・通知が中心、負荷は低い(意見)</td><td>ベンダーサポート・公式KBあり、個人負担は小さい(意見)</td></tr>
-          <tr><td>UGREEN DXP4800 GT(採用・確定)</td><td>完成品同様に簡易な見込み(意見)</td><td>Docker経由のTailscale導入等やや手間大・OS更新後の再確認runbook項目あり(意見)</td><td>「条件付き軽微な後退」へ改定済み（⑤参照）。無人コールド復旧の実地報告は無く、PC1バックアップが実質的な保険(意見・非監査)</td></tr>
+          <tr><td>UGREEN DXP4800 GT(採用・確定・購入済み)</td><td>GUIで数十分〜1-2時間程度の見込み(意見)</td><td>Docker経由のTailscale導入等やや手間大・OS更新後の再確認runbook項目あり(意見)</td><td>「条件付き軽微な後退」（⑤参照）。無人コールド復旧の実地報告は無く、PC1バックアップが実質的な保険(意見・非監査)</td></tr>
         </tbody>
       </table>
     </div>
@@ -572,9 +443,13 @@
 
   <!-- ⑦ 人間裁定ポイント -->
   <section class="card" id="decisions">
-    <h2><span class="num">⑦</span>人間裁定ポイント</h2>
+    <h2><span class="num">⑦</span>人間裁定ポイント（残り2件）</h2>
     <div class="decision">
-      <div class="q">Google AI Pro（¥2,900/月・5TB）を解約できるか</div>
+      <div class="q">HDD構成の確定（a／c／e） <span class="flag warn"><span class="dot"></span>未確定</span></div>
+      <div class="a">②参照。(a)4TB×2 RAID1（現計画・¥65,000・新規購入コスト最小）を維持するか、(c)4TB×3 RAID5（実効8TB・¥97,500・¥/実効TB最良）、(e)6TB×2 RAID1（実効6TB・¥81,960・拡張余地を保った中庸案）へ変更するか。詳細比較・出典は<code>購入チェックリスト_20260728.md</code>§8。決定後は同ファイル§7-2の購入リストを更新する。</div>
+    </div>
+    <div class="decision">
+      <div class="q">Google AI Pro（¥2,900/月・5TB）を解約できるか <span class="flag warn"><span class="dot"></span>未確定</span></div>
       <div class="a">repo内にNotebookLM/Antigravityの正確な利用回数ログが存在せず<strong>未計測</strong>。解約で失うのは5TBストレージだけでなくGemini Proモデル・Deep Research・NotebookLM拡張枠等の付帯価値も含む。<strong>YouTube＝独立契約のため解約影響なし（NJ確定07-28）</strong>。年間回避額¥37,920・回収年数は基本ケース7.24〜7.90年（4TB×2主構成）が正値。詳細は<code>TCO試算_20260728.md</code>§3・§6参照。
         <details>
           <summary>判断材料を開く（解約メリデメ表）</summary>
@@ -596,23 +471,178 @@
         </details>
       </div>
     </div>
-    <div class="decision">
-      <div class="q">購入実行（人間アクション・残タスク） <span class="flag warn"><span class="dot"></span>未実行</span></div>
-      <div class="a">季節セール待ち（9月楽天／11月ブラックフライデー）の判断はNJ最終裁定＋価格動向の実測により決着済み。<code>購入チェックリスト_20260728.md</code>§5が購入推奨を「今週買い」から<strong>「今すぐ買い」（確度：高）へ引き上げ済み</strong>——NAS本体2機種・HDDとも直近1〜2日で+¥10,000前後の値上がりが実際に発生し、季節セールの割引ペースを市場の値上げペースが上回っている（同ファイル§1参照）。<strong>残るアクションは購入リスト（同ファイル§7-2）に沿った発注実行のみ</strong>：UGREEN GT+US3000バンドル¥103,284（<a href="https://www.amazon.co.jp/dp/B0H4PYTRLP" target="_blank" rel="noopener">B0H4PYTRLP</a>）＋WD Red Plus 4TB(WD40EFZZ)×2 約¥65,000。</div>
-    </div>
-    <div class="decision">
-      <div class="q">最終機種決定 <span class="flag ok"><span class="dot"></span>裁定済み（2026-07-29 05:27）</span></div>
-      <div class="a"><strong>事実</strong>：QNAP TS-464-8G vs Synology DS925+の2択比較（下記・履歴として保持）を経て、NJがUGREEN NASync DXP4800 GT＋純正UPS US3000のAmazonバンドル（<a href="https://www.amazon.co.jp/dp/B0H4PYTRLP" target="_blank" rel="noopener">B0H4PYTRLP</a>・¥103,284）で機種確定と最終裁定した。根拠＝<code>UGREEN_GT可搬性深掘り_20260729.md</code>の多ソース再検証＋対称性検証（QNAP側にも同一深さで4証拠種別を当て直した比較）により、データ可搬性の評価が「must未達（確定的欠陥）」から「条件付き軽微な後退（データ自体は複数経路で救えるが、無人・保証された最速復旧という点でQNAPに劣る）」へ改定されたため。<strong>条件</strong>＝(1) PC1への自動バックアップを移行設計に必須組込み、(2) Tailscale永続グレーはrunbookで対処。購入前最終確認・購入リスト最終版は<code>購入チェックリスト_20260728.md</code>§7参照。<strong>残る人間裁定はGoogle AI Pro解約可否のみ</strong>（本節1点目参照）。
+  </section>
+
+  <!-- 📜 選定過程の記録（履歴・1区画に集約） -->
+  <section class="card" id="history">
+    <details>
+      <summary style="font-size:0.95rem;">📜選定過程の記録（確定前の情報・現在は無効）</summary>
+      <div class="detail-body">
+        <p class="fact">本区画は機種確定・購入実行（2026-07-29）より前の比較検討過程の記録。<strong>現在は無効な情報であり、意思決定には使わない</strong>。選定過程そのものの記録的価値のため削除せず保持する（型化＝<code>AI運用方針/参照ルール/reference_success_patterns.md</code> SP-021）。</p>
+
+        <h4>機種確定の経緯（QNAP vs Synology比較→GT裁定）</h4>
+        <p><strong>事実</strong>：Codexの敵対レビュー＋UGREEN GT検証を経て、構図は<strong>QNAP TS-464-8G vs Synology DS925+（+¥22,100のプレミアム案）</strong>の2択に整理された。UGREEN（Plus/GTとも）はデータ可搬性の確定的な不利により優先度低下、Asustor AS6704Tは僅差でQNAPに次ぐが決定的な差別化材料は無い。<strong>意見</strong>：価格・回収年数のみならQNAP TS-464-8G優位（DS925+のCPU優位性〈Ryzen〉やECC RAM等のプレミアム性は当時の要件では過剰）。ただし2026-07-28 16:10時点でQNAP TS-464が国内正規代理店フォースメディアで終売掲載を確認（在庫限りの可能性）＝統括見解はこれを踏まえてSynology DS925+側（2025年世代・現行販売中で終売リスク無し）に優位性が傾く方向へ一時更新していた。その後、対称性検証（QNAP側にも同一深さで4証拠種別を当て直した比較）を経てUGREEN GTのデータ可搬性評価が「must未達」から「条件付き軽微な後退」へ改定され、NJが最終的にGT＋US3000バンドルで機種確定・購入した（2026-07-29 05:27）。判定保留としていたUGREEN Plusのスナップショット評価も、この過程でGT世代を通じて「実装確認済み」に前進した。</p>
+
+        <h4>機種比較表（比較検討時点・4候補、must/want充足マトリクス）</h4>
+        <p>出典＝<code>TCO試算_20260728.md</code>§1〜2・<code>機種比較_deep_research_20260728.md</code>・<code>UGREEN深掘り_20260728.md</code>。</p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>候補</th><th>RAM増設(must)</th><th>スナップショット(must)</th><th>Tailscale(must)</th><th>データ可搬性(重視)</th><th>HDMI(want)</th><th>WOL(want)</th><th class="num">総額</th><th>判定</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Synology DS925+</td>
+                <td><span class="flag ok"><span class="dot"></span>4→32GB</span></td>
+                <td><span class="flag ok"><span class="dot"></span>対応(Snapshot Replication)</span></td>
+                <td><span class="flag ok"><span class="dot"></span>公式対応</span></td>
+                <td>中（同社機へのDrive Migration公式あり・ext4+mdadm多層）</td>
+                <td><span class="flag ok"><span class="dot"></span>直結なし・間接(Jellyfin+Fire TV Stick)</span></td>
+                <td><span class="flag ok"><span class="dot"></span>対応(公式)</span></td>
+                <td class="num">¥178,310</td>
+                <td>比較検討時候補</td>
+              </tr>
+              <tr>
+                <td>Asustor AS6704T</td>
+                <td><span class="flag ok"><span class="dot"></span>4→16GB(境界)</span></td>
+                <td><span class="flag ok"><span class="dot"></span>対応(Snapshot Center)</span></td>
+                <td><span class="flag ok"><span class="dot"></span>公式Appあり</span></td>
+                <td>中〜高（同社機へのSystem Migration公式・ホットスワップ対応）</td>
+                <td><span class="flag ok"><span class="dot"></span>HDMI 2.0b(公式データシート確認)</span></td>
+                <td><span class="flag ok"><span class="dot"></span>対応(公式・WoWも)</span></td>
+                <td class="num">¥166,910</td>
+                <td>比較検討時候補</td>
+              </tr>
+              <tr>
+                <td>QNAP TS-464-8G</td>
+                <td><span class="flag ok"><span class="dot"></span>8→16GB(境界・公式値は間接確認)</span></td>
+                <td><span class="flag ok"><span class="dot"></span>対応(Snapshot Manager)</span></td>
+                <td><span class="flag ok"><span class="dot"></span>公式連携あり</span></td>
+                <td>中（OSバージョン一致が条件の公式移行手順）</td>
+                <td><span class="flag ok"><span class="dot"></span>HDMI 2.1(独立ミラー確認・storagereview.comは2.0表記で不一致あり)</span></td>
+                <td><span class="flag ok"><span class="dot"></span>対応(公式・既定で有効)</span></td>
+                <td class="num">¥156,210</td>
+                <td>比較検討時候補</td>
+              </tr>
+              <tr>
+                <td>UGREEN DXP4800 Plus</td>
+                <td><span class="flag ok"><span class="dot"></span>8→64GB(非公式一致)</span></td>
+                <td><span class="flag warn"><span class="dot"></span>当時は判定保留(公式一次資料からは実装有無を確定不可・後にGT検証で実装確認へ前進)</span></td>
+                <td><span class="flag warn"><span class="dot"></span>Docker経由(非ネイティブ)</span></td>
+                <td>低〜不明（単独ソースでUGOS改変により汎用Linux読出し失敗の実地報告あり）</td>
+                <td><span class="flag ok"><span class="dot"></span>直結なし・間接(Jellyfin+Fire TV Stick)</span></td>
+                <td>未確認</td>
+                <td class="num">¥153,410</td>
+                <td>比較検討時候補（優先度低下）</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <details>
-          <summary>裁定前の比較（履歴・QNAP vs Synology）を開く</summary>
-          <div class="detail-body"><strong>事実</strong>：Codexの敵対レビュー＋UGREEN GT検証（<code>UGREEN_GT検証_20260728.md</code>）を経て、構図は<strong>QNAP TS-464-8G vs Synology DS925+（+¥22,100のプレミアム案）</strong>の2択に整理された。UGREEN（Plus/GTとも）はデータ可搬性の確定的な不利により優先度低下、Asustor AS6704Tは僅差でQNAPに次ぐが決定的な差別化材料は無い。<strong>意見</strong>：価格・回収年数のみならQNAP TS-464-8G優位（DS925+のCPU優位性〈Ryzen〉やECC RAM等のプレミアム性は現要件では過剰）。ただし【2026-07-28 16:10更新・購入チェックリスト_20260728.md§4】QNAP TS-464が国内正規代理店フォースメディアで終売掲載を確認（在庫限りの可能性）＝統括見解はこれを踏まえてSynology DS925+側（2025年世代・現行販売中で終売リスク無し）に優位性が傾く方向へ更新。QNAPを選ぶ場合は「終売在庫を意図して安く拾う」選択という位置づけになる。</div>
+          <summary>詳細を開く：候補ごとの根拠（CPU・RAM上限・スナップショット方式・Tailscale経路・データ可搬性・I/F拡張性）</summary>
+          <div class="detail-body">
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>候補</th><th>CPU</th><th>RAM(初期→上限)</th><th>スナップショット方式</th><th>Tailscale経路</th><th>データ可搬性の詳細</th></tr></thead>
+                <tbody>
+                  <tr><td>Synology DS925+</td><td>AMD Ryzen V1500B(4C8T・2.2GHz)</td><td>4GB ECC→32GB</td><td>Btrfs+Snapshot Replication(公式)</td><td>公式対応</td><td>ext4+mdadm多層。同社同系統機への公式Drive Migration機能あり</td></tr>
+                  <tr><td>Asustor AS6704T</td><td>Intel Celeron N5105(4C4T)</td><td>4GB DDR4→16GB(境界)</td><td>Btrfs+Snapshot Center(公式・最大256世代)</td><td>公式App Central配信</td><td>同社同系統機への公式System Migration・ホットスワップ対応</td></tr>
+                  <tr><td>QNAP TS-464-8G</td><td>Intel Celeron N5105(4C4T)</td><td>8GB→16GB(境界・公式値は間接確認)</td><td>Btrfs+Snapshot Manager(公式・時/日/週/月次)</td><td>公式ドキュメントに連携記載</td><td>同社同系統機への公式移行手順あり(OSバージョン一致が条件)</td></tr>
+                  <tr><td>UGREEN DXP4800 Plus</td><td>Intel Pentium Gold 8505(5C・最大4.40GHz)</td><td>8GB→64GB(非公式一致)</td><td>当時は判定保留(公式一次資料から実装有無を確定不可)</td><td>Docker経由(非ネイティブ)</td><td>低〜不明。UGOS改変により汎用Linux読出し失敗の実地報告あり</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p><strong>WOL（QNAP・2026-07-28 14:05追加確認）</strong>：QNAP公式ドキュメント「Wake-on-LANの有効化と無効化」＋公式FAQ（Qfinder ProのWOL）で対応確定・既定で有効。一般的制約として、停電等で電源が完全に喪失した後はWOLは機能しない（コンセント通電が前提）。</p>
+            <p><strong>I/F・拡張性比較（QNAP vs Synology比較時・2026-07-28追記・詳細=<code>IF拡張比較_20260728.md</code>）</strong></p>
+            <ul>
+              <li>LAN・10GbE増設：両機とも2.5GbE×2＋リンクアグリゲーション標準。QNAPはPCIe Gen3 x2スロットで10GbE等NICを後付け可能、DS925+は前世代DS923+にあったPCIe/ネットワーク増設スロットが廃止され増設不可（本体買い替えのみ）。</li>
+              <li>M.2：DS925+はDSM 7.3後もキャッシュ/ストレージプール作成が事実上Synology純正SSD限定のまま。QNAPは社外NVMe SSDの実動作報告が複数あり技術的な締め出しは未確認。</li>
+              <li>拡張ユニット：Synology DX525（5ベイ・USB-C・ホットスワップ・電源連動の1択）対QNAP TR-004（USB・4ベイDAS）/TL-D400S（PCIeスロット占有・NAS本体ボリュームに統合不可のJBOD専用）の2系統。</li>
+              <li>RAM社外品：Synology公式データシートは「非純正RAM使用時は製品保証を完全には提供しない」と明記。QNAPは注意喚起レベルで社外DDR4の動作実績報告あり。</li>
+              <li>総括（当時の見解）：I/F・拡張性の勝者はQNAP TS-464-8G。CPU性能・ECC RAM・終売リスク軸での評価（Synology寄り）を覆すものではなく、判断軸が異なるため両立していた。</li>
+            </ul>
+          </div>
         </details>
+
+        <h4>予算内訳・ストレージ構成（比較検討時点）</h4>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>候補</th><th class="num">本体</th><th class="num">HDD×2(4TB)</th><th class="num">UPS</th><th class="num">周辺機器</th><th class="num">合計</th></tr></thead>
+            <tbody>
+              <tr><td>Synology DS925+</td><td class="num">¥114,950</td><td class="num">¥40,380</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥178,310</td></tr>
+              <tr><td>Asustor AS6704T</td><td class="num">¥103,500</td><td class="num">¥40,380</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥166,910</td></tr>
+              <tr><td>QNAP TS-464-8G</td><td class="num">¥92,800</td><td class="num">¥40,380</td><td class="num">¥20,000</td><td class="num">¥3,000</td><td class="num">¥156,210</td></tr>
+            </tbody>
+            <caption>HDD=WD Red Plus 4TB×2（¥20,190/本・当時価格）。本体価格はkakaku.com等・取得日2026-07-28（非監査・比較検討時点の記録）。UPS想定は外付けAC出力型UPS（実勢¥17,825〜¥17,980）で仮置き¥20,000。現在はGT+US3000バンドル確定によりこのUPS想定自体が不成立。</caption>
+          </table>
+        </div>
+        <p style="font-size:0.82rem;font-weight:600;margin:0.6rem 0 0.3rem;color:var(--text-primary);">ストレージ構成（比較検討時点の主構成・増量オプション）</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>構成</th><th class="num">HDD費用</th><th>実効容量</th><th>拡張パス</th></tr></thead>
+            <tbody>
+              <tr><td>4TB×2 RAID1（当時の主構成）</td><td class="num">¥40,380</td><td>4TB(ミラー)</td><td>4ベイ中2使用・残り2ベイ自由</td></tr>
+              <tr><td>8TB×2 RAID1（当時の増量オプション）</td><td class="num">¥71,720</td><td>8TB(ミラー)</td><td>換装で実効容量倍増</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>現在のHDD構成検討は②のa/c/e案（2026-07-29の実測価格ベース）が正本。上記は比較検討時点（2026-07-28）の当時価格による記録。</p>
+
+        <h4>買い時カレンダー（比較検討時点・現在は「今すぐ」で確定・失効）</h4>
+        <ul class="cal-list">
+          <li><div class="cal-date">2026-07-29〜08-02</div><div class="cal-body">Amazon夏のポイント祭り（NAS/HDD対象か未確認）<div class="state">当時：開催直前〜開催中</div></div></li>
+          <li><div class="cal-date">2026年9月頃</div><div class="cal-body">楽天スーパーセール（年4回・次回は9月見込み）<div class="state">当時の本命候補①</div></div></li>
+          <li><div class="cal-date">2026年11月下旬</div><div class="cal-body">Amazonブラックフライデー（NAS/HDDカテゴリで15〜32%OFF実績あり）<div class="state">当時の本命候補②</div></div></li>
+        </ul>
+        <p>Amazonプライムデー2026（7/7〜7/13・終了済み）：UGREEN NAS DH4300 Plusが¥59,880→25%OFFの¥44,900。WD Red Plus 8TB ¥44,980／12TB ¥64,280で最大15%OFF。TerraMaster最大20%OFF。UGREEN公式「年中大感謝セール」（7/3〜7/16・終了済み）：最大25%OFF＋キャッシュバック。楽天お買い物マラソン（7/19〜7/26・終了済み）：複数店舗横断でポイント最大10倍・SPU込み最大17.5倍。Amazonブラックフライデー2025実例（過去年）：外付けHDD15〜23%OFF、TerraMaster NAS 32%OFF、UGREEN NAS最大30%OFFの実例あり。詳細・全件は<code>購入時期と入手先_20260728.md</code>参照。</p>
+
+        <h4>UPS比較（比較検討時点・現在はUS3000確定）</h4>
+        <p><strong>当時の推奨：外付けAC出力型UPS（400VA/240W・ラインインタラクティブ・正弦波）</strong>。実勢価格¥17,825〜¥17,980。根拠：①NAS(35〜42W級)+ルーター/ONU(10〜15W級)の合計負荷45〜57Wに対し容量に十分な余裕、②4ベイ機はPFC電源のため正弦波が必須という当時の判定枠組み（矩形波の安価モデルは動作不安定・故障リスク）、③Synology・QNAP・Asustorの3社で互換確認が取れた。第2候補：Omron BY50S（500VA/300W・常時商用給電・正弦波）実勢¥22,000〜¥23,762。この外付けUPS前提の判定枠組みは、GT+US3000バンドル確定（DC直結120W方式）により<strong>そもそも適用対象外</strong>と判明し、現在は不成立。</p>
+
+        <h4>損益分岐・買い時感応度（比較検討時点・4候補比較）</h4>
+        <p class="lede">回収年数の4候補比較（当時価格ベース・4TB×2主構成）。数値正本は<code>TCO試算_20260728.md</code>。</p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>候補</th><th class="num">総額</th><th class="num">回収年数(b)基本</th><th class="num">上振れ<sup>※</sup></th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Synology DS925+</td><td class="num">¥178,310</td><td class="num">7.90年</td><td class="num">4.13年</td></tr>
+              <tr><td>Asustor AS6704T</td><td class="num">¥166,910</td><td class="num">7.49年</td><td class="num">3.67年</td></tr>
+              <tr><td>QNAP TS-464-8G</td><td class="num">¥156,210</td><td class="num">7.46年</td><td class="num">3.40年</td></tr>
+              <tr><td>UGREEN DXP4800 Plus</td><td class="num">¥153,410</td><td class="num">7.24年</td><td class="num">3.23年</td></tr>
+            </tbody>
+            <caption>※上振れ＝スマホ低容量化一時便益¥85,000を控除した参考値（前提未実証）。</caption>
+          </table>
+        </div>
+        <svg class="chart" id="histChartB" viewBox="0 0 640 380" role="img" aria-label="比較検討時点の4候補累積純負担推移、7.2〜7.9年で回収"></svg>
+        <div class="chart-legend" id="histLegendB"></div>
+        <svg class="chart" id="histChartA" viewBox="0 0 640 380" role="img" aria-label="比較検討時点のシナリオa累積純負担推移"></svg>
+        <div class="chart-legend" id="histLegendA"></div>
+        <p>QNAP TS-464-8Gの当時の例（上振れシナリオ・シナリオb）：総額15%引きで実質初期投資¥47,778→回収2.28年、32%引きで¥21,223→回収1.01年。この15%・32%は他機種・他メーカーのセール実績から引用した仮想割引率であり実証はない。</p>
+
+        <h4>HDD構成：2TB・3TB系の除外案（b/d/f/g）</h4>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>案</th><th>実効容量</th><th class="num">総コスト</th><th class="num">¥/実効TB</th><th>備考</th></tr></thead>
+            <tbody>
+              <tr><td>(b) 2TB×3 RAID5</td><td>4TB</td><td class="num">¥70,140</td><td class="num">¥17,535</td><td>同一実効容量で(a)より+¥5,140高い</td></tr>
+              <tr><td>(d) 2TB×4 RAID5</td><td>6TB</td><td class="num">¥93,520</td><td class="num">¥15,587</td><td>4ベイ満載＝拡張余地ゼロ・(e)より劣後</td></tr>
+              <tr><td>(f) 3TB×3 RAID5</td><td>6TB</td><td class="num">¥119,286</td><td class="num">¥19,881（全構成中最悪）</td><td>3TB流通薄で単価が逆転・(e)より+¥37,326高い</td></tr>
+              <tr><td>(g) 3TB×4 RAID5</td><td>9TB</td><td class="num">¥159,048</td><td class="num">¥17,672</td><td>4ベイ満載・(c)の1.45倍</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>3TBは現行世代モデルの流通が実質消滅しており（kakaku価格情報無し・Amazon正規代理店品は在庫切れ相当）、唯一在庫が確認できたASINが4TBより絶対額で高い¥39,762だったため、¥/TBが2TBより悪化する逆転が発生した（詳細=<code>購入チェックリスト_20260728.md</code>§8-1）。</p>
       </div>
-    </div>
+    </details>
   </section>
 
   <footer>
-数値正本：<code>projects/IoT/network/nas検討/購入チェックリスト_20260728.md</code>§7（最終確定）・<code>UGREEN_GT可搬性深掘り_20260729.md</code>（裁定経緯）・<code>HDD信頼性学習ノート_20260729.md</code>（交換猶予の定量検証）。比較検討時の数値は<code>TCO試算_20260728.md</code>（出典URL・取得日は同ファイル末尾）。本ページはビューアであり独自の数値算出は行っていない。裁定済み：自作不採用(2026-07-28)・UGREEN候補残留(2026-07-28)・HDD 4TB×2 RAID1を主構成に確定(2026-07-28)・UGREEN GT検証除外(2026-07-28)・<strong>UGREEN GT機種確定(2026-07-29 NJ最終裁定)</strong>・HDD信頼性学習ノート反映(2026-07-29)。不採用・脱落・旧8TB×2案・比較検討経緯や参考値は上記md参照。
+数値正本：<code>projects/IoT/network/nas検討/購入チェックリスト_20260728.md</code>§7（機種・購入）・§8（HDD構成検討）・<code>UGREEN_GT可搬性深掘り_20260729.md</code>（裁定経緯）・<code>HDD信頼性学習ノート_20260729.md</code>（交換猶予の定量検証）。比較検討時の数値は<code>TCO試算_20260728.md</code>（出典URL・取得日は同ファイル末尾）。本ページはビューアであり独自の数値算出は行っていない。裁定済み：自作不採用(2026-07-28)・HDD 4TB×2 RAID1を当時の主構成に確定(2026-07-28)・<strong>UGREEN GT機種確定・購入実行(2026-07-29 NJ最終裁定)</strong>・HDD信頼性学習ノート反映(2026-07-29)。<strong>未確定＝HDD構成(a/c/e)・Google解約可否</strong>。比較検討経緯・除外案は上記md、および本ページ末尾「📜選定過程の記録」参照。
   </footer>
 
 </div>
@@ -621,19 +651,21 @@
 (function () {
   "use strict";
 
-  // ---- データ（TCO試算_20260728.md §9・4TB×2主構成と同値・二重管理しない。スマホ低容量化便益¥85,000は計上しない） ----
-  var candidates = [
-    { key: "gt",     name: "UGREEN DXP4800 GT(確定・主系列)", color: "var(--s5)", initial: 168300, benefitB: 21180, benefitA: -10140 },
-    { key: "ds925",  name: "Synology DS925+(履歴)",          color: "var(--s1)", initial: 178310, benefitB: 22570, benefitA: -8750 },
-    { key: "as6704", name: "Asustor AS6704T(履歴)",          color: "var(--s2)", initial: 166910, benefitB: 22291, benefitA: -9029 },
-    { key: "qnap",   name: "QNAP TS-464-8G(履歴)",           color: "var(--s3)", initial: 156210, benefitB: 20953, benefitA: -10367 },
-    { key: "ugreen", name: "UGREEN DXP4800 Plus(履歴)",      color: "var(--s4)", initial: 153410, benefitB: 21180, benefitA: -10140 }
+  // ---- ③現在の主系列(GT単独)。初期投資はHDD案(a)を仮置き。TCO試算_20260728.md §2・購入チェックリスト§6-7と同値・二重管理しない ----
+  var gtCandidate = { key: "gt", name: "UGREEN DXP4800 GT(HDD案a仮置き)", color: "var(--s5)", initial: 168300, benefitB: 21180, benefitA: -10140 };
+
+  // ---- 📜履歴：比較検討時点の4候補（TCO試算_20260728.md §9・当時価格） ----
+  var historyCandidates = [
+    { key: "ds925",  name: "Synology DS925+",     color: "var(--s1)", initial: 178310, benefitB: 22570, benefitA: -8750 },
+    { key: "as6704", name: "Asustor AS6704T",      color: "var(--s2)", initial: 166910, benefitB: 22291, benefitA: -9029 },
+    { key: "qnap",   name: "QNAP TS-464-8G",       color: "var(--s3)", initial: 156210, benefitB: 20953, benefitA: -10367 },
+    { key: "ugreen", name: "UGREEN DXP4800 Plus",  color: "var(--s4)", initial: 153410, benefitB: 21180, benefitA: -10140 }
   ];
 
-  var YEARS = 9; // 4TB×2主構成では回収年数が7.2〜7.9年台のため、ゼロ線を下回る様子を表示するのに十分な期間を確保
+  var YEARS = 9; // 回収年数が7.2〜8.0年台のため、ゼロ線を下回る様子を表示するのに十分な期間を確保
 
-  function buildSeries(field) {
-    return candidates.map(function (c) {
+  function buildSeries(list, field) {
+    return list.map(function (c) {
       var pts = [];
       for (var t = 0; t <= YEARS; t++) {
         pts.push({ t: t, v: c.initial - c[field] * t });
@@ -767,20 +799,106 @@
 
     // 凡例
     var legend = document.getElementById(legendId);
-    series.forEach(function (s) {
-      var item = document.createElement("span");
-      item.className = "item";
-      var sw = document.createElement("span");
-      sw.className = "swatch";
-      sw.style.background = s.color;
-      item.appendChild(sw);
-      item.appendChild(document.createTextNode(s.name));
-      legend.appendChild(item);
+    if (legend) {
+      series.forEach(function (s) {
+        var item = document.createElement("span");
+        item.className = "item";
+        var sw = document.createElement("span");
+        sw.className = "swatch";
+        sw.style.background = s.color;
+        item.appendChild(sw);
+        item.appendChild(document.createTextNode(s.name));
+        legend.appendChild(item);
+      });
+    }
+  }
+
+  drawChart("chartB", "legendB", buildSeries([gtCandidate], "benefitB"));
+  drawChart("chartA", "legendA", buildSeries([gtCandidate], "benefitA"));
+  drawChart("histChartB", "histLegendB", buildSeries(historyCandidates, "benefitB"));
+  drawChart("histChartA", "histLegendA", buildSeries(historyCandidates, "benefitA"));
+
+  // ---- ② HDD容量別TB単価チャート（購入チェックリスト§8-1・取得日2026-07-29・数値正本と同値） ----
+  function drawTBChart(svgId, data) {
+    var svg = document.getElementById(svgId);
+    if (!svg) return;
+    var NS = "http://www.w3.org/2000/svg";
+    var W = 640, H = 340;
+    var marginL = 62, marginR = 16, marginT = 20, marginB = 42;
+    var plotW = W - marginL - marginR;
+    var plotH = H - marginT - marginB;
+
+    function el(tag, attrs) {
+      var e = document.createElementNS(NS, tag);
+      for (var k in attrs) e.setAttribute(k, attrs[k]);
+      return e;
+    }
+
+    var maxPrice = Math.max.apply(null, data.map(function (d) { return d.pricePerTB; }));
+    var vMax = maxPrice * 1.2;
+
+    function y(v) { return marginT + (1 - v / vMax) * plotH; }
+
+    // 横グリッド線
+    var gridSteps = 4;
+    for (var g = 0; g <= gridSteps; g++) {
+      var v = vMax * (g / gridSteps);
+      var yy = y(v);
+      svg.appendChild(el("line", { x1: marginL, x2: W - marginR, y1: yy, y2: yy, class: "grid-line" }));
+      var label = el("text", { x: marginL - 6, y: yy + 3, "text-anchor": "end" });
+      label.textContent = "¥" + Math.round(v / 1000) + "k";
+      svg.appendChild(label);
+    }
+    svg.appendChild(el("line", { x1: marginL, x2: W - marginR, y1: marginT + plotH, y2: marginT + plotH, class: "axis-line" }));
+
+    var n = data.length;
+    var slot = plotW / n;
+    var barW = slot * 0.5;
+
+    data.forEach(function (d, i) {
+      var cx = marginL + slot * (i + 0.5);
+      var barY = y(d.pricePerTB);
+      var barH = (marginT + plotH) - barY;
+      var rect = el("rect", { x: cx - barW / 2, y: barY, width: barW, height: Math.max(barH, 1), rx: 3 });
+      rect.style.fill = d.anomaly ? "var(--warning)" : "var(--link)";
+      svg.appendChild(rect);
+
+      // ¥/TBラベル(棒の上)
+      var lbl = el("text", { x: cx, y: barY - 6, "text-anchor": "middle", "font-weight": "600" });
+      lbl.style.fill = "var(--text-primary)";
+      lbl.textContent = "¥" + d.pricePerTB.toLocaleString() + "/TB";
+      svg.appendChild(lbl);
+
+      // 実売単価ラベル(棒内・十分な高さがある時のみ)
+      if (barH > 24) {
+        var sub = el("text", { x: cx, y: barY + 16, "text-anchor": "middle" });
+        sub.style.fill = "#ffffff";
+        sub.setAttribute("font-size", "8.5");
+        sub.textContent = "(¥" + d.unitPrice.toLocaleString() + "/本)";
+        svg.appendChild(sub);
+      }
+
+      // X軸ラベル(容量)
+      var xt = el("text", { x: cx, y: marginT + plotH + 16, "text-anchor": "middle" });
+      xt.textContent = d.tb + "TB";
+      svg.appendChild(xt);
+      if (d.anomaly) {
+        var note = el("text", { x: cx, y: marginT + plotH + 28, "text-anchor": "middle" });
+        note.setAttribute("font-size", "8");
+        note.style.fill = "var(--warning)";
+        note.textContent = "流通薄で逆転";
+        svg.appendChild(note);
+      }
     });
   }
 
-  drawChart("chartB", "legendB", buildSeries("benefitB"));
-  drawChart("chartA", "legendA", buildSeries("benefitA"));
+  drawTBChart("chartTB", [
+    { tb: 2, pricePerTB: 11690, unitPrice: 23380, anomaly: false },
+    { tb: 3, pricePerTB: 13254, unitPrice: 39762, anomaly: true },
+    { tb: 4, pricePerTB: 8125,  unitPrice: 32500, anomaly: false },
+    { tb: 6, pricePerTB: 6830,  unitPrice: 40980, anomaly: false },
+    { tb: 8, pricePerTB: 6248,  unitPrice: 49980, anomaly: false }
+  ]);
 })();
 </script>
 

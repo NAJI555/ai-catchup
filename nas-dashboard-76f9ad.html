@@ -328,7 +328,7 @@
             <th>スナップショット(must)</th>
             <th>Tailscale(must)</th>
             <th>データ可搬性(重視)</th>
-            <th>HDMI(want)</th>
+            <th>HDMI(want・Fire TV保有で間接充足)</th>
             <th>WOL(want)</th>
             <th class="num">総額</th>
             <th>判定</th>
@@ -341,7 +341,7 @@
             <td><span class="flag ok"><span class="dot"></span>対応(Snapshot Replication)</span></td>
             <td><span class="flag ok"><span class="dot"></span>公式対応</span></td>
             <td>中（同社機へのDrive Migration公式あり・ext4+mdadm多層）</td>
-            <td><span class="flag ng"><span class="dot"></span>なし</span></td>
+            <td><span class="flag ok"><span class="dot"></span>直結なし・間接(Jellyfin+Fire TV Stick)</span></td>
             <td><span class="flag ok"><span class="dot"></span>対応(公式)</span></td>
             <td class="num">¥178,310</td>
             <td><span class="flag ok"><span class="dot"></span>候補</span></td>
@@ -374,7 +374,7 @@
             <td><span class="flag warn"><span class="dot"></span>判定保留(公式一次資料からは実装有無を確定不可)</span></td>
             <td><span class="flag warn"><span class="dot"></span>Docker経由(非ネイティブ)</span></td>
             <td>低〜不明（単独ソースでUGOS改変により汎用Linux読出し失敗の実地報告あり）</td>
-            <td><span class="flag ng"><span class="dot"></span>なし</span></td>
+            <td><span class="flag ok"><span class="dot"></span>直結なし・間接(Jellyfin+Fire TV Stick)</span></td>
             <td>未確認</td>
             <td class="num">¥153,410</td>
             <td><span class="flag warn"><span class="dot"></span>候補（条件付き・スナップショット要確認）</span></td>
@@ -461,7 +461,7 @@
       <li><strong>SMART監視・定期スクラブ・故障通知</strong>：Synology/QNAPは標準機能でスケジュール実行可能。Asustorは標準搭載の見込みだが一部詳細未確認（`機種比較_deep_research_20260728.md`§1-3参照）。</li>
       <li><strong>ノード相互復旧（データ可搬性）</strong>：完成品NASはいずれも「同ブランド内の機種変更」を前提とした公式復旧手順があるが、汎用Linuxでの直接読み出しはmdadm+LVMの多層構造のため相応の知識が必要（中程度）。UGREENは非公式報告で汎用Linux読出し失敗のリスクが指摘されている（低〜不明）。</li>
       <li><strong>家族UX・移行計画</strong>：Immichで家族共有スペース＋各人固有スペースを両立（共有アルバム＋パートナー共有）。既存のGoogle Photos/iCloudと並行運用しながら段階的に移行し、スマホの自動バックアップ先を切り替える。</li>
-      <li><strong>HDMI出力／WOL（want）</strong>：Asustor AS6704Tは公式データシートでHDMI 2.0b搭載を確認、QNAP TS-464は独立ミラーでHDMI 2.1搭載を確認（storagereview.comは2.0表記で不一致あり）。HDMI非搭載はSynology（家庭用ラインナップ全般）のみ。WOLはSynology・Asustorで公式確認、QNAP・UGREENは未確認のため導入時に個別確認が必要。</li>
+      <li><strong>HDMI出力／WOL（want）</strong>：Asustor AS6704Tは公式データシートでHDMI 2.0b搭載を確認、QNAP TS-464は独立ミラーでHDMI 2.1搭載を確認（storagereview.comは2.0表記で不一致あり）。Synology・UGREENは直結非搭載だが、<strong>NJがFire TV Stickを保有</strong>しておりメディア視聴はJellyfin＋Fire TV Stickの間接構成で確定（追加購入不要）。WOLはSynology・Asustorで公式確認、QNAP・UGREENは未確認のため導入時に個別確認が必要。</li>
     </ul>
   </section>
 

@@ -28,6 +28,13 @@
     --s3: #1baf7a; /* QNAP TS-464-8G (aqua・履歴) */
     --s4: #eda100; /* UGREEN DXP4800 Plus (yellow・履歴) */
     --s5: #b23bd0; /* UGREEN DXP4800 GT (purple・採用確定) */
+    --hc1: #2a78d6; /* (A)8TB×2 */
+    --hc2: #eb6834; /* (B)(B')4TB×2 */
+    --hc3: #1baf7a; /* (D)2TB×3 */
+    --hc4: #eda100; /* (E)6TB×2 */
+    --hc5: #b23bd0; /* (F)2TB×2単発 */
+    --hc6: #1a9ea8; /* (F')2TB×2段階 */
+    --hc7: #a05a2c; /* (参考)4TB×3 */
   }
   @media (prefers-color-scheme: dark) {
     :root:where(:not([data-theme="light"])) {
@@ -48,6 +55,13 @@
       --s3: #199e70;
       --s4: #c98500;
       --s5: #cf6ee6;
+      --hc1: #3987e5;
+      --hc2: #d95926;
+      --hc3: #199e70;
+      --hc4: #c98500;
+      --hc5: #a24bc2;
+      --hc6: #1f9ba0;
+      --hc7: #c17a4a;
     }
   }
   :root[data-theme="dark"] {
@@ -68,6 +82,13 @@
     --s3: #199e70;
     --s4: #c98500;
     --s5: #cf6ee6;
+    --hc1: #3987e5;
+    --hc2: #d95926;
+    --hc3: #199e70;
+    --hc4: #c98500;
+    --hc5: #a24bc2;
+    --hc6: #1f9ba0;
+    --hc7: #c17a4a;
   }
 
   * { box-sizing: border-box; }
@@ -296,6 +317,7 @@
   <nav class="jump">
     <a href="#summary">①結論サマリ</a>
     <a href="#matrix">②HDD構成</a>
+    <a href="#lifecycle15">15年評価</a>
     <a href="#breakeven">③損益分岐</a>
     <a href="#calendar">④買い時</a>
     <a href="#ops">⑤運用設計</a>
@@ -307,7 +329,7 @@
   <!-- ① 結論サマリ -->
   <section class="card" id="summary">
     <h2><span class="num">①</span>結論サマリ</h2>
-    <p class="lede"><strong>機種確定・購入実行済み＝UGREEN NASync DXP4800 GT＋純正UPS US3000バンドル</strong>（NJ最終裁定2026-07-29 05:27）。<strong>残る人間裁定は2件のみ</strong>：①HDD構成の確定（a／c／e・②参照）②Google AI Pro解約可否（⑦参照）。比較検討の全過程（他候補・旧UPS案・旧買い時判断など）は末尾の「📜選定過程の記録」区画へ集約した（現在は無効・削除はしない）。</p>
+    <p class="lede"><strong>機種確定・購入実行済み＝UGREEN NASync DXP4800 GT＋純正UPS US3000バンドル</strong>（NJ最終裁定2026-07-29 05:27）。<strong>残る人間裁定は2件のみ</strong>：①HDD構成の確定（15年評価で(E)6TB×2 RAID1が数値的最有力・詳細は「HDD構成の15年評価」セクション参照）②Google AI Pro解約可否（⑦参照）。比較検討の全過程（他候補・旧UPS案・旧買い時判断など）は末尾の「📜選定過程の記録」区画へ集約した（現在は無効・削除はしない）。</p>
 
     <div class="stat-grid">
       <div class="stat-tile accent">
@@ -317,8 +339,8 @@
       </div>
       <div class="stat-tile">
         <div class="label">HDD構成（人間確定待ち）</div>
-        <div class="value">3案（a／c／e）</div>
-        <div class="sub">a:4TB×2 RAID1(¥65,000・現計画) ／c:4TB×3 RAID5(実効8TB・¥97,500) ／e:6TB×2 RAID1(実効6TB・¥81,960)。詳細=②・購入チェックリスト§8</div>
+        <div class="value">15年評価で(E)6TB×2が最有力</div>
+        <div class="sub">8戦略(A/B/B'/D/E/F/F'/参考)を15年TCO・NPV・容量利用率で評価（定期棚卸し運用前提）。詳細=「HDD構成の15年評価」セクション・購入チェックリスト§9</div>
       </div>
       <div class="stat-tile">
         <div class="label">UPS</div>
@@ -335,8 +357,8 @@
 
   <!-- ② HDD構成比較 -->
   <section class="card" id="matrix">
-    <h2><span class="num">②</span>HDD構成比較（人間確定待ち：a／c／e）</h2>
-    <p class="lede">機種はGT確定・購入済みのため、比較対象はHDD構成の3案に移行した（NJ着想2026-07-29 06:39「容量を下げる」検証より・購入チェックリスト§8）。b・d・f・g案は¥/実効TBが劣後するため検討対象から除外済み（詳細は末尾「📜選定過程の記録」参照）。出典・詳細＝<code>購入チェックリスト_20260728.md</code>§8。</p>
+    <h2><span class="num">②</span>HDD構成比較（初期検証・a／c／e簡易3案）</h2>
+    <p class="lede">機種はGT確定・購入済みのため、比較対象はHDD構成に移行した（NJ着想2026-07-29 06:39「容量を下げる」検証より・購入チェックリスト§8）。b・d・f・g案は¥/実効TBが劣後するため検討対象から除外済み（詳細は末尾「📜選定過程の記録」参照）。<strong>この3案(a/c/e)比較は初期検証であり、15年TCO・NPV・容量利用率まで含めた最終評価は次の「HDD構成の15年評価」セクション参照</strong>。出典・詳細＝<code>購入チェックリスト_20260728.md</code>§8。</p>
 
     <div class="table-scroll">
       <table>
@@ -372,12 +394,198 @@
         <caption>実効容量あたり最安は(c)、総額・単純さで最小は(a)。判定はNJの価値判断。除外済みのb/d/f/g案（2TB・3TB構成）は末尾「📜選定過程の記録」参照。</caption>
       </table>
     </div>
-    <p class="fact">HDD信頼性の定量検証（1本故障時の交換猶予・主リスクはRAID再構築中のURE）は⑤参照。構成決定後は<code>購入チェックリスト_20260728.md</code>§7-2の購入リストを更新する。</p>
+    <p class="fact">HDD信頼性の定量検証（1本故障時の交換猶予・主リスクはRAID再構築中のURE）は⑤参照。構成決定後は<code>購入チェックリスト_20260728.md</code>§7-2の購入リストを更新する。<strong>【2026-07-29更新】この3案(a/c/e)比較は下記「15年評価」セクションの詳細分析で上書きされた</strong>——(a)(c)(e)はそれぞれ(B)(参考)(E)に相当し、15年総所有コスト・NPV・容量利用率まで含めた評価では<strong>(E)6TB×2 RAID1が現時点の数値的な最有力候補</strong>（NJ確定の定期棚卸し運用が前提）。詳細は次のセクション参照。</p>
 
     <h3>HDD容量とTB単価（実測2026-07-29）</h3>
     <p class="lede">WD Red Plus（CMR）の容量別・現行実売価格（<code>購入チェックリスト_20260728.md</code>§8-1・取得日2026-07-29）。棒の高さ・上ラベル＝¥/TB（kakaku最安基準）、棒内の白字ラベル＝実売単価(¥/本)。3TBのみ現行モデルの流通が薄く、単調な右肩下がりから外れて跳ね上がる。</p>
     <svg class="chart" id="chartTB" viewBox="0 0 640 340" role="img" aria-label="HDD容量別のTB単価、3TBのみ流通薄で価格が跳ね上がる異常値、4TB以上は容量が大きいほど単価が下がる"></svg>
     <p class="chart-note">取得日2026-07-29・kakaku.com最安値基準（3TBのみkakaku現行世代が価格情報無しのためAmazon実売¥39,762を採用・図中で個別注記）。数値正本は<code>購入チェックリスト_20260728.md</code>§8-1。</p>
+  </section>
+
+  <!-- HDD構成の15年評価（8戦略+Google継続基準線・最終確定版） -->
+  <section class="card" id="lifecycle15">
+    <h2>HDD構成の15年評価<span class="flag ok" style="margin-left:8px"><span class="dot"></span>最終確定（有界需要モデル・9-11節）</span></h2>
+    <p class="lede">機種確定・購入済みのGTに対し、HDD構成は8戦略——(A)8TB×2 RAID1／(B)(B')4TB×2 RAID1（(B')は故障連動アップサイズ案・検証の結果(B)と同値に収束）／(D)2TB×3 RAID5／(E)6TB×2 RAID1／(F)2TB×2単発拡張／(F')2TB×2段階拡張（NJ提案・80%トリガー）／(参考)4TB×3 RAID5——を15年ライフサイクルで評価。NJ確定の運用規律（**約10年目に写真・動画を光学メディア(M-DISC)へ棚卸し・使用量を恒久的に2TB×4相当以下に抑える**）を反映した<strong>有界需要モデル（9-11節）が最終版</strong>で、無限成長を前提にした旧モデル（9-5〜9-8節）を上書きする。あわせて(G)Google AI Pro+iCloud継続基準線（¥37,920/年・年10目にGoogle AI Ultraへ強制移行し¥439,920/年へ12.5倍化）を比較対象に含め、「Google課金継続かNAS移行か」への数値回答も示す。数値正本＝<code>購入チェックリスト_20260728.md</code>§9-1・9-9(表5・表6)・9-10・9-11（新規計算なし・転記のみ）。</p>
+
+    <h3>15年累積コスト曲線（8系列・有界需要モデル・r=0%）</h3>
+    <p class="lede">縦軸＝累積コスト（円）。<strong>(G)Google継続は基準線として破線表示</strong>——NAS各戦略線との交差点＝投資回収時点（この年を境にGoogle継続の方が高くつく）。(G)は15年目に¥2,578,800まで急拡大するため、軸はNAS戦略の可読性を優先して圧縮し、(G)線は上端で打ち切って矢印注記する。</p>
+    <svg class="chart" id="chartLifecycle" viewBox="0 0 640 400" role="img" aria-label="HDD8戦略とGoogle継続基準線の15年累積コスト推移、Google継続線は2〜3年目にNAS各戦略と交差した後に急拡大し図外へ"></svg>
+    <div class="chart-legend" id="legendLifecycle"></div>
+    <p class="chart-note">交差点（sunk cost=GT+US3000¥103,284を含めない、今後の意思決定用の値・§9-10既載）：(B)(B')約1.8年目／(D)約1.9〜2.0年目／(A)約2.8年目。(E)(F)(F')(参考)も概ね同範囲（2〜3年目）と推定（§9-10節・代表3構成のみ精密計算）。GT+US3000のsunk costを含めた総括比較では交差年は(B)(B')約6.5年目／(A)約9.0年目／(D)約4.9年目まで後ろ倒しになる（詳細は下記「計算式と分解を開く」参照）。</p>
+
+    <h3>容量成長 vs 各構成天井のタイムライン（0.4TB/年・10年目棚卸し）</h3>
+    <p class="lede">縦軸＝容量（TB）。使用量線（中心シナリオ）は1TB起点・0.4TB/年で成長し、<strong>10年目に光学アーカイブへ50%退避して下方屈曲</strong>（低退避30%・高退避70%の感度も併記）。各構成の容量上限は棚卸し運用後の確定形（(A)(参考)=拡張ゼロ、(E)=拡張ゼロ、(B)(D)(F)=1回拡張、(F')=2回拡張）。使用量中心線が各構成の天井を超えない＝その構成は15年間拡張不要という意味。</p>
+    <svg class="chart" id="chartCapacity" viewBox="0 0 640 380" role="img" aria-label="容量成長線が各構成の天井を超えるかのタイムライン、10年目に棚卸しで使用量が下方屈曲"></svg>
+    <div class="chart-legend" id="legendCapacity"></div>
+    <p class="chart-note">10年目（棚卸しイベント）：使用量が名目5.0TBまで伸びた時点で50%を光学退避し2.5TBへ屈曲、以降+0.4TB/年で再上昇。低退避30%・高退避70%のいずれでも15年以内に4.8TB usableへ再到達しないため、棚卸しは15年間で1回のみで足りる（§9-11-2節）。</p>
+
+    <h3>9系列比較表（購入日¥/TB・15年総額・NPV・容量利用率・行を消さない）</h3>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>戦略</th><th class="num">購入日¥/実効TB</th><th class="num">15年総額(r=0%)</th><th class="num">NPV(r=2%)</th><th class="num">拡張回数</th><th class="num">容量利用率</th><th>最終判定</th></tr>
+        </thead>
+        <tbody>
+          <tr class="lead">
+            <td>(E) 6TB×2 RAID1</td>
+            <td class="num">¥13,660</td>
+            <td class="num">約¥289,100</td>
+            <td class="num">約¥256,100</td>
+            <td class="num">0回</td>
+            <td class="num">52.0%</td>
+            <td><span class="flag ok"><span class="dot"></span>最終順位1位・全構成中最安</span></td>
+          </tr>
+          <tr>
+            <td>(F') 2TB×2段階（NJ提案・80%トリガー）</td>
+            <td class="num">¥23,380</td>
+            <td class="num">約¥305,300</td>
+            <td class="num">約¥265,300</td>
+            <td class="num">2回</td>
+            <td class="num">63.2%（全構成中最良）</td>
+            <td>2位・容量利用率は最良だが¥/TB劣位を覆せず</td>
+          </tr>
+          <tr>
+            <td>(F) 2TB×2単発拡張</td>
+            <td class="num">¥23,380</td>
+            <td class="num">約¥312,600</td>
+            <td class="num">約¥277,700</td>
+            <td class="num">1回</td>
+            <td class="num">57.1%</td>
+            <td>3位</td>
+          </tr>
+          <tr>
+            <td>(A) 8TB×2 RAID1</td>
+            <td class="num">¥12,495</td>
+            <td class="num">約¥314,700</td>
+            <td class="num">約¥280,300</td>
+            <td class="num">0回</td>
+            <td class="num">39.0%</td>
+            <td>4位・容量利用率は下位クラス（「使わない容量を買う」構成）</td>
+          </tr>
+          <tr>
+            <td>(参考) 4TB×3 RAID5</td>
+            <td class="num">¥12,188（購入日単価は全構成中最良）</td>
+            <td class="num">約¥321,600</td>
+            <td class="num">約¥285,900</td>
+            <td class="num">0回</td>
+            <td class="num">39.0%</td>
+            <td>5位・購入日効率最良だが運転面で劣後</td>
+          </tr>
+          <tr>
+            <td>(B) 4TB×2 RAID1（意図的bay-fill）</td>
+            <td class="num">¥16,250</td>
+            <td class="num">約¥326,700</td>
+            <td class="num">約¥288,500</td>
+            <td class="num">1回</td>
+            <td class="num">35.5%（全構成中最悪）</td>
+            <td>6位・拡張の"跳び幅"過大で低利用率</td>
+          </tr>
+          <tr>
+            <td>(B') 4TB×2 RAID1（故障連動アップサイズ案）</td>
+            <td class="num">¥16,250</td>
+            <td class="num">約¥326,700</td>
+            <td class="num">約¥288,500</td>
+            <td class="num">1回</td>
+            <td class="num">35.5%</td>
+            <td>(B)と同値に収束（検証の結果、故障連動の"賢い"戦略は成立せず。9-5-2b節）</td>
+          </tr>
+          <tr>
+            <td>(D) 2TB×3 RAID5</td>
+            <td class="num">¥17,535</td>
+            <td class="num">約¥368,600</td>
+            <td class="num">約¥326,300</td>
+            <td class="num">1回</td>
+            <td class="num">48.8%</td>
+            <td><span class="flag warn"><span class="dot"></span>最終順位最下位</span></td>
+          </tr>
+          <tr class="lead" style="background: color-mix(in srgb, var(--critical) 10%, var(--surface-card));">
+            <td>(G) Google AI Pro+iCloud継続</td>
+            <td class="num">該当なし（ストレージでない）</td>
+            <td class="num">約¥2,578,800</td>
+            <td class="num">未算出（試算対象外）</td>
+            <td class="num">該当なし</td>
+            <td class="num">該当なし</td>
+            <td><span class="flag warn"><span class="dot"></span>NAS全戦略よりコスト桁違いに高い（年10目にAI Ultra強制移行・年額12.5倍化）</span></td>
+          </tr>
+        </tbody>
+        <caption>数値正本＝購入チェックリスト§9-11-4（15年総額・NPV・容量利用率）・§9-1（購入日¥/TB）・§9-10（G）。判定はNJの価値判断であり、決定はまだ確定していない（⑦参照）。全9行を保持し削除しない。</caption>
+      </table>
+    </div>
+
+    <details>
+      <summary>計算式と分解を開く（実効容量式・故障期待値式・NPV式・逆転構造の分解・順位を覆す条件）</summary>
+      <div class="detail-body">
+        <h4>基本式（§9-1・9-4・9-5-1・9-5-3・9-6）</h4>
+        <p><strong>実効容量</strong>：RAID1＝min(構成ドライブ容量)×1／RAID5＝(N−1)×min(構成ドライブ容量)。<strong>¥/実効TB</strong>＝HDD総額÷実効容量(TB)。<strong>利用可能容量</strong>＝名目実効容量×0.8（RAID/FSメタデータ等の運用余裕控除・finding5）。<strong>到達年</strong>＝(利用可能容量−現使用量1TB)÷成長率(TB/年)。<strong>騒音合成式</strong>：L_total=L_単体+10×log10(N)。<strong>年間電気代</strong>＝W×24×365÷1000×31円/kWh。</p>
+        <p><strong>期待故障回数</strong>(1本あたり)＝Σ_年AFR_年×1、構成全体＝期待故障回数×本数。中心シナリオ＝5×1.5%+5×2.5%+5×4.0%=0.40回/本。<strong>有償交換費用</strong>＝有償期待回数×本数×HDD単価。<strong>NPV定義式</strong>：NPV=Σ_t CF_t÷(1+r)^t。<strong>容量利用率</strong>＝使用TB年÷所有TB年（使用TB年＝成長カーブの積分・全構成共通）。</p>
+        <p><strong>先取り／後追いの境界g*式</strong>（(B)を今買って(A)相当へdisk-swapする場合の閾値・適用範囲は限定的＝finding9）：<code>g* = (1+r) × (1 − P4/P8)^(1/T) − 1</code>。T=5.5年・P4/P8=0.650のとき、r=0%でg*≈−17.2%/年、r=2%でg*≈−15.7%/年（HDD価格が年17〜19%を超えて下落し続けない限りdisk-swap後追いは先取りに劣る）。</p>
+
+        <h4>購入日¥/TBと15年NPVの逆転構造の分解（(参考)4TB×3が(B)4TB×2比で15年に余計に払う内訳・finding4=残存価値適用後・§9-7既存値の転記）</h4>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>内訳</th><th>(参考)の値</th><th>(B)の値</th><th>差分＝(参考)−(B)</th></tr></thead>
+            <tbody>
+              <tr><td>初期費</td><td class="num">¥97,500</td><td class="num">¥65,000</td><td class="num">+¥32,500</td></tr>
+              <tr><td>電気代（15年）</td><td class="num">¥37,890</td><td class="num">¥25,260</td><td class="num">+¥12,630</td></tr>
+              <tr><td>故障交換期待費（高騰継続）</td><td class="num">¥34,613</td><td class="num">¥23,075</td><td class="num">+¥11,538</td></tr>
+              <tr><td>容量拡張費（確証済み経路・残存価値控除前）</td><td class="num">¥149,940</td><td class="num">¥65,000</td><td class="num">+¥84,940</td></tr>
+              <tr class="lead"><td>小計（残存価値控除前）</td><td></td><td></td><td class="num">+¥141,608</td></tr>
+              <tr><td>残存価値控除（直線法・finding4）</td><td class="num">−¥127,449</td><td class="num">−¥3,250</td><td class="num">−¥124,199</td></tr>
+              <tr class="lead"><td>最終差分（控除後）</td><td></td><td></td><td class="num">+¥17,409</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>1行結論：<strong>(参考)は購入日の容量あたり効率で(B)に優位（¥12,188/TB＜¥16,250/TB）だが、15年の運転費・故障母数・拡張の不自由さで+¥141,608の不利を負う。ただしその拡張が13.5年目（残存85%）に発生するため残存価値控除後は差額+¥17,409まで縮み、逆転構造は「明確」から「僅差」へ後退する</strong>（本表は9-5〜9-8の無限成長前提モデルの値であり、9-11の有界需要モデルではさらに構図が変わる＝上記9系列比較表が最終版）。</p>
+
+        <h4>順位を覆す条件（Codexクロスレビュー`b59aw5df0`より転記・数値検算でなく感度の目安）</h4>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>動く前提</th><th>臨界</th><th>順位への影響</th></tr></thead>
+            <tbody>
+              <tr><td>動画成長率</td><td>0.20超〜0.467TB/年未満</td><td>(B)だけ15年内に増設、(A)は不要</td></tr>
+              <tr><td>動画成長率</td><td>0.733TB/年超</td><td>(B)(D)の拡張後12TBも15年内に再不足</td></tr>
+              <tr><td>(B)の利用可能率</td><td>83.3%未満</td><td>中心0.6でも(B)に第2増設が必要</td></tr>
+              <tr><td>将来HDD価格</td><td>現価比0.658未満(r=0%)／0.636未満(r=2%)</td><td>(D)が(A)を逆転</td></tr>
+              <tr><td>(参考)のreshape費</td><td>年12時点で約9.29万円未満</td><td>(参考)が(A)を逆転</td></tr>
+              <tr><td>割引率</td><td>約17.8%超</td><td>高騰継続・固定CFのままなら(D)/(A)が逆転</td></tr>
+              <tr><td>人間時間の金銭換算</td><td>歴史回帰時、約203円/時超</td><td>(D)の(A)比金額優位を拘束時間差が上回り(A)優位へ戻る</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>Google継続との交差（sunk cost両建て・§9-10節）</h4>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>構成</th><th class="num">15年累積(sunk cost除外)</th><th class="num">15年累積(sunk cost込み＝+¥103,284)</th><th>(G)との交差年(sunk cost除外)</th><th>(G)との交差年(sunk cost込み)</th></tr></thead>
+            <tbody>
+              <tr><td>(D)</td><td class="num">¥349,128</td><td class="num">¥452,412</td><td>約1.9〜2.0年目</td><td>約4.9年目</td></tr>
+              <tr><td>(B)(B')</td><td class="num">¥279,857</td><td class="num">¥383,141</td><td>約1.8年目</td><td>約6.5年目</td></tr>
+              <tr><td>(A)</td><td class="num">¥282,917</td><td class="num">¥386,201</td><td>約2.8年目</td><td>約9.0年目</td></tr>
+            </tbody>
+            <caption>他構成(E)(F)(F')(参考)もこの範囲（sunk cost除外2〜3年目・込みで5〜9年目）に収まると推定（§9-10節・代表3構成のみ精密計算）。いずれにせよ「残り6〜13年間はGoogle継続の方が一方的にコスト増」という結論は揺るがない。</caption>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>(A)8TB×2先取り案の弱点明示と統括推奨の変遷履歴を開く</summary>
+      <div class="detail-body">
+        <p><strong>(A)8TB×2の弱点（NJ指示2026-07-29 08:59「8Tがいかに微妙かを明らかにしたい」への回答）</strong>：</p>
+        <ol>
+          <li><strong>容量利用率が全構成中の下位クラス</strong>：(A)の15年平均利用率は39.0%——所有TB年の55.9%超を未使用のまま保有する構成であり、"使わない容量を買う"側の代表格。</li>
+          <li><strong>(A)の優位性は前提依存</strong>：(A)が(B)(B')と同点以上に立てるのは、動画成長率が中庸域・残存価値を直線法で計上・高騰継続シナリオが続く、という3条件がそろう場合に限られる。いずれか1つでも崩れれば(B)(B')・F'に劣後する側へ回る。</li>
+          <li><strong>拘束時間の少なさは強み</strong>：拡張イベント回数が最少タイ（0〜1回）・人間拘束時間も最少タイ——事実と意見を分離した上で、この点は(A)の数少ない明確な強み。</li>
+        </ol>
+        <p><strong>統括推奨の変遷履歴（透明性・9-7節既載）</strong>：</p>
+        <ol>
+          <li>§8時点（Codexレビュー前）＝4TB×3 RAID5（参考）が¥/実効TB最良として実質的な本命候補だった。</li>
+          <li>Codexクロスレビュー`b7p362ezv`のfinding1指摘を受け8TB×2 RAID1(A)を追加・「本命」に格上げ（4TB×3は「ほぼ支配される」として後退）。</li>
+          <li>NJ成長率確定（2026-07-29 08:09）とCodexクロスレビュー`b59aw5df0`の「要修正」判定（finding2/4/5是正）を経て、A≈B(B')の事実上の同点まで後退。</li>
+          <li><strong>9-11節（有界需要モデル・最終確定）でNJ確定の定期棚卸し運用を反映した結果、(A)は拡張ゼロが確定し金額面は改善したが、容量利用率39.0%（全構成中下位クラス）は変わらず、順位も(E)(F')(F)に次ぐ4位まで後退</strong>。統括の推しは証拠によって都合3度後退した（8TB×2への格上げ→A≈B同点→有界需要モデルでの4位後退）——これは分析が弱かったのではなく、NJからの継続的な監査指摘（「1面しか見ていない」「10年→15年へ」「利用率も見ろ」等）のたびに、モデルがより現実に近づいた結果である。</li>
+        </ol>
+      </div>
+    </details>
   </section>
 
   <!-- ③ 損益分岐グラフ -->
@@ -445,8 +653,8 @@
   <section class="card" id="decisions">
     <h2><span class="num">⑦</span>人間裁定ポイント（残り2件）</h2>
     <div class="decision">
-      <div class="q">HDD構成の確定（a／c／e） <span class="flag warn"><span class="dot"></span>未確定</span></div>
-      <div class="a">②参照。(a)4TB×2 RAID1（現計画・¥65,000・新規購入コスト最小）を維持するか、(c)4TB×3 RAID5（実効8TB・¥97,500・¥/実効TB最良）、(e)6TB×2 RAID1（実効6TB・¥81,960・拡張余地を保った中庸案）へ変更するか。詳細比較・出典は<code>購入チェックリスト_20260728.md</code>§8。決定後は同ファイル§7-2の購入リストを更新する。</div>
+      <div class="q">HDD構成の確定 <span class="flag warn"><span class="dot"></span>未確定</span></div>
+      <div class="a">「HDD構成の15年評価」セクション参照。8戦略の15年TCO・NPV・容量利用率評価では<strong>(E)6TB×2 RAID1が数値的最有力（NJ確定の定期棚卸し運用が前提）</strong>だが、(F')2TB×2段階・(F)2TB×2単発・(A)8TB×2も僅差圏内。詳細比較・出典は<code>購入チェックリスト_20260728.md</code>§9-11。決定後は同ファイル§7-2の購入リストを更新する。</div>
     </div>
     <div class="decision">
       <div class="q">Google AI Pro（¥2,900/月・5TB）を解約できるか <span class="flag warn"><span class="dot"></span>未確定</span></div>
@@ -899,6 +1107,240 @@
     { tb: 6, pricePerTB: 6830,  unitPrice: 40980, anomaly: false },
     { tb: 8, pricePerTB: 6248,  unitPrice: 49980, anomaly: false }
   ]);
+
+  // ================================================================
+  // HDD構成の15年評価（購入チェックリスト§9-9表5・表6・§9-10・§9-11と同値・二重管理しない）
+  // ================================================================
+
+  // ---- 表5：年次累積コスト・最終版（有界需要モデル・r=0%・光学一式込み） ----
+  var LC_YEARS = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+  function ptsFromArray(years, arr) {
+    return years.map(function (y, i) { return { t: y, v: arr[i] }; });
+  }
+  var lifecycleSeries = [
+    { name: "(A)8TB×2",        color: "var(--hc1)", dashed: false,
+      points: ptsFromArray(LC_YEARS, [99960,101807,103654,105501,107348,112194,114041,115888,235002,236849,285496,287343,289190,311029,312876,314723]) },
+    { name: "(B)(B')4TB×2",    color: "var(--hc2)", dashed: false,
+      points: ptsFromArray(LC_YEARS, [65000,66684,68368,70052,71736,75370,142054,143738,258319,260003,308487,310171,311855,326539,328223,326657]) },
+    { name: "(D)2TB×3",        color: "var(--hc3)", dashed: false,
+      points: ptsFromArray(LC_YEARS, [70140,72095,74050,76005,77960,82019,181474,183429,298924,300879,349634,351589,353544,369527,371482,368562]) },
+    { name: "(E)6TB×2",        color: "var(--hc4)", dashed: false,
+      points: ptsFromArray(LC_YEARS, [81960,83726,85492,87258,89024,93249,95015,96781,213564,215330,263896,265662,267428,285586,287352,289118]) },
+    { name: "(F)2TB×2単発",     color: "var(--hc5)", dashed: false,
+      points: ptsFromArray(LC_YEARS, [46760,48063,97429,100035,102641,105247,107853,110459,248231,250837,300243,302849,305455,308061,310667,313273]) },
+    { name: "(F')2TB×2段階",    color: "var(--hc6)", dashed: false,
+      points: ptsFromArray(LC_YEARS, [46760,48063,73398,75353,77308,79263,105249,107855,241062,243668,293074,295680,298286,300892,303498,304935]) },
+    { name: "(参考)4TB×3",      color: "var(--hc7)", dashed: false,
+      points: ptsFromArray(LC_YEARS, [97500,100026,102552,105078,107604,113055,115581,118107,237593,240119,289445,291971,294497,316523,319049,321575]) }
+  ];
+  // (G)Google継続基準線：年1〜10=¥37,920/年、年11〜15=¥439,920/年（購入チェックリスト§9-10の年額をそのまま累積・新規計算なし）
+  (function buildGSeries() {
+    var g = [0];
+    for (var t = 1; t <= 10; t++) g.push(g[t-1] + 37920);
+    for (var t2 = 11; t2 <= 15; t2++) g.push(g[t2-1] + 439920);
+    lifecycleSeries.push({
+      name: "(G)Google継続(基準線)",
+      color: "var(--text-secondary)",
+      dashed: true,
+      points: ptsFromArray(LC_YEARS, g)
+    });
+  })();
+
+  function drawLifecycleCostChart(svgId, legendId, series) {
+    var svg = document.getElementById(svgId);
+    var NS = "http://www.w3.org/2000/svg";
+    var W = 640, H = 400;
+    var marginL = 60, marginR = 16, marginT = 16, marginB = 34;
+    var plotW = W - marginL - marginR;
+    var plotH = H - marginT - marginB;
+    var XMAX = 15;
+
+    function el(tag, attrs) {
+      var e = document.createElementNS(NS, tag);
+      for (var k in attrs) e.setAttribute(k, attrs[k]);
+      return e;
+    }
+
+    // vMaxはNAS7系列のみから算出（Gは基準線として別枠でクランプ表示・軸をNASの可読性優先で圧縮）
+    var nasSeries = series.filter(function (s) { return s.name.indexOf("(G)") !== 0; });
+    var gSeries = series.filter(function (s) { return s.name.indexOf("(G)") === 0; })[0];
+    var nasValues = [];
+    nasSeries.forEach(function (s) { s.points.forEach(function (p) { nasValues.push(p.v); }); });
+    var vMax = Math.max.apply(null, nasValues) * 1.12;
+    var vMin = 0;
+
+    function x(t) { return marginL + (t / XMAX) * plotW; }
+    function y(v) { return marginT + (1 - (v - vMin) / (vMax - vMin)) * plotH; }
+
+    var gridSteps = 4;
+    for (var g1 = 0; g1 <= gridSteps; g1++) {
+      var v = vMin + (vMax - vMin) * (g1 / gridSteps);
+      var yy = y(v);
+      svg.appendChild(el("line", { x1: marginL, x2: W - marginR, y1: yy, y2: yy, class: "grid-line" }));
+      var label = el("text", { x: marginL - 6, y: yy + 3, "text-anchor": "end" });
+      label.textContent = "¥" + Math.round(v / 1000) + "k";
+      svg.appendChild(label);
+    }
+    svg.appendChild(el("line", { x1: marginL, x2: W - marginR, y1: marginT + plotH, y2: marginT + plotH, class: "axis-line" }));
+    for (var t = 0; t <= XMAX; t += 3) {
+      var xt = x(t);
+      var tl = el("text", { x: xt, y: marginT + plotH + 16, "text-anchor": "middle" });
+      tl.textContent = t + "年";
+      svg.appendChild(tl);
+    }
+
+    // NAS7系列（通常線）
+    nasSeries.forEach(function (s) {
+      var d = s.points.map(function (p, i) {
+        return (i === 0 ? "M" : "L") + x(p.t).toFixed(1) + "," + y(p.v).toFixed(1);
+      }).join(" ");
+      var path = el("path", { d: d, "stroke-width": 2.2, "stroke-linecap": "round", "stroke-linejoin": "round" });
+      path.style.fill = "none";
+      path.style.stroke = s.color;
+      svg.appendChild(path);
+    });
+
+    // (G)基準線：vMaxを超えたら上端でクランプして描画し、矢印注記を添える
+    if (gSeries) {
+      var clampY = marginT;
+      var dClamped = "";
+      var exitPoint = null;
+      gSeries.points.forEach(function (p, i) {
+        var yy2 = y(p.v);
+        var yClamped = Math.max(yy2, clampY);
+        if (yy2 < clampY && !exitPoint) exitPoint = { t: p.t, x: x(p.t) };
+        dClamped += (i === 0 ? "M" : "L") + x(p.t).toFixed(1) + "," + yClamped.toFixed(1) + " ";
+      });
+      var gPath = el("path", { d: dClamped.trim(), "stroke-width": 2.2, "stroke-dasharray": "6 4", "stroke-linecap": "round", "stroke-linejoin": "round" });
+      gPath.style.fill = "none";
+      gPath.style.stroke = gSeries.color;
+      svg.appendChild(gPath);
+      if (exitPoint) {
+        var arrow = el("text", { x: exitPoint.x, y: marginT + 11, "text-anchor": "middle", "font-weight": "600" });
+        arrow.style.fill = "var(--critical)";
+        arrow.textContent = "↑Google継続は図外へ急拡大(15年目¥2,578,800)";
+        svg.appendChild(arrow);
+      }
+    }
+
+    // 凡例
+    var legend = document.getElementById(legendId);
+    series.forEach(function (s) {
+      var item = document.createElement("span");
+      item.className = "item";
+      var sw = document.createElement("span");
+      sw.className = "swatch" + (s.dashed ? " dashed" : "");
+      sw.style.background = s.dashed ? "none" : s.color;
+      sw.style.color = s.color;
+      item.appendChild(sw);
+      item.appendChild(document.createTextNode(s.name));
+      legend.appendChild(item);
+    });
+  }
+
+  drawLifecycleCostChart("chartLifecycle", "legendLifecycle", lifecycleSeries);
+
+  // ---- 表6：有界（ノコギリ波）使用量カーブ + 各構成天井（購入チェックリスト§9-9表6・§9-11-2と同値） ----
+  var capacityGrowthSeries = [
+    { name: "使用量_中心(退避50%)", color: "var(--text-primary)", dashed: false,
+      points: [{t:0,v:1.0},{t:2,v:1.8},{t:4,v:2.6},{t:6,v:3.4},{t:8,v:4.2},{t:10,v:5.0},{t:10,v:2.5},{t:12,v:3.3},{t:15,v:4.5}] },
+    { name: "使用量_低退避(30%)", color: "var(--text-muted)", dashed: true,
+      points: [{t:0,v:1.0},{t:2,v:1.8},{t:4,v:2.6},{t:6,v:3.4},{t:8,v:4.2},{t:10,v:5.0},{t:10,v:3.5},{t:12,v:4.1},{t:15,v:5.3}] },
+    { name: "使用量_高退避(70%)", color: "var(--text-muted)", dashed: true,
+      points: [{t:0,v:1.0},{t:2,v:1.8},{t:4,v:2.6},{t:6,v:3.4},{t:8,v:4.2},{t:10,v:5.0},{t:10,v:1.5},{t:12,v:2.3},{t:15,v:3.5}] }
+  ];
+  var capacityCeilingSeries = [
+    { name: "(A)(参考)天井=8TB", color: "var(--hc1)",
+      points: [{t:0,v:8},{t:15,v:8}] },
+    { name: "(B)(B')天井=4→12TB", color: "var(--hc2)",
+      points: [{t:0,v:4},{t:6,v:4},{t:6,v:12},{t:15,v:12}] },
+    { name: "(D)天井=4→8TB", color: "var(--hc3)",
+      points: [{t:0,v:4},{t:6,v:4},{t:6,v:8},{t:15,v:8}] },
+    { name: "(E)天井=6TB", color: "var(--hc4)",
+      points: [{t:0,v:6},{t:15,v:6}] },
+    { name: "(F)天井=2→6TB", color: "var(--hc5)",
+      points: [{t:0,v:2},{t:2,v:2},{t:2,v:6},{t:15,v:6}] },
+    { name: "(F')天井=2→4→6TB", color: "var(--hc6)",
+      points: [{t:0,v:2},{t:2,v:2},{t:2,v:4},{t:6,v:4},{t:6,v:6},{t:15,v:6}] }
+  ];
+
+  function drawCapacityChart(svgId, legendId, growthSeries, ceilingSeries) {
+    var svg = document.getElementById(svgId);
+    var NS = "http://www.w3.org/2000/svg";
+    var W = 640, H = 380;
+    var marginL = 50, marginR = 16, marginT = 16, marginB = 34;
+    var plotW = W - marginL - marginR;
+    var plotH = H - marginT - marginB;
+    var XMAX = 15;
+    var VMAX = 13.5; // (B)(B')の天井12TBに余白
+
+    function el(tag, attrs) {
+      var e = document.createElementNS(NS, tag);
+      for (var k in attrs) e.setAttribute(k, attrs[k]);
+      return e;
+    }
+    function x(t) { return marginL + (t / XMAX) * plotW; }
+    function y(v) { return marginT + (1 - v / VMAX) * plotH; }
+
+    var gridSteps = 4;
+    for (var g1 = 0; g1 <= gridSteps; g1++) {
+      var v = VMAX * (g1 / gridSteps);
+      var yy = y(v);
+      svg.appendChild(el("line", { x1: marginL, x2: W - marginR, y1: yy, y2: yy, class: "grid-line" }));
+      var label = el("text", { x: marginL - 6, y: yy + 3, "text-anchor": "end" });
+      label.textContent = v.toFixed(0) + "TB";
+      svg.appendChild(label);
+    }
+    svg.appendChild(el("line", { x1: marginL, x2: W - marginR, y1: marginT + plotH, y2: marginT + plotH, class: "axis-line" }));
+    for (var t = 0; t <= XMAX; t += 3) {
+      var xt = x(t);
+      var tl = el("text", { x: xt, y: marginT + plotH + 16, "text-anchor": "middle" });
+      tl.textContent = t + "年";
+      svg.appendChild(tl);
+    }
+
+    // 10年目・棚卸しイベントの縦ガイド線
+    var xArchive = x(10);
+    var guide = el("line", { x1: xArchive, x2: xArchive, y1: marginT, y2: marginT + plotH });
+    guide.style.stroke = "var(--warning)";
+    guide.setAttribute("stroke-width", "1");
+    guide.setAttribute("stroke-dasharray", "2 3");
+    svg.appendChild(guide);
+    var archiveLabel = el("text", { x: xArchive, y: marginT + 9, "text-anchor": "middle", "font-weight": "600" });
+    archiveLabel.style.fill = "var(--warning)";
+    archiveLabel.textContent = "10年目:棚卸し(光学退避)";
+    svg.appendChild(archiveLabel);
+
+    function drawSeries(s, dashArr) {
+      var d = s.points.map(function (p, i) {
+        return (i === 0 ? "M" : "L") + x(p.t).toFixed(1) + "," + y(p.v).toFixed(1);
+      }).join(" ");
+      var attrs = { d: d, "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round" };
+      if (dashArr) attrs["stroke-dasharray"] = dashArr;
+      var path = el("path", attrs);
+      path.style.fill = "none";
+      path.style.stroke = s.color;
+      svg.appendChild(path);
+    }
+
+    ceilingSeries.forEach(function (s) { drawSeries(s, null); });
+    growthSeries.forEach(function (s) { drawSeries(s, s.dashed ? "5 4" : null); });
+
+    var legend = document.getElementById(legendId);
+    ceilingSeries.concat(growthSeries).forEach(function (s) {
+      var item = document.createElement("span");
+      item.className = "item";
+      var sw = document.createElement("span");
+      sw.className = "swatch" + (s.dashed ? " dashed" : "");
+      sw.style.background = s.dashed ? "none" : s.color;
+      sw.style.color = s.color;
+      item.appendChild(sw);
+      item.appendChild(document.createTextNode(s.name));
+      legend.appendChild(item);
+    });
+  }
+
+  drawCapacityChart("chartCapacity", "legendCapacity", capacityGrowthSeries, capacityCeilingSeries);
 })();
 </script>
 

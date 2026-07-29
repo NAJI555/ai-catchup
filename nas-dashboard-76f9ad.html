@@ -385,7 +385,7 @@
         <caption>実効容量あたり最安は(c)、総額・単純さで最小は(a)。判定はNJの価値判断。除外済みのb/d/f/g案（2TB・3TB構成）は末尾「📜選定過程の記録」参照。</caption>
       </table>
     </div>
-    <p class="fact">HDD信頼性の定量検証（1本故障時の交換猶予・主リスクはRAID再構築中のURE）は⑤参照。構成決定後は<code>購入チェックリスト_20260728.md</code>§7-2の購入リストを更新する。<strong>【2026-07-29夜・更新（Codex敵対レビュー是正済み）】この3案(a/c/e)比較は下記「30年評価」セクションの詳細分析で上書きされた</strong>——(a)(c)(e)はそれぞれ(B)(参考)(E)に相当し、<strong>運用余裕200GB絶対値・評価スパン30年・適応退避主モデルで再評価した結果、(E)6TB×2 RAID1が数値的な首位</strong>（NJ確定の定期棚卸し運用が前提。15年評価と30年評価はほぼ同じ並び＝§9-13-8節）。詳細は次のセクション参照。</p>
+    <p class="fact">HDD信頼性の定量検証（1本故障時の交換猶予・主リスクはRAID再構築中のURE）は⑤参照。<strong>最終評価は次の「HDD構成の30年評価」セクション参照</strong>——(a)(c)(e)はそれぞれ(B)(参考)(E)に相当し、(E)6TB×2 RAID1が数値的な首位。構成決定後は<code>購入チェックリスト_20260728.md</code>§7-2の購入リストを更新する。</p>
 
     <h3>HDD容量とTB単価（実測2026-07-29）</h3>
     <p class="lede">WD Red Plus（CMR）の容量別・現行実売価格（<code>購入チェックリスト_20260728.md</code>§8-1・取得日2026-07-29）。棒の高さ・上ラベル＝¥/TB（kakaku最安基準）、棒内の白字ラベル＝実売単価(¥/本)。3TBのみ現行モデルの流通が薄く、単調な右肩下がりから外れて跳ね上がる。</p>
@@ -393,25 +393,22 @@
     <p class="chart-note">取得日2026-07-29・kakaku.com最安値基準（3TBのみkakaku現行世代が価格情報無しのためAmazon実売¥39,762を採用・図中で個別注記）。数値正本は<code>購入チェックリスト_20260728.md</code>§8-1。</p>
   </section>
 
-  <!-- HDD構成の30年評価（200GB絶対値規則・§9-13で15年α=0.8評価を上書き。旧15年表示は📜履歴区画へ） -->
+  <!-- HDD構成の30年評価（現行確定モデルのみ表面表示。経緯・旧モデルは📜選定過程の記録区画へ集約） -->
   <section class="card" id="lifecycle15">
-    <h2>HDD構成の30年評価（200GB規則）<span class="flag ok" style="margin-left:8px"><span class="dot"></span>§9-13 最終形（Codex敵対レビュー是正済み）</span></h2>
-    <p class="lede">NJ裁定（2026-07-29 20:24「200GBかな」）を受け、<strong>運用余裕規則を「利用可能容量＝実効容量×0.8」から「利用可能容量＝実効容量−0.2TB（200GB絶対値）」へ切替え、評価スパンも15年→30年へ拡張</strong>（同日20:33〜20:42に条件が段階的に確定・経緯は§9-13冒頭）。同日夜のCodex敵対レビュー（`codex_reports/20260729_2110_nas_200gb_30y_adversarial_review.md`）でCritical1件・High2件・Medium4件の指摘が入り、<strong>本節はその全件是正後の版</strong>——最大の変更は退避方式：棚卸し時に退避後使用量を直前ピークの50%固定で切り下げる旧方式は、NJ運用上限「光学退避で2TB×4相当(usable 5.8TB)を超えない」と不整合だったため、<strong>次の周期棚卸しまでにこの上限へ到達しない着地点(1.8TB)まで退避する適応退避</strong>へ主モデルを差し替えた（旧50%固定退避は感度ケースへ降格・§9-13-13）。HDD構成は7戦略——(A)8TB×2 RAID1／(B)(B')4TB×2 RAID1／(D)2TB×3 RAID5／(E)6TB×2 RAID1／(F)2TB×2単発拡張／(F')2TB×2段階拡張／(参考)4TB×3 RAID5——を30年ライフサイクルで評価する。周期棚卸し（光学メディアへの退避）は<strong>年10・20・30の3回</strong>。UPSは<strong>初代NMC(US3000・B50=7年)→2代目以降LFP機(B50=10年・保守側)の2世代renewal</strong>（交換費は故障世代でなく購入世代の価格へ統一・中心¥16,500・出典`UPS_LFP価格調査_20260729.md`）。価格モデルは<strong>現在価格を30年実質一定と置く主モデル</strong>（NJ裁定「相対値として考えると価格上昇を反映しなくても良いかもね」——7構成共通に価格変動がかかるため相対順位への影響は小さいという整理）。残存価値は<strong>全キャッシュ支出方式（控除なし）に統一</strong>。<strong>30年という期間は技術世代交代（HDD→SSD等の価格逆転・NAS本体/接続規格・光学メディア規格の陳腐化）の不確実性が後半で支配的になるため、本モデルは「現行技術・実質価格が定常継続する」条件付きの保守的近似であり、絶対額でなく構成間の相対比較の参考材料として読む</strong>（購入時期が構成間で異なるため、この不確実性が7構成に等しく乗るという想定は未検証——相対順位も世代交代に対しては未検証という位置づけ）。数値正本＝<code>購入チェックリスト_20260728.md</code>§9-13（新規計算はすべて同梱の<code>hdd_recalc_200gb_30y.py</code>で実施・転記のみ）。<strong>15年・α=0.8時代の評価（§9-12以前）・旧50%固定退避モデル（§9-13-13）は「📜選定過程の記録」区画・§9-13-13へ履歴として保持し、本節が上書きする</strong>。</p>
+    <h2>HDD構成の30年評価（200GB規則）<span class="flag ok" style="margin-left:8px"><span class="dot"></span>確定モデル</span></h2>
+    <p class="lede">運用余裕は<strong>利用可能容量＝実効容量−0.2TB（200GB絶対値）</strong>、評価スパンは<strong>30年</strong>、退避は<strong>適応退避</strong>（棚卸しごとに次周期までNJ運用上限5.8TBへ到達しない1.8TBまで退避）。7戦略(A)8TB×2／(B)(B')4TB×2／(D)2TB×3／(E)6TB×2／(F)2TB×2単発／(F')2TB×2段階／(参考)4TB×3を30年ライフサイクルで評価する。周期棚卸しは年10・20・30の3回、UPSは初代US3000→2代目以降LFP機の2世代renewal、価格は現在価格を30年一定と置く。数値正本＝<code>購入チェックリスト_20260728.md</code>§9-13。<strong>検討経緯・旧モデル（15年評価・50%固定退避等）は末尾「📜選定過程の記録」参照</strong>。</p>
 
-    <h3>30年累積コスト曲線（7系列・r=0%・現在価格一定・適応退避主モデル）</h3>
-    <p class="lede">縦軸＝累積コスト（円・0年目のGT+US3000実購入費¥103,284を全戦略共通で計上）。<strong>(G)Google継続は基準線として破線表示</strong>——NAS各戦略線との交差点＝投資回収時点。(G)は<strong>¥37,920/年の等速直線</strong>（30年目¥1,137,600）。</p>
-    <svg class="chart" id="chartLifecycle" viewBox="0 0 640 400" role="img" aria-label="HDD7戦略とGoogle継続基準線の30年累積コスト推移、Google継続線は等速直線でありNAS各戦略と6〜8年目に交差する"></svg>
+    <h3>①累積コスト（30年・7戦略＋Google継続基準線）</h3>
+    <p class="chart-note">階段状＝一括支出（増設・棚卸し光学費等）はその年に垂直計上・次まで水平。◇＝増設年、薄い縦線＝棚卸し年（年10/20/30）——ラベルは上下の専用帯へ退避し曲線と重ならない。赤破線＝予算20万円。(G)Google継続は¥37,920/年の基準破線。</p>
+    <svg class="chart" id="chartLifecycle" viewBox="0 0 640 452" role="img" aria-label="HDD7戦略とGoogle継続基準線の30年累積コスト推移（階段状）、Google継続線と6〜8年目に交差する"></svg>
     <div class="chart-legend" id="legendLifecycle"></div>
-    <p class="chart-note">◇＝容量増設イベント（系列色の中抜き菱形・近傍に短ラベル、計画的な容量拡張のみ・故障予測とは無関係）。適応退避により年19の追加増設は全構成で消滅し、◇は年2・年7の1巡目イベントのみ残る。薄い縦破線＝<strong>年10・20・30の周期棚卸し（光学アーカイブ）</strong>——NJが運用として意図的に行う固定年イベント。極薄の縦グリッド線＝1年刻み（30本まで表示すると375px幅では密になるため、目盛りラベルは5年刻み・グリッド線自体は1年刻みを維持）。濃い赤破線＝予算20万円の基準線（初期購入判断当時の基準・30年総額はいずれもこれを大きく上回るため参考表示）。Y軸は¥100,000刻みの固定グリッド。</p>
-    <p class="chart-note">交差点（0年目初期費¥103,284込み・現在価格一定・適応退避主モデル、§9-13-10既載）：(B)(B')(D)(F')約6年目／(E)(F)約7年目／(A)(参考)約8年目。全構成とも30年累積（¥775,453〜¥883,052）が(G)の30年累積¥1,137,600より安く、NAS移行優位の結論は15年評価から変わらない。</p>
 
-    <h3>容量成長 vs 各構成天井のタイムライン（0.4TB/年・年10/20/30棚卸し・200GB規則・適応退避）</h3>
-    <p class="lede">縦軸＝容量（TB、表示はnominal実効容量）。使用量線（中心シナリオ）は1TB起点・0.4TB/年で成長し、<strong>年10・20・30に光学アーカイブへ適応退避（次の周期棚卸しまでにNJ運用上限5.8TBへ到達しない着地点=1.8TBまで退避）して下方屈曲</strong>。各構成の容量上限は棚卸し運用後の確定形——<strong>退避後の着地点を常に1.8TBへ揃えたことで、2巡目（年10〜20）以降のどの周期でもピーク使用量はNJ運用上限5.8TBに"ちょうど到達する"設計になる（2026-07-29差分再レビューM-03是正・「到達しない」ではなく数値上ぴったり一致）。容量トリガーを「使用量≥利用可能容量」とすれば増設トリガーは周期棚卸しと同時にしか発火しない</strong>——旧50%固定退避モデルで見えていた「年19付近での(E)(D)(F)(F')再増設」はこの是正により消滅した（§9-13-3節）。(A)(参考)(E)は30年間ずっと増設不要、(B)(D)(F)(F')も1巡目（年2・年7）の初回拡張以降は30年間追加拡張なし。なお満杯と棚卸しの同時到達は増設トリガーの話であり、光学メディアへの退避作業自体は別途90%通知（残容量5.22TB相当・年18.55/28.55）を棚卸し準備・実行の開始点として満杯前に完了させる（§9-13-11節）。</p>
-    <svg class="chart" id="chartCapacity" viewBox="0 0 640 380" role="img" aria-label="容量成長線が各構成の天井を超えるかのタイムライン、年10・20・30の周期棚卸しで使用量が3回下方屈曲するが適応退避により2巡目以降の再増設は発生しない"></svg>
+    <h3>②容量成長 vs 各構成天井（①と同一X軸・縦に対応）</h3>
+    <p class="chart-note">使用量線は0.4TB/年で成長し年10・20・30の棚卸しで下方屈曲（①の増設年・棚卸し年と縦位置が一致）。詳細＝購入チェックリスト§9-13。</p>
+    <svg class="chart" id="chartCapacity" viewBox="0 0 640 396" role="img" aria-label="容量成長線が各構成の天井を超えるかのタイムライン、年10・20・30の周期棚卸しで使用量が3回下方屈曲する（①と同一X軸）"></svg>
     <div class="chart-legend" id="legendCapacity"></div>
-    <p class="chart-note">退避直前ピーク使用量：年10=5.0TB／年20=5.8TB／年30=5.8TB（適応退避により着地点1.8TBまで退避）。年10ピーク(5.0TB)はGoogle AI Proの5TB上限と数値上近接する新知見（§9-13-2節）——棚卸しが確実に年10で実行される前提が崩れると上位プラン強制移行のリスクが生じるため監視対象に含める（§9-13-11節）。</p>
 
-    <h3>8系列比較表（30年総額・NPV・容量利用率・200GB規則・適応退避主モデル・行を消さない）</h3>
+    <h3>8系列比較表（30年総額・NPV・容量利用率・行を消さない）</h3>
     <div class="table-scroll">
       <table>
         <thead>
@@ -491,7 +488,7 @@
             <td><span class="flag warn"><span class="dot"></span>全NAS戦略（¥775,453〜¥883,052）より22.4〜31.8%高い（単一価格前提）。後年購入する全ハードウェア+光学費の単価±30%感度後の幅では5.9〜46.0%高い（2026-07-29差分再レビューM-01是正）。30年でもNAS移行優位の結論は不変（§9-13-10節）</span></td>
           </tr>
         </tbody>
-        <caption>数値正本＝購入チェックリスト§9-13-7（30年総額・NPV・200GB規則+適応退避主モデルの最終版・Codex敵対レビュー是正済み）・§9-13-9（容量利用率）・§9-13-10（G）。判定はNJの価値判断であり、決定はまだ確定していない（⑦参照）。全8行を保持し削除しない。<strong>順位は15年評価（旧・α=0.8）とほぼ同じ並びを維持する（(A)の順位だけが変わる）——詳細は§9-13-8節「15年→30年での順位変化」を参照</strong>。</caption>
+        <caption>数値正本＝購入チェックリスト§9-13-7（30年総額・NPV）・§9-13-9（容量利用率）・§9-13-10（G）。判定はNJの価値判断であり、決定はまだ確定していない（⑦参照）。全8行を保持し削除しない。<strong>検討経緯・旧モデル（15年評価との比較等）は末尾「📜選定過程の記録」参照</strong>。</caption>
       </table>
     </div>
 
@@ -553,20 +550,7 @@
       </div>
     </details>
 
-    <details>
-      <summary>15年(旧・α=0.8)→30年(新・200GB・適応退避)での順位変化と統括推奨の変遷履歴を開く</summary>
-      <div class="detail-body">
-        <p><strong>順位はほぼ変わらない（§9-13-8節・Codex是正後）</strong>：</p>
-        <ul>
-          <li>15年評価（§9-12・α=0.8・単一世代UPS）＝<strong>(E) &lt; (F') &lt; (D) &lt; (F) &lt; (A) &lt; (参考) &lt; (B)(B')</strong></li>
-          <li>30年評価（本節・200GB・適応退避・UPS2世代）＝<strong>(E) &lt; (F') &lt; (A) &lt; (D) &lt; (F) &lt; (参考) &lt; (B)(B')</strong>——<strong>ほぼ同じ並び。唯一の変化は(A)が5番目から3番目へ上がったこと</strong>。</li>
-        </ul>
-        <p><strong>旧結論の撤回</strong>：以前は「30年スパンに延ばすと順位がほぼ真逆になる（(A)首位・(E)最下位クラスタ）」という劇的な結論だったが、これはNJ上限方針「光学退避で2TB×4相当を超えない」と不整合な<strong>50%固定退避モデルが年19付近に本来不要な追加増設(bay-fill/disk-swap全数)を人工的に発生させていた</strong>結果であり、Codex敵対レビューの是正（適応退避への変更・§9-13-3節）により消滅した。評価スパンの長さそのものが支配的だったのではなく、退避モデルの不整合が支配的だった。</p>
-        <p><strong>(A)の順位変化の理由</strong>：(A)は初期投資が大きい一方、30年間一度も追加拡張が発生しない構成であり、評価スパンが長くなるほど「拡張ゼロ」という構造的優位が電気代・HDD交換費の絶対増分を徐々に上回ってくる——ただし価格±30%まで拡大した感度確認では中位クラスタの内部順序として動きうる程度の差であり、決定的な逆転ではない。</p>
-        <p><strong>それでも頑健な部分</strong>：価格±30%感度でも<strong>(E)最安・(B)(B')最劣後の両端は揺らがない</strong>。この両端の頑健性は15年評価・30年評価を通じて共通する。中位クラスタ((F')(A)(D)(F)(参考))の内部順序は評価スパン・価格前提の両方である程度動きうる。</p>
-        <p><strong>統括推奨の変遷履歴（透明性）</strong>：§8時点(参考4TB×3が本命)→Codexレビューで(A)8TB×2へ格上げ→NJ成長率確定で(A)≈(B)同点→9-11節(有界需要モデル・15年)で(E)首位・(A)は上位クラスタの一員に後退→§9-13初版(200GB規則・30年・50%固定退避)で(A)が首位へ再浮上→<strong>Codex敵対レビューで50%固定退避がNJ上限方針と不整合と判明・適応退避への是正により(E)が首位へ復帰</strong>——これは分析が場当たり的だったのではなく、評価スパン・運用余裕規則・退避モデルというモデルの前提そのものが変わる、あるいは前提の不整合が指摘されるたびに、その都度最適解を更新してきた結果である。決定はNJの価値判断に委ねる。</p>
-      </div>
-    </details>
+    <p class="chart-note">検討経緯（15年評価との順位比較・旧50%固定退避モデル・統括推奨の変遷）は末尾「📜選定過程の記録」参照。</p>
   </section>
 
   <!-- ③ 損益分岐グラフ -->
@@ -668,6 +652,17 @@
       <summary style="font-size:0.95rem;">📜選定過程の記録（確定前の情報・現在は無効）</summary>
       <div class="detail-body">
         <p class="fact">本区画は機種確定・購入実行（2026-07-29）より前の比較検討過程の記録。<strong>現在は無効な情報であり、意思決定には使わない</strong>。選定過程そのものの記録的価値のため削除せず保持する（型化＝<code>AI運用方針/参照ルール/reference_success_patterns.md</code> SP-021）。</p>
+
+        <h4>HDD構成30年評価：15年評価からの順位変化と統括推奨の変遷履歴</h4>
+        <p><strong>順位はほぼ変わらない（§9-13-8節・Codex是正後）</strong>：</p>
+        <ul>
+          <li>15年評価（§9-12・α=0.8・単一世代UPS）＝<strong>(E) &lt; (F') &lt; (D) &lt; (F) &lt; (A) &lt; (参考) &lt; (B)(B')</strong></li>
+          <li>30年評価（現行・200GB・適応退避・UPS2世代）＝<strong>(E) &lt; (F') &lt; (A) &lt; (D) &lt; (F) &lt; (参考) &lt; (B)(B')</strong>——<strong>ほぼ同じ並び。唯一の変化は(A)が5番目から3番目へ上がったこと</strong>。</li>
+        </ul>
+        <p><strong>旧結論の撤回</strong>：以前は「30年スパンに延ばすと順位がほぼ真逆になる（(A)首位・(E)最下位クラスタ）」という劇的な結論だったが、これはNJ上限方針「光学退避で2TB×4相当を超えない」と不整合な<strong>50%固定退避モデルが年19付近に本来不要な追加増設(bay-fill/disk-swap全数)を人工的に発生させていた</strong>結果であり、Codex敵対レビューの是正（適応退避への変更・§9-13-3節）により消滅した。評価スパンの長さそのものが支配的だったのではなく、退避モデルの不整合が支配的だった。</p>
+        <p><strong>(A)の順位変化の理由</strong>：(A)は初期投資が大きい一方、30年間一度も追加拡張が発生しない構成であり、評価スパンが長くなるほど「拡張ゼロ」という構造的優位が電気代・HDD交換費の絶対増分を徐々に上回ってくる——ただし価格±30%まで拡大した感度確認では中位クラスタの内部順序として動きうる程度の差であり、決定的な逆転ではない。</p>
+        <p><strong>それでも頑健な部分</strong>：価格±30%感度でも<strong>(E)最安・(B)(B')最劣後の両端は揺らがない</strong>。この両端の頑健性は15年評価・30年評価を通じて共通する。中位クラスタ((F')(A)(D)(F)(参考))の内部順序は評価スパン・価格前提の両方である程度動きうる。</p>
+        <p><strong>統括推奨の変遷履歴（透明性）</strong>：§8時点(参考4TB×3が本命)→Codexレビューで(A)8TB×2へ格上げ→NJ成長率確定で(A)≈(B)同点→9-11節(有界需要モデル・15年)で(E)首位・(A)は上位クラスタの一員に後退→§9-13初版(200GB規則・30年・50%固定退避)で(A)が首位へ再浮上→<strong>Codex敵対レビューで50%固定退避がNJ上限方針と不整合と判明・適応退避への是正により(E)が首位へ復帰</strong>——これは分析が場当たり的だったのではなく、評価スパン・運用余裕規則・退避モデルというモデルの前提そのものが変わる、あるいは前提の不整合が指摘されるたびに、その都度最適解を更新してきた結果である。決定はNJの価値判断に委ねる。</p>
 
         <h4>機種確定の経緯（QNAP vs Synology比較→GT裁定）</h4>
         <p><strong>事実</strong>：Codexの敵対レビュー＋UGREEN GT検証を経て、構図は<strong>QNAP TS-464-8G vs Synology DS925+（+¥22,100のプレミアム案）</strong>の2択に整理された。UGREEN（Plus/GTとも）はデータ可搬性の確定的な不利により優先度低下、Asustor AS6704Tは僅差でQNAPに次ぐが決定的な差別化材料は無い。<strong>意見</strong>：価格・回収年数のみならQNAP TS-464-8G優位（DS925+のCPU優位性〈Ryzen〉やECC RAM等のプレミアム性は当時の要件では過剰）。ただし2026-07-28 16:10時点でQNAP TS-464が国内正規代理店フォースメディアで終売掲載を確認（在庫限りの可能性）＝統括見解はこれを踏まえてSynology DS925+側（2025年世代・現行販売中で終売リスク無し）に優位性が傾く方向へ一時更新していた。その後、対称性検証（QNAP側にも同一深さで4証拠種別を当て直した比較）を経てUGREEN GTのデータ可搬性評価が「must未達」から「条件付き軽微な後退」へ改定され、NJが最終的にGT＋US3000バンドルで機種確定・購入した（2026-07-29 05:27）。判定保留としていたUGREEN Plusのスナップショット評価も、この過程でGT世代を通じて「実装確認済み」に前進した。</p>
@@ -1169,11 +1164,33 @@
     }
   }
 
+  // 2026-07-30 NJ指摘「金額の増加の傾斜は垂直では？」是正：一括支出(初期購入・増設・棚卸し光学費等)は
+  // その年に垂直ジャンプ→次の支出まで水平、が正しい表現。年次点を斜め線で結ぶと「徐々に支払った」ように
+  // 誤読されるため、累積コスト曲線はstep-after(前年の値で水平→その年のx位置で垂直に立ち上げ)で描画する。
+  function stepPathD(points, xFn, yFn) {
+    var d = "";
+    points.forEach(function (p, i) {
+      var px = xFn(p.t), py = yFn(p.v);
+      if (i === 0) {
+        d += "M" + px.toFixed(1) + "," + py.toFixed(1);
+      } else {
+        var pyPrev = yFn(points[i - 1].v);
+        d += " L" + px.toFixed(1) + "," + pyPrev.toFixed(1);
+        d += " L" + px.toFixed(1) + "," + py.toFixed(1);
+      }
+    });
+    return d;
+  }
+
   function drawLifecycleCostChart(svgId, legendId, series) {
     var svg = document.getElementById(svgId);
     var NS = "http://www.w3.org/2000/svg";
-    var W = 640, H = 400;
-    var marginL = 60, marginR = 16, marginT = 16, marginB = 34;
+    // 2026-07-30 NJ指摘「変曲点のイベントがグラフと重なっていてみえずらい」是正：
+    // イベント注記(棚卸しラベル・増設◇のラベル)をプロット領域の外(上下の専用帯)へ逃がすため、
+    // marginT/marginBを拡張しHも合わせて拡張する(plotHは旧来値のまま維持=曲線の縦方向の見え方は変えない)。
+    // marginL/marginR/XMAXは容量チャート(drawCapacityChart)と完全一致させ、同一年が同一x座標になるよう揃える。
+    var W = 640, H = 452;
+    var marginL = 60, marginR = 16, marginT = 32, marginB = 70;
     var plotW = W - marginL - marginR;
     var plotH = H - marginT - marginB;
     var XMAX = 30;
@@ -1247,49 +1264,50 @@
       svg.appendChild(budgetLabel);
     }
 
-    // NAS7系列（通常線）
+    // NAS7系列（step-after＝一括支出はその年で垂直ジャンプ・次の支出まで水平）
     nasSeries.forEach(function (s) {
-      var d = s.points.map(function (p, i) {
-        return (i === 0 ? "M" : "L") + x(p.t).toFixed(1) + "," + y(p.v).toFixed(1);
-      }).join(" ");
+      var d = stepPathD(s.points, x, y);
       var path = el("path", { d: d, "stroke-width": 2.2, "stroke-linecap": "round", "stroke-linejoin": "round" });
       path.style.fill = "none";
       path.style.stroke = s.color;
       svg.appendChild(path);
     });
 
-    // ---- イベント注記（NJ要望2026-07-29 17:12・ビジー化防止優先＝最小限の縦線+マーカー+短ラベルのみ） ----
-    // (1) 共通イベント＝薄い縦破線+上端の小ラベル。
-    // 2026-07-29深夜・故障予測+renewalモデル反映(購入チェックリスト§9-12)：
-    // NAS本体・UPSの固定年更新(旧・年7/年8)とHDD故障の配分年(旧・年5/8/13)はいずれも撤回し、
-    // 年次のなだらかな期待値カーブへ統合した(線データそのものに反映済み・個別の縦破線は不要)。
-    // 固定年イベントとして残るのは、NJが運用として意図的に行う年10の棚卸し(光学アーカイブ)のみ。
+    // ---- イベント注記（2026-07-30 NJ指摘「変曲点のイベントがグラフと重なっていてみえずらい」是正） ----
+    // 方針＝プロット内には縦破線・◇マーカーだけを残し、テキストラベルは全てプロット外(上下の専用帯)へ出す。
+    // (1) 共通イベント＝年10/20/30の棚卸し(光学アーカイブ)。縦破線はプロット内のみ・ラベルはヘッダ帯(プロット上端より上)へ。
     var commonEvents = [
-      { t: 10, label: "棚卸し" },
-      { t: 20, label: "棚卸し" },
-      { t: 30, label: "棚卸し" }
+      { t: 10, label: "棚卸し(年10)" },
+      { t: 20, label: "棚卸し(年20)" },
+      { t: 30, label: "棚卸し(年30)" }
     ];
+    commonEvents.forEach(function (ev) { ev.x = x(ev.t); ev.yLabel = 8; });
+    // ラベル同士の衝突回避(年が近接する場合の段違い配置)。
+    for (var ceI = 0; ceI < commonEvents.length; ceI++) {
+      for (var ceJ = ceI + 1; ceJ < commonEvents.length; ceJ++) {
+        if (Math.abs(commonEvents[ceI].x - commonEvents[ceJ].x) < 46 && commonEvents[ceI].yLabel === commonEvents[ceJ].yLabel) {
+          commonEvents[ceJ].yLabel += 10;
+        }
+      }
+    }
     commonEvents.forEach(function (ev) {
-      var xt2 = x(ev.t);
+      // 縦破線はプロット内のみ(ヘッダ帯には侵入させない＝線の領域とラベルの領域を明確に分離)
       svg.appendChild(el("line", {
-        x1: xt2, x2: xt2, y1: marginT, y2: marginT + plotH,
+        x1: ev.x, x2: ev.x, y1: marginT, y2: marginT + plotH,
         stroke: "var(--text-muted)", "stroke-width": 1, "stroke-dasharray": "2 3", opacity: "0.55"
       }));
-    });
-    // ラベルは年10・20・30の3本。本体(B50≈8年)・UPS(初代B50≈7年→2代目以降LFP B50≈10年)の分布中心は
-    // 縦線でなく脚注(chart-note)側の注記に降格。
-    var commonLabelRows = [
-      { t: 10, y: marginT + 34, text: "棚卸し(年10)" },
-      { t: 20, y: marginT + 34, text: "棚卸し(年20)" },
-      { t: 30, y: marginT + 34, text: "棚卸し(年30)" }
-    ];
-    commonLabelRows.forEach(function (row) {
-      var lt = el("text", { x: x(row.t), y: row.y, "text-anchor": "middle", "font-size": "7.5" });
-      lt.textContent = row.text;
+      // プロット上端とラベルを結ぶ短いtick(位置対応の明示)
+      svg.appendChild(el("line", {
+        x1: ev.x, x2: ev.x, y1: ev.yLabel + 4, y2: marginT - 2,
+        stroke: "var(--text-muted)", "stroke-width": 1, opacity: "0.55"
+      }));
+      var lt = el("text", { x: ev.x, y: ev.yLabel, "text-anchor": "middle", "font-size": "7.5", "font-weight": "600" });
+      lt.textContent = ev.label;
       svg.appendChild(lt);
     });
 
-    // (2) 戦略別イベント＝容量増設のタイミングにその系列色の中抜き◇マーカー+近傍に2〜4字ラベル。
+    // (2) 戦略別イベント＝容量増設。◇マーカーは曲線上の実位置に残し(線・マーカーのみプロット内)、
+    // テキストラベルはX軸の下のフッタ帯へ逃がし、細い縦リーダー線で◇と位置対応させる。
     // 対象年は200GB規則・30年評価の主シナリオ（購入チェックリスト§9-13-3・9-13-4と同値）。
     function findSeries(prefix) {
       return nasSeries.filter(function (s) { return s.name.indexOf(prefix) === 0; })[0];
@@ -1299,7 +1317,6 @@
       var p = s.points.filter(function (pp) { return pp.t === t; })[0];
       return p ? p.v : null;
     }
-    // Codex是正1(適応退避)により年19の追加増設(E/D/F/F')は全構成で撤去。1巡目(年2・年7)の初回拡張のみ残る。
     var expansionDefs = [
       { prefix: "(F')", t: 2,  label: "+1台" },
       { prefix: "(F)",  t: 2,  label: "4本化" },
@@ -1315,32 +1332,47 @@
         markerItems.push({ x: x(def.t), yTrue: y(v), color: s.color, label: def.label });
       }
     });
-    // 同一年でほぼ同値のイベント（(D)(F')の年6）は◇マーカー自体をx方向へ振り分けてから、
-    // 同じ年(x近接)に複数系列のイベントが重なる場合のみラベルYを引き離す(既存の衝突回避ロジックを流用)。
+    // ◇マーカー自体は極端に近接(同一年でほぼ同値)する場合のみx方向へ振り分ける(曲線上の実位置を保つ)。
     resolveMarkerOverlap(markerItems, 8, 7);
-    resolveLabelCollisions(markerItems, 14, 9);
     markerItems.forEach(function (mi) {
       var dm = el("text", { x: mi.x, y: mi.yTrue + 3, "text-anchor": "middle", "font-size": "10" });
       dm.style.fill = mi.color;
       dm.textContent = "◇";
       svg.appendChild(dm);
-      // 左に振られたマーカーはラベルも左側(終端アンカー)へ、それ以外は右側(開始アンカー)へ出す。
-      var lb = el("text", {
-        x: mi.x + (mi.side < 0 ? -6 : 6),
-        y: mi.yLabel + 3,
-        "text-anchor": mi.side < 0 ? "end" : "start",
-        "font-size": "7.5"
-      });
+    });
+    // フッタ帯側のラベル位置：同一年に複数系列が重なる場合は下方向へ段積みして衝突回避。
+    var footerBaseY = marginT + plotH + 30;
+    var footerRowGap = 9;
+    markerItems.forEach(function (mi) { mi.yFooter = footerBaseY; });
+    for (var fp = 0; fp < 4; fp++) {
+      for (var fi = 0; fi < markerItems.length; fi++) {
+        for (var fj = fi + 1; fj < markerItems.length; fj++) {
+          if (Math.abs(markerItems[fi].x - markerItems[fj].x) < 20 && markerItems[fi].yFooter === markerItems[fj].yFooter) {
+            markerItems[fj].yFooter += footerRowGap;
+          }
+        }
+      }
+    }
+    markerItems.forEach(function (mi) {
+      // 細い縦リーダー線(◇の実位置→フッタ帯のラベル)。系列色・低opacityで曲線の判読を妨げない。
+      var leader = el("line", { x1: mi.x, x2: mi.x, y1: mi.yTrue + 6, y2: mi.yFooter - 6 });
+      leader.style.stroke = mi.color;
+      leader.setAttribute("stroke-width", "1");
+      leader.setAttribute("stroke-dasharray", "1 2");
+      leader.setAttribute("opacity", "0.5");
+      svg.appendChild(leader);
+      var dot = el("circle", { cx: mi.x, cy: mi.yFooter, r: 2.2 });
+      dot.style.fill = mi.color;
+      svg.appendChild(dot);
+      var lb = el("text", { x: mi.x + 5, y: mi.yFooter + 3, "text-anchor": "start", "font-size": "7.5" });
       lb.textContent = mi.label;
       svg.appendChild(lb);
     });
 
     // (G)基準線：2026-07-29夜是正＝等速直線化により図外へ急拡大しなくなったため、
-    // クランプ・矢印注記は不要（vMaxが(G)も包含するよう既に拡張済み）。通常線として描画する。
+    // クランプ・矢印注記は不要（vMaxが(G)も包含するよう既に拡張済み）。step-after描画(月額課金なので実質直線に見える)。
     if (gSeries) {
-      var dG = gSeries.points.map(function (p, i) {
-        return (i === 0 ? "M" : "L") + x(p.t).toFixed(1) + "," + y(p.v).toFixed(1);
-      }).join(" ");
+      var dG = stepPathD(gSeries.points, x, y);
       var gPath = el("path", { d: dG, "stroke-width": 2.2, "stroke-dasharray": "6 4", "stroke-linecap": "round", "stroke-linejoin": "round" });
       gPath.style.fill = "none";
       gPath.style.stroke = gSeries.color;
@@ -1394,8 +1426,10 @@
   function drawCapacityChart(svgId, legendId, growthSeries, ceilingSeries) {
     var svg = document.getElementById(svgId);
     var NS = "http://www.w3.org/2000/svg";
-    var W = 640, H = 380;
-    var marginL = 50, marginR = 16, marginT = 16, marginB = 34;
+    // 2026-07-30 NJ指摘：①棚卸しラベルをプロット外のヘッダ帯へ②累積コストグラフ(drawLifecycleCostChart)と
+    // marginL/marginR/XMAXを完全一致させ、2枚を縦に並べた時に同一年が同一x座標になるよう揃える。
+    var W = 640, H = 396;
+    var marginL = 60, marginR = 16, marginT = 32, marginB = 34;
     var plotW = W - marginL - marginR;
     var plotH = H - marginT - marginB;
     var XMAX = 30;
@@ -1439,7 +1473,8 @@
       }
     }
 
-    // 周期棚卸しイベント（年10・20・30）の縦ガイド線
+    // 周期棚卸しイベント（年10・20・30）：縦ガイド線はプロット内のみ・ラベルはヘッダ帯(プロット上端より上)へ
+    // (2026-07-30 NJ指摘「変曲点のイベントがグラフと重なっていてみえずらい」是正・累積コストグラフと同じ方式)。
     [10, 20, 30].forEach(function (yr) {
       var xArchive = x(yr);
       var guide = el("line", { x1: xArchive, x2: xArchive, y1: marginT, y2: marginT + plotH });
@@ -1447,7 +1482,11 @@
       guide.setAttribute("stroke-width", "1");
       guide.setAttribute("stroke-dasharray", "2 3");
       svg.appendChild(guide);
-      var archiveLabel = el("text", { x: xArchive, y: marginT + 9, "text-anchor": "middle", "font-weight": "600", "font-size": "7.5" });
+      var tick = el("line", { x1: xArchive, x2: xArchive, y1: 12, y2: marginT - 2 });
+      tick.style.stroke = "var(--warning)";
+      tick.setAttribute("stroke-width", "1");
+      svg.appendChild(tick);
+      var archiveLabel = el("text", { x: xArchive, y: 8, "text-anchor": "middle", "font-weight": "600", "font-size": "7.5" });
       archiveLabel.style.fill = "var(--warning)";
       archiveLabel.textContent = "年" + yr + ":棚卸し";
       svg.appendChild(archiveLabel);

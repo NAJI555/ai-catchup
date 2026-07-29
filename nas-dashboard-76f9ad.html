@@ -329,7 +329,7 @@
   <!-- ① 結論サマリ -->
   <section class="card" id="summary">
     <h2><span class="num">①</span>結論サマリ</h2>
-    <p class="lede"><strong>機種確定・購入実行済み＝UGREEN NASync DXP4800 GT＋純正UPS US3000バンドル</strong>（NJ最終裁定2026-07-29 05:27）。<strong>残る人間裁定は2件のみ</strong>：①HDD構成の確定（15年評価で(E)6TB×2 RAID1が数値的最有力・詳細は「HDD構成の15年評価」セクション参照）②Google AI Pro解約可否（⑦参照）。比較検討の全過程（他候補・旧UPS案・旧買い時判断など）は末尾の「📜選定過程の記録」区画へ集約した（現在は無効・削除はしない）。</p>
+    <p class="lede"><strong>機種確定・購入実行済み＝UGREEN NASync DXP4800 GT＋純正UPS US3000バンドル</strong>（NJ最終裁定2026-07-29 05:27）。<strong>残る人間裁定は2件のみ</strong>：①HDD構成の確定（15年評価は上位クラスタ6構成（E・F'・D・F・A・参考が僅差・モデル誤差内）と明確に劣後する(B)(B')の2群・詳細は「HDD構成の15年評価」セクション参照）②Google AI Pro解約可否（⑦参照）。比較検討の全過程（他候補・旧UPS案・旧買い時判断など）は末尾の「📜選定過程の記録」区画へ集約した（現在は無効・削除はしない）。</p>
 
     <div class="stat-grid">
       <div class="stat-tile accent">
@@ -339,8 +339,8 @@
       </div>
       <div class="stat-tile">
         <div class="label">HDD構成（人間確定待ち）</div>
-        <div class="value">15年評価で(E)6TB×2が最有力</div>
-        <div class="sub">8戦略(A/B/B'/D/E/F/F'/参考)を15年TCO・NPV・容量利用率で評価（定期棚卸し運用前提）。詳細=「HDD構成の15年評価」セクション・購入チェックリスト§9</div>
+        <div class="value">上位クラスタ6構成が僅差・(B)(B')のみ明確劣後</div>
+        <div class="sub">8戦略(A/B/B'/D/E/F/F'/参考)を15年TCO・NPV・容量利用率で評価（定期棚卸し運用＋reshape確度中〜高を反映）。(E)が条件付き首位（α=0.8のknife-edge）だがF'/D/F/A/参考ともモデル誤差内の僅差。詳細=「HDD構成の15年評価」セクション・購入チェックリスト§9-11</div>
       </div>
       <div class="stat-tile">
         <div class="label">UPS</div>
@@ -402,10 +402,10 @@
     <p class="chart-note">取得日2026-07-29・kakaku.com最安値基準（3TBのみkakaku現行世代が価格情報無しのためAmazon実売¥39,762を採用・図中で個別注記）。数値正本は<code>購入チェックリスト_20260728.md</code>§8-1。</p>
   </section>
 
-  <!-- HDD構成の15年評価（8戦略+Google継続基準線・最終確定版） -->
+  <!-- HDD構成の15年評価（8戦略+Google継続基準線・上位クラスタ僅差＋明確劣後1構成の2群表示・2026-07-29夜再是正版） -->
   <section class="card" id="lifecycle15">
-    <h2>HDD構成の15年評価<span class="flag ok" style="margin-left:8px"><span class="dot"></span>最終確定（有界需要モデル・9-11節）</span></h2>
-    <p class="lede">機種確定・購入済みのGTに対し、HDD構成は8戦略——(A)8TB×2 RAID1／(B)(B')4TB×2 RAID1（(B')は故障連動アップサイズ案・検証の結果(B)と同値に収束）／(D)2TB×3 RAID5／(E)6TB×2 RAID1／(F)2TB×2単発拡張／(F')2TB×2段階拡張（NJ提案・80%トリガー）／(参考)4TB×3 RAID5——を15年ライフサイクルで評価。NJ確定の運用規律（**約10年目に写真・動画を光学メディア(M-DISC)へ棚卸し・使用量を恒久的に2TB×4相当以下に抑える**）を反映した<strong>有界需要モデル（9-11節）が最終版</strong>で、無限成長を前提にした旧モデル（9-5〜9-8節）を上書きする。あわせて(G)Google AI Pro+iCloud継続基準線（¥37,920/年・年10目にGoogle AI Ultraへ強制移行し¥439,920/年へ12.5倍化）を比較対象に含め、「Google課金継続かNAS移行か」への数値回答も示す。数値正本＝<code>購入チェックリスト_20260728.md</code>§9-1・9-9(表5・表6)・9-10・9-11（新規計算なし・転記のみ）。</p>
+    <h2>HDD構成の15年評価<span class="flag ok" style="margin-left:8px"><span class="dot"></span>上位クラスタ僅差＋明確劣後1構成（有界需要モデル・9-11節・2026-07-29夜再是正）</span></h2>
+    <p class="lede">機種確定・購入済みのGTに対し、HDD構成は8戦略——(A)8TB×2 RAID1／(B)(B')4TB×2 RAID1（(B')は故障連動アップサイズ案・検証の結果(B)と同値に収束）／(D)2TB×3 RAID5／(E)6TB×2 RAID1／(F)2TB×2単発拡張／(F')2TB×2段階拡張（NJ提案・80%トリガー）／(参考)4TB×3 RAID5——を15年ライフサイクルで評価。NJ確定の運用規律（**約10年目に写真・動画を光学メディア(M-DISC)へ棚卸し・使用量を恒久的に2TB×4相当以下に抑える**）を反映した<strong>有界需要モデル（9-11節）</strong>に、`UGOS_RAID5拡張調査_20260729.md`によるRAID5拡張(reshape)対応確認（確度中〜高）とCodexクロスレビュー`bvlg9svc1`の指摘是正（本数変化コホートの反映・退避率感度の算術修正）をさらに反映した版が最終形。無限成長を前提にした旧モデル（9-5〜9-8節）を上書きする。**「最終確定」という単一順位の表現は避け、上位クラスタ（E・F'・D・F・A・参考の6構成・僅差でモデル誤差内）と明確に劣後する(B)(B')の2群として提示する**。あわせて(G)Google AI Pro+iCloud継続基準線（¥37,920/年・年10目にGoogle AI Ultraへ強制移行し¥439,920/年へ12.5倍化）を比較対象に含め、「Google課金継続かNAS移行か」への数値回答も示す。数値正本＝<code>購入チェックリスト_20260728.md</code>§9-1・9-9(表5・表6)・9-10・9-11（新規計算なし・転記のみ）。</p>
 
     <h3>15年累積コスト曲線（8系列・有界需要モデル・r=0%）</h3>
     <p class="lede">縦軸＝累積コスト（円）。<strong>(G)Google継続は基準線として破線表示</strong>——NAS各戦略線との交差点＝投資回収時点（この年を境にGoogle継続の方が高くつく）。(G)は15年目に¥2,578,800まで急拡大するため、軸はNAS戦略の可読性を優先して圧縮し、(G)線は上端で打ち切って矢印注記する。</p>
@@ -430,73 +430,73 @@
             <td>(E) 6TB×2 RAID1</td>
             <td class="num">¥13,660</td>
             <td class="num">約¥289,100</td>
-            <td class="num">約¥256,100</td>
+            <td class="num">約¥255,300</td>
             <td class="num">0回</td>
             <td class="num">52.0%</td>
-            <td><span class="flag ok"><span class="dot"></span>最終順位1位・全構成中最安</span></td>
+            <td><span class="flag ok"><span class="dot"></span>上位クラスタ内首位（条件付き＝利用可能率α=0.8ちょうどのknife-edge）</span></td>
           </tr>
           <tr>
             <td>(F') 2TB×2段階（NJ提案・80%トリガー）</td>
             <td class="num">¥23,380</td>
             <td class="num">約¥305,300</td>
-            <td class="num">約¥265,300</td>
+            <td class="num">約¥267,500</td>
             <td class="num">2回</td>
             <td class="num">63.2%（全構成中最良）</td>
-            <td>2位・容量利用率は最良だが¥/TB劣位を覆せず</td>
+            <td>上位クラスタ・容量利用率は最良だが¥/TB劣位を覆せず</td>
+          </tr>
+          <tr>
+            <td>(D) 2TB×3 RAID5</td>
+            <td class="num">¥17,535</td>
+            <td class="num">約¥307,700</td>
+            <td class="num">約¥270,200</td>
+            <td class="num">1回（reshape・¥23,380）</td>
+            <td class="num">60.0%（2026-07-29是正で48.8%→60.0%）</td>
+            <td>上位クラスタ・<strong>2026-07-29是正でreshape確度中〜高が確定し最下位から躍進</strong>（旧版比15年総額-16.5%）</td>
           </tr>
           <tr>
             <td>(F) 2TB×2単発拡張</td>
             <td class="num">¥23,380</td>
             <td class="num">約¥312,600</td>
-            <td class="num">約¥277,700</td>
+            <td class="num">約¥275,300</td>
             <td class="num">1回</td>
             <td class="num">57.1%</td>
-            <td>3位</td>
+            <td>上位クラスタ・(A)との差は1.5%未満で実質同格</td>
           </tr>
           <tr>
             <td>(A) 8TB×2 RAID1</td>
             <td class="num">¥12,495</td>
             <td class="num">約¥314,700</td>
-            <td class="num">約¥280,300</td>
+            <td class="num">約¥279,300</td>
             <td class="num">0回</td>
             <td class="num">39.0%</td>
-            <td>4位・容量利用率は下位クラス（「使わない容量を買う」構成）</td>
+            <td>上位クラスタ・容量利用率は下位クラス（「使わない容量を買う」構成）、(F)との差は僅差で実質同格</td>
           </tr>
           <tr>
             <td>(参考) 4TB×3 RAID5</td>
             <td class="num">¥12,188（購入日単価は全構成中最良）</td>
             <td class="num">約¥321,600</td>
-            <td class="num">約¥285,900</td>
+            <td class="num">約¥284,900</td>
             <td class="num">0回</td>
             <td class="num">39.0%</td>
-            <td>5位・購入日効率最良だが運転面で劣後</td>
+            <td>上位クラスタ・購入日効率最良だが運転面で劣後</td>
           </tr>
           <tr>
             <td>(B) 4TB×2 RAID1（意図的bay-fill）</td>
             <td class="num">¥16,250</td>
-            <td class="num">約¥326,700</td>
-            <td class="num">約¥288,500</td>
-            <td class="num">1回</td>
+            <td class="num">約¥351,900</td>
+            <td class="num">約¥308,400</td>
+            <td class="num">1回（拡張後4本・コホート更新済み）</td>
             <td class="num">35.5%（全構成中最悪）</td>
-            <td>6位・拡張の"跳び幅"過大で低利用率</td>
+            <td><span class="flag warn"><span class="dot"></span>明確に劣後（上位クラスタ上端から+8.2%）。2026-07-29是正で拡張後4本のコホート再計算を反映し悪化</span></td>
           </tr>
           <tr>
             <td>(B') 4TB×2 RAID1（故障連動アップサイズ案）</td>
             <td class="num">¥16,250</td>
-            <td class="num">約¥326,700</td>
-            <td class="num">約¥288,500</td>
+            <td class="num">約¥351,900</td>
+            <td class="num">約¥308,400</td>
             <td class="num">1回</td>
             <td class="num">35.5%</td>
-            <td>(B)と同値に収束（検証の結果、故障連動の"賢い"戦略は成立せず。9-5-2b節）</td>
-          </tr>
-          <tr>
-            <td>(D) 2TB×3 RAID5</td>
-            <td class="num">¥17,535</td>
-            <td class="num">約¥368,600</td>
-            <td class="num">約¥326,300</td>
-            <td class="num">1回</td>
-            <td class="num">48.8%</td>
-            <td><span class="flag warn"><span class="dot"></span>最終順位最下位</span></td>
+            <td>(B)と同値に収束（検証の結果、故障連動の"賢い"戦略は成立せず。9-5-2b節）。明確に劣後</td>
           </tr>
           <tr class="lead" style="background: color-mix(in srgb, var(--critical) 10%, var(--surface-card));">
             <td>(G) Google AI Pro+iCloud継続</td>
@@ -582,7 +582,8 @@
           <li>§8時点（Codexレビュー前）＝4TB×3 RAID5（参考）が¥/実効TB最良として実質的な本命候補だった。</li>
           <li>Codexクロスレビュー`b7p362ezv`のfinding1指摘を受け8TB×2 RAID1(A)を追加・「本命」に格上げ（4TB×3は「ほぼ支配される」として後退）。</li>
           <li>NJ成長率確定（2026-07-29 08:09）とCodexクロスレビュー`b59aw5df0`の「要修正」判定（finding2/4/5是正）を経て、A≈B(B')の事実上の同点まで後退。</li>
-          <li><strong>9-11節（有界需要モデル・最終確定）でNJ確定の定期棚卸し運用を反映した結果、(A)は拡張ゼロが確定し金額面は改善したが、容量利用率39.0%（全構成中下位クラス）は変わらず、順位も(E)(F')(F)に次ぐ4位まで後退</strong>。統括の推しは証拠によって都合3度後退した（8TB×2への格上げ→A≈B同点→有界需要モデルでの4位後退）——これは分析が弱かったのではなく、NJからの継続的な監査指摘（「1面しか見ていない」「10年→15年へ」「利用率も見ろ」等）のたびに、モデルがより現実に近づいた結果である。</li>
+          <li><strong>9-11節（有界需要モデル）でNJ確定の定期棚卸し運用を反映した結果、(A)は拡張ゼロが確定し金額面は改善したが、容量利用率39.0%（全構成中下位クラス）は変わらず</strong>。統括の推しは証拠によって都合3度後退した（8TB×2への格上げ→A≈B同点→有界需要モデルでの後退）——これは分析が弱かったのではなく、NJからの継続的な監査指摘（「1面しか見ていない」「10年→15年へ」「利用率も見ろ」等）のたびに、モデルがより現実に近づいた結果である。</li>
+          <li><strong>【2026-07-29夜・4度目の後退】</strong> `UGOS_RAID5拡張調査_20260729.md`によるreshape確度中〜高の確認と、Codexクロスレビュー`bvlg9svc1`が指摘した本数変化コホートの反映により、(D)が全構成中最下位から上位クラスタの3位へ躍進。結果、(A)は上位クラスタの一員ではあるものの単独で推せる根拠は無い状態（新順位＝E<F'<D<F<A<参考<B）。「最終確定」表現も「上位クラスタ内（僅差・モデル誤差内）」へ格下げした。</li>
         </ol>
       </div>
     </details>
@@ -654,7 +655,7 @@
     <h2><span class="num">⑦</span>人間裁定ポイント（残り2件）</h2>
     <div class="decision">
       <div class="q">HDD構成の確定 <span class="flag warn"><span class="dot"></span>未確定</span></div>
-      <div class="a">「HDD構成の15年評価」セクション参照。8戦略の15年TCO・NPV・容量利用率評価では<strong>(E)6TB×2 RAID1が数値的最有力（NJ確定の定期棚卸し運用が前提）</strong>だが、(F')2TB×2段階・(F)2TB×2単発・(A)8TB×2も僅差圏内。詳細比較・出典は<code>購入チェックリスト_20260728.md</code>§9-11。決定後は同ファイル§7-2の購入リストを更新する。</div>
+      <div class="a">「HDD構成の15年評価」セクション参照。8戦略の15年TCO・NPV・容量利用率評価は<strong>上位クラスタ（E・F'・D・F・A・参考の6構成・NPV@2%は¥255,300〜¥284,900の範囲でモデル誤差内の僅差）と、明確に劣後する(B)(B')の2群</strong>に整理される。(E)は条件付き首位（利用可能率α=0.8ちょうどのknife-edge）。<strong>2026-07-29夜の是正</strong>でUGOS RAID5拡張(reshape)対応確認（確度中〜高）を反映した結果、(D)が全構成中最下位から上位クラスタ3位へ躍進し、(B)(B')は本数変化コホートの再計算で最下位へ転落した。詳細比較・出典は<code>購入チェックリスト_20260728.md</code>§9-11・9-11-4・9-11-5。決定後は同ファイル§7-2の購入リストを更新する。</div>
     </div>
     <div class="decision">
       <div class="q">Google AI Pro（¥2,900/月・5TB）を解約できるか <span class="flag warn"><span class="dot"></span>未確定</span></div>
@@ -1121,9 +1122,9 @@
     { name: "(A)8TB×2",        color: "var(--hc1)", dashed: false,
       points: ptsFromArray(LC_YEARS, [99960,101807,103654,105501,107348,112194,114041,115888,235002,236849,285496,287343,289190,311029,312876,314723]) },
     { name: "(B)(B')4TB×2",    color: "var(--hc2)", dashed: false,
-      points: ptsFromArray(LC_YEARS, [65000,66684,68368,70052,71736,75370,142054,143738,258319,260003,308487,310171,311855,326539,328223,326657]) },
+      points: ptsFromArray(LC_YEARS, [65000,66684,68367,70051,71735,75368,142052,145419,253559,256926,315218,320536,323903,327270,330638,351909]) },
     { name: "(D)2TB×3",        color: "var(--hc3)", dashed: false,
-      points: ptsFromArray(LC_YEARS, [70140,72095,74050,76005,77960,82019,181474,183429,298924,300879,349634,351589,353544,369527,371482,368562]) },
+      points: ptsFromArray(LC_YEARS, [70140,72095,74050,76006,77961,82020,107356,109963,217342,219949,278123,281431,284038,286645,289252,307674]) },
     { name: "(E)6TB×2",        color: "var(--hc4)", dashed: false,
       points: ptsFromArray(LC_YEARS, [81960,83726,85492,87258,89024,93249,95015,96781,213564,215330,263896,265662,267428,285586,287352,289118]) },
     { name: "(F)2TB×2単発",     color: "var(--hc5)", dashed: false,
@@ -1254,8 +1255,8 @@
       points: [{t:0,v:8},{t:15,v:8}] },
     { name: "(B)(B')天井=4→12TB", color: "var(--hc2)",
       points: [{t:0,v:4},{t:6,v:4},{t:6,v:12},{t:15,v:12}] },
-    { name: "(D)天井=4→8TB", color: "var(--hc3)",
-      points: [{t:0,v:4},{t:6,v:4},{t:6,v:8},{t:15,v:8}] },
+    { name: "(D)天井=4→6TB（2026-07-29是正・reshape確定）", color: "var(--hc3)",
+      points: [{t:0,v:4},{t:6,v:4},{t:6,v:6},{t:15,v:6}] },
     { name: "(E)天井=6TB", color: "var(--hc4)",
       points: [{t:0,v:6},{t:15,v:6}] },
     { name: "(F)天井=2→6TB", color: "var(--hc5)",

@@ -411,7 +411,7 @@
     <p class="lede">縦軸＝累積コスト（円・0年目のGT+US3000実購入費¥103,284を全戦略共通で計上）。<strong>(G)Google継続は基準線として破線表示</strong>——NAS各戦略線との交差点＝投資回収時点（この年を境にGoogle継続の方が高くつく）。(G)は有界需要モデル（9-11節）のもとでは上位プラン移行が発生しないため<strong>¥37,920/年の等速直線</strong>（15年目¥568,800）であり、全系列を圧縮なしで同一軸に表示できる。</p>
     <svg class="chart" id="chartLifecycle" viewBox="0 0 640 400" role="img" aria-label="HDD8戦略とGoogle継続基準線の15年累積コスト推移、Google継続線は等速直線でありNAS各戦略と5〜6年目に交差する"></svg>
     <div class="chart-legend" id="legendLifecycle"></div>
-    <p class="chart-note">◇＝容量増設イベント（系列色の中抜き菱形・近傍に「+1台」「4本化」等の短ラベル）・薄い縦破線＝共通イベント（年5/8/13＝故障期待の配分年、年8＝本体+UPS更新、年10＝棚卸し）。濃い赤破線＝予算20万円の基準線（各戦略の累積コスト線がこれをいつ超えるかの目安）。Y軸は¥100,000刻みの固定グリッド。</p>
+    <p class="chart-note">◇＝容量増設イベント（系列色の中抜き菱形・近傍に「+1台」「4本化」等の短ラベル）・薄い縦破線＝共通イベント（年5/8/13＝故障期待の配分年、年7＝UPS更新、年8＝本体更新、年10＝棚卸し）。<strong>2026-07-29夜・寿命精度昇格反映</strong>＝本体・UPSの中心年をNAS本体10→8年目・UPS12→7年目へ下方修正（購入チェックリスト§9-5-0・9-9節既載）。極薄の縦グリッド線＝1年刻み（NJ要望・年単位の読み取り補助）。濃い赤破線＝予算20万円の基準線（各戦略の累積コスト線がこれをいつ超えるかの目安）。Y軸は¥100,000刻みの固定グリッド。</p>
     <p class="chart-note">交差点（0年目初期費¥103,284込み・主表示、全7構成を精密計算・§9-10既載）：(B)(B')(D)(F')約5年目／(A)(E)(F)(参考)約6年目——<strong>全構成とも5〜6年目の狭いレンジに収まる</strong>。0年目初期費を除いた増分視点（限界的な追加投資判断用）ではこれより早い年に交差する（詳細・両建て数値は下記「計算式と分解を開く」参照）。</p>
 
     <h3>容量成長 vs 各構成天井のタイムライン（0.4TB/年・10年目棚卸し）</h3>
@@ -1124,25 +1124,25 @@
   function ptsFromArray(years, arr) {
     return years.map(function (y, i) { return { t: y, v: arr[i] }; });
   }
-  // 2026-07-29夜・三重是正版（購入チェックリスト§9-9表5と同値）：
-  // ①0年目にGT+US3000実購入費¥103,284を計上、②旧・年8のNAS本体+UPS束ね(¥104,772)を
-  // 「年10=NAS本体¥89,892」「年12=UPS¥14,880」の2イベントへ分離、③(D)のreshape確定・
-  // (B)(D)コホート更新は従前どおり反映済み。
+  // 2026-07-29夜・四重是正版（購入チェックリスト§9-9表5と同値）：
+  // ①0年目にGT+US3000実購入費¥103,284を計上、②(D)のreshape確定・(B)(D)コホート更新反映、
+  // ③9-5-0節の寿命推定・階層引き上げ（NAS本体10→8年目・UPS12→7年目）を反映し、
+  // 共通コストを「年7=UPS¥14,880」「年8=NAS本体¥89,892」の2イベントへ再分離（光学一式¥46,800は年10のまま）。
   var lifecycleSeries = [
     { name: "(A)8TB×2",        color: "var(--hc1)", dashed: false,
-      points: ptsFromArray(LC_YEARS, [203244,205091,206938,208785,210632,215478,217325,219172,233514,235361,373900,375747,392474,414313,416160,418007]) },
+      points: ptsFromArray(LC_YEARS, [203244,205091,206938,208785,210632,215478,217325,234052,338286,340133,388780,390627,392474,414313,416160,418007]) },
     { name: "(B)(B')4TB×2",    color: "var(--hc2)", dashed: false,
-      points: ptsFromArray(LC_YEARS, [168284,169968,171651,173335,175019,178652,245336,248703,252071,255438,403622,408940,427187,430554,433922,455193]) },
+      points: ptsFromArray(LC_YEARS, [168284,169968,171651,173335,175019,178652,245336,263583,356843,360210,418502,423820,427187,430554,433922,455193]) },
     { name: "(D)2TB×3",        color: "var(--hc3)", dashed: false,
-      points: ptsFromArray(LC_YEARS, [173424,175379,177334,179290,181245,185304,210640,213247,215854,218461,366527,369835,387322,389929,392536,410958]) },
+      points: ptsFromArray(LC_YEARS, [173424,175379,177334,179290,181245,185304,210640,228127,320626,323233,381407,384715,387322,389929,392536,410958]) },
     { name: "(E)6TB×2",        color: "var(--hc4)", dashed: false,
-      points: ptsFromArray(LC_YEARS, [185244,187010,188776,190542,192308,196533,198299,200065,212076,213842,352300,354066,370712,388870,390636,392402]) },
+      points: ptsFromArray(LC_YEARS, [185244,187010,188776,190542,192308,196533,198299,214945,316848,318614,367180,368946,370712,388870,390636,392402]) },
     { name: "(F)2TB×2単発",     color: "var(--hc5)", dashed: false,
-      points: ptsFromArray(LC_YEARS, [150044,151347,200713,203319,205925,208531,211137,213743,246743,249349,388647,391253,408739,411345,413951,416557]) },
+      points: ptsFromArray(LC_YEARS, [150044,151347,200713,203319,205925,208531,211137,228623,351515,354121,403527,406133,408739,411345,413951,416557]) },
     { name: "(F')2TB×2段階",    color: "var(--hc6)", dashed: false,
-      points: ptsFromArray(LC_YEARS, [150044,151347,176682,178637,180592,182547,208533,211139,239574,242180,381478,384084,401570,404176,406782,408219]) },
+      points: ptsFromArray(LC_YEARS, [150044,151347,176682,178637,180592,182547,208533,226019,344346,346952,396358,398964,401570,404176,406782,408219]) },
     { name: "(参考)4TB×3",      color: "var(--hc7)", dashed: false,
-      points: ptsFromArray(LC_YEARS, [200784,203310,205836,208362,210888,216339,218865,221391,236105,238631,377849,380375,397781,419807,422333,424859]) }
+      points: ptsFromArray(LC_YEARS, [200784,203310,205836,208362,210888,216339,218865,236271,340877,343403,392729,395255,397781,419807,422333,424859]) }
   ];
   // (G)Google継続基準線：2026-07-29夜是正＝屈曲(AI Ultra強制移行)を撤回し等速直線へ。
   // NJ確定の有界需要モデル(9-11節)では使用量が恒久的に利用可能4.8TB以下に収まり、
@@ -1236,9 +1236,21 @@
       label.textContent = gv === 0 ? "¥0" : "¥" + (gv / 1000) + "k";
       svg.appendChild(label);
     }
+    // 極薄の縦グリッド線（NJ要望2026-07-29夜「X軸の年の刻みをもう少し細かく」）：1年刻みで背景にごく薄く敷く。
+    // イベントの濃い縦破線（下記commonEvents）とは濃さを明確に分ける（opacity 0.22 vs 0.55）。
+    for (var gx = 0; gx <= XMAX; gx++) {
+      var gxx = x(gx);
+      svg.appendChild(el("line", {
+        x1: gxx, x2: gxx, y1: marginT, y2: marginT + plotH,
+        stroke: "var(--gridline)", "stroke-width": 0.5, opacity: "0.4"
+      }));
+    }
     svg.appendChild(el("line", { x1: marginL, x2: W - marginR, y1: marginT + plotH, y2: marginT + plotH, class: "axis-line" }));
-    for (var t = 0; t <= XMAX; t += 3) {
+    // X軸ラベル：NJ要望2026-07-29夜「X軸の年の刻みをもう少し細かく」に対応し毎年ラベル表示。
+    // 375px幅でPlaywright実測（重なり0件・水平オーバーフローなし）を確認済みのため毎年ラベルを採用。
+    for (var t = 0; t <= XMAX; t++) {
       var xt = x(t);
+      svg.appendChild(el("line", { x1: xt, x2: xt, y1: marginT + plotH, y2: marginT + plotH + 4, stroke: "var(--text-muted)", "stroke-width": 1 }));
       var tl = el("text", { x: xt, y: marginT + plotH + 16, "text-anchor": "middle" });
       tl.textContent = t + "年";
       svg.appendChild(tl);
@@ -1272,14 +1284,16 @@
 
     // ---- イベント注記（NJ要望2026-07-29 17:12・ビジー化防止優先＝最小限の縦線+マーカー+短ラベルのみ） ----
     // (1) 共通イベント＝薄い縦破線+上端の小ラベル。
-    // 2026-07-29夜是正(NJ指摘「UPSと同時ってのは雑」)：旧・年8のNAS本体+UPS束ねを撤回し、
-    // 「年10=NAS本体更新(+棚卸しと同年)」「年12=UPS更新」の2イベントへ分離。
-    // 故障期待の配分年(5/8/13)は引き続き1本にまとめて年8へ集約表示（こちらは共通コストと無関係）。
+    // 2026-07-29夜・寿命精度昇格反映(購入チェックリスト§9-5-0)：中心年をNAS本体10→8年目・
+    // UPS12→7年目へ下方修正したため「年7=UPS更新」「年8=本体更新」の順（UPS→本体）へ入れ替え、
+    // 光学アーカイブ(棚卸し)は使用量モデルが上限へ到達する年10のまま単独イベントとして分離。
+    // 故障期待の配分年(5/8/13)は引き続き1本にまとめて年8へ集約表示（こちらは共通コストと無関係・
+    // 本体更新と同年になったためラベルを1本へ統合）。
     var commonEvents = [
       { t: 5,  label: null },
-      { t: 8,  label: "故障配分" },
-      { t: 10, label: "本体更新+棚卸し" },
-      { t: 12, label: "UPS更新" },
+      { t: 7,  label: "UPS更新" },
+      { t: 8,  label: "本体更新" },
+      { t: 10, label: "棚卸し" },
       { t: 13, label: null }
     ];
     commonEvents.forEach(function (ev) {
@@ -1289,12 +1303,12 @@
         stroke: "var(--text-muted)", "stroke-width": 1, "stroke-dasharray": "2 3", opacity: "0.55"
       }));
     });
-    // ラベルは年8・年10・年12の3本（年5・年13は上記の縦線のみ＝故障配分年は年8ラベルの"(5/8/13)"表記でまとめて示す）。
-    // 上下3段に分けてビジー化・相互重なりを避ける。
+    // ラベルは年7・年8・年10の3本（年5・年13は上記の縦線のみ＝故障配分年は年8ラベルの"(5/8/13)"表記でまとめて示す）。
+    // 年7・年8は隣接するため上下2段へ振り分けてラベル同士の重なりを避ける（375px実測で調整）。
     var commonLabelRows = [
-      { t: 8,  y: marginT + 34, text: "故障期待の配分年(5/8/13)" },
-      { t: 10, y: marginT + 46, text: "本体更新+棚卸し(周期)" },
-      { t: 12, y: marginT + 58, text: "UPS更新" }
+      { t: 7,  y: marginT + 34, text: "UPS更新(年7)" },
+      { t: 8,  y: marginT + 46, text: "本体更新+故障配分(年8・5/8/13)" },
+      { t: 10, y: marginT + 58, text: "棚卸し(周期・年10)" }
     ];
     commonLabelRows.forEach(function (row) {
       var lt = el("text", { x: x(row.t), y: row.y, "text-anchor": "middle", "font-size": "7.5" });
@@ -1427,9 +1441,20 @@
       label.textContent = v.toFixed(0) + "TB";
       svg.appendChild(label);
     }
+    // 極薄の縦グリッド線（NJ要望2026-07-29夜「X軸の年の刻みをもう少し細かく」）：1年刻みで背景にごく薄く敷く。
+    for (var gx = 0; gx <= XMAX; gx++) {
+      var gxx = x(gx);
+      svg.appendChild(el("line", {
+        x1: gxx, x2: gxx, y1: marginT, y2: marginT + plotH,
+        stroke: "var(--gridline)", "stroke-width": 0.5, opacity: "0.4"
+      }));
+    }
     svg.appendChild(el("line", { x1: marginL, x2: W - marginR, y1: marginT + plotH, y2: marginT + plotH, class: "axis-line" }));
-    for (var t = 0; t <= XMAX; t += 3) {
+    // X軸ラベル：NJ要望2026-07-29夜「X軸の年の刻みをもう少し細かく」に対応し毎年ラベル表示。
+    // 375px幅でPlaywright実測（重なり0件・水平オーバーフローなし）を確認済みのため毎年ラベルを採用。
+    for (var t = 0; t <= XMAX; t++) {
       var xt = x(t);
+      svg.appendChild(el("line", { x1: xt, x2: xt, y1: marginT + plotH, y2: marginT + plotH + 4, stroke: "var(--text-muted)", "stroke-width": 1 }));
       var tl = el("text", { x: xt, y: marginT + plotH + 16, "text-anchor": "middle" });
       tl.textContent = t + "年";
       svg.appendChild(tl);

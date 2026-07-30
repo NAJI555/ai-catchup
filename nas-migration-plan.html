@@ -1,0 +1,341 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="robots" content="noindex,nofollow,noarchive"><title>NAS移行計画ビューア</title><style>
+:root{
+  --bg:#f1f5f9; --card:#ffffff; --ink:#1e293b; --sub:#64748b;
+  --line:#e2e8f0; --hdr:#0f172a; --hdr-ink:#f1f5f9;
+  --callout-bg:#f8fafc; --chip-bg:#f1f5f9; --chip-ink:#475569;
+  --link:#2563eb; --good:#0ca30c; --crit:#d03b3b; --warn:#b5790a;
+  --l1:#2a78d6; /* 段階1 物理・基盤 */
+  --l2:#0ca878; /* 段階2 データ移行 */
+  --la:#8a3fd6; /* 段階A AIチーム4クローン孵化 */
+  --u-block:#d03b3b; --u-soon:#b5790a; --u-later:#0ca878;
+}
+@media (prefers-color-scheme:dark){
+  :root:where(:not([data-theme="light"])){
+    --bg:#0b1120; --card:#111827; --ink:#e5e7eb; --sub:#94a3b8;
+    --line:#1f2937; --hdr:#020617; --hdr-ink:#f1f5f9;
+    --callout-bg:#0f172a; --chip-bg:#1f2937; --chip-ink:#cbd5e1;
+    --link:#7dd3fc; --good:#2ecf2e; --crit:#ef7373; --warn:#e8b34a;
+    --l1:#5b9ce8; --l2:#1fd19a; --la:#b385ea;
+    --u-block:#ef7373; --u-soon:#e8b34a; --u-later:#2ecf2e;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1120; --card:#111827; --ink:#e5e7eb; --sub:#94a3b8;
+  --line:#1f2937; --hdr:#020617; --hdr-ink:#f1f5f9;
+  --callout-bg:#0f172a; --chip-bg:#1f2937; --chip-ink:#cbd5e1;
+  --link:#7dd3fc; --good:#2ecf2e; --crit:#ef7373; --warn:#e8b34a;
+  --l1:#5b9ce8; --l2:#1fd19a; --la:#b385ea;
+  --u-block:#ef7373; --u-soon:#e8b34a; --u-later:#2ecf2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.7;
+  font-family:-apple-system,'Segoe UI','Hiragino Kaku Gothic ProN','Yu Gothic UI',Meiryo,sans-serif;
+  font-size:16px;word-break:break-word;overflow-wrap:anywhere;overflow-x:hidden}
+a{color:var(--link)}
+.hdr{position:sticky;top:0;z-index:20;background:var(--hdr);color:var(--hdr-ink);
+  box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.hdr-in{max-width:880px;margin:0 auto;padding:12px 16px}
+.hdr h1{margin:0;font-size:1.1rem;line-height:1.4}
+.hdr .pass{margin-top:3px;font-size:.86rem;font-weight:700;color:#8ee08e}
+.hdr .hw{margin-top:4px;font-size:.76rem;opacity:.85}
+.wrap{max-width:880px;margin:0 auto;padding:14px 14px 48px}
+.nav{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px}
+.nav-chip{display:inline-flex;align-items:center;gap:5px;text-decoration:none;
+  background:var(--card);color:var(--ink);border:1px solid var(--line);
+  border-radius:999px;padding:6px 12px;font-size:.82rem;white-space:nowrap}
+.nav-chip:active{transform:scale(.97)}
+.card{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent,#94a3b8);
+  border-radius:14px;padding:16px 16px 14px;margin:0 0 16px;
+  box-shadow:0 1px 3px rgba(15,23,42,.06)}
+.card-title{display:flex;align-items:center;gap:10px;margin:0 0 12px;
+  font-size:1.08rem;line-height:1.4;color:var(--ink);scroll-margin-top:64px}
+.card-title .ico{font-size:1.3rem;flex:none;
+  display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;
+  background:color-mix(in srgb,var(--accent) 14%,transparent);border-radius:10px}
+.callout{background:var(--callout-bg);border:1px dashed color-mix(in srgb,var(--accent) 40%,var(--line));
+  border-radius:10px;padding:10px 12px;margin:0 0 14px;font-size:.88rem}
+
+/* ---- タイムライン ---- */
+.day{margin:0 0 14px}
+.day-h{font-weight:700;font-size:.92rem;color:var(--ink);margin:0 0 8px;
+  display:flex;align-items:center;gap:8px}
+.day-h .d-badge{background:var(--chip-bg);color:var(--chip-ink);border-radius:999px;
+  padding:2px 10px;font-size:.78rem;font-weight:700}
+.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.tl li{border-left:4px solid var(--lane,#94a3b8);background:var(--callout-bg);
+  border-radius:0 8px 8px 0;padding:8px 10px}
+.lane{display:inline-block;font-size:.68rem;font-weight:700;border-radius:6px;
+  padding:1px 7px;margin-right:6px;color:#fff;white-space:nowrap;vertical-align:1px}
+.lane-1{background:var(--l1)} .lane-2{background:var(--l2)} .lane-a{background:var(--la)}
+.par{font-size:.68rem;font-weight:700;color:var(--sub);border:1px solid var(--line);
+  border-radius:6px;padding:0 5px;margin-left:4px}
+.step-body{font-size:.9rem;margin-top:3px}
+.gate-note{font-size:.78rem;color:var(--sub);margin-top:2px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:.76rem;color:var(--sub);margin:10px 0 4px}
+.legend span{display:inline-flex;align-items:center;gap:4px}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* ---- NJ操作リスト ---- */
+.op-group{margin:0 0 14px}
+.op-h{font-weight:700;font-size:.9rem;margin:0 0 6px}
+.op-h .n{font-size:.72rem;color:var(--sub);font-weight:400;margin-left:4px}
+ul.ops{margin:0;padding-left:1.2rem;font-size:.9rem}
+ul.ops li{margin:4px 0}
+
+/* ---- 裁定キュー ---- */
+.urgency-h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;
+  margin:16px 0 8px;padding-top:8px;border-top:1px solid var(--line)}
+.urgency-h:first-child{border-top:none;padding-top:0;margin-top:0}
+.u-dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+.q-block{background:var(--card);border:1px solid var(--line);border-radius:10px;
+  margin:0 0 8px;overflow:hidden}
+.q-block>summary{cursor:pointer;list-style:none;padding:10px 12px;font-weight:600;
+  font-size:.88rem;display:flex;gap:8px;align-items:flex-start}
+.q-block>summary::-webkit-details-marker{display:none}
+.q-block>summary::after{content:"▾";margin-left:auto;color:var(--sub);flex:none}
+.q-block[open]>summary::after{content:"▴"}
+.q-num{color:var(--sub);font-weight:700;flex:none}
+.q-body{padding:0 12px 12px;font-size:.85rem;color:var(--sub);border-top:1px solid var(--line);
+  margin-top:2px;padding-top:8px}
+.q-body b{color:var(--ink)}
+.q-deadline{display:inline-block;margin-top:6px;font-size:.76rem;background:var(--chip-bg);
+  color:var(--chip-ink);border-radius:6px;padding:1px 7px}
+
+/* ---- ゲート表 ---- */
+.gtable{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:6px}
+.gtable th,.gtable td{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left;
+  vertical-align:top}
+.gtable th{color:var(--sub);font-weight:700;font-size:.74rem}
+.g-auto{color:var(--good);font-weight:700}
+.g-manual{color:var(--sub)}
+ol.cond{margin:8px 0 0;padding-left:1.2rem;font-size:.88rem}
+ol.cond li{margin:5px 0}
+
+.block{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  margin:0 0 16px;overflow:hidden}
+.block>summary{cursor:pointer;list-style:none;padding:13px 16px;font-weight:700;
+  display:flex;align-items:center;gap:8px;font-size:.98rem}
+.block>summary::-webkit-details-marker{display:none}
+.block>summary::after{content:"▾";margin-left:auto;color:var(--sub)}
+.block[open]>summary::after{content:"▴"}
+.block .inner{padding:0 16px 16px;font-size:.88rem;color:var(--sub)}
+.block .inner p{margin:6px 0}
+.ft{color:var(--sub);font-size:.78rem;text-align:center;margin-top:24px;padding-top:14px;
+  border-top:1px solid var(--line)}
+@media(min-width:600px){
+  body{font-size:16.5px}
+  .hdr h1{font-size:1.25rem}
+  .card{padding:20px 22px 16px}
+}
+</style></head><body>
+<header class="hdr"><div class="hdr-in">
+  <h1>NAS移行計画ビューア</h1>
+  <div class="pass">✅ 移行計画・クロスレビュー6ラウンド合格（2026-07-30）</div>
+  <div class="hw">構成：UGREEN NASync DXP4800 GT（4ベイ）＋UGREEN US3000 UPS（DC直結）／WD Red Plus 6TB×2 RAID1（実効6TB・利用可能5.8TB）／既存ルーターへ2.5GbE直結</div>
+</div></header>
+<main class="wrap">
+
+<nav class="nav" aria-label="セクション">
+  <a class="nav-chip" href="#tl">🗓️ タイムライン</a>
+  <a class="nav-chip" href="#ops">✋ NJ操作</a>
+  <a class="nav-chip" href="#queue">🚨 裁定</a>
+  <a class="nav-chip" href="#gates">📋 本番条件・ゲート</a>
+</nav>
+
+<section class="card" id="tl" style="--accent:#2563eb">
+<h2 class="card-title"><span class="ico">🗓️</span><span>週末タイムライン</span></h2>
+<div class="callout">段階1＝物理・基盤構築、段階2＝データ移行、段階A＝AIチーム4クローン孵化。3系統は一部が並行進行する（ネットワーク完成を待たずに進められる作業は先取りする）。</div>
+
+<div class="legend">
+  <span><i class="dot" style="background:var(--l1)"></i>段階1 物理・基盤</span>
+  <span><i class="dot" style="background:var(--l2)"></i>段階2 データ移行</span>
+  <span><i class="dot" style="background:var(--la)"></i>段階A AIチーム4クローン孵化</span>
+</div>
+
+<div class="day">
+<div class="day-h"><span class="d-badge">1日目・到着日</span></div>
+<ul class="tl" style="--lane:var(--l1)">
+  <li style="--lane:var(--l1)"><span class="lane lane-1">段階1</span>G0 無変更preflight（現行設定・DHCP・MAC・SSID・資格情報所在を記録）
+    <div class="step-body">裁定・他ゲートに先行して最初に実施。ここで得た実測を裁定#13へ提出する。</div></li>
+  <li style="--lane:var(--l1)"><span class="lane lane-1">段階1</span>HDD開梱・型番/外装/通電時間の検品→SMART Long Test開始
+    <div class="gate-note">Long Testは数時間〜半日バックグラウンド実行（待機中に他作業を並行可）</div></li>
+  <li style="--lane:var(--l1)"><span class="lane lane-1">段階1</span>本体組立・UGOS初期設定・ファームウェア更新・UPS動作試験（AC断→shutdown→復電→自動起動）</li>
+  <li style="--lane:var(--l1)"><span class="lane lane-1">段階1</span>RAID1構築→ミラー同期開始<span class="par">∥並行可</span>
+    <div class="step-body"><span class="lane lane-a">段階A</span>Docker image pull等ネットワークのみで完結する作業はRAID同期中でも並行して進めてよい</div></li>
+  <li style="--lane:var(--l1)"><span class="lane lane-1">段階1</span>配線（2.5GbE接続）・DHCP予約・WOL設定
+    <div class="gate-note">ルーター役割そのものの変更は裁定#13完了後のみ実行可</div></li>
+  <li style="--lane:var(--l1)"><span class="lane lane-1">段階1</span>Tailscale参加・通知設計（使用率／SMART／RAID劣化の3種）</li>
+</ul>
+</div>
+
+<div class="day">
+<div class="day-h"><span class="d-badge">2日目・翌日以降</span></div>
+<ul class="tl">
+  <li style="--lane:var(--l1)"><span class="lane lane-1">段階1</span>RAID1同期100%＋scrub PASS確認
+    <div class="gate-note">これが完了するまで段階2（データ移行）は着手しない</div></li>
+  <li style="--lane:var(--l2)"><span class="lane lane-2">段階2</span>データ移行（Google Takeoutは週末前に事前生成・ダウンロード済み前提）・家族共有スペース設計・PC1自動バックアップ</li>
+  <li style="--lane:var(--l2)"><span class="lane lane-2">段階2</span>独立バックアップ（3-2-1）の最低限実装（暫定コピー＋オフサイト系統1つ）</li>
+  <li style="--lane:var(--la)"><span class="lane lane-a">段階A</span>雛形1器を構築・認証（Claude/Codex headless）→動作確認→4器へ複製</li>
+  <li style="--lane:var(--la)"><span class="lane lane-a">段階A</span>4器の同時スモークテスト＋家族端末3台からの疎通テスト（Remote Control経由・Tailscale経由の両方）</li>
+</ul>
+<div class="callout">Google解約（段階8）はここから含まない。NAS安定稼働を1〜2週間確認し、独立バックアップ成立後にNJ最終決裁を経て実施する別工程。</div>
+</div>
+</section>
+
+<section class="card" id="ops" style="--accent:#0ca878">
+<h2 class="card-title"><span class="ico">✋</span><span>NJがやる操作の全リスト</span></h2>
+<div class="callout">目的：「その場で初めて知る操作ゼロ」。物理操作・認証操作・価値判断（裁定）の3分類に整理。裁定の詳細は次セクション。</div>
+
+<div class="op-group">
+<div class="op-h">🔧 物理<span class="n">機器そのものを手で操作する</span></div>
+<ul class="ops">
+  <li>HDD2台の型番・外装・通電時間の目視検品（開梱直後）</li>
+  <li>NAS本体設置・HDD装着・UPS配線</li>
+  <li>ファームウェア更新の実施操作（更新前後のversionを記録）</li>
+  <li>UPS動作試験：AC入力の切断・復電操作</li>
+  <li>ルーター/APの物理モードスイッチ操作（裁定#13完了後）</li>
+  <li>PC1のBIOS/UEFI操作（WOL有効化・高速スタートアップ無効化）</li>
+  <li>各機器管理画面へのパスワード入力（値そのものはrepoに残さない）</li>
+</ul>
+</div>
+
+<div class="op-group">
+<div class="op-h">🔑 認証<span class="n">アカウント・鍵まわりの手続き</span></div>
+<ul class="ops">
+  <li>Tailscale auth key発行・NAS参加操作</li>
+  <li>Claude claude.aiログインコードの貼付＋Remote Control開始操作</li>
+  <li>Codex ChatGPT device codeの承認（別端末のブラウザで）</li>
+  <li>git PATまたはSSH鍵の発行・保管方法の決定</li>
+  <li>Windows管理者/UAC承認</li>
+  <li>NAS初回SSH host fingerprintの物理照合</li>
+</ul>
+</div>
+
+<div class="op-group">
+<div class="op-h">⚖️ 裁定<span class="n">価値判断・詳細は次セクション</span></div>
+<ul class="ops">
+  <li>裁定キュー全23項目のうち、各段階の実行前に回答が必要な項目（🔴🟡で表示）</li>
+</ul>
+</div>
+</section>
+
+<section class="card" id="queue" style="--accent:#d03b3b">
+<h2 class="card-title"><span class="ico">🚨</span><span>裁定キューの未決論点</span></h2>
+<div class="callout">全23項目。緊急度で3段に分けた。各項目タップで背景・選択肢・期限を展開。一言だけ返せば足りるものから並べている。</div>
+
+<div class="urgency-h"><i class="u-dot" style="background:var(--u-block)"></i>🔴 ブロッキング（段階開始前に必須）</div>
+
+<details class="q-block"><summary><span class="q-num">#13</span>[Critical] ルーター役割：現行維持／ルーターBへ変更／ルーターCへ変更</summary>
+<div class="q-body"><b>背景</b>：正本文書は現行ルーター（HGW）がメイン・DHCP担当と明記する一方、旧稿は「AP機のどちらかへ変更」としており矛盾。宅内実機確認（G0）が先。<b>選択肢</b>：(a)ルーターB(Buffalo)を主にする (b)ルーターC(NEC)を主にする (c)現行ルーター維持・他は全APモード。<div class="q-deadline">期限：段階1実機確認直後、段階3実行前</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#20</span>git認証方式：PAT発行／SSH鍵新規生成</summary>
+<div class="q-body"><b>背景</b>：NAS上へrepoをcloneする前提。方式選択と発行操作はNJ担当と明記済み。<b>選択肢</b>：(a)PAT (b)SSH鍵ペア。<div class="q-deadline">期限：Phase A（NASへrepo clone前）</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#21</span>PC1 memoryをNAS4器へ複製する際、個人情報を除外するか</summary>
+<div class="q-body"><b>背景</b>：PC1のClaude Code memoryには家族の生活動線に関する記述が含まれ得る。NASは将来的に外出先からも複数経路でアクセスされる常時稼働ノードになる。<b>選択肢</b>：(a)全内容そのまま複製 (b)個人情報該当箇所を除外・抽象化してから複製 (c)複製せず空のmemoryから開始。<div class="q-deadline">期限：Phase A手順10の直前</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#12</span>NAS名（ホスト名）</summary>
+<div class="q-body"><b>選択肢</b>：(a)機種名ベース (b)用途が分かる名称 (c)任意の愛称。<div class="q-deadline">期限：段階1・初期設定ウィザード内</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#11</span>IoT用2.4GHz専用SSIDの名称</summary>
+<div class="q-body"><b>背景</b>：メインSSIDは既存名をそのまま引き継ぐため対象外。IoT専用の別枠のみ未決。<b>選択肢</b>：(a)既存命名規則に準ずる (b)用途が分かる名称 (c)任意の名称。<div class="q-deadline">期限：段階3実行時</div></div></details>
+
+<div class="urgency-h"><i class="u-dot" style="background:var(--u-soon)"></i>🟡 週末中に（データ移行・通知・Tailscale着手前）</div>
+
+<details class="q-block"><summary><span class="q-num">#4</span>Immich採用可否（写真・動画の家族共有アプリ）</summary>
+<div class="q-body"><b>背景</b>：README上は「計画」記載止まりで正式決裁なし。世間の定石はセルフホスト写真管理の一択に近い完成度。<b>選択肢</b>：(a)採用 (b)不採用・単純フォルダ共有 (c)他アプリ検討。<div class="q-deadline">期限：段階6（データ移行）実行前</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#7</span>子供の権限レベル（家族共有・個人スペース設計）</summary>
+<div class="q-body"><b>NJ事前スタンス</b>：基本は情報の壁を作らないオープン運用、プライバシー領域の要否は世間の定石を見て判断したい。<b>選択肢</b>：(a)大人と同等フルアクセス (b)閲覧のみ・書込みは保護者経由 (c)個人スペースは持つが共有スペースへの書込みは制限。<div class="q-deadline">期限：段階6実行時</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#6</span>Googleフォトからの移行範囲</summary>
+<div class="q-body"><b>選択肢</b>：(a)全量そのまま移行 (b)移行前に重複・不要データを選別 (c)移行後にNAS側で選別。<div class="q-deadline">期限：段階6実行時</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#9</span>通知の宛先設計（NJのみ／家族にも拡大）</summary>
+<div class="q-body"><b>選択肢</b>：(a)NJのみに集約（現行方針） (b)家族にも一部通知を拡大 (c)家族へは通知せずNJが口頭共有。<div class="q-deadline">期限：段階5実行時（現行方針のままなら追加作業不要）</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#22</span>通知経路の具体選定</summary>
+<div class="q-body"><b>選択肢</b>：(a)メール (b)UGOS公式アプリpush (c)両方併用 (d)既存healthcheck機構へ合流。<div class="q-deadline">期限：段階5実行時</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#10</span>Tailscaleへ子供の端末を参加させるか・ACL範囲</summary>
+<div class="q-body"><b>選択肢</b>：(a)家族全員フル参加 (b)子供はNAS(写真共有用途)のみ許可・他ノード不可 (c)子供の端末はTailscaleを使わずLAN限定アクセスに留める。<div class="q-deadline">期限：段階4実行時、または家族利用開始前</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#5</span>家族端末（iPhone／iPad／Android／ノートPC）の自動バックアップ方式</summary>
+<div class="q-body"><b>背景</b>：Immich採用が決まった場合の各系統の方式。ノートPCのみ源泉に記載なし。<b>選択肢（端末系統別）</b>：iOS/Android＝(a)アプリ常駐自動バックアップ (b)手動エクスポートのみ／ノートPC＝(a)SMBで直接マウント (b)専用クライアントで定期同期 (c)Windows標準機能をSMB共有先へ向ける。<div class="q-deadline">期限：Immich採用決裁後</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#14</span>RAID5変換の空実験を今やるか将来まで待つか</summary>
+<div class="q-body"><b>統括意見</b>：現構成は試算上30年間拡張トリガーが発火しない設計のため緊急性は低い。<b>選択肢</b>：A. 3本目を先行調達し初期データ投入前に空実験を実施 B. 実施せず実拡張時まで待つ。<div class="q-deadline">期限：任意（初期データ投入前までに）</div></div></details>
+
+<div class="urgency-h"><i class="u-dot" style="background:var(--u-later)"></i>🟢 後日でよい（Google解約前／数年後）</div>
+
+<details class="q-block"><summary><span class="q-num">#1</span>Google解約対象プラン確認＋最終解約決裁</summary>
+<div class="q-body"><b>背景</b>：家族クラウド契約棚卸し表の対象プランがGoogle AI Pro相当か別プランか未確認。プラン名確認はNJ本人のアカウント操作が必要。<b>選択肢</b>：(a)安定稼働1〜2週間確認後に解約 (b)様子見期間を延ばす (c)解約せず併用継続。<div class="q-deadline">期限：NAS安定稼働確認後（到着から数週間後が目安）</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#2</span>iCloud 50GB×2の扱い</summary>
+<div class="q-body"><b>選択肢</b>：(a)維持 (b)NAS移行後に解約 (c)写真バックアップのみNASへ移しiCloud自体は残す。<div class="q-deadline">期限：任意（Google解約決裁と同時でも可）</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#3</span>[Critical] 3-2-1原則の恒久オフサイト先選定</summary>
+<div class="q-body"><b>背景</b>：RAID1は同一筐体内の冗長化に過ぎず、筐体全損には無力。Google解約には独立バックアップ（判定式：暫定コピー＋オフサイト系統1つ＋復元検証）の成立が必須条件、これはAI側で先行実施する。<b>選択肢（恒久先）</b>：(a)Googleの最小プランへダウングレードして残す (b)iCloud側を残す (c)別の低コストクラウド保管を新規に選ぶ (d)光学メディアのオフサイト保管のみでクラウド契約ゼロにする。<div class="q-deadline">期限：最低限のオフサイト実装はGoogle解約前必須（急ぎ）。恒久選定はGoogle解約決裁と同時でも可</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#8</span>写真・動画の外部共有可否（親族共有等）</summary>
+<div class="q-body"><b>選択肢</b>：(a)家族外へは共有しない (b)Tailscale経由で限定共有 (c)別途クラウド側の共有アルバム機能だけ併用して残す。<div class="q-deadline">期限：任意（写真共有の実運用が始まってからでも可）</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#15</span>光学アーカイブ用ドライブ・メディアの購入計画</summary>
+<div class="q-body"><b>背景</b>：使用率90%通知（暫定基準の4.5TB相当）が来たら光学メディアへ退避する運用だが、ドライブ自体の保有・購入時期は未確定。<b>選択肢</b>：(a)通知が来てから購入 (b)猶予期間を見越して早めに調達 (c)光学メディア以外の手段へ変更。<div class="q-deadline">期限：使用率90%通知が来る前（試算上は相当先）</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#16</span>HDD故障時の交換発注をAI裁量に任せるか都度承認か</summary>
+<div class="q-body"><b>選択肢</b>：(a)同一型番・同程度価格帯なら発注までAI裁量 (b)発注前に必ず確認 (c)一定金額以下のみAI裁量。<div class="q-deadline">期限：任意（実際の故障発生時まで確定不要）</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#17</span>次回本体交換時の2ベイ機検討</summary>
+<div class="q-body">実測成長データが揃う本体交換時期（期待中心8年目ごろ）まで確定できない方向性のみの論点。<div class="q-deadline">期限：本体交換時期が近づいてから</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#18</span>UPSのLFP化更新タイミング</summary>
+<div class="q-body">本体交換（8年目ごろ）とUPS更新（7年目ごろ）の時期が近く、セットでの見直しが自然という方向性のみ。<div class="q-deadline">期限：UPS劣化の兆候が出てから、または7年目が近づいてから</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#19</span>NAS設置場所の騒音・発熱許容の実地確認</summary>
+<div class="q-body">設置場所はネットワーク配線上の最適解として確定済みだが、実機の動作音・発熱が生活動線にとって許容範囲かは未確認。<b>選択肢</b>：(a)現行設置場所のまま運用 (b)実機の音・熱を見て設置場所の見直しを検討。<div class="q-deadline">期限：セットアップ完了後、数日〜1週間程度の実地確認を経て</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">#23</span>家族用AI提供方式の残論点</summary>
+<div class="q-body"><b>既に確定済み（畳み）</b>：人ごとにコンテナ分離／家族が同時利用可能な構成／年齢規約は遵守／器は先に4つ建て中身は後から人別接続／子供の器も能力を絞らない完全版エージェント環境（ブラウザ専用等の案は不採用）／共有すべき家の事実（工具・薬剤・家電等）は1正本に集約し多重管理しない。<b>残る選択肢</b>：①器の中身のランタイム統一可否 ②各器の初期プロファイル設計 ③家族共有台帳の実装形・同期方式 ④操作窓口の本採用方式（第一検証はRemote Control相当、不成立時の代替候補あり）。<div class="q-deadline">期限：NASのAIチーム基盤構築が進み、器を実際に建てる段階まで</div></div></details>
+
+</section>
+
+<section class="card" id="gates" style="--accent:#b5790a">
+<h2 class="card-title"><span class="ico">📋</span><span>本番条件・ゲート一覧</span></h2>
+<div class="callout">クロスレビュー第6ラウンド（Codex・2026-07-30）の最終判定：<b>本番投入可（条件明記）</b>。以下4条件を満たした上でG0〜G10を実施する。</div>
+
+<ol class="cond">
+<li>本番証跡は現行版の判定器で新規生成し、旧証跡を混在させない</li>
+<li>Tailscaleのimageは検証済みversion（1.78以上）または照合済みdigestへpinする</li>
+<li>dry-run証跡はロジック確認専用とし、本番判定には使わない</li>
+<li>実機到着後、G0〜G10を全てPASSしてから実データ移行へ進む（HDDのSMART判定でbits 3〜7が1つでも立つ場合は自動PASSに依存せず停止・精査）</li>
+</ol>
+
+<table class="gtable">
+<tr><th>Gate</th><th>内容</th><th>判定器</th></tr>
+<tr><td>G0</td><td>変更前preflight（現行設定記録）</td><td class="g-manual">手動記録</td></tr>
+<tr><td>G1</td><td>HDD検品（SMART）</td><td class="g-auto">自動（gate_g1_smart.py）</td></tr>
+<tr><td>G2</td><td>NAS/UPS初期化</td><td class="g-manual">手動記録</td></tr>
+<tr><td>G3</td><td>RAID構築/btrfs</td><td class="g-manual">手動確認</td></tr>
+<tr><td>G4</td><td>LAN（ルーター役割・WOL・ローミング）</td><td class="g-manual">手動記録（前提＝裁定#13完了）</td></tr>
+<tr><td>G5</td><td>Docker/Tailscale</td><td class="g-auto">自動（gate_g5_docker_tailscale.py）</td></tr>
+<tr><td>G6</td><td>PC1遠隔操作（SSH/Firewall）</td><td class="g-auto">自動（gate_g6_ssh_firewall.ps1）</td></tr>
+<tr><td>G7</td><td>AI認証/配車・秘密混入検査</td><td class="g-auto">自動（gate_g7_secret_scan.py）</td></tr>
+<tr><td>G8</td><td>家族（Immichアップロード/権限）</td><td class="g-manual">手動確認</td></tr>
+<tr><td>G9</td><td>データ移行/バックアップ/復元検証</td><td class="g-manual">手動確認（manifest比較script併用）</td></tr>
+<tr><td>G10</td><td>AIチーム4器（複製・同一挙動・疎通）</td><td class="g-auto">自動（gate_g10_ai_team.py + nas_smoke_test.sh）</td></tr>
+</table>
+</section>
+
+<details class="block"><summary>📜 詳細手順・裁定の全背景</summary>
+<div class="inner">
+<p>本ページは結論のみを表面に出している。各段階の具体コマンド・依存順序・数値根拠・裁定23項目の全背景（世間の定石・出典URL含む）は以下の正本ファイルに集約されており、実行時は統括Claudeがそちらを直接参照する。</p>
+<p>・移行runbook（全12節・検証ゲート詳細・未確定事項一覧）<br>・NAS移行 人間裁定キュー（走査源泉・逆引き自問の経緯を含む全文）<br>・クロスレビュー第6ラウンド最終判定報告</p>
+<p>本ページの数値・判定式はこれら正本からの転記であり、正本側が更新された場合は本ページも追随して再生成する。</p>
+</div>
+</details>
+
+<footer class="ft">移行runbook（正本）＋人間裁定キュー＋クロスレビューR6最終判定から生成した閲覧ビュー。編集は正本md側で行う。</footer>
+</main>
+</body></html>

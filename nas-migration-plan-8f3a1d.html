@@ -4,9 +4,9 @@
   --line:#e2e8f0; --hdr:#0f172a; --hdr-ink:#f1f5f9;
   --callout-bg:#f8fafc; --chip-bg:#f1f5f9; --chip-ink:#475569;
   --link:#2563eb; --good:#0ca30c; --crit:#d03b3b; --warn:#b5790a;
-  --l1:#2a78d6; /* 段階1 物理・基盤 */
-  --l2:#0ca878; /* 段階2 データ移行 */
-  --la:#8a3fd6; /* 段階A AIチーム4クローン孵化 */
+  --l1:#2a78d6; /* NJ操作 / 段階1 物理・基盤 */
+  --l2:#0ca878; /* AI操作 / 段階2 データ移行 */
+  --la:#8a3fd6; /* NJ+AI協働 / 段階A AIチーム4クローン孵化 */
   --u-block:#d03b3b; --u-soon:#b5790a; --u-later:#0ca878;
 }
 @media (prefers-color-scheme:dark){
@@ -61,7 +61,35 @@ a{color:var(--link)}
 .callout{background:var(--callout-bg);border:1px dashed color-mix(in srgb,var(--accent) 40%,var(--line));
   border-radius:10px;padding:10px 12px;margin:0 0 14px;font-size:.88rem}
 
-/* ---- タイムライン ---- */
+/* ---- 今どこ ---- */
+.now-line{display:flex;gap:10px;align-items:flex-start;margin:0 0 12px;font-size:.96rem}
+.now-line:last-child{margin-bottom:0}
+.now-ico{flex:none;font-size:1.25rem;line-height:1.5}
+
+/* ---- 週末の物語タイムライン ---- */
+.story-day{margin:0 0 18px}
+.story-day:last-child{margin-bottom:0}
+.story-day-h{font-weight:700;font-size:.98rem;color:var(--ink);margin:0 0 10px;
+  display:flex;align-items:center;gap:8px}
+.story-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.story-list li{background:var(--callout-bg);border-radius:10px;padding:9px 11px;
+  font-size:.9rem;display:flex;gap:10px;align-items:flex-start}
+.s-ico{flex:none;font-size:1.1rem;width:24px;text-align:center;line-height:1.6}
+.s-body{flex:1}
+.who{display:inline-flex;align-items:center;font-size:.68rem;font-weight:700;border-radius:6px;
+  padding:1px 7px;margin-left:0;margin-bottom:3px;color:#fff;white-space:nowrap}
+.who-nj{background:var(--l1)}
+.who-ai{background:var(--l2)}
+.who-both{background:var(--la)}
+
+/* ---- NJ操作リスト（技術折りたたみ内） ---- */
+.op-group{margin:0 0 14px}
+.op-h{font-weight:700;font-size:.9rem;margin:0 0 6px}
+.op-h .n{font-size:.72rem;color:var(--sub);font-weight:400;margin-left:4px}
+ul.ops{margin:0;padding-left:1.2rem;font-size:.9rem}
+ul.ops li{margin:4px 0}
+
+/* ---- 週末タイムライン（技術版・折りたたみ内） ---- */
 .day{margin:0 0 14px}
 .day-h{font-weight:700;font-size:.92rem;color:var(--ink);margin:0 0 8px;
   display:flex;align-items:center;gap:8px}
@@ -81,14 +109,7 @@ a{color:var(--link)}
 .legend span{display:inline-flex;align-items:center;gap:4px}
 .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
 
-/* ---- NJ操作リスト ---- */
-.op-group{margin:0 0 14px}
-.op-h{font-weight:700;font-size:.9rem;margin:0 0 6px}
-.op-h .n{font-size:.72rem;color:var(--sub);font-weight:400;margin-left:4px}
-ul.ops{margin:0;padding-left:1.2rem;font-size:.9rem}
-ul.ops li{margin:4px 0}
-
-/* ---- 裁定キュー ---- */
+/* ---- 決める5つ／裁定キュー（q-block共通） ---- */
 .urgency-h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;
   margin:16px 0 8px;padding-top:8px;border-top:1px solid var(--line)}
 .urgency-h:first-child{border-top:none;padding-top:0;margin-top:0}
@@ -106,8 +127,16 @@ ul.ops li{margin:4px 0}
 .q-body b{color:var(--ink)}
 .q-deadline{display:inline-block;margin-top:6px;font-size:.76rem;background:var(--chip-bg);
   color:var(--chip-ink);border-radius:6px;padding:1px 7px}
+.q-done{color:var(--good);font-weight:700}
 
-/* ---- ゲート表 ---- */
+/* ---- よくある心配（FAQ・表面） ---- */
+.faq-card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:12px 14px;margin:0 0 10px}
+.faq-card:last-child{margin-bottom:0}
+.faq-q{font-weight:700;font-size:.94rem;margin:0 0 6px;display:flex;gap:8px}
+.faq-a{font-size:.9rem;color:var(--sub);margin:0}
+
+/* ---- ゲート表（技術折りたたみ内） ---- */
 .gtable{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:6px}
 .gtable th,.gtable td{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left;
   vertical-align:top}
@@ -126,6 +155,8 @@ ol.cond li{margin:5px 0}
 .block[open]>summary::after{content:"▴"}
 .block .inner{padding:0 16px 16px;font-size:.88rem;color:var(--sub)}
 .block .inner p{margin:6px 0}
+.subhd{font-weight:700;font-size:.95rem;color:var(--ink);margin:18px 0 8px}
+.subhd:first-child{margin-top:0}
 .ft{color:var(--sub);font-size:.78rem;text-align:center;margin-top:24px;padding-top:14px;
   border-top:1px solid var(--line)}
 @media(min-width:600px){
@@ -136,26 +167,105 @@ ol.cond li{margin:5px 0}
 </style></head><body>
 <header class="hdr"><div class="hdr-in">
   <h1>NAS移行計画ビューア</h1>
-  <div class="pass">✅ 移行計画・クロスレビュー6ラウンド合格（2026-07-30）</div>
-  <div class="hw">構成：UGREEN NASync DXP4800 GT（4ベイ）＋UGREEN US3000 UPS（DC直結）／WD Red Plus 6TB×2 RAID1（実効6TB・利用可能5.8TB）／既存ルーターへ2.5GbE直結</div>
+  <div class="pass">✅ 計画のダブルチェック（クロスレビュー＝他のAIによる二重確認）6回を通過済み（2026-07-30）</div>
+  <div class="hw">中身：NAS本体（ネットにつながる保管庫・差し込み口4つ）＋停電時に自動で安全に止める電源（UPS）＋ハードディスク2枚（6TB×2枚を"ミラー"＝同じ内容を2枚同時保存する設定にして実質5.8TB使える）＋今使っているネット機器へ直接ケーブルでつなぐ</div>
 </div></header>
 <main class="wrap">
 
 <div class="xnav-wrap">
-  <a class="xnav-btn" href="nas-dashboard-76f9ad.html">📊 コスト評価へ</a>
+  <a class="xnav-btn" href="../nas検討/NAS選定ダッシュボード.html">📊 コスト評価へ</a>
 </div>
 
 <nav class="nav" aria-label="セクション">
-  <a class="nav-chip" href="#tl">🗓️ タイムライン</a>
-  <a class="nav-chip" href="#ops">✋ NJ操作</a>
-  <a class="nav-chip" href="#queue">🚨 裁定</a>
-  <a class="nav-chip" href="#gates">📋 本番条件・ゲート</a>
+  <a class="nav-chip" href="#now">🏠 今どこ</a>
+  <a class="nav-chip" href="#day">📅 週末の流れ</a>
+  <a class="nav-chip" href="#decide">✅ 決めること</a>
+  <a class="nav-chip" href="#faq">💬 よくある心配</a>
 </nav>
 
-<section class="card" id="tl" style="--accent:#2563eb">
-<h2 class="card-title"><span class="ico">🗓️</span><span>週末タイムライン</span></h2>
-<div class="callout">段階1＝物理・基盤構築、段階2＝データ移行、段階A＝AIチーム4クローン孵化。3系統は一部が並行進行する（ネットワーク完成を待たずに進められる作業は先取りする）。</div>
+<section class="card" id="now" style="--accent:#2563eb">
+<h2 class="card-title"><span class="ico">🏠</span><span>今どこ</span></h2>
+<div class="now-line"><span class="now-ico">📦</span><span>機械（NAS本体・電源・ハードディスク）は全部買い終わった。あとは届くのを待つだけ。</span></div>
+<div class="now-line"><span class="now-ico">🛠️</span><span>届いたら、週末に組み立てる。</span></div>
+<div class="now-line"><span class="now-ico">🙋</span><span>あなたがやるのは<b>「挿す・つなぐ・ログインする」</b>だけ。細かい設定は全部AIがやる。</span></div>
+</section>
 
+<section class="card" id="day" style="--accent:#0ca878">
+<h2 class="card-title"><span class="ico">📅</span><span>週末の1日の流れ</span></h2>
+<div class="callout">裏では3つの作業（①機械そのものを組む　②今までのデータをGoogleから引っ越す　③家族用AIの分身を4つ用意する）が並行して進んでいるが、あなたがやることはこの順番で出てくる。各項目に<span class="who who-nj">NJ</span>＝あなたがやる／<span class="who who-ai">AI</span>＝AIが裏で進める／<span class="who who-both">NJ+AI</span>＝一緒に進める、の印を付けた。</div>
+
+<div class="story-day">
+<div class="story-day-h">📦 1日目・箱が届いた日</div>
+<ul class="story-list">
+  <li><span class="s-ico">📥</span><span class="s-body"><span class="who who-nj">NJ</span>箱を開けて、ハードディスク（データを保存する部品）2枚を本体の差し込み口へ挿す。向きは1通りしか入らないので間違えようがない。</span></li>
+  <li><span class="s-ico">🔌</span><span class="s-body"><span class="who who-nj">NJ</span>電源ケーブルと、ネット回線につながるケーブルをつなぐ。</span></li>
+  <li><span class="s-ico">🖥️</span><span class="s-body"><span class="who who-both">NJ+AI</span>画面の指示に沿って初期設定（名前・パスワードを決める）を進める。AIが横で説明する。</span></li>
+  <li><span class="s-ico">🩺</span><span class="s-body"><span class="who who-ai">AI</span>ハードディスクの健康チェック（新品かどうかを調べる自動テスト）を裏で開始。数時間〜半日かかるが放っておいてOK。待っている間に他の作業を並行して進められる。</span></li>
+  <li><span class="s-ico">🔋</span><span class="s-body"><span class="who who-both">NJ+AI</span>停電テスト：電源を一瞬抜いて、自動で安全に止まり、電気が戻ったら自動でまた起動するかを確認する。</span></li>
+  <li><span class="s-ico">🪞</span><span class="s-body"><span class="who who-ai">AI</span>2枚のハードディスクを"ミラー"（同じ内容を2枚同時に保存する仕組み＝片方が壊れてももう片方が生きている）にする設定を開始。これも数時間かかる。</span></li>
+  <li><span class="s-ico">🔀</span><span class="s-body"><span class="who who-nj">NJ</span>ネット回線のケーブルを、今のネット機器へつなぎかえる。</span></li>
+  <li><span class="s-ico">🌐</span><span class="s-body"><span class="who who-ai">AI</span>外出先からも安全にアクセスできる仕組み（Tailscale＝家の中の機械に安全に遠隔から入れる道具）を設定する。</span></li>
+</ul>
+<div class="callout">この日、決めてもらうことが2つ出てくる（下の「決めること」参照）。その場でAIが説明するので、聞かれたら一言答えればOK。</div>
+</div>
+
+<div class="story-day">
+<div class="story-day-h">📅 2日目以降</div>
+<ul class="story-list">
+  <li><span class="s-ico">✔️</span><span class="s-body"><span class="who who-ai">AI</span>ミラー設定が100%終わって、異常が無いことを確認する。<b>これが終わるまでは次の作業（データの引っ越し）はやらない</b>＝安全第一。</span></li>
+  <li><span class="s-ico">🖼️</span><span class="s-body"><span class="who who-ai">AI</span>Googleから前もって持ってきておいたデータをNASへ引っ越す。家族みんなが使える置き場と、個人の置き場を作る。</span></li>
+  <li><span class="s-ico">💾</span><span class="s-body"><span class="who who-ai">AI</span>パソコン（PC1）のデータも、NASへ自動でバックアップ（データの控えを別の場所にも保存しておくこと）されるようにする。</span></li>
+  <li><span class="s-ico">🗄️</span><span class="s-body"><span class="who who-ai">AI</span>最低限の「二重の保管」（同じデータをもう1か所にも置く保険）を用意する。</span></li>
+  <li><span class="s-ico">🤖</span><span class="s-body"><span class="who who-ai">AI</span>家族用AIの分身を、まず1つ作って動作確認 → 同じものを4つに複製する。</span></li>
+  <li><span class="s-ico">📱</span><span class="s-body"><span class="who who-both">NJ+AI</span>家族のスマホ3台から、実際につながるかテストする。</span></li>
+</ul>
+<div class="callout">Googleの解約はこの週末には<b>含まない</b>。NASが1〜2週間問題なく動くのを確認し、データの保険（二重の保管）が整ってから、NJが最後に決める別の作業。</div>
+</div>
+</section>
+
+<section class="card" id="decide" style="--accent:#d03b3b">
+<h2 class="card-title"><span class="ico">✅</span><span>決めてもらう5つ</span></h2>
+<div class="callout">全部で23個の細かい論点があるが、この週末にあなたが答える必要があるのはこの5つだけ。うち3つはすでに決定済み（✅）。タップで詳しく開ける。</div>
+
+<details class="q-block"><summary><span class="q-num">🔴</span>家のネットの"司令塔"をどの機械にするか</summary>
+<div class="q-body">今使っているネット機器（3台ある）のうち、どれをメインにするかがまだ決まっていない。理由は、実際の機械を見て今のつながり方を確認しないと判断できないから。<b>届いた日にAIが現物を見ながら選択肢を説明するので、その場で一言（どれにするか）答えてもらえればOK。</b><div class="q-deadline">タイミング：1日目・実機確認の直後</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">🔴</span>AIがNASへ自分の作業データを取り込む時の"鍵"の種類</summary>
+<div class="q-body">2種類のどちらかを選ぶだけ（PAT＝使い捨てできるパスワードのようなもの／SSH鍵＝機械同士が認証し合う鍵のペア）。<b>どちらでも問題なく動く。</b>AIが違いを簡単に説明してから選んでもらう。<div class="q-deadline">タイミング：AIの分身をNASへ移す作業の前</div></div></details>
+
+<details class="q-block"><summary><span class="q-num">✅</span>AIの記憶を新しい4つの分身にも引き継ぐか<span class="q-done">　決定済み</span></summary>
+<div class="q-body"><b>決定：そのまま引き継ぐ</b>（2026-07-31）。家族がそれぞれの分身を使い始めるタイミングで、扱いをもう一度確認する。</div></details>
+
+<details class="q-block"><summary><span class="q-num">✅</span>NASの名前<span class="q-done">　決定済み</span></summary>
+<div class="q-body"><b>決定済み</b>（2026-07-31）。具体の名称はrepo内runbookに記録済み・本ページでは伏せる。もし機械が受け付けなかった場合の予備案もあり。</div></details>
+
+<details class="q-block"><summary><span class="q-num">✅</span>IoT機器用Wi-Fiの名前<span class="q-done">　決定済み</span></summary>
+<div class="q-body"><b>決定済み</b>（2026-07-31）。具体の名称はrepo内runbookに記録済み・本ページでは伏せる。ふだん使うWi-Fiの名前は変わらない。これは今後増えるかもしれない専用機器のための予備の枠。</div></details>
+
+</section>
+
+<section class="card" id="faq" style="--accent:#b5790a">
+<h2 class="card-title"><span class="ico">💬</span><span>よくある心配</span></h2>
+
+<div class="faq-card"><div class="faq-q">❓ 壊したらどうなる？</div>
+<p class="faq-a">やり直せる設計にしてある。ハードディスクは"ミラー"（同じ内容を2枚同時保存）にするので、片方が壊れてももう片方が生きている。しかも今回のデータ引っ越しは、機械の組み立てとミラー確認が全部終わってから始まるので、<b>最初の作業中はまだ何もデータが入っていない＝失うものがない。</b></p></div>
+
+<div class="faq-card"><div class="faq-q">❓ 途中でやめられる？</div>
+<p class="faq-a">どの段階で中断してもOK。急な停電にも自動で安全に止まる仕組み（UPS）を用意してある。</p></div>
+
+<div class="faq-card"><div class="faq-q">❓ Googleのデータは消えちゃう？</div>
+<p class="faq-a">消えない。この週末ではGoogleの解約はしない。NASが1〜2週間ちゃんと動くのを確認して、さらに「もう1か所にコピーを置く」保険を作ってから、最後にNJが決める。</p></div>
+
+<div class="faq-card"><div class="faq-q">❓ 難しい操作が必要？</div>
+<p class="faq-a">NJがやるのは「挿す・つなぐ・ログインする」だけ。細かい設定は全部AIがやる。判断が必要な項目（上の「決めること」）もその場でAIが説明する。</p></div>
+</section>
+
+<details class="block"><summary>📜 技術詳細（AI用・実行時はここを見る）</summary>
+<div class="inner">
+<p>ここから下は本番実行時に統括AIが参照する技術版。日常語ではなく正確な用語・依存順序・判定基準をそのまま記載する。数値・裁定内容は正本（移行runbook・人間裁定キュー）からの転記であり、正本側が更新された場合は本ページも追随して再生成する。伏せ字ガード：SSID実名・IPアドレス・本人特定に繋がる名称は本ページ・正本共に伏せる（実値はNJ手元のrunbook原本のみ）。</p>
+
+<div class="subhd">週末タイムライン（段階別・技術版）</div>
+<div class="callout">段階1＝物理・基盤構築、段階2＝データ移行、段階A＝AIチーム4クローン孵化。3系統は一部が並行進行する（ネットワーク完成を待たずに進められる作業は先取りする）。</div>
 <div class="legend">
   <span><i class="dot" style="background:var(--l1)"></i>段階1 物理・基盤</span>
   <span><i class="dot" style="background:var(--l2)"></i>段階2 データ移行</span>
@@ -190,11 +300,9 @@ ol.cond li{margin:5px 0}
 </ul>
 <div class="callout">Google解約（段階8）はここから含まない。NAS安定稼働を1〜2週間確認し、独立バックアップ成立後にNJ最終決裁を経て実施する別工程。</div>
 </div>
-</section>
 
-<section class="card" id="ops" style="--accent:#0ca878">
-<h2 class="card-title"><span class="ico">✋</span><span>NJがやる操作の全リスト</span></h2>
-<div class="callout">目的：「その場で初めて知る操作ゼロ」。物理操作・認証操作・価値判断（裁定）の3分類に整理。裁定の詳細は次セクション。</div>
+<div class="subhd">NJがやる操作の全リスト（技術分類）</div>
+<div class="callout">目的：「その場で初めて知る操作ゼロ」。物理操作・認証操作・価値判断（裁定）の3分類に整理。</div>
 
 <div class="op-group">
 <div class="op-h">🔧 物理<span class="n">機器そのものを手で操作する</span></div>
@@ -222,16 +330,14 @@ ol.cond li{margin:5px 0}
 </div>
 
 <div class="op-group">
-<div class="op-h">⚖️ 裁定<span class="n">価値判断・詳細は次セクション</span></div>
+<div class="op-h">⚖️ 裁定<span class="n">価値判断・詳細は次の裁定キュー節</span></div>
 <ul class="ops">
   <li>裁定キュー全23項目のうち、各段階の実行前に回答が必要な項目（🔴🟡で表示）</li>
 </ul>
 </div>
-</section>
 
-<section class="card" id="queue" style="--accent:#d03b3b">
-<h2 class="card-title"><span class="ico">🚨</span><span>裁定キューの未決論点</span></h2>
-<div class="callout">全23項目。緊急度で3段に分けた。各項目タップで背景・選択肢・期限を展開。一言だけ返せば足りるものから並べている。</div>
+<div class="subhd">裁定キューの全23項目（正本＝人間裁定キュー_20260730.md）</div>
+<div class="callout">全23項目。緊急度で3段に分けた。各項目タップで背景・選択肢・期限を展開。</div>
 
 <div class="urgency-h"><i class="u-dot" style="background:var(--u-block)"></i>🔴 ブロッキング（段階開始前に必須）</div>
 
@@ -241,14 +347,14 @@ ol.cond li{margin:5px 0}
 <details class="q-block"><summary><span class="q-num">#20</span>git認証方式：PAT発行／SSH鍵新規生成</summary>
 <div class="q-body"><b>背景</b>：NAS上へrepoをcloneする前提。方式選択と発行操作はNJ担当と明記済み。<b>選択肢</b>：(a)PAT (b)SSH鍵ペア。<div class="q-deadline">期限：Phase A（NASへrepo clone前）</div></div></details>
 
-<details class="q-block"><summary><span class="q-num">#21</span>PC1 memoryをNAS4器へ複製する際、個人情報を除外するか</summary>
-<div class="q-body"><b>背景</b>：PC1のClaude Code memoryには家族の生活動線に関する記述が含まれ得る。NASは将来的に外出先からも複数経路でアクセスされる常時稼働ノードになる。<b>選択肢</b>：(a)全内容そのまま複製 (b)個人情報該当箇所を除外・抽象化してから複製 (c)複製せず空のmemoryから開始。<div class="q-deadline">期限：Phase A手順10の直前</div></div></details>
+<details class="q-block"><summary><span class="q-num">#21</span>PC1 memoryをNAS4器へ複製する際、個人情報を除外するか<span class="q-done">　✅裁定済み(2026-07-31)</span></summary>
+<div class="q-body"><b>背景</b>：PC1のClaude Code memoryには家族の生活動線に関する記述が含まれ得る。NASは将来的に外出先からも複数経路でアクセスされる常時稼働ノードになる。<b>選択肢</b>：(a)全内容そのまま複製 (b)個人情報該当箇所を除外・抽象化してから複製 (c)複製せず空のmemoryから開始。<b>NJ裁定（2026-07-31）</b>：(a) 全内容をそのまま4器へ複製する（除外・抽象化はしない）。家族の入居時（各人が専用アカウントへ切替わり実利用を始める時点）に、器ごとの扱いを再確認する。<div class="q-deadline">期限：Phase A手順10の直前</div></div></details>
 
-<details class="q-block"><summary><span class="q-num">#12</span>NAS名（ホスト名）</summary>
-<div class="q-body"><b>選択肢</b>：(a)機種名ベース (b)用途が分かる名称 (c)任意の愛称。<div class="q-deadline">期限：段階1・初期設定ウィザード内</div></div></details>
+<details class="q-block"><summary><span class="q-num">#12</span>NAS名（ホスト名）<span class="q-done">　✅裁定済み(2026-07-31)</span></summary>
+<div class="q-body"><b>選択肢</b>：(a)機種名ベース (b)用途が分かる名称 (c)任意の愛称。<b>NJ裁定（2026-07-31）</b>：決定済み（具体名はrunbook原本に記録・本ページでは伏せ字ガードにより非表示）。DNSホスト名規格上の制約により拒否された場合の予備案あり。<div class="q-deadline">期限：段階1・初期設定ウィザード内</div></div></details>
 
-<details class="q-block"><summary><span class="q-num">#11</span>IoT用2.4GHz専用SSIDの名称</summary>
-<div class="q-body"><b>背景</b>：メインSSIDは既存名をそのまま引き継ぐため対象外。IoT専用の別枠のみ未決。<b>選択肢</b>：(a)既存命名規則に準ずる (b)用途が分かる名称 (c)任意の名称。<div class="q-deadline">期限：段階3実行時</div></div></details>
+<details class="q-block"><summary><span class="q-num">#11</span>IoT用2.4GHz専用SSIDの名称<span class="q-done">　✅裁定済み(2026-07-31)</span></summary>
+<div class="q-body"><b>背景</b>：メインSSIDは既存名をそのまま引き継ぐため対象外。IoT専用の別枠のみ未決だった。<b>選択肢</b>：(a)既存命名規則に準ずる (b)用途が分かる名称 (c)任意の名称。<b>NJ裁定（2026-07-31）</b>：決定済み（具体名はrunbook原本に記録・本ページでは伏せ字ガードにより非表示）。<div class="q-deadline">期限：段階3実行時</div></div></details>
 
 <div class="urgency-h"><i class="u-dot" style="background:var(--u-soon)"></i>🟡 週末中に（データ移行・通知・Tailscale着手前）</div>
 
@@ -308,10 +414,7 @@ ol.cond li{margin:5px 0}
 <details class="q-block"><summary><span class="q-num">#23</span>家族用AI提供方式の残論点</summary>
 <div class="q-body"><b>既に確定済み（畳み）</b>：人ごとにコンテナ分離／家族が同時利用可能な構成／年齢規約は遵守／器は先に4つ建て中身は後から人別接続／子供の器も能力を絞らない完全版エージェント環境（ブラウザ専用等の案は不採用）／共有すべき家の事実（工具・薬剤・家電等）は1正本に集約し多重管理しない。<b>残る選択肢</b>：①器の中身のランタイム統一可否 ②各器の初期プロファイル設計 ③家族共有台帳の実装形・同期方式 ④操作窓口の本採用方式（第一検証はRemote Control相当、不成立時の代替候補あり）。<div class="q-deadline">期限：NASのAIチーム基盤構築が進み、器を実際に建てる段階まで</div></div></details>
 
-</section>
-
-<section class="card" id="gates" style="--accent:#b5790a">
-<h2 class="card-title"><span class="ico">📋</span><span>本番条件・ゲート一覧</span></h2>
+<div class="subhd">本番条件・ゲート一覧</div>
 <div class="callout">クロスレビュー第6ラウンド（Codex・2026-07-30）の最終判定：<b>本番投入可（条件明記）</b>。以下4条件を満たした上でG0〜G10を実施する。</div>
 
 <ol class="cond">
@@ -335,16 +438,12 @@ ol.cond li{margin:5px 0}
 <tr><td>G9</td><td>データ移行/バックアップ/復元検証</td><td class="g-manual">手動確認（manifest比較script併用）</td></tr>
 <tr><td>G10</td><td>AIチーム4器（複製・同一挙動・疎通）</td><td class="g-auto">自動（gate_g10_ai_team.py + nas_smoke_test.sh）</td></tr>
 </table>
-</section>
 
-<details class="block"><summary>📜 詳細手順・裁定の全背景</summary>
-<div class="inner">
-<p>本ページは結論のみを表面に出している。各段階の具体コマンド・依存順序・数値根拠・裁定23項目の全背景（世間の定石・出典URL含む）は以下の正本ファイルに集約されており、実行時は統括Claudeがそちらを直接参照する。</p>
+<p>各段階の具体コマンド・依存順序・数値根拠・裁定23項目の全背景（世間の定石・出典URL含む）は以下の正本ファイルに集約されており、実行時は統括Claudeがそちらを直接参照する。</p>
 <p>・移行runbook（全12節・検証ゲート詳細・未確定事項一覧）<br>・NAS移行 人間裁定キュー（走査源泉・逆引き自問の経緯を含む全文）<br>・クロスレビュー第6ラウンド最終判定報告</p>
-<p>本ページの数値・判定式はこれら正本からの転記であり、正本側が更新された場合は本ページも追随して再生成する。</p>
 </div>
 </details>
 
-<footer class="ft">移行runbook（正本）＋人間裁定キュー＋クロスレビューR6最終判定から生成した閲覧ビュー。編集は正本md側で行う。</footer>
+<footer class="ft">移行runbook（正本）＋人間裁定キュー＋クロスレビューR6最終判定から生成した閲覧ビュー。編集は正本md側で行う。表面＝日常語（NJ・スマホ向け）、折りたたみ＝技術版（AI用）。</footer>
 </main>
 </body></html>

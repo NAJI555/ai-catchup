@@ -215,7 +215,7 @@ ol.cond li{margin:5px 0}
 <nav class="nav" aria-label="セクション">
   <a class="nav-chip" href="#now">🏠 今どこ</a>
   <a class="nav-chip" href="#day">📅 週末の流れ</a>
-  <a class="nav-chip" href="#decide">✅ 決めること</a>
+  <a class="nav-chip" href="#decide">✅ 決まっていること</a>
   <a class="nav-chip" href="#faq">💬 よくある心配</a>
 </nav>
 
@@ -224,6 +224,7 @@ ol.cond li{margin:5px 0}
 <div class="now-line"><span class="now-ico">📦</span><span>機械（NAS本体・電源・ハードディスク）は全部買い終わった。あとは届くのを待つだけ。</span></div>
 <div class="now-line"><span class="now-ico">🛠️</span><span>届いたら、週末に組み立てる。</span></div>
 <div class="now-line"><span class="now-ico">🙋</span><span>あなたがやるのは<b>「挿す・つなぐ・ログインする」</b>だけ。細かい設定は全部AIがやる。</span></div>
+<div class="now-line"><span class="now-ico">🤖</span><span>技術的な選択（ネットの親をどうするか・AIの鍵の種類）は、定石がはっきりしているためAIが決めた。<b>この週末、あなたが技術項目を選ぶ必要はゼロ</b>（下の「決まっていること」参照）。</span></div>
 </section>
 
 <section class="card" id="day" style="--accent:#0ca878">
@@ -240,7 +241,7 @@ ol.cond li{margin:5px 0}
   <li data-step-id="day1-05"><label class="step-label"><input type="checkbox" class="step-checkbox" data-step-id="day1-05" aria-label="完了チェック"><span class="s-ico">🩺</span><span class="s-body"><span class="who who-ai">AI</span>ハードディスクの健康チェック（新品かどうかを調べる自動テスト）を裏で開始。数時間〜半日かかるが放っておいてOK。待っている間に他の作業を並行して進められる。</span></label></li>
   <li data-step-id="day1-06"><label class="step-label"><input type="checkbox" class="step-checkbox" data-step-id="day1-06" aria-label="完了チェック"><span class="s-ico">🔋</span><span class="s-body"><span class="who who-both">NJ+AI</span>停電テスト：電源を一瞬抜いて、自動で安全に止まり、電気が戻ったら自動でまた起動するかを確認する。</span></label></li>
   <li data-step-id="day1-07"><label class="step-label"><input type="checkbox" class="step-checkbox" data-step-id="day1-07" aria-label="完了チェック"><span class="s-ico">🪞</span><span class="s-body"><span class="who who-ai">AI</span>2枚のハードディスクを"ミラー"（同じ内容を2枚同時に保存する仕組み＝片方が壊れてももう片方が生きている）にする設定を開始。これも数時間かかる。</span></label></li>
-  <li data-step-id="day1-08"><label class="step-label"><input type="checkbox" class="step-checkbox" data-step-id="day1-08" aria-label="完了チェック"><span class="s-ico">🔀</span><span class="s-body"><span class="who who-nj">NJ</span>NASにひとまず挿していたネットのケーブルを、電波係の機械（Buffalo）の空いている高速専用ポートへ挿し直す。家のネット（インターネット・Wi-Fi）自体は止まらない。NASだけ数分ネットから外れる瞬間があるが、それだけ。</span></label></li>
+  <li data-step-id="day1-08"><label class="step-label"><input type="checkbox" class="step-checkbox" data-step-id="day1-08" aria-label="完了チェック"><span class="s-ico">🔀</span><span class="s-body"><span class="who who-nj">NJ</span>NASにひとまず挿していたネットのケーブルを、電波係（正式にはAPモード＝ルーター本来の役目[家中の機器へネットの住所を配る]は持たず、Wi-Fiの電波や有線ポートを増やす役目だけを担当する動作モード）の機械（Buffalo）の空いている高速専用ポートへ挿し直す。家のネット（インターネット・Wi-Fi）自体は止まらない。NASだけ数分ネットから外れる瞬間があるが、それだけ。</span></label></li>
   <li data-step-id="day1-09"><label class="step-label"><input type="checkbox" class="step-checkbox" data-step-id="day1-09" aria-label="完了チェック"><span class="s-ico">💻</span><span class="s-body"><span class="who who-nj">NJ</span>パソコン（PC1）側で、遠隔から電源を入れられるようにする設定（BIOS/UEFI画面での操作＋Windowsの「高速スタートアップ」を切る）をする。やり方はAIがその場で1つずつ教える。</span></label></li>
   <li class="has-detail" data-step-id="day1-10"><label class="step-label"><input type="checkbox" class="step-checkbox" data-step-id="day1-10" aria-label="完了チェック"><span class="s-ico">📶</span><span class="s-body"><span class="who who-both">NJ+AI</span>Wi-Fiの名前（SSID）を1つに統一する設定。ルーターの管理画面へ<b>あなたはパスワードを入れるだけ</b>。名前の入力・保存など細かい操作はAIがブラウザ操作で自動的に進める。</span></label>
     <details class="step-more"><summary>くわしく見る（今とあとで何が変わるか）</summary>
@@ -251,10 +252,10 @@ ol.cond li{margin:5px 0}
       <p><b>変わらないもの</b>：パスワード・つながる速さの上限・今つながっている機器（全部そのまま）。</p>
     </div></details>
   </li>
-  <li data-step-id="day1-11"><label class="step-label"><input type="checkbox" class="step-checkbox" data-step-id="day1-11" aria-label="完了チェック"><span class="s-ico">🔀</span><span class="s-body"><span class="who who-nj">NJ</span>「家のネットの司令塔」は今のまま（決定済み）。届いた日は、Buffalo・NEC機のスイッチが想定どおりの位置（電波係＝APモード）になっているかを確認するだけでよい。もし違っていたら、その場でAIと相談して直す。</span></label></li>
+  <li data-step-id="day1-11"><label class="step-label"><input type="checkbox" class="step-checkbox" data-step-id="day1-11" aria-label="完了チェック"><span class="s-ico">🔀</span><span class="s-body"><span class="who who-nj">NJ</span>「ネットの親」（正式にはルーター役＝家中の機器にネットの住所を配り、外部とのやり取りの窓口になる1台）は今のまま——これはAIが技術の定石に基づいて決めた（下の「決まっていること」参照・NJに選んでもらう必要はなかった）。届いた日は、Buffalo・NEC機が想定どおり電波係の位置になっているかを確認するだけでよい。もし違っていたら、その場でAIと相談して直す。</span></label></li>
   <li data-step-id="day1-12"><label class="step-label"><input type="checkbox" class="step-checkbox" data-step-id="day1-12" aria-label="完了チェック"><span class="s-ico">🌐</span><span class="s-body"><span class="who who-both">NJ+AI</span>外出先からも安全にアクセスできる仕組み（Tailscale＝家の中の機械に安全に遠隔から入れる道具）を設定する。<b>あなたは自分のTailscaleアカウントでログインしてNASの参加を1回承認するだけ</b>。それ以外の設定はAIが進める。</span></label></li>
 </ul>
-<div class="callout">この週末に決めてもらうのは、もう1つだけ（AIの鍵の種類・下の「決めること」参照）。家のネットの司令塔は決定済みなので、当日は現状確認だけで進む。</div>
+<div class="callout">この週末、NJに新しく選んでもらう技術項目はゼロ（ネットの親も、AIの鍵の種類も、どちらもAIが技術の定石で決めた・下の「決まっていること」参照）。当日は現状確認と作業の実施だけで進む。</div>
 </div>
 
 <div class="story-day">
@@ -277,23 +278,28 @@ ol.cond li{margin:5px 0}
 </section>
 
 <section class="card" id="decide" style="--accent:#d03b3b">
-<h2 class="card-title"><span class="ico">✅</span><span>決めてもらう5つ</span></h2>
-<div class="callout">全部で23個の細かい論点があるが、この週末にあなたが答える必要があるのはこの5つだけ。うち4つはすでに決定済み（✅）。タップで詳しく開ける。</div>
+<h2 class="card-title"><span class="ico">✅</span><span>決まっていること（AIの決定と理由）</span></h2>
+<div class="callout">全部で23個の細かい論点があるが、この週末に関わる5つはすべて決定済み。うち2つ（🤖）は技術的な定石がはっきりしているためAIが判断し、残り3つ（🙋）はNJの好みで決めてもらった。<b>この週末、NJが新しく選ぶ技術項目はゼロ。</b>タップで理由を詳しく開ける。</div>
 
-<details class="q-block" data-decide-id="decide-01"><summary><input type="checkbox" class="decide-checkbox" data-decide-id="decide-01" checked aria-label="確認チェック"><span class="q-num">✅</span><span class="q-title">家のネットの"司令塔"をどの機械にするか</span><span class="q-done">　決定済み</span></summary>
-<div class="q-body"><b>決定：今のまま</b>（今使っているルーターが親分・新しく来た機械は電波係）。届いた日は、実際の機械を見て今のつながり方が想定どおりかを確認するだけで、選び直す作業ではない。</div></details>
+<details class="q-block" data-decide-id="decide-01"><summary><input type="checkbox" class="decide-checkbox" data-decide-id="decide-01" checked aria-label="確認チェック"><span class="q-num">🤖</span><span class="q-title">ネットの親（ルーター役）をどの機械にするか</span><span class="q-done">　AI裁定済み</span></summary>
+<div class="q-body"><b>AIの決定：今のまま</b>（今使っているルーターがネットの親・新しく来た機械は電波係のまま）。
+<div class="callout" style="margin-top:8px">🌍 ふつうはどうする？　一般的にはネット会社から借りている機械を親のままにするのが定石。理由：①電話や回線の特殊機能を握っている＝親を替えると最悪ネットや電話が止まる ②親1台＋残り全部電波係が一番壊れない形 ③回線が死んだ時にネット会社が自社機器として面倒を見てくれる。逆に市販の高性能機を親にする上級者の流派もある（細かい設定や速度重視・回線側の確認が要る手間の多い道）。AIの推奨＝変更リスクゼロの「今のまま」。</div>
+<p style="margin:8px 0 0">技術的な定石がはっきりしているため、NJに選んでもらわずAIが判断した。届いた日は、実際の機械を見て今のつながり方が想定どおりかを確認するだけで、選び直す作業ではない。</p></div></details>
 
-<details class="q-block" data-decide-id="decide-02"><summary><input type="checkbox" class="decide-checkbox" data-decide-id="decide-02" aria-label="確認チェック"><span class="q-num">🔴</span><span class="q-title">AIがNASへ自分の作業データを取り込む時の"鍵"の種類</span></summary>
-<div class="q-body">2種類のどちらかを選ぶだけ（PAT＝使い捨てできるパスワードのようなもの／SSH鍵＝機械同士が認証し合う鍵のペア）。<b>どちらでも問題なく動く。</b>AIが違いを簡単に説明してから選んでもらう。<div class="q-deadline">タイミング：AIの分身をNASへ移す作業の前</div></div></details>
+<details class="q-block" data-decide-id="decide-02"><summary><input type="checkbox" class="decide-checkbox" data-decide-id="decide-02" checked aria-label="確認チェック"><span class="q-num">🤖</span><span class="q-title">AIがNASへ自分の作業データを取り込む時の"鍵"の種類</span><span class="q-done">　AI裁定済み</span></summary>
+<div class="q-body"><b>AIの決定：SSH鍵</b>（機械同士が認証し合う鍵のペア）を使う。
+<div class="callout" style="margin-top:8px">🌍 ふつうはどうする？　定石は「常に動きっぱなしの機械には、期限切れのない鍵」。PAT（使い捨てできるパスワードのようなもの）は手軽だが有効期限が来ると失効し、人が気づいて再発行しないと止まる。今回のNASは人が毎回見ているわけではない常時稼働の機械なので、この定石に合わせてSSH鍵にした。</div>
+<p style="margin:8px 0 0">残るNJの作業は、鍵を発行するときのボタン操作だけ（やり方はその場でAIが教える）。</p>
+<div class="q-deadline">タイミング：AIの分身をNASへ移す作業の前</div></div></details>
 
-<details class="q-block" data-decide-id="decide-03"><summary><input type="checkbox" class="decide-checkbox" data-decide-id="decide-03" checked aria-label="確認チェック"><span class="q-num">✅</span><span class="q-title">AIの記憶を新しい4つの分身にも引き継ぐか</span><span class="q-done">　決定済み</span></summary>
-<div class="q-body"><b>決定：そのまま引き継ぐ</b>（2026-07-31）。家族がそれぞれの分身を使い始めるタイミングで、扱いをもう一度確認する。</div></details>
+<details class="q-block" data-decide-id="decide-03"><summary><input type="checkbox" class="decide-checkbox" data-decide-id="decide-03" checked aria-label="確認チェック"><span class="q-num">🙋</span><span class="q-title">AIの記憶を新しい4つの分身にも引き継ぐか</span><span class="q-done">　決定済み</span></summary>
+<div class="q-body"><b>NJの決定：そのまま引き継ぐ</b>（2026-07-31）。<b>決めた理由</b>：最初から個人情報だけ抜こうとすると、何を抜いたか・抜け漏れがないかの管理がかえって煩雑になるため、まずは全部そのまま渡し、家族がそれぞれの分身を使い始めるタイミングで扱いをもう一度確認する方針にした。</div></details>
 
-<details class="q-block" data-decide-id="decide-04"><summary><input type="checkbox" class="decide-checkbox" data-decide-id="decide-04" checked aria-label="確認チェック"><span class="q-num">✅</span><span class="q-title">NASの名前</span><span class="q-done">　決定済み</span></summary>
-<div class="q-body"><b>決定済み</b>（2026-07-31）。具体の名称はrepo内runbookに記録済み・本ページでは伏せる。もし機械が受け付けなかった場合の予備案もあり。</div></details>
+<details class="q-block" data-decide-id="decide-04"><summary><input type="checkbox" class="decide-checkbox" data-decide-id="decide-04" checked aria-label="確認チェック"><span class="q-num">🙋</span><span class="q-title">NASの名前</span><span class="q-done">　決定済み</span></summary>
+<div class="q-body"><b>決定済み</b>（2026-07-31）。具体の名称はrepo内runbookに記録済み・本ページでは伏せる。<b>決めた理由</b>：NJの好みで任意の愛称を即決め（技術的な制約は「機械が受け付けなければ予備案へ切替える」だけ）。もし機械が受け付けなかった場合の予備案もあり。</div></details>
 
-<details class="q-block" data-decide-id="decide-05"><summary><input type="checkbox" class="decide-checkbox" data-decide-id="decide-05" checked aria-label="確認チェック"><span class="q-num">✅</span><span class="q-title">IoT機器用Wi-Fiの名前</span><span class="q-done">　決定済み</span></summary>
-<div class="q-body"><b>決定済み</b>（2026-07-31）。具体の名称はrepo内runbookに記録済み・本ページでは伏せる。ふだん使うWi-Fiの名前は変わらない。これは今後増えるかもしれない専用機器のための予備の枠。</div></details>
+<details class="q-block" data-decide-id="decide-05"><summary><input type="checkbox" class="decide-checkbox" data-decide-id="decide-05" checked aria-label="確認チェック"><span class="q-num">🙋</span><span class="q-title">IoT機器用Wi-Fiの名前</span><span class="q-done">　決定済み</span></summary>
+<div class="q-body"><b>決定済み</b>（2026-07-31）。具体の名称はrepo内runbookに記録済み・本ページでは伏せる。<b>決めた理由</b>：NJの好みで任意の名前を即決め。ふだん使うWi-Fiの名前は変わらない。これは今後増えるかもしれない専用機器のための予備の枠。</div></details>
 
 </section>
 
@@ -310,7 +316,7 @@ ol.cond li{margin:5px 0}
 <p class="faq-a">消えない。この週末ではGoogleの解約はしない。NASが1〜2週間ちゃんと動くのを確認して、さらに「もう1か所にコピーを置く」保険を作ってから、最後にNJが決める。</p></div>
 
 <div class="faq-card"><div class="faq-q">❓ 難しい操作が必要？</div>
-<p class="faq-a">NJがやるのは「挿す・つなぐ・ログインする」だけ。細かい設定は全部AIがやる。判断が必要な項目（上の「決めること」）もその場でAIが説明する。</p></div>
+<p class="faq-a">NJがやるのは「挿す・つなぐ・ログインする」だけ。細かい設定は全部AIがやる。技術的な判断（ネットの親・鍵の種類等）もAIが定石に基づいて済ませてある（上の「決まっていること」参照）。</p></div>
 </section>
 
 <div class="callout" style="border-color:color-mix(in srgb,var(--good) 40%,var(--line));font-size:.92rem">🔒 このページに無い作業をAIがお願いすることはありません。もし頼まれたら、それはAIのミスなので断ってください。</div>
@@ -331,14 +337,14 @@ ol.cond li{margin:5px 0}
 <div class="day-h"><span class="d-badge">1日目・到着日</span></div>
 <ul class="tl" style="--lane:var(--l1)">
   <li style="--lane:var(--l1)"><span class="lane lane-1">段階1</span>G0 無変更preflight（現行設定・DHCP・MAC・SSID・資格情報所在を記録）
-    <div class="step-body">裁定・他ゲートに先行して最初に実施。裁定#13は済み（現行維持）のため、ここでの実測は想定どおりかの確認のみ。</div></li>
+    <div class="step-body">裁定・他ゲートに先行して最初に実施。裁定#13はAI裁定済み（現行維持）のため、ここでの実測は想定どおりかの確認のみ。</div></li>
   <li style="--lane:var(--l1)"><span class="lane lane-1">段階1</span>HDD開梱・型番/外装/通電時間の検品→SMART Long Test開始
     <div class="gate-note">Long Testは数時間〜半日バックグラウンド実行（待機中に他作業を並行可）</div></li>
   <li style="--lane:var(--l1)"><span class="lane lane-1">段階1</span>本体組立・UGOS初期設定・ファームウェア更新・UPS動作試験（AC断→shutdown→復電→自動起動）</li>
   <li style="--lane:var(--l1)"><span class="lane lane-1">段階1</span>RAID1構築→ミラー同期開始<span class="par">∥並行可</span>
     <div class="step-body"><span class="lane lane-a">段階A</span>Docker image pull等ネットワークのみで完結する作業はRAID同期中でも並行して進めてよい</div></li>
   <li style="--lane:var(--l1)"><span class="lane lane-1">段階1</span>配線（2.5GbE接続）・DHCP予約・WOL設定
-    <div class="gate-note">ルーター役割の変更は行わない（裁定#13＝現行維持で確定済み）</div></li>
+    <div class="gate-note">ルーター役割の変更は行わない（裁定#13＝AI裁定・現行維持で確定済み）</div></li>
   <li style="--lane:var(--l1)"><span class="lane lane-1">段階1</span>Tailscale参加・通知設計（使用率／SMART／RAID劣化の3種）</li>
 </ul>
 </div>
@@ -366,7 +372,7 @@ ol.cond li{margin:5px 0}
   <li>NAS本体設置・HDD装着・UPS配線</li>
   <li>ファームウェア更新の実施操作（更新前後のversionを記録）</li>
   <li>UPS動作試験：AC入力の切断・復電操作</li>
-  <li>ルーター/APの物理モードスイッチ操作（裁定#13＝現行維持のため通常は変更不要。現状確認で想定と違った場合のみ実施）</li>
+  <li>ルーター/APの物理モードスイッチ操作（裁定#13＝AI裁定・現行維持のため通常は変更不要。現状確認で想定と違った場合のみ実施）</li>
   <li>PC1のBIOS/UEFI操作（WOL有効化・高速スタートアップ無効化）</li>
   <li>各機器管理画面へのパスワード入力（値そのものはrepoに残さない）</li>
 </ul>
@@ -396,11 +402,11 @@ ol.cond li{margin:5px 0}
 
 <div class="urgency-h"><i class="u-dot" style="background:var(--u-block)"></i>🔴 ブロッキング（段階開始前に必須）</div>
 
-<details class="q-block"><summary><span class="q-num">#13</span>[Critical] ルーター役割：現行維持／ルーターBへ変更／ルーターCへ変更<span class="q-done">　✅裁定済み(2026-08-01)</span></summary>
-<div class="q-body"><b>背景</b>：正本文書は現行ルーター（HGW）がメイン・DHCP担当と明記する一方、旧稿は「AP機のどちらかへ変更」としており矛盾。宅内実機確認（G0）が先。<b>選択肢</b>：(a)ルーターB(Buffalo)を主にする (b)ルーターC(NEC)を主にする (c)現行ルーター維持・他は全APモード。<b>NJ裁定（2026-08-01）</b>：(c) 現行ルーター維持・Buffalo/NEC機は全APモードのまま。質問が残っていた原因は実機構成の未確定ではなく旧稿の記述矛盾（正本＝現行維持と旧稿＝AP機へ変更、の食い違い）であり、運用方針自体は当初から現行維持で確定していた。段階1のG0確認は、司令塔を選ぶ確認ではなく、現状が想定どおり（HGW主・Buffalo/NEC=AP）かの確認のみに変わる。<div class="q-deadline">期限：段階1実機確認直後、段階3実行前</div></div></details>
+<details class="q-block"><summary><span class="q-num">#13</span>[Critical] ルーター役割：現行維持／ルーターBへ変更／ルーターCへ変更<span class="q-done">　🤖AI裁定済み(2026-08-01 02:38)</span></summary>
+<div class="q-body"><b>背景</b>：正本文書は現行ルーター（回線会社から借りている機械）がメイン・DHCP担当と明記する一方、旧稿は「AP機のどちらかへ変更」としており矛盾。宅内実機確認（G0）が先。<b>選択肢</b>：(a)ルーターB(Buffalo)を主にする (b)ルーターC(NEC)を主にする (c)現行ルーター維持・他は全APモード。<b>統括裁定（AI裁定・2026-08-01 02:38）</b>：(c) 現行ルーター維持・Buffalo/NEC機は全APモードのまま。<b>🌍 ふつうはどうする？</b>　一般的にはネット会社から借りている機械を親のままにするのが定石。理由は①電話や回線の特殊機能を握っている＝親を替えると最悪ネットや電話が止まる ②親1台＋残り全部電波係が一番壊れない形 ③回線が死んだ時にネット会社が自社機器として面倒を見てくれる。逆に市販の高性能機を親にする上級者の流派もある（細かい設定や速度重視・回線側の確認が要る手間の多い道）。技術的な定石がはっきりしている論点であり、NJの価値判断を要さないためAIが判断した。質問がここまで残っていた原因は実機構成の未確定ではなく旧稿の記述矛盾（正本＝現行維持と旧稿＝AP機へ変更、の食い違い）であり、運用方針自体は当初から現行維持だった。段階1のG0確認は、ネットの親を選ぶ確認ではなく、現状が想定どおり（現行ルーター主・Buffalo/NEC=AP）かの確認のみ。<div class="q-deadline">期限：段階1実機確認直後、段階3実行前</div></div></details>
 
-<details class="q-block"><summary><span class="q-num">#20</span>git認証方式：PAT発行／SSH鍵新規生成</summary>
-<div class="q-body"><b>背景</b>：NAS上へrepoをcloneする前提。方式選択と発行操作はNJ担当と明記済み。<b>選択肢</b>：(a)PAT (b)SSH鍵ペア。<div class="q-deadline">期限：Phase A（NASへrepo clone前）</div></div></details>
+<details class="q-block"><summary><span class="q-num">#20</span>git認証方式：PAT発行／SSH鍵新規生成<span class="q-done">　🤖AI裁定済み(2026-08-01 02:38)</span></summary>
+<div class="q-body"><b>背景</b>：NAS上へrepoをcloneする前提。<b>選択肢</b>：(a)PAT (b)SSH鍵ペア。<b>統括裁定（AI裁定・2026-08-01 02:38）</b>：(b) SSH鍵ペア。<b>🌍 ふつうはどうする？</b>　定石は「常に動きっぱなしの機械には、期限切れのない鍵」。PATは手軽だが有効期限切れで人の再発行が要る。常時稼働ノードにはSSH鍵が向く。方式選択はNJの好みでなく技術的な定石で決まる論点のためAIが判断した。NJの残作業は鍵を発行するときのボタン操作のみ。<div class="q-deadline">期限：Phase A（NASへrepo clone前・裁定済み）</div></div></details>
 
 <details class="q-block"><summary><span class="q-num">#21</span>PC1 memoryをNAS4器へ複製する際、個人情報を除外するか<span class="q-done">　✅裁定済み(2026-07-31)</span></summary>
 <div class="q-body"><b>背景</b>：PC1のClaude Code memoryには家族の生活動線に関する記述が含まれ得る。NASは将来的に外出先からも複数経路でアクセスされる常時稼働ノードになる。<b>選択肢</b>：(a)全内容そのまま複製 (b)個人情報該当箇所を除外・抽象化してから複製 (c)複製せず空のmemoryから開始。<b>NJ裁定（2026-07-31）</b>：(a) 全内容をそのまま4器へ複製する（除外・抽象化はしない）。家族の入居時（各人が専用アカウントへ切替わり実利用を始める時点）に、器ごとの扱いを再確認する。<div class="q-deadline">期限：Phase A手順10の直前</div></div></details>
@@ -485,7 +491,7 @@ ol.cond li{margin:5px 0}
 <tr><td>G1</td><td>HDD検品（SMART）</td><td class="g-auto">自動（gate_g1_smart.py）</td></tr>
 <tr><td>G2</td><td>NAS/UPS初期化</td><td class="g-manual">手動記録</td></tr>
 <tr><td>G3</td><td>RAID構築/btrfs</td><td class="g-manual">手動確認</td></tr>
-<tr><td>G4</td><td>LAN（ルーター役割・WOL・ローミング）</td><td class="g-manual">手動記録（前提＝裁定#13完了・現行維持で確定済み）</td></tr>
+<tr><td>G4</td><td>LAN（ルーター役割・WOL・ローミング）</td><td class="g-manual">手動記録（前提＝裁定#13完了・AI裁定・現行維持で確定済み）</td></tr>
 <tr><td>G5</td><td>Docker/Tailscale</td><td class="g-auto">自動（gate_g5_docker_tailscale.py）</td></tr>
 <tr><td>G6</td><td>PC1遠隔操作（SSH/Firewall）</td><td class="g-auto">自動（gate_g6_ssh_firewall.ps1）</td></tr>
 <tr><td>G7</td><td>AI認証/配車・秘密混入検査</td><td class="g-auto">自動（gate_g7_secret_scan.py）</td></tr>

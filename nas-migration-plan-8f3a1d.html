@@ -172,6 +172,13 @@ ol.cond li{margin:5px 0}
 </div></header>
 <main class="wrap">
 
+<section class="card" id="start" style="--accent:#0ca878">
+<h2 class="card-title"><span class="ico">🚀</span><span>はじめに（ここだけ読めばOK）</span></h2>
+<div class="now-line"><span class="now-ico">1️⃣</span><span>箱が届いたら、このページを開く。</span></div>
+<div class="now-line"><span class="now-ico">2️⃣</span><span>AIに「届いた」と言う。</span></div>
+<div class="now-line"><span class="now-ico">3️⃣</span><span>あとは上から順に進めるだけ。<b>このページに書いていないことは、何もしなくてよい。</b></span></div>
+</section>
+
 <div class="xnav-wrap">
   <a class="xnav-btn" href="../nas検討/NAS選定ダッシュボード.html">📊 コスト評価へ</a>
 </div>
@@ -197,17 +204,20 @@ ol.cond li{margin:5px 0}
 <div class="story-day">
 <div class="story-day-h">📦 1日目・箱が届いた日</div>
 <ul class="story-list">
-  <li><span class="s-ico">📥</span><span class="s-body"><span class="who who-nj">NJ</span>箱を開けて、ハードディスク（データを保存する部品）2枚を本体の差し込み口へ挿す。向きは1通りしか入らないので間違えようがない。</span></li>
+  <li><span class="s-ico">🔍</span><span class="s-body"><span class="who who-nj">NJ</span>ハードディスク（データを保存する部品）2枚を挿す前に、ラベル（型番・シリアル番号）をスマホで撮っておき、傷や凹みがないか目で確認する。新品保証を使う時のための記録なので、面倒でもここだけはやる。型番が正しいかはAIが写真から確認する。</span></li>
+  <li><span class="s-ico">📥</span><span class="s-body"><span class="who who-nj">NJ</span>箱を開けて、確認したハードディスク2枚を本体の差し込み口へ挿す。向きは1通りしか入らないので間違えようがない。</span></li>
   <li><span class="s-ico">🔌</span><span class="s-body"><span class="who who-nj">NJ</span>電源ケーブルと、ネット回線につながるケーブルをつなぐ。</span></li>
   <li><span class="s-ico">🖥️</span><span class="s-body"><span class="who who-both">NJ+AI</span>画面の指示に沿って初期設定（名前・パスワードを決める）を進める。AIが横で説明する。</span></li>
   <li><span class="s-ico">🩺</span><span class="s-body"><span class="who who-ai">AI</span>ハードディスクの健康チェック（新品かどうかを調べる自動テスト）を裏で開始。数時間〜半日かかるが放っておいてOK。待っている間に他の作業を並行して進められる。</span></li>
   <li><span class="s-ico">🔋</span><span class="s-body"><span class="who who-both">NJ+AI</span>停電テスト：電源を一瞬抜いて、自動で安全に止まり、電気が戻ったら自動でまた起動するかを確認する。</span></li>
   <li><span class="s-ico">🪞</span><span class="s-body"><span class="who who-ai">AI</span>2枚のハードディスクを"ミラー"（同じ内容を2枚同時に保存する仕組み＝片方が壊れてももう片方が生きている）にする設定を開始。これも数時間かかる。</span></li>
   <li><span class="s-ico">🔀</span><span class="s-body"><span class="who who-nj">NJ</span>ネット回線のケーブルを、今のネット機器へつなぎかえる。</span></li>
+  <li><span class="s-ico">💻</span><span class="s-body"><span class="who who-nj">NJ</span>パソコン（PC1）側で、遠隔から電源を入れられるようにする設定（BIOS/UEFI画面での操作＋Windowsの「高速スタートアップ」を切る）をする。やり方はAIがその場で1つずつ教える。</span></li>
   <li><span class="s-ico">📶</span><span class="s-body"><span class="who who-both">NJ+AI</span>Wi-Fiの名前（SSID）を1つに統一する設定。ルーターの管理画面へ<b>あなたはパスワードを入れるだけ</b>。名前の入力・保存など細かい操作はAIがブラウザ操作で自動的に進める。</span></li>
-  <li><span class="s-ico">🌐</span><span class="s-body"><span class="who who-ai">AI</span>外出先からも安全にアクセスできる仕組み（Tailscale＝家の中の機械に安全に遠隔から入れる道具）を設定する。</span></li>
+  <li><span class="s-ico">🔀</span><span class="s-body"><span class="who who-nj">NJ</span>「家のネットの司令塔」を決めたら（下の「決めること」参照）、該当する機器の背面スイッチを指定の位置へ切り替える。どのスイッチをどちら向きにするかはAIがその場で教える。</span></li>
+  <li><span class="s-ico">🌐</span><span class="s-body"><span class="who who-both">NJ+AI</span>外出先からも安全にアクセスできる仕組み（Tailscale＝家の中の機械に安全に遠隔から入れる道具）を設定する。<b>あなたは自分のTailscaleアカウントでログインしてNASの参加を1回承認するだけ</b>。それ以外の設定はAIが進める。</span></li>
 </ul>
-<div class="callout">この日、決めてもらうことが2つ出てくる（下の「決めること」参照）。その場でAIが説明するので、聞かれたら一言答えればOK。</div>
+<div class="callout">この週末に、決めてもらうことが2つ出てくる（1つ目は今日中・下の「決めること」参照）。その場でAIが説明するので、聞かれたら一言答えればOK。</div>
 </div>
 
 <div class="story-day">
@@ -217,8 +227,13 @@ ol.cond li{margin:5px 0}
   <li><span class="s-ico">🖼️</span><span class="s-body"><span class="who who-ai">AI</span>Googleから前もって持ってきておいたデータをNASへ引っ越す。家族みんなが使える置き場と、個人の置き場を作る。</span></li>
   <li><span class="s-ico">💾</span><span class="s-body"><span class="who who-ai">AI</span>パソコン（PC1）のデータも、NASへ自動でバックアップ（データの控えを別の場所にも保存しておくこと）されるようにする。</span></li>
   <li><span class="s-ico">🗄️</span><span class="s-body"><span class="who who-ai">AI</span>最低限の「二重の保管」（同じデータをもう1か所にも置く保険）を用意する。</span></li>
+  <li><span class="s-ico">🔐</span><span class="s-body"><span class="who who-nj">NJ</span>パソコン（PC1）でAIが「管理者としての操作」を求めてきたら、Windowsの確認ポップアップで「はい」を押して許可する。</span></li>
+  <li><span class="s-ico">🔑</span><span class="s-body"><span class="who who-nj">NJ</span>NASとPC1が初めてつながる時に画面へ出る「鍵の指紋」（短い文字列）を、実機の表示と見比べて一致していることを確認する。やり方はAIがその場で教える。</span></li>
+  <li><span class="s-ico">🔓</span><span class="s-body"><span class="who who-nj">NJ</span>「決めること」で選んだ方式（PATかSSH鍵）で、実際に鍵/トークンを発行する（数分の操作）。やり方はAIがその場で教える。</span></li>
+  <li><span class="s-ico">📋</span><span class="s-body"><span class="who who-both">NJ+AI</span>AI用アカウントのログイン：画面に出るコードを、スマホのClaudeアプリ（またはブラウザのclaude.ai）に貼り付けてログインを完了する。Codexも同様に、別の端末のブラウザで短い確認コードを承認する。</span></li>
   <li><span class="s-ico">🤖</span><span class="s-body"><span class="who who-ai">AI</span>家族用AIの分身を、まず1つ作って動作確認 → 同じものを4つに複製する。</span></li>
   <li><span class="s-ico">📱</span><span class="s-body"><span class="who who-both">NJ+AI</span>家族のスマホ3台から、実際につながるかテストする。</span></li>
+  <li><span class="s-ico">🔔</span><span class="s-body"><span class="who who-nj">NJ</span>AIが試しに送るお知らせ（容量・故障検知など）が、スマホにちゃんと届くか確認する。「テスト」と書いてあるので本物の警告ではない。</span></li>
 </ul>
 <div class="callout">Googleの解約はこの週末には<b>含まない</b>。NASが1〜2週間問題なく動くのを確認し、データの保険（二重の保管）が整ってから、NJが最後に決める別の作業。</div>
 </div>
@@ -260,6 +275,8 @@ ol.cond li{margin:5px 0}
 <div class="faq-card"><div class="faq-q">❓ 難しい操作が必要？</div>
 <p class="faq-a">NJがやるのは「挿す・つなぐ・ログインする」だけ。細かい設定は全部AIがやる。判断が必要な項目（上の「決めること」）もその場でAIが説明する。</p></div>
 </section>
+
+<div class="callout" style="border-color:color-mix(in srgb,var(--good) 40%,var(--line));font-size:.92rem">🔒 このページに無い作業をAIがお願いすることはありません。もし頼まれたら、それはAIのミスなので断ってください。</div>
 
 <details class="block"><summary>📜 技術詳細（AI用・実行時はここを見る）</summary>
 <div class="inner">

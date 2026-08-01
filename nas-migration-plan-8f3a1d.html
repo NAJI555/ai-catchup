@@ -197,7 +197,7 @@ ol.cond li{margin:5px 0}
 </style></head><body>
 <header class="hdr"><div class="hdr-in">
   <h1>NAS移行計画ビューア</h1>
-  <div class="pass">✅ 計画のダブルチェック（クロスレビュー＝他のAIによる二重確認）6回を通過済み（2026-07-30）</div>
+  <div class="pass">✅ 技術runbook（正本）はクロスレビュー（他のAIによる二重確認）6回を通過済み（2026-07-30）。このページ（日常語版）は2026-08-01に初めて事実照合レビューを受け、指摘を反映したv8です。</div>
   <div class="hw">中身：NAS本体（ネットにつながる保管庫・差し込み口4つ）＋停電時に自動で安全に止める電源（UPS）＋ハードディスク2枚（6TB×2枚を"ミラー"＝同じ内容を2枚同時保存する設定にして実質5.8TB使える）＋今使っているネット機器へ直接ケーブルでつなぐ</div>
   <div class="progress-wrap">
     <div class="progress-line"><span>📋 進捗</span><span class="progress-count"><span id="progressDone">0</span>/<span id="progressTotal">0</span> 完了</span></div>
@@ -210,8 +210,8 @@ ol.cond li{margin:5px 0}
 <section class="card" id="start" style="--accent:#0ca878">
 <h2 class="card-title"><span class="ico">🚀</span><span>はじめに（ここだけ読めばOK）</span></h2>
 <div class="now-line"><span class="now-ico">1️⃣</span><span>箱が届いたら、このページを開く。</span></div>
-<div class="now-line"><span class="now-ico">2️⃣</span><span>AIに「届いた」と言う。</span></div>
-<div class="now-line"><span class="now-ico">3️⃣</span><span>あとは上から順に進めるだけ。<b>このページに書いていないことは、何もしなくてよい。</b></span></div>
+<div class="now-line"><span class="now-ico">2️⃣</span><span>AI（いつも使っているClaude――スマホのClaudeアプリ、またはPC1のClaude Code画面）に「届いた」と伝える。</span></div>
+<div class="now-line"><span class="now-ico">3️⃣</span><span>あとは番号順に進めるだけ。<b>各ステップの説明に無い操作をAIから求められることはない設計。</b>細かい画面操作（パソコンの設定画面など）は、その場でAIが1つずつ教える。</span></div>
 </section>
 
 <div class="xnav-wrap">
@@ -227,58 +227,58 @@ ol.cond li{margin:5px 0}
 
 <section class="card" id="now" style="--accent:#2563eb">
 <h2 class="card-title"><span class="ico">🏠</span><span>今どこ</span></h2>
-<div class="now-line"><span class="now-ico">📦</span><span>機械（NAS本体・電源・ハードディスク）は全部買い終わった。あとは届くのを待つだけ。</span></div>
-<div class="now-line"><span class="now-ico">🛠️</span><span>届いたら、週末に組み立てる。</span></div>
-<div class="now-line"><span class="now-ico">🙋</span><span>あなたがやるのは<b>「挿す・つなぐ・ログインする」</b>だけ。細かい設定は全部AIがやる。</span></div>
-<div class="now-line"><span class="now-ico">🤖</span><span>技術的な選択（ネットの親をどうするか・AIの鍵の種類）は、定石がはっきりしているためAIが決めた。<b>この週末、あなたが技術項目を選ぶ必要はゼロ</b>（下の「決まっていること」参照）。</span></div>
+<div class="now-line"><span class="now-ico">📦</span><span>機械（NAS本体・電源・ハードディスク）は届いている。今の進み具合は、上の「📋 進捗」バーと、下のチェック済みステップ（グレーで打ち消し線になっている項目）を見れば分かる。</span></div>
+<div class="now-line"><span class="now-ico">🙋</span><span>あなたがやる作業の中心は<b>「挿す・つなぐ・ログインする」</b>だが、パソコンの設定画面（BIOS）やルーターの管理画面を少し触る場面が数回ある。やり方はすべてAIがその場で1つずつ教える。</span></div>
+<div class="now-line"><span class="now-ico">🤖</span><span>技術的な選択（ネットの親をどうするか・AIの鍵の種類）は、定石がはっきりしているためAIが決めた。<b>この週末すぐに選ぶ技術項目はゼロ</b>（下の「決まっていること」参照）。ただし写真アプリ（Immich）の採用可否など、データの引っ越し（データ移行のステップ）より前に決めておくと良い論点がいくつか残っている——詳しくはAIと相談してほしい。</span></div>
 </section>
 
 <section class="card" id="day" style="--accent:#0ca878">
 <h2 class="card-title"><span class="ico">📅</span><span>週末の1日の流れ</span></h2>
-<div class="callout">裏では3つの作業（①機械そのものを組む　②今までのデータをGoogleから引っ越す　③家族用AIの分身を4つ用意する）が並行して進んでいるが、あなたがやることはこの順番で出てくる。各項目に<span class="who who-nj">NJ</span>＝あなたがやる／<span class="who who-ai">AI</span>＝AIが裏で進める／<span class="who who-both">NJ+AI</span>＝一緒に進める、の印を付けた。</div>
+<div class="callout">裏では3つの作業（①機械そのものを組む　②今までのデータをGoogleから引っ越す　③家族用AIの分身を4つ用意する）が並行して進んでいるが、あなたがやることはこの順番で出てくる。各項目に<span class="who who-nj">NJ</span>＝あなたがやる／<span class="who who-ai">AI</span>＝AIが裏で進める／<span class="who who-both">NJ+AI</span>＝一緒に進める、の印を付けた。<b>AI</b>だけの印が付いた項目は、AIが作業を終えた時に自分でチェックを入れる（あなたはチェックを押さなくてよい）。</div>
 
 <div class="story-day">
 <div class="story-day-h">📦 1日目・箱が届いた日</div>
 <ul class="story-list">
-  <li data-step-id="day1-01"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-01" aria-label="完了チェック"><span class="s-ico">🔍</span><span class="s-body"><span class="who who-nj">NJ</span>ハードディスク（データを保存する部品）2枚を挿す前に、ラベル（型番・シリアル番号）をスマホで撮っておき、傷や凹みがないか目で確認する。新品保証を使う時のための記録なので、面倒でもここだけはやる。型番が正しいかはAIが写真から確認する。</span></label></li>
-  <li data-step-id="day1-02"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-02" aria-label="完了チェック"><span class="s-ico">📥</span><span class="s-body"><span class="who who-nj">NJ</span>箱を開けて、確認したハードディスク2枚を本体の差し込み口へ挿す。向きは1通りしか入らないので間違えようがない。</span></label></li>
-  <li data-step-id="day1-03"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-03" aria-label="完了チェック"><span class="s-ico">🔌</span><span class="s-body"><span class="who who-nj">NJ</span>電源ケーブルと、ネット回線につながるケーブルをつなぐ。</span></label></li>
-  <li data-step-id="day1-04"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-04" aria-label="完了チェック"><span class="s-ico">🖥️</span><span class="s-body"><span class="who who-both">NJ+AI</span>画面の指示に沿って初期設定（名前・パスワードを決める）はNJが直接操作する。この時点ではNASの管理画面ログイン情報がまだ無いため、AIはまだ自動操作を行わず、会話でその場ごとの次の操作を指示する。</span></label></li>
-  <li data-step-id="day1-04b"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-04b" aria-label="完了チェック"><span class="s-ico">🔑</span><span class="s-body"><span class="who who-both">NJ+AI</span>AIがPC1のブラウザでNASの管理画面（Storage Manager）を開くので、さっき決めたパスワードをNJが1回入力する。以後の画面操作はAIが引き継ぐ（この「AIが開く→NJが鍵だけ入れる→AIが運転する」方式は、この後のWi-Fi設定〔ルーターの管理画面〕でも同じ）。</span></label></li>
-  <li data-step-id="day1-05"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-05" aria-label="完了チェック"><span class="s-ico">🩺</span><span class="s-body"><span class="who who-ai">AI</span>がPC1のブラウザからNAS管理画面（Storage Manager）を自動操作して、ハードディスクの健康チェック（新品かどうかを調べる自動テスト）を裏で開始する。数時間〜半日かかるが放っておいてOK。待っている間に他の作業を並行して進められる。</span></label></li>
-  <li data-step-id="day1-06"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-06" aria-label="完了チェック"><span class="s-ico">🔋</span><span class="s-body"><span class="who who-both">NJ+AI</span>停電テスト：電源を一瞬抜く物理操作はNJが行う。電気が戻った後、AIがPC1のブラウザからNAS管理画面を操作して、自動で安全に止まり自動でまた起動したかを確認する。</span></label></li>
-  <li data-step-id="day1-07"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-07" aria-label="完了チェック"><span class="s-ico">🪞</span><span class="s-body"><span class="who who-ai">AI</span>がPC1のブラウザからNAS管理画面を自動操作して、2枚のハードディスクを"ミラー"（同じ内容を2枚同時に保存する仕組み＝片方が壊れてももう片方が生きている）にする設定を開始する。これも数時間かかる。</span></label></li>
-  <li data-step-id="day1-08"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-08" aria-label="完了チェック"><span class="s-ico">🔀</span><span class="s-body"><span class="who who-nj">NJ</span>NASにひとまず挿していたネットのケーブルを、電波係（正式にはAPモード＝ルーター本来の役目[家中の機器へネットの住所を配る]は持たず、Wi-Fiの電波や有線ポートを増やす役目だけを担当する動作モード）の機械（Buffalo）の空いている高速専用ポートへ挿し直す。家のネット（インターネット・Wi-Fi）自体は止まらない。NASだけ数分ネットから外れる瞬間があるが、それだけ。</span></label></li>
-  <li data-step-id="day1-09"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-09" aria-label="完了チェック"><span class="s-ico">💻</span><span class="s-body"><span class="who who-nj">NJ</span>パソコン（PC1）側で、遠隔から電源を入れられるようにする設定（BIOS/UEFI画面での操作＋Windowsの「高速スタートアップ」を切る）をする。やり方はAIがその場で1つずつ教える。</span></label></li>
-  <li class="has-detail" data-step-id="day1-10"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-10" aria-label="完了チェック"><span class="s-ico">📶</span><span class="s-body"><span class="who who-both">NJ+AI</span>Wi-Fiの名前（SSID）を1つに統一する設定。ルーターの管理画面へ<b>あなたはパスワードを入れるだけ</b>。名前の入力・保存など細かい操作はAIがブラウザ操作で自動的に進める。</span></label>
-    <details class="step-more"><summary>くわしく見る（今とあとで何が変わるか）</summary>
-    <div class="step-more-body">
-      <p><b>いま</b>：家の中にWi-Fiの名前が複数ある（機器ごと・電波の種類ごと）。部屋を移動すると、スマホが「つなぎ直し」を待ったり、名前を手で選び直したりしている。</p>
-      <p><b>週末のあと</b>：家中どこでも<b>同じ1つの名前</b>（いま使っている名前をそのまま使う）。スマホやパソコンは<b>何も設定し直さない</b>のに、部屋を移動しても自動でいちばん電波の良い方へ切り替わる。</p>
-      <p><b>もう1本だけ</b>：カメラなど機械専用に、別の名前のWi-Fiをもう1本作る（家族は使わない・機械の安定のため）。</p>
-      <p><b>変わらないもの</b>：パスワード・つながる速さの上限・今つながっている機器（全部そのまま）。</p>
-    </div></details>
-  </li>
-  <li data-step-id="day1-11"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-11" aria-label="完了チェック"><span class="s-ico">🔀</span><span class="s-body"><span class="who who-nj">NJ</span>「ネットの親」（正式にはルーター役＝家中の機器にネットの住所を配り、外部とのやり取りの窓口になる1台）は今のまま——これはAIが技術の定石に基づいて決めた（下の「決まっていること」参照・NJに選んでもらう必要はなかった）。届いた日は、Buffalo・NEC機が想定どおり電波係の位置になっているかを確認するだけでよい。もし違っていたら、その場でAIと相談して直す。</span></label></li>
-  <li data-step-id="day1-12"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-12" aria-label="完了チェック"><span class="s-ico">🌐</span><span class="s-body"><span class="who who-both">NJ+AI</span>外出先からも安全にアクセスできる仕組み（Tailscale＝家の中の機械に安全に遠隔から入れる道具）を設定する。<b>あなたは自分のTailscaleアカウントでログインしてNASの参加を1回承認するだけ</b>。それ以外の設定（コンテナの導入・詳細設定）は、AIがNAS管理画面またはSSH経由で進める。</span></label></li>
+  <li data-step-id="day1-01"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-01" aria-label="完了チェック"><span class="s-ico">🔍</span><span class="s-body"><span class="who who-nj">NJ</span>ハードディスク（データを保存する部品）2枚を挿す前に、ラベル（型番・シリアル番号）をスマホで撮っておき、傷や凹みがないか目で確認する。新品保証を使う時のための記録なので、面倒でもここだけはやる。撮った写真は、さっき「届いた」とAIに伝えたのと同じやり取り（スマホのClaudeアプリ、またはPC1のClaude Code画面）へそのまま送る。型番が正しいかはAIが写真から確認する。</span></label></li>
+  <li data-step-id="day1-02"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-02" aria-label="完了チェック"><span class="s-ico">📥</span><span class="s-body"><span class="who who-nj">NJ</span>箱を開ける（NAS本体の電源はまだ入れない）。ベイ1・ベイ2のトレイ（引き出し式・鍵付き）を鍵で解錠して引き出し、確認したハードディスクをトレイの固定具（クランプ）でしっかり留めてから、トレイを奥まで押し込んでレバーを閉じ、再び鍵をかける。トレイが奥まで入りレバーが閉まっていることを目で確認する（やり方はAIがその場で1つずつ教える）。</span></label></li>
+  <li data-step-id="day1-03"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-03" aria-label="完了チェック"><span class="s-ico">🔌</span><span class="s-body"><span class="who who-nj">NJ</span>まず電源：US3000（UPS）の純正ACアダプタをコンセントへ挿し、US3000からNAS本体への給電ケーブルをつなぐ。次にLAN：NAS背面のLANポートから、同じ部屋にあるBuffalo機（電波係の機械）の、まだ使っていない普通のLANポート（1Gbps・のちの高速専用ポートとは別の口）へLANケーブルでつなぐ（これは初期設定用の仮の接続で、後の配線ステップでBuffalo機の高速専用ポートへ挿し直す）。最後にNAS本体前面の電源ボタンを押す。つないだ後、前面のLEDが白く点灯すれば電源は入っている。（意図：この時点でNASがPC1〔あなたが今使っているパソコン LEVEL-R7B8〕と同じネットに入っていれば、次のステップでPC1のブラウザからNASを見つけられる）</span></label></li>
+  <li data-step-id="day1-04"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-04" aria-label="完了チェック"><span class="s-ico">🖥️</span><span class="s-body"><span class="who who-both">NJ+AI</span>NASには画面（ディスプレイ）が付いていない。初期設定はPC1のブラウザで行う：PC1のブラウザで「find.ugnas.com」を開くと同じネットにいるNASが見つかるので「Connect」を押し、案内に沿って管理者名・パスワードを決める（UGREEN公式ガイド準拠）。この時点ではNASの管理画面ログイン情報がまだ無いため、AIはまだ自動操作を行わず、NJが直接操作し、会話でその場ごとの次の操作をAIが指示する。完了の目印：PC1のブラウザにNASの管理画面（UGOS Pro）が表示され、決めたパスワードでログインできる状態になっていること。</span></label></li>
+  <li data-step-id="day1-04b"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-04b" aria-label="完了チェック"><span class="s-ico">🔑</span><span class="s-body"><span class="who who-both">NJ+AI</span>AIがPC1のブラウザでNAS管理画面（UGOS Pro）を開くので、さっき決めたパスワードをNJが1回入力してログインする。以後の画面操作はAIが引き継ぐ（この「AIが開く→NJが鍵だけ入れる→AIが運転する」方式は、この後のWi-Fi設定〔ルーターの管理画面〕でも同じ）。ハードディスクの状態を見る時は、この管理画面の中にある「Storage Manager」という機能を使う（管理画面そのものの名前ではない）。</span></label></li>
+  <li data-step-id="day1-05"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-05" aria-label="完了チェック"><span class="s-ico">🩺</span><span class="s-body"><span class="who who-ai">AI</span>がPC1のブラウザからNAS管理画面のStorage Managerを自動操作して、ハードディスク2台の健康チェック（SMART拡張テスト＝ディスク全体を実際に読んで異常が無いか調べる自動テスト）を裏で開始する。数時間〜半日かかるが放っておいてOK。待っている間に他の作業を並行して進められる。完了の目印：2台とも「エラーなく完了」の表示になり、主要な異常項目（代替セクタ等）が0件であること。</span></label></li>
+  <li data-step-id="day1-06"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-06" aria-label="完了チェック"><span class="s-ico">🔋</span><span class="s-body"><span class="who who-both">NJ+AI</span>停電テスト：US3000（UPS）につながっているACアダプタをコンセントから安全に抜く物理操作はNJが行う（NAS本体の給電ケーブルではなく、UPS側の電源プラグを抜く）。すぐには戻さず、設定した条件までバッテリー運転を続ける（具体的な待ち時間はAIがその場で伝える）。電気が戻った後、AIがPC1のブラウザからNAS管理画面を操作して、自動で安全に止まり、自動でまた起動し、管理画面へ再ログインできることを確認する。</span></label></li>
+  <li data-step-id="day1-07"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-07" aria-label="完了チェック"><span class="s-ico">🪞</span><span class="s-body"><span class="who who-ai">AI</span>がPC1のブラウザからNAS管理画面を自動操作して、2枚のハードディスクを"ミラー"（同じ内容を2枚同時に保存する仕組み＝片方が壊れてももう片方が生きている）にする設定を開始する。<b>1つ前の健康チェックが両方とも「エラーなく完了」になってから</b>この設定を始める（健康チェックの途中では始めない）。これも数時間かかる。</span></label></li>
+  <li data-step-id="day1-11"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-11" aria-label="完了チェック"><span class="s-ico">🔀</span><span class="s-body"><span class="who who-nj">NJ</span>「ネットの親」（正式にはルーター役＝家中の機器にネットの住所を配り、外部とのやり取りの窓口になる1台）は今のまま——これはAIが技術の定石に基づいて決めた（下の「決まっていること」参照・NJに選んでもらう必要はなかった）。<b>次の配線変更（Buffalo機への挿し直し）に進む前に</b>、Buffalo・NEC機が想定どおり電波係（APモード）の位置になっているかを確認する。確認方法：Buffalo・NEC機それぞれの背面にあるモード切替スイッチが「AP」側になっているかを目で見る、または分からなければAIが各機の管理画面を開いて動作モード表示を確認する。もし違っていたら、その場でAIと相談して直す。（意図：この確認を配線変更より先にやることで、想定外の機器構成のままネットを変更してしまう事故を防ぐ）</span></label></li>
+  <li data-step-id="day1-08"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-08" aria-label="完了チェック"><span class="s-ico">🔀</span><span class="s-body"><span class="who who-nj">NJ</span><b>直前のネットの親・電波係の確認が済んでから</b>行う。さきほどの電源・LAN接続の手順でBuffalo機の普通のLANポートへ仮つなぎしていたケーブルを、Buffalo機背面の「高速専用ポート」（2.5GbE対応・マルチギガポート）へ挿し直す。Buffalo機には「INTERNET」と書かれたポートが1つと「LAN」ポートが4つあり、2.5GbE対応（マルチギガ）なのは「INTERNET」ポートと、LANポートのうち1つだけ（ポート脇に速度の印字がある）。この2つのうちどちらかへNASを挿す（もう一方はPC1用に別途使う予定のポート）。印字で分からない場合はAIと一緒にBuffalo管理画面のポート状態表示で確認する。家のネット（インターネット・Wi-Fi）自体は止まらない。NASだけ数分ネットから外れる瞬間があるが、それだけ。</span></label></li>
+  <li data-step-id="day1-09"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-09" aria-label="完了チェック"><span class="s-ico">💻</span><span class="s-body"><span class="who who-nj">NJ</span>パソコン（PC1）側で、遠隔から電源を入れられるようにする設定：BIOS/UEFI画面でWOL（Wake on LAN）を有効化＋Windowsの「高速スタートアップ」を切る＋ネットワークアダプタの省電力設定を切る、をする。設定後、AIが同じ部屋の別機器からマジックパケット（起動信号）を3回連続で送って、PC1が実際に起動しSSH接続できる状態になることを確認する（この確認はAI主導・NJの追加作業なし）。BIOS操作の具体的な場所はAIがその場で1つずつ教える。</span></label></li>
+  <li data-step-id="day1-12"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-12" aria-label="完了チェック"><span class="s-ico">🌐</span><span class="s-body"><span class="who who-both">NJ+AI</span>外出先からも安全にアクセスできる仕組み（Tailscale＝家の中の機械に安全に遠隔から入れる道具）を設定する。<b>あなたが既に使っているTailscaleアカウント（PC1やHPノートで使っているのと同じアカウント）でログインして、NASの参加を1回承認するだけ</b>。それ以外の設定（コンテナの導入・詳細設定）は、AIがNAS管理画面またはSSH経由で進める。完了の目印：NASを再起動・コンテナを作り直しても、Tailscaleの管理画面に同じNASが同じIDのまま表示され続けること。</span></label></li>
 </ul>
-<div class="callout">この週末、NJに新しく選んでもらう技術項目はゼロ（ネットの親も、AIの鍵の種類も、どちらもAIが技術の定石で決めた・下の「決まっていること」参照）。当日は現状確認と作業の実施だけで進む。</div>
+<div class="callout">この週末すぐに選んでもらう技術項目はゼロ（ネットの親も、AIの鍵の種類も、どちらもAIが技術の定石で決めた・下の「決まっていること」参照）。当日は現状確認と作業の実施だけで進む。ただし写真アプリの採用など、データ移行（2日目以降）より前に決めておくと良い論点は別途ある。</div>
 </div>
 
 <div class="story-day">
 <div class="story-day-h">📅 2日目以降</div>
 <ul class="story-list">
-  <li data-step-id="day2-01"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-01" aria-label="完了チェック"><span class="s-ico">✔️</span><span class="s-body"><span class="who who-ai">AI</span>がPC1のブラウザからNAS管理画面を自動操作して、ミラー設定が100%終わって異常が無いことを確認する。<b>これが終わるまでは次の作業（データの引っ越し）はやらない</b>＝安全第一。</span></label></li>
-  <li data-step-id="day2-02"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-02" aria-label="完了チェック"><span class="s-ico">🖼️</span><span class="s-body"><span class="who who-ai">AI</span>がPC1からNASのファイル共有（SMB）へコピーする形で、Googleから前もって持ってきておいたデータをNASへ引っ越す。家族みんなが使える置き場と、個人の置き場を作る。</span></label></li>
-  <li data-step-id="day2-03"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-03" aria-label="完了チェック"><span class="s-ico">💾</span><span class="s-body"><span class="who who-ai">AI</span>がPC1上でバックアップの仕組み（NASのファイル共有へ定期的にコピーする設定）を組み、パソコン（PC1）のデータも、NASへ自動でバックアップ（データの控えを別の場所にも保存しておくこと）されるようにする。</span></label></li>
-  <li data-step-id="day2-04"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-04" aria-label="完了チェック"><span class="s-ico">🗄️</span><span class="s-body"><span class="who who-ai">AI</span>がPC1またはNAS管理画面から操作して、最低限の「二重の保管」（同じデータをもう1か所にも置く保険）を用意する。</span></label></li>
+  <li data-step-id="day2-01"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-01" aria-label="完了チェック"><span class="s-ico">✔️</span><span class="s-body"><span class="who who-ai">AI</span>がPC1のブラウザからNAS管理画面を自動操作して、ミラー（RAID1）の同期が100%終わり、追加のエラーチェック（scrub）でも異常が無いことを確認する。<b>これが終わるまでは次の作業（データの引っ越し）はやらない</b>＝安全第一。</span></label></li>
+  <li data-step-id="day2-02"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-02" aria-label="完了チェック"><span class="s-ico">🖼️</span><span class="s-body"><span class="who who-ai">AI</span>がPC1からNASのファイル共有（SMB）へコピーする形で、Googleから前もって持ってきておいたデータをNASへ引っ越す。家族みんなが使える置き場と、個人の置き場を作る。<b>この作業を始める前に、「決まっていること」にまだ無いいくつかの論点（写真アプリの採用可否・子供の権限・Googleからの移行範囲）をAIと確認する</b>——未確定のまま進めると家族の置き場の設計をやり直すことになりかねない。完了の目印：引っ越し前後でファイル数・容量・ハッシュ値の突合結果が一致すること。</span></label></li>
+  <li data-step-id="day2-03"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-03" aria-label="完了チェック"><span class="s-ico">💾</span><span class="s-body"><span class="who who-ai">AI</span>がPC1上でバックアップの仕組み（NASのファイル共有へ定期的にコピーする設定）を組み、パソコン（PC1）のデータも、NASへ自動でバックアップ（データの控えを別の場所にも保存しておくこと）されるようにする。完了の目印：最初の1回のバックアップが成功し、かつ次回の予定実行も成功すること。</span></label></li>
+  <li data-step-id="day2-04"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-04" aria-label="完了チェック"><span class="s-ico">🗄️</span><span class="s-body"><span class="who who-ai">AI</span>がPC1またはNAS管理画面から操作して、最低限の「二重の保管」（同じデータをNASの外のもう1か所にも置く保険）を用意する。<b>NASと同じ家の中にコピーを置くだけでは、火事や盗難でNASと道連れになるため不十分</b>——実際に別の場所（別住所のクラウド保管や、外付けディスクを親族宅等へ運ぶ等）へ置き、そこから1回試しに復元してデータが読めることまで確認して初めて完了とする。</span></label></li>
   <li data-step-id="day2-05"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-05" aria-label="完了チェック"><span class="s-ico">🔐</span><span class="s-body"><span class="who who-nj">NJ</span>パソコン（PC1）でAIが「管理者としての操作」を求めてきたら、Windowsの確認ポップアップで「はい」を押して許可する。</span></label></li>
-  <li data-step-id="day2-06"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-06" aria-label="完了チェック"><span class="s-ico">🔑</span><span class="s-body"><span class="who who-nj">NJ</span>NASとPC1が初めてつながる時に画面へ出る「鍵の指紋」（短い文字列）を、実機の表示と見比べて一致していることを確認する。やり方はAIがその場で教える。</span></label></li>
-  <li data-step-id="day2-07"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-07" aria-label="完了チェック"><span class="s-ico">🔓</span><span class="s-body"><span class="who who-nj">NJ</span>「決めること」で選んだ方式（PATかSSH鍵）で、実際に鍵/トークンを発行する（数分の操作）。やり方はAIがその場で教える。</span></label></li>
-  <li data-step-id="day2-08"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-08" aria-label="完了チェック"><span class="s-ico">📋</span><span class="s-body"><span class="who who-both">NJ+AI</span>AI用アカウントのログイン：AIがNAS上のコンテナ内でSSH経由のコマンド実行によりログインコードを表示させ、そのコードをNJがスマホのClaudeアプリ（またはブラウザのclaude.ai）に貼り付けてログインを完了する。Codexも同様に、AIがコンテナ内で表示させた確認コードを、別の端末のブラウザでNJが承認する。</span></label></li>
-  <li data-step-id="day2-09"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-09" aria-label="完了チェック"><span class="s-ico">🤖</span><span class="s-body"><span class="who who-ai">AI</span>が（直前のログインで確立したNAS上のコンテナ内で）家族用AIの分身を、まず1つ作って動作確認 → 同じものを4つに複製する。</span></label></li>
-  <li data-step-id="day2-10"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-10" aria-label="完了チェック"><span class="s-ico">📱</span><span class="s-body"><span class="who who-both">NJ+AI</span>家族のスマホでアプリを開いて接続する操作はNJ・家族本人が行う。AIはSSHで確立済みの経路からNAS内に入り、「tailscale status」で状態を確認するコマンドを実行して、外からの接続の仕組みが生きているか（家族のスマホ3台から実際につながるか）を確かめる。NJ専用のTailscaleアカウント管理画面は使わない。</span></label></li>
-  <li data-step-id="day2-11"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-11" aria-label="完了チェック"><span class="s-ico">🔔</span><span class="s-body"><span class="who who-nj">NJ</span>AIが試しに送るお知らせ（容量・故障検知など）が、スマホにちゃんと届くか確認する。「テスト」と書いてあるので本物の警告ではない。</span></label></li>
+  <li data-step-id="day2-06"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-06" aria-label="完了チェック"><span class="s-ico">🔑</span><span class="s-body"><span class="who who-nj">NJ</span>NASからPC1へ初めてSSH接続する時、<b>PC1側の鍵</b>の「指紋」（短い文字列）がAIとの会話画面へ表示される。この文字列を、PC1で直接コマンドを実行して独立に取得した指紋と見比べて一致していることを確認する（実行コマンド・照合手順はAIがその場で教える）。一致すればその値をNASに記録し、以後は自動で照合される。</span></label></li>
+  <li data-step-id="day2-07"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-07" aria-label="完了チェック"><span class="s-ico">🔓</span><span class="s-body"><span class="who who-nj">NJ</span>AIが裁定した方式（SSH鍵・「決まっていること」参照——NJが方式を選ぶ場面はもう無い）で、gitの鍵を用意する：NAS側でAIがSSH鍵ペアを生成し、その公開鍵をNJがGitHubの設定ページへ登録するボタン操作を1回行う（秘密鍵の生成・保管はAI側で完結）。やり方はAIがその場で教える。</span></label></li>
+  <li data-step-id="day2-08"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-08" aria-label="完了チェック"><span class="s-ico">📋</span><span class="s-body"><span class="who who-both">NJ+AI</span>AI用アカウントのログイン。<b>Claude</b>：AIがNAS上のコンテナ内で表示するURLをNJがブラウザで開いてログインし、そこに表示されたコードを<b>コンテナ側の画面（AIとの会話・SSH端末）</b>に貼り付けてログインを完了する（コードを貼るのはスマホのClaudeアプリではなく、コンテナ側の入力欄）。<b>Codex</b>：事前にNJのChatGPTアカウントで「Security → Device code login」を有効にしておく必要がある（未実施ならAIが案内する）。有効化後、AIがコンテナ内で表示する確認コードを、別の端末のブラウザでNJが入力して承認する。</span></label></li>
+  <li data-step-id="day2-09"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-09" aria-label="完了チェック"><span class="s-ico">🤖</span><span class="s-body"><span class="who who-ai">AI</span>が（直前のログインで確立したNAS上のコンテナ内で）家族用AIの分身を、まず1つ作って動作確認（実際に指示を出して応答が返ることまで確認）→ 同じ設定・同じデータで4つに複製する。4つとも同じ内容であることと、4つとも問題なく動くこと（軽い動作テスト）まで確認して完了とする。</span></label></li>
+  <li class="has-detail" data-step-id="day1-10"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day1-10" aria-label="完了チェック"><span class="s-ico">📶</span><span class="s-body"><span class="who who-both">NJ+AI</span>Wi-Fiの名前（SSID）を1つに統一する設定。<b>ここまでのAI関連のインターネット作業（鍵の指紋照合・git鍵登録・Claude/Codexのログイン・分身の複製）が終わってから</b>行う——Wi-Fiが一瞬切り替わる作業なので、AIのインストールや認証の途中でやると失敗の原因になるため、独立した作業時間として最後にまとめて行う。ルーターの管理画面へ<b>あなたはパスワードを入れるだけ</b>。名前の入力・保存など細かい操作はAIがブラウザ操作で自動的に進める。</span></label>
+    <details class="step-more"><summary>くわしく見る（今とあとで何が変わるか）</summary>
+    <div class="step-more-body">
+      <p><b>いま</b>：家の中にWi-Fiの名前が複数ある（機器ごと・電波の種類ごと）。部屋を移動すると、スマホが「つなぎ直し」を待ったり、名前を手で選び直したりしている。</p>
+      <p><b>週末のあと</b>：家中どこでも<b>同じ1つの名前</b>（いま使っている名前をそのまま使う）。スマホやパソコンは<b>SSID・パスワードの再入力は不要</b>で、部屋を移動すると多くの場合自動でより電波の良い方へ切り替わる（保証ではなく、実際にAIが家の中を測って回り切り替わりを確認することをこの作業の完了条件にする）。</p>
+      <p><b>もう1本だけ</b>：カメラなど機械専用に、別の名前のWi-Fiをもう1本作る（家族は使わない・機械の安定のため）。</p>
+      <p><b>変わらないもの</b>：パスワード・つながる速さの上限・今つながっている機器（全部そのまま）。</p>
+    </div></details>
+  </li>
+  <li data-step-id="day2-09b"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-09b" aria-label="完了チェック"><span class="s-ico">📲</span><span class="s-body"><span class="who who-both">NJ+AI</span>家族3人のスマホの準備。まずAIと「決めること」の1つ（家族がTailscaleにどこまで参加するか）を決める。決まったら、家族それぞれのスマホでApp Store／Google Playから「Tailscale」アプリを探してインストールしてもらい、AIが送る招待（アカウント参加のリンク）をタップして参加してもらう。（意図：次のステップの接続確認は、この準備が終わっていないと試しようがないため先に済ませる）</span></label></li>
+  <li data-step-id="day2-10"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-10" aria-label="完了チェック"><span class="s-ico">📱</span><span class="s-body"><span class="who who-both">NJ+AI</span>家族のスマホでの接続確認は2種類ある。①（AIとの対話用）妻・子のスマホのClaudeアプリからNAS上のAI分身へ実際に指示を送り、応答が返ることを確認する。②（Tailscale経由でのNASアクセス）直前のステップでインストールしたTailscaleアプリから、家族それぞれのスマホがNASへ実際に到達できることを、AIがコマンド（`tailscale status`等）と実際のアクセス試行の両方で確認する。①②とも、外出先の回線（Wi-Fiを切ってモバイル回線）でも試す。</span></label></li>
+  <li data-step-id="day2-11"><label class="step-label"><span class="chk-num"></span><input type="checkbox" class="step-checkbox" data-step-id="day2-11" aria-label="完了チェック"><span class="s-ico">🔔</span><span class="s-body"><span class="who who-nj">NJ</span>AIが試しに送る3種類のお知らせ——①容量が一定量に達した時、②ハードディスクの異常を検知した時、③ミラー（RAID）が壊れかけた時——が、それぞれスマホにちゃんと届くか確認する。届いた通知には必ず「テスト」の表示が付くので本物の警告と区別できる。</span></label></li>
 </ul>
 <div class="callout">Googleの解約はこの週末には<b>含まない</b>。NASが1〜2週間問題なく動くのを確認し、データの保険（二重の保管）が整ってから、NJが最後に決める別の作業。</div>
 </div>
@@ -286,26 +286,26 @@ ol.cond li{margin:5px 0}
 
 <section class="card" id="decide" style="--accent:#d03b3b">
 <h2 class="card-title"><span class="ico">✅</span><span>決まっていること（AIの決定と理由）</span></h2>
-<div class="callout">全部で23個の細かい論点があるが、この週末に関わる5つはすべて決定済み。うち2つ（🤖）は技術的な定石がはっきりしているためAIが判断し、残り3つ（🙋）はNJの好みで決めてもらった。<b>この週末、NJが新しく選ぶ技術項目はゼロ。</b>タップで理由を詳しく開ける。</div>
+<div class="callout">全部で23個の細かい論点があるが、この週末すぐに必要な5つはすべて決定済み。うち2つ（🤖）は技術的な定石がはっきりしているためAIが判断し、残り3つ（🙋）はNJの好みで決めてもらった。<b>この5つについて、NJが新しく選ぶ作業はもう無い。</b>ただし残り18個のうち、写真アプリの採用可否・家族の権限・Google移行範囲など数個は、データ移行（2日目）より前に決めておくと良い論点として残っている（下の「技術詳細」内の裁定キュー参照）。タップで理由を詳しく開ける。チェックは未読の目印用（最初は全部未チェック）。</div>
 
-<details class="q-block" data-decide-id="decide-01"><summary><span class="chk-num"></span><input type="checkbox" class="decide-checkbox" data-decide-id="decide-01" checked aria-label="確認チェック"><span class="q-num">🤖</span><span class="q-title">ネットの親（ルーター役）をどの機械にするか</span><span class="q-done">　AI裁定済み</span></summary>
+<details class="q-block" data-decide-id="decide-01"><summary><span class="chk-num"></span><input type="checkbox" class="decide-checkbox" data-decide-id="decide-01" aria-label="確認チェック"><span class="q-num">🤖</span><span class="q-title">ネットの親（ルーター役）をどの機械にするか</span><span class="q-done">　AI裁定済み</span></summary>
 <div class="q-body"><b>AIの決定：今のまま</b>（今使っているルーターがネットの親・新しく来た機械は電波係のまま）。
 <div class="callout" style="margin-top:8px">🌍 ふつうはどうする？　一般的にはネット会社から借りている機械を親のままにするのが定石。理由：①電話や回線の特殊機能を握っている＝親を替えると最悪ネットや電話が止まる ②親1台＋残り全部電波係が一番壊れない形 ③回線が死んだ時にネット会社が自社機器として面倒を見てくれる。逆に市販の高性能機を親にする上級者の流派もある（細かい設定や速度重視・回線側の確認が要る手間の多い道）。AIの推奨＝変更リスクゼロの「今のまま」。</div>
 <p style="margin:8px 0 0">技術的な定石がはっきりしているため、NJに選んでもらわずAIが判断した。届いた日は、実際の機械を見て今のつながり方が想定どおりかを確認するだけで、選び直す作業ではない。</p></div></details>
 
-<details class="q-block" data-decide-id="decide-02"><summary><span class="chk-num"></span><input type="checkbox" class="decide-checkbox" data-decide-id="decide-02" checked aria-label="確認チェック"><span class="q-num">🤖</span><span class="q-title">AIがNASへ自分の作業データを取り込む時の"鍵"の種類</span><span class="q-done">　AI裁定済み</span></summary>
+<details class="q-block" data-decide-id="decide-02"><summary><span class="chk-num"></span><input type="checkbox" class="decide-checkbox" data-decide-id="decide-02" aria-label="確認チェック"><span class="q-num">🤖</span><span class="q-title">AIがNASへ自分の作業データを取り込む時の"鍵"の種類</span><span class="q-done">　AI裁定済み</span></summary>
 <div class="q-body"><b>AIの決定：SSH鍵</b>（機械同士が認証し合う鍵のペア）を使う。
 <div class="callout" style="margin-top:8px">🌍 ふつうはどうする？　定石は「常に動きっぱなしの機械には、期限切れのない鍵」。PAT（使い捨てできるパスワードのようなもの）は手軽だが有効期限が来ると失効し、人が気づいて再発行しないと止まる。今回のNASは人が毎回見ているわけではない常時稼働の機械なので、この定石に合わせてSSH鍵にした。</div>
-<p style="margin:8px 0 0">残るNJの作業は、鍵を発行するときのボタン操作だけ（やり方はその場でAIが教える）。</p>
+<p style="margin:8px 0 0">鍵そのものの生成はAIがコマンドで行う。残るNJの作業は、AIが生成した公開鍵をGitHubの設定ページへ登録するボタン操作だけ（やり方はその場でAIが教える）。</p>
 <div class="q-deadline">タイミング：AIの分身をNASへ移す作業の前</div></div></details>
 
-<details class="q-block" data-decide-id="decide-03"><summary><span class="chk-num"></span><input type="checkbox" class="decide-checkbox" data-decide-id="decide-03" checked aria-label="確認チェック"><span class="q-num">🙋</span><span class="q-title">AIの記憶を新しい4つの分身にも引き継ぐか</span><span class="q-done">　決定済み</span></summary>
+<details class="q-block" data-decide-id="decide-03"><summary><span class="chk-num"></span><input type="checkbox" class="decide-checkbox" data-decide-id="decide-03" aria-label="確認チェック"><span class="q-num">🙋</span><span class="q-title">AIの記憶を新しい4つの分身にも引き継ぐか</span><span class="q-done">　決定済み</span></summary>
 <div class="q-body"><b>NJの決定：そのまま引き継ぐ</b>（2026-07-31）。<b>決めた理由</b>：最初から個人情報だけ抜こうとすると、何を抜いたか・抜け漏れがないかの管理がかえって煩雑になるため、まずは全部そのまま渡し、家族がそれぞれの分身を使い始めるタイミングで扱いをもう一度確認する方針にした。</div></details>
 
-<details class="q-block" data-decide-id="decide-04"><summary><span class="chk-num"></span><input type="checkbox" class="decide-checkbox" data-decide-id="decide-04" checked aria-label="確認チェック"><span class="q-num">🙋</span><span class="q-title">NASの名前</span><span class="q-done">　決定済み</span></summary>
+<details class="q-block" data-decide-id="decide-04"><summary><span class="chk-num"></span><input type="checkbox" class="decide-checkbox" data-decide-id="decide-04" aria-label="確認チェック"><span class="q-num">🙋</span><span class="q-title">NASの名前</span><span class="q-done">　決定済み</span></summary>
 <div class="q-body"><b>決定済み</b>（2026-07-31）。具体の名称はrepo内runbookに記録済み・本ページでは伏せる。<b>決めた理由</b>：NJの好みで任意の愛称を即決め（技術的な制約は「機械が受け付けなければ予備案へ切替える」だけ）。もし機械が受け付けなかった場合の予備案もあり。</div></details>
 
-<details class="q-block" data-decide-id="decide-05"><summary><span class="chk-num"></span><input type="checkbox" class="decide-checkbox" data-decide-id="decide-05" checked aria-label="確認チェック"><span class="q-num">🙋</span><span class="q-title">IoT機器用Wi-Fiの名前</span><span class="q-done">　決定済み</span></summary>
+<details class="q-block" data-decide-id="decide-05"><summary><span class="chk-num"></span><input type="checkbox" class="decide-checkbox" data-decide-id="decide-05" aria-label="確認チェック"><span class="q-num">🙋</span><span class="q-title">IoT機器用Wi-Fiの名前</span><span class="q-done">　決定済み</span></summary>
 <div class="q-body"><b>決定済み</b>（2026-07-31）。具体の名称はrepo内runbookに記録済み・本ページでは伏せる。<b>決めた理由</b>：NJの好みで任意の名前を即決め。ふだん使うWi-Fiの名前は変わらない。これは今後増えるかもしれない専用機器のための予備の枠。</div></details>
 
 </section>
@@ -314,23 +314,23 @@ ol.cond li{margin:5px 0}
 <h2 class="card-title"><span class="ico">💬</span><span>よくある心配</span></h2>
 
 <div class="faq-card"><div class="faq-q">❓ 壊したらどうなる？</div>
-<p class="faq-a">やり直せる設計にしてある。ハードディスクは"ミラー"（同じ内容を2枚同時保存）にするので、片方が壊れてももう片方が生きている。しかも今回のデータ引っ越しは、機械の組み立てとミラー確認が全部終わってから始まるので、<b>最初の作業中はまだ何もデータが入っていない＝失うものがない。</b></p></div>
+<p class="faq-a">やり直せる設計にしてある。ハードディスクは"ミラー"（同じ内容を2枚同時保存）にするので、片方が壊れてももう片方が生きている。しかも今回のデータ引っ越しは、機械の組み立てとミラー確認が全部終わってから始まるので、<b>最初の作業中はまだ何もデータが入っていない＝データを失うことはない。</b>（ただし、ファームウェア更新中やミラー作成中など、作業を最後までやりきる必要がある区間はいくつかある——そこは各ステップでAIが伝える。）</p></div>
 
 <div class="faq-card"><div class="faq-q">❓ 途中でやめられる？</div>
-<p class="faq-a">どの段階で中断してもOK。急な停電にも自動で安全に止まる仕組み（UPS）を用意してある。</p></div>
+<p class="faq-a">各ステップの完了後（チェックを入れたタイミング）ならいつでも中断・再開できる。ただし、ファームウェア更新中・ミラー(RAID)作成中・Wi-Fiの名前統一の作業中など、ステップの<b>途中</b>で電源やネットを切るのは避けたい区間がいくつかある——そこは各ステップの説明でAIが「ここは最後までやる」と伝える。急な停電には、自動で安全に止まる仕組み（UPS）を用意してある。</p></div>
 
 <div class="faq-card"><div class="faq-q">❓ Googleのデータは消えちゃう？</div>
 <p class="faq-a">消えない。この週末ではGoogleの解約はしない。NASが1〜2週間ちゃんと動くのを確認して、さらに「もう1か所にコピーを置く」保険を作ってから、最後にNJが決める。</p></div>
 
 <div class="faq-card"><div class="faq-q">❓ 難しい操作が必要？</div>
-<p class="faq-a">NJがやるのは「挿す・つなぐ・ログインする」だけ。細かい設定は全部AIがやる。技術的な判断（ネットの親・鍵の種類等）もAIが定石に基づいて済ませてある（上の「決まっていること」参照）。</p></div>
+<p class="faq-a">NJがやる作業の中心は「挿す・つなぐ・ログインする」だが、パソコンの設定画面（BIOS）やルーターの管理画面を少し触る場面が数回ある——やり方はすべてAIがその場で1つずつ教えるので、事前に勉強しておく必要はない。技術的な判断（ネットの親・鍵の種類等）もAIが定石に基づいて済ませてある（上の「決まっていること」参照）。</p></div>
 </section>
 
-<div class="callout" style="border-color:color-mix(in srgb,var(--good) 40%,var(--line));font-size:.92rem">🔒 このページに無い作業をAIがお願いすることはありません。もし頼まれたら、それはAIのミスなので断ってください。</div>
+<div class="callout" style="border-color:color-mix(in srgb,var(--good) 40%,var(--line));font-size:.92rem">🔒 このページの番号の流れに無い作業をAIがお願いすることはありません。もし頼まれたら、それはAIのミスなので断ってください。</div>
 
 <details class="block"><summary>📜 技術詳細（AI用・実行時はここを見る）</summary>
 <div class="inner">
-<p>ここから下は本番実行時に統括AIが参照する技術版。日常語ではなく正確な用語・依存順序・判定基準をそのまま記載する。数値・裁定内容は正本（移行runbook・人間裁定キュー）からの転記であり、正本側が更新された場合は本ページも追随して再生成する。伏せ字ガード：SSID実名・IPアドレス・本人特定に繋がる名称は本ページ・正本共に伏せる（実値はNJ手元のrunbook原本のみ）。</p>
+<p>ここから下は本番実行時に統括AIが参照する技術版。日常語ではなく正確な用語・依存順序・判定基準をそのまま記載する。数値・裁定内容は正本（移行runbook・人間裁定キュー）からの転記であり、正本側が更新された場合は本ページも追随して再生成する。伏せ字ガード：SSID実名・IPアドレス・本人特定に繋がる名称は<b>本ページでは伏せる</b>（実値は正本runbook・人間裁定キューに平文で記録済み・本ページのみの方針）。</p>
 
 <div class="subhd">週末タイムライン（段階別・技術版）</div>
 <div class="callout">段階1＝物理・基盤構築、段階2＝データ移行、段階A＝AIチーム4クローン孵化。3系統は一部が並行進行する（ネットワーク完成を待たずに進められる作業は先取りする）。</div>
@@ -389,11 +389,11 @@ ol.cond li{margin:5px 0}
 <div class="op-h">🔑 認証<span class="n">アカウント・鍵まわりの手続き</span></div>
 <ul class="ops">
   <li>Tailscale auth key発行・NAS参加操作</li>
-  <li>Claude claude.aiログインコードの貼付＋Remote Control開始操作</li>
-  <li>Codex ChatGPT device codeの承認（別端末のブラウザで）</li>
-  <li>git PATまたはSSH鍵の発行・保管方法の決定</li>
+  <li>Claudeログインコードをコンテナ端末側の入力欄へ貼付＋Remote Control開始操作</li>
+  <li>Codex ChatGPT device codeの承認（別端末のブラウザで・事前にDevice code login有効化が必要）</li>
+  <li>git用SSH公開鍵をGitHubへ登録する操作（鍵の方式自体は裁定キュー#20でSSH鍵に決定済み）</li>
   <li>Windows管理者/UAC承認</li>
-  <li>NAS初回SSH host fingerprintの物理照合</li>
+  <li>PC1初回SSH host fingerprintの物理照合（NASからPC1へ接続する際の鍵）</li>
 </ul>
 </div>
 

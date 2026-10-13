@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="nj-source" content="obd_nvane_辞書.json sha256:a5f9481005abe982ac5afd4f9737b3e40db0c56813c6622a443a98cbb8e7b8e8">
+<meta name="nj-source-cx" content="cx_集計.json sha256:0caa78ee7dd5d792fe09073c8791cb3194be6918158e586cd3b1c2213c265bf8 元の記録 sha256:6f1d546260bee4b5652ae4ce8d019781dc03b1dcd3b774478af6566f3126e552">
+<title>N-VAN e: の OBD を自作で読んだ記録</title>
+<style>
+:root{--bg:#f7f6f2;--fg:#1c2228;--mut:#5b6671;--card:#ffffff;--line:#d5dae0;--acc:#1f6feb;--accbg:#e8f0fe;--ok:#1a7f37;--okbg:#e2f3e6;--mid:#0a6b94;--midbg:#dff0f7;--cand:#8a5a00;--candbg:#fff0c7;--no:#b42318;--nobg:#fde7e4;--pale:#eceef1;--code:#f1f2f4;--hum:#fde6cc;--rev:#ece2fb;--ai:#dce9fe;--port:#c26d00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171b;--fg:#e6e9ec;--mut:#9ba6b2;--card:#1c2026;--line:#353c45;--acc:#6ea8fe;--accbg:#18263a;--ok:#5cc87a;--okbg:#16301f;--mid:#5bbbe0;--midbg:#122a35;--cand:#e3b341;--candbg:#3a2e10;--no:#ff7b72;--nobg:#3c1a18;--pale:#262b32;--code:#191d22;--hum:#3d2b17;--rev:#2c2340;--ai:#17283e;--port:#e3b341}}
+:root[data-theme="dark"]{--bg:#14171b;--fg:#e6e9ec;--mut:#9ba6b2;--card:#1c2026;--line:#353c45;--acc:#6ea8fe;--accbg:#18263a;--ok:#5cc87a;--okbg:#16301f;--mid:#5bbbe0;--midbg:#122a35;--cand:#e3b341;--candbg:#3a2e10;--no:#ff7b72;--nobg:#3c1a18;--pale:#262b32;--code:#191d22;--hum:#3d2b17;--rev:#2c2340;--ai:#17283e;--port:#e3b341}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI","Hiragino Sans","Noto Sans JP","Yu Gothic UI",Meiryo,sans-serif;font-size:16px;line-height:1.75;overflow-wrap:anywhere}
+main{max-width:860px;margin:0 auto;padding:20px 16px 72px}
+h1{font-size:1.45rem;line-height:1.45;margin:.3em 0 .5em}
+h2{font-size:1.18rem;line-height:1.45;margin:2.4em 0 .4em;padding-top:.8em;border-top:1px solid var(--line)}
+h3{font-size:1rem;margin:1.4em 0 .3em}
+.no{display:inline-block;min-width:1.7em;height:1.7em;line-height:1.7em;text-align:center;border-radius:50%;background:var(--acc);color:#fff;font-size:.9em;margin-right:.35em}
+.point{font-weight:700;background:var(--accbg);border-left:4px solid var(--acc);padding:.55em .85em;border-radius:6px;margin:.5em 0 1em}
+.lead{font-size:1.02rem}
+.meta{color:var(--mut);font-size:.88rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:1em 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.7em .9em}
+.card b{display:block;margin-bottom:.15em}
+figure{margin:1em 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px}
+figure svg{display:block;width:100%;height:auto;max-width:560px;margin:0 auto}
+figure.wide .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+figure.wide svg{max-width:none;min-width:600px}
+figcaption{font-size:.9rem;color:var(--mut);margin-top:.5em}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.8em 0;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:.92rem;background:var(--card)}
+th,td{padding:.45em .6em;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--pale);white-space:nowrap}
+.deep table{min-width:680px;font-size:.86rem}
+table.wide-t{min-width:560px}
+table.wide-t td:first-child{white-space:nowrap}
+td code{white-space:nowrap;overflow-wrap:normal}
+.lv{display:inline-block;padding:0 .55em;border-radius:999px;font-size:.82em;font-weight:700;white-space:nowrap}
+.lv.ok{background:var(--okbg);color:var(--ok)}
+.lv.mid{background:var(--midbg);color:var(--mid)}
+.lv.cand{background:var(--candbg);color:var(--cand)}
+.lv.wip{background:var(--pale);color:var(--mut)}
+tr.ok td:first-child{border-left:4px solid var(--ok)}
+tr.mid td:first-child{border-left:4px solid var(--mid)}
+tr.cand td:first-child{border-left:4px solid var(--cand)}
+.yes{color:var(--ok);font-weight:700;white-space:nowrap}
+.nope{color:var(--no);font-weight:700;white-space:nowrap}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:1em 0;padding:.15em .9em}
+summary{cursor:pointer;font-weight:700;padding:.55em 0;color:var(--acc)}
+details[open]{padding-bottom:.8em}
+details p,details li{font-size:.95rem}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:.7em;overflow-x:auto;font-size:.8rem;line-height:1.5;white-space:pre;overflow-wrap:normal;max-width:100%}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,"BIZ UDGothic",monospace;font-size:.92em}
+.tl{list-style:none;padding:0;margin:.8em 0}
+.tl li{display:flex;gap:.7em;padding:.4em 0;border-bottom:1px dashed var(--line)}
+.tl .tm{flex:0 0 3.3em;font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.88rem;margin:.6em 0 0;padding:0;list-style:none}
+.sw{display:inline-block;width:1em;height:1em;border-radius:3px;vertical-align:-.15em;margin-right:.3em;border:1px solid var(--line)}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin:1em 0;padding:0;list-style:none;font-size:.88rem}
+.toc a{display:inline-block;padding:.15em .6em;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--fg);text-decoration:none}
+a{color:var(--acc)}
+.t{fill:var(--fg)}.tm2{fill:var(--mut)}.ta{fill:var(--acc)}
+.dev{fill:var(--card);stroke:var(--fg);stroke-width:1.5}
+.wheel{fill:var(--fg)}
+.port{fill:var(--port)}
+.devacc{fill:var(--accbg);stroke:var(--acc);stroke-width:1.8}
+.boxd{fill:none;stroke:var(--mut);stroke-width:1.2;stroke-dasharray:4 3}
+.board{fill:var(--okbg);stroke:var(--ok);stroke-width:1.5}
+.pin{stroke:var(--ok);stroke-width:1.5}
+.screen{fill:var(--accbg)}
+.wave{fill:none;stroke:var(--acc);stroke-width:1.5}
+.ln{stroke:var(--mut);stroke-width:1.5;fill:none}
+.lnd{stroke:var(--mut);stroke-width:1;stroke-dasharray:3 3;fill:none}
+.grid{stroke:var(--line);stroke-width:1}
+.ahd{fill:var(--mut)}
+.plot{fill:none;stroke:var(--acc);stroke-width:2}
+.dot{fill:var(--acc)}
+.okf{fill:var(--okbg);stroke:var(--ok);stroke-width:1.2}
+.nof{fill:var(--nobg);stroke:var(--no);stroke-width:1.2}
+.okm{fill:none;stroke:var(--ok);stroke-width:3}
+.nom{stroke:var(--no);stroke-width:3}
+.span{fill:var(--candbg)}
+.st{fill:var(--card);stroke:var(--line);stroke-width:1.2}
+.ecu-hit{fill:var(--okbg);stroke:var(--ok);stroke-width:1.6}
+.ecu-std{fill:var(--midbg);stroke:var(--mid);stroke-width:1.2}
+.ecu-pale{fill:var(--pale);stroke:var(--line);stroke-width:1}
+.cell0{fill:var(--pale)}
+.hx{fill:var(--mut)}.hxon{fill:#111}
+.c-ai{fill:var(--ai);stroke:var(--acc);stroke-width:1.2}
+.c-rev{fill:var(--rev);stroke:#8957e5;stroke-width:1.2}
+.c-hum{fill:var(--hum);stroke:#c26d00;stroke-width:1.2}
+.numc{fill:var(--acc)}.numt{fill:#fff}
+</style>
+</head>
+<body><main>
+<h1>N-VAN e: の OBD を自作の道具で読みました</h1>
+<figure><svg viewBox="0 0 360 330" role="img" aria-label="OBD の口から家の PC と NAS までのつながり">
+<defs><marker id="ah1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ahd"/></marker></defs>
+<path d="M24,30 L38,10 L80,10 L96,30 Z" class="dev"/>
+<rect x="8" y="30" width="98" height="26" rx="6" class="dev"/>
+<circle cx="30" cy="58" r="9" class="wheel"/><circle cx="84" cy="58" r="9" class="wheel"/>
+<rect x="49" y="38" width="16" height="9" rx="2" class="port"/>
+<text x="120" y="28" class="t" font-size="13" text-anchor="start" font-weight="700">N-VAN e: の OBD の口</text>
+<text x="120" y="46" class="tm2" font-size="11" text-anchor="start">CAN 29bit 500kbps</text>
+<path d="M57,70 V82 H95 V100" class="ln" marker-end="url(#ah1)"/>
+<path d="M57,82 H265 V100" class="ln" marker-end="url(#ah1)"/>
+<rect x="20" y="104" width="150" height="58" rx="8" class="devacc"/>
+<text x="95" y="124" class="ta" font-size="13" text-anchor="middle" font-weight="700">MX+（借り物）</text>
+<text x="95" y="141" class="t" font-size="11" text-anchor="middle">Bluetooth クラシック</text>
+<text x="95" y="155" class="tm2" font-size="10" text-anchor="middle">SPP</text>
+<line x1="95" y1="164" x2="95" y2="184" class="ln" marker-end="url(#ah1)"/>
+<rect x="190" y="104" width="150" height="58" rx="8" class="devacc"/>
+<text x="265" y="124" class="ta" font-size="13" text-anchor="middle" font-weight="700">OBDLink CX</text>
+<text x="265" y="141" class="t" font-size="11" text-anchor="middle">Bluetooth LE</text>
+<text x="265" y="155" class="tm2" font-size="10" text-anchor="middle">FFF0・FFF1・FFF2</text>
+<line x1="265" y1="164" x2="265" y2="184" class="ln" marker-end="url(#ah1)"/>
+<rect x="20" y="188" width="150" height="58" rx="8" class="board"/>
+<text x="95" y="208" class="t" font-size="13" text-anchor="middle" font-weight="700">ESP32</text>
+<text x="95" y="225" class="t" font-size="11" text-anchor="middle">SPP ⇔ TCP の中継</text>
+<text x="95" y="239" class="tm2" font-size="10" text-anchor="middle">PC の要求を通すだけ</text>
+<line x1="95" y1="248" x2="95" y2="270" class="ln" marker-end="url(#ah1)"/>
+<rect x="190" y="188" width="150" height="58" rx="8" class="board"/>
+<text x="265" y="208" class="t" font-size="13" text-anchor="middle" font-weight="700">ESP32-S3</text>
+<text x="265" y="225" class="t" font-size="11" text-anchor="middle">BLE ⇔ TCP の中継</text>
+<text x="265" y="239" class="tm2" font-size="10" text-anchor="middle">自分でも読んで貯める</text>
+<line x1="265" y1="248" x2="265" y2="270" class="ln" marker-end="url(#ah1)"/>
+<rect x="8" y="274" width="344" height="50" rx="8" class="dev"/>
+<text x="180" y="294" class="t" font-size="12.5" text-anchor="middle" font-weight="700">家の Wi-Fi → PC（Python）・NAS（記録）</text>
+<text x="180" y="313" class="tm2" font-size="10" text-anchor="middle">関所＝読み出しの要求と STSLEEP だけ通す（ESP32 と PC の 2 か所）</text>
+</svg></figure>
+<div class="cards">
+<div class="card"><b>何をした</b>ECU 01 に UDS 22 の読み出し要求を送り、駆動用バッテリーの値を応答から読みました。</div>
+<div class="card"><b>どうつないだ</b>MX+（SPP）か CX（BLE）→ ESP32 → 家の Wi-Fi。中継とソフトは自作です。</div>
+<div class="card"><b>何が読めた</b>確定 17・ほぼ確定 4・候補 6。容量・SOC・電流・電圧・セル・12V など。</div>
+<div class="card"><b>別の車でも</b>ECU の地図 → DID の総当たり → 予想値と突き合わせ → 操作で確認、の 4 段は同じです。</div>
+<div class="card"><b>次</b>12V バッテリーの状態・シフトの位置・エアコンの入り切りの印の在りかを探します。</div>
+</div>
+<h2 id="vals"><span class="no">1</span>読めた値</h2>
+<p>ECU 01（駆動用バッテリー）の <code>22 202A</code> は 246 バイトの応答で、主な値はここにあります（位置＝応答の先頭 0x62 を 0 とするバイト位置・big endian）。</p>
+<div class="tw"><table class="wide-t"><thead><tr><th>値</th><th>確かさ</th><th>ECU</th><th>DID</th><th>位置</th><th>読み方</th></tr></thead><tbody>
+<tr class="ok"><td>駆動用バッテリーの容量</td><td><span class="lv ok">確定</span></td><td>01</td><td><code>202A</code></td><td>170〜171</td><td>2 バイト・×0.01 Ah</td></tr>
+<tr class="mid"><td>残量（SOC）</td><td><span class="lv mid">ほぼ確定</span></td><td>01</td><td><code>202A</code></td><td>58〜59</td><td>2 バイト・×0.01 %</td></tr>
+<tr class="mid"><td>駆動用バッテリーの電流</td><td><span class="lv mid">ほぼ確定</span></td><td>01</td><td><code>202A</code></td><td>56〜57</td><td>2 バイト・符号付き・×0.01 A（＋が放電）</td></tr>
+<tr class="ok"><td>駆動用バッテリーの電圧</td><td><span class="lv ok">確定</span></td><td>01</td><td><code>2035</code></td><td>164〜165</td><td>2 バイト・×0.1 V</td></tr>
+<tr class="ok"><td>セルの最高・最低</td><td><span class="lv ok">確定</span></td><td>01</td><td><code>202A</code></td><td>80〜81・82〜83</td><td>2 バイト・×0.0002 V</td></tr>
+<tr class="ok"><td>12V 系の電圧（3 つ）</td><td><span class="lv ok">確定</span></td><td>15</td><td><code>2021</code></td><td>109〜110・111〜112・113〜114</td><td>2 バイト・×0.01 V</td></tr>
+<tr class="ok"><td>外気温（メーターの表示）</td><td><span class="lv ok">確定</span></td><td>60</td><td><code>7028</code></td><td>20</td><td>1 バイト ℃</td></tr>
+<tr class="ok"><td>総走行距離（オドメーター）</td><td><span class="lv ok">確定</span></td><td>60</td><td><code>7022</code></td><td>8〜11</td><td>4 バイト km</td></tr>
+</tbody></table></div>
+<p>ECU の係：01＝バッテリーの ECU・07＝統合制御・15＝充電の制御（推測）・60＝メーター・DE＝不明（F181 の部品番号から）。</p>
+<details><summary>202A の 246 バイトの地図</summary>
+<figure><svg viewBox="0 0 358 344" role="img" aria-label="ECU 01 の要求 22202A への応答 246 バイトの地図">
+<text x="44.0" y="13" class="tm2" font-size="8" text-anchor="middle">+0</text>
+<text x="64.0" y="13" class="tm2" font-size="8" text-anchor="middle">+1</text>
+<text x="84.0" y="13" class="tm2" font-size="8" text-anchor="middle">+2</text>
+<text x="104.0" y="13" class="tm2" font-size="8" text-anchor="middle">+3</text>
+<text x="124.0" y="13" class="tm2" font-size="8" text-anchor="middle">+4</text>
+<text x="144.0" y="13" class="tm2" font-size="8" text-anchor="middle">+5</text>
+<text x="164.0" y="13" class="tm2" font-size="8" text-anchor="middle">+6</text>
+<text x="184.0" y="13" class="tm2" font-size="8" text-anchor="middle">+7</text>
+<text x="204.0" y="13" class="tm2" font-size="8" text-anchor="middle">+8</text>
+<text x="224.0" y="13" class="tm2" font-size="8" text-anchor="middle">+9</text>
+<text x="244.0" y="13" class="tm2" font-size="8" text-anchor="middle">+10</text>
+<text x="264.0" y="13" class="tm2" font-size="8" text-anchor="middle">+11</text>
+<text x="284.0" y="13" class="tm2" font-size="8" text-anchor="middle">+12</text>
+<text x="304.0" y="13" class="tm2" font-size="8" text-anchor="middle">+13</text>
+<text x="324.0" y="13" class="tm2" font-size="8" text-anchor="middle">+14</text>
+<text x="344.0" y="13" class="tm2" font-size="8" text-anchor="middle">+15</text>
+<text x="30" y="34" class="tm2" font-size="8.5" text-anchor="end">0</text>
+<rect x="34.5" y="20.5" width="19" height="19" rx="2" fill="#c3c9d1"/>
+<text x="44.0" y="33.5" class="hxon" font-size="8" text-anchor="middle">62</text>
+<rect x="54.5" y="20.5" width="19" height="19" rx="2" fill="#c3c9d1"/>
+<text x="64.0" y="33.5" class="hxon" font-size="8" text-anchor="middle">20</text>
+<rect x="74.5" y="20.5" width="19" height="19" rx="2" fill="#c3c9d1"/>
+<text x="84.0" y="33.5" class="hxon" font-size="8" text-anchor="middle">2A</text>
+<rect x="94.5" y="20.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="33.5" class="hx" font-size="8" text-anchor="middle">38</text>
+<rect x="114.5" y="20.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="33.5" class="hx" font-size="8" text-anchor="middle">03</text>
+<rect x="134.5" y="20.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="33.5" class="hx" font-size="8" text-anchor="middle">3D</text>
+<rect x="154.5" y="20.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="33.5" class="hx" font-size="8" text-anchor="middle">FC</text>
+<rect x="174.5" y="20.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="33.5" class="hx" font-size="8" text-anchor="middle">C3</text>
+<rect x="194.5" y="20.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="204.0" y="33.5" class="hx" font-size="8" text-anchor="middle">FF</text>
+<rect x="214.5" y="20.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="224.0" y="33.5" class="hx" font-size="8" text-anchor="middle">FF</text>
+<rect x="234.5" y="20.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="244.0" y="33.5" class="hx" font-size="8" text-anchor="middle">FD</text>
+<rect x="254.5" y="20.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="264.0" y="33.5" class="hx" font-size="8" text-anchor="middle">01</text>
+<rect x="274.5" y="20.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="33.5" class="hx" font-size="8" text-anchor="middle">E1</text>
+<rect x="294.5" y="20.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="304.0" y="33.5" class="hx" font-size="8" text-anchor="middle">FC</text>
+<rect x="314.5" y="20.5" width="19" height="19" rx="2" fill="#f2d35b"/>
+<text x="324.0" y="33.5" class="hxon" font-size="8" text-anchor="middle">3C</text>
+<rect x="334.5" y="20.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="344.0" y="33.5" class="hx" font-size="8" text-anchor="middle">03</text>
+<text x="30" y="54" class="tm2" font-size="8.5" text-anchor="end">16</text>
+<rect x="34.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="44.0" y="53.5" class="hx" font-size="8" text-anchor="middle">33</text>
+<rect x="54.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="64.0" y="53.5" class="hx" font-size="8" text-anchor="middle">FE</text>
+<rect x="74.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="84.0" y="53.5" class="hx" font-size="8" text-anchor="middle">B3</text>
+<rect x="94.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="53.5" class="hx" font-size="8" text-anchor="middle">30</text>
+<rect x="114.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="53.5" class="hx" font-size="8" text-anchor="middle">0C</text>
+<rect x="134.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="53.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="154.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="53.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="174.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="53.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="194.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="204.0" y="53.5" class="hx" font-size="8" text-anchor="middle">03</text>
+<rect x="214.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="224.0" y="53.5" class="hx" font-size="8" text-anchor="middle">F0</text>
+<rect x="234.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="244.0" y="53.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="254.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="264.0" y="53.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="274.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="53.5" class="hx" font-size="8" text-anchor="middle">18</text>
+<rect x="294.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="304.0" y="53.5" class="hx" font-size="8" text-anchor="middle">60</text>
+<rect x="314.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="324.0" y="53.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="334.5" y="40.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="344.0" y="53.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<text x="30" y="74" class="tm2" font-size="8.5" text-anchor="end">32</text>
+<rect x="34.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="44.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="54.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="64.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="74.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="84.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="94.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="114.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="134.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="154.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="174.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="194.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="204.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="214.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="224.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="234.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="244.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="254.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="264.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="274.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="294.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="304.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="314.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="324.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="334.5" y="60.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="344.0" y="73.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<text x="30" y="94" class="tm2" font-size="8.5" text-anchor="end">48</text>
+<rect x="34.5" y="80.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="44.0" y="93.5" class="hx" font-size="8" text-anchor="middle">05</text>
+<rect x="54.5" y="80.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="64.0" y="93.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="74.5" y="80.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="84.0" y="93.5" class="hx" font-size="8" text-anchor="middle">C4</text>
+<rect x="94.5" y="80.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="93.5" class="hx" font-size="8" text-anchor="middle">04</text>
+<rect x="114.5" y="80.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="93.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="134.5" y="80.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="93.5" class="hx" font-size="8" text-anchor="middle">39</text>
+<rect x="154.5" y="80.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="93.5" class="hx" font-size="8" text-anchor="middle">20</text>
+<rect x="174.5" y="80.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="93.5" class="hx" font-size="8" text-anchor="middle">55</text>
+<rect x="194.5" y="80.5" width="19" height="19" rx="2" fill="#7cc4ff"/>
+<text x="204.0" y="93.5" class="hxon" font-size="8" text-anchor="middle">00</text>
+<rect x="214.5" y="80.5" width="19" height="19" rx="2" fill="#7cc4ff"/>
+<text x="224.0" y="93.5" class="hxon" font-size="8" text-anchor="middle">0D</text>
+<rect x="234.5" y="80.5" width="19" height="19" rx="2" fill="#f7a072"/>
+<text x="244.0" y="93.5" class="hxon" font-size="8" text-anchor="middle">1C</text>
+<rect x="254.5" y="80.5" width="19" height="19" rx="2" fill="#f7a072"/>
+<text x="264.0" y="93.5" class="hxon" font-size="8" text-anchor="middle">A3</text>
+<rect x="274.5" y="80.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="93.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="294.5" y="80.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="304.0" y="93.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="314.5" y="80.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="324.0" y="93.5" class="hx" font-size="8" text-anchor="middle">18</text>
+<rect x="334.5" y="80.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="344.0" y="93.5" class="hx" font-size="8" text-anchor="middle">18</text>
+<text x="30" y="114" class="tm2" font-size="8.5" text-anchor="end">64</text>
+<rect x="34.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="44.0" y="113.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="54.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="64.0" y="113.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="74.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="84.0" y="113.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="94.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="113.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="114.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="113.5" class="hx" font-size="8" text-anchor="middle">0D</text>
+<rect x="134.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="113.5" class="hx" font-size="8" text-anchor="middle">C4</text>
+<rect x="154.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="113.5" class="hx" font-size="8" text-anchor="middle">F8</text>
+<rect x="174.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="113.5" class="hx" font-size="8" text-anchor="middle">26</text>
+<rect x="194.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="204.0" y="113.5" class="hx" font-size="8" text-anchor="middle">16</text>
+<rect x="214.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="224.0" y="113.5" class="hx" font-size="8" text-anchor="middle">A7</text>
+<rect x="234.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="244.0" y="113.5" class="hx" font-size="8" text-anchor="middle">F8</text>
+<rect x="254.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="264.0" y="113.5" class="hx" font-size="8" text-anchor="middle">22</text>
+<rect x="274.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="113.5" class="hx" font-size="8" text-anchor="middle">17</text>
+<rect x="294.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="304.0" y="113.5" class="hx" font-size="8" text-anchor="middle">87</text>
+<rect x="314.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="324.0" y="113.5" class="hx" font-size="8" text-anchor="middle">17</text>
+<rect x="334.5" y="100.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="344.0" y="113.5" class="hx" font-size="8" text-anchor="middle">4D</text>
+<text x="30" y="134" class="tm2" font-size="8.5" text-anchor="end">80</text>
+<rect x="34.5" y="120.5" width="19" height="19" rx="2" fill="#8ee0d4"/>
+<text x="44.0" y="133.5" class="hxon" font-size="8" text-anchor="middle">4A</text>
+<rect x="54.5" y="120.5" width="19" height="19" rx="2" fill="#8ee0d4"/>
+<text x="64.0" y="133.5" class="hxon" font-size="8" text-anchor="middle">9F</text>
+<rect x="74.5" y="120.5" width="19" height="19" rx="2" fill="#8ee0d4"/>
+<text x="84.0" y="133.5" class="hxon" font-size="8" text-anchor="middle">4A</text>
+<rect x="94.5" y="120.5" width="19" height="19" rx="2" fill="#8ee0d4"/>
+<text x="104.0" y="133.5" class="hxon" font-size="8" text-anchor="middle">7B</text>
+<rect x="114.5" y="120.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="133.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="134.5" y="120.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="133.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="154.5" y="120.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="133.5" class="hx" font-size="8" text-anchor="middle">5F</text>
+<rect x="174.5" y="120.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="133.5" class="hx" font-size="8" text-anchor="middle">AD</text>
+<rect x="194.5" y="120.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="204.0" y="133.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="214.5" y="120.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="224.0" y="133.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="234.5" y="120.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="244.0" y="133.5" class="hx" font-size="8" text-anchor="middle">5F</text>
+<rect x="254.5" y="120.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="264.0" y="133.5" class="hx" font-size="8" text-anchor="middle">AD</text>
+<rect x="274.5" y="120.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="133.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="294.5" y="120.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="304.0" y="133.5" class="hx" font-size="8" text-anchor="middle">20</text>
+<rect x="314.5" y="120.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="324.0" y="133.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="334.5" y="120.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="344.0" y="133.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<text x="30" y="154" class="tm2" font-size="8.5" text-anchor="end">96</text>
+<rect x="34.5" y="140.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="44.0" y="153.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="54.5" y="140.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="64.0" y="153.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="74.5" y="140.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="84.0" y="153.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="94.5" y="140.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="153.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="114.5" y="140.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="153.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="134.5" y="140.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="153.5" class="hx" font-size="8" text-anchor="middle">3F</text>
+<rect x="154.5" y="140.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="153.5" class="hx" font-size="8" text-anchor="middle">1C</text>
+<rect x="174.5" y="140.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="153.5" class="hx" font-size="8" text-anchor="middle">08</text>
+<rect x="194.5" y="140.5" width="19" height="19" rx="2" fill="#c3c9d1"/>
+<text x="204.0" y="153.5" class="hxon" font-size="8" text-anchor="middle">00</text>
+<rect x="214.5" y="140.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="224.0" y="153.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="234.5" y="140.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="244.0" y="153.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="254.5" y="140.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="264.0" y="153.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="274.5" y="140.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="153.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="294.5" y="140.5" width="19" height="19" rx="2" fill="#d7a6f5"/>
+<text x="304.0" y="153.5" class="hxon" font-size="8" text-anchor="middle">31</text>
+<rect x="314.5" y="140.5" width="19" height="19" rx="2" fill="#d7a6f5"/>
+<text x="324.0" y="153.5" class="hxon" font-size="8" text-anchor="middle">7E</text>
+<rect x="334.5" y="140.5" width="19" height="19" rx="2" fill="#d7a6f5"/>
+<text x="344.0" y="153.5" class="hxon" font-size="8" text-anchor="middle">32</text>
+<text x="30" y="174" class="tm2" font-size="8.5" text-anchor="end">112</text>
+<rect x="34.5" y="160.5" width="19" height="19" rx="2" fill="#d7a6f5"/>
+<text x="44.0" y="173.5" class="hxon" font-size="8" text-anchor="middle">64</text>
+<rect x="54.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="64.0" y="173.5" class="hx" font-size="8" text-anchor="middle">FF</text>
+<rect x="74.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="84.0" y="173.5" class="hx" font-size="8" text-anchor="middle">01</text>
+<rect x="94.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="173.5" class="hx" font-size="8" text-anchor="middle">F3</text>
+<rect x="114.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="173.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="134.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="173.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="154.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="173.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="174.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="173.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="194.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="204.0" y="173.5" class="hx" font-size="8" text-anchor="middle">19</text>
+<rect x="214.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="224.0" y="173.5" class="hx" font-size="8" text-anchor="middle">19</text>
+<rect x="234.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="244.0" y="173.5" class="hx" font-size="8" text-anchor="middle">01</text>
+<rect x="254.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="264.0" y="173.5" class="hx" font-size="8" text-anchor="middle">01</text>
+<rect x="274.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="173.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="294.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="304.0" y="173.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="314.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="324.0" y="173.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="334.5" y="160.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="344.0" y="173.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<text x="30" y="194" class="tm2" font-size="8.5" text-anchor="end">128</text>
+<rect x="34.5" y="180.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="44.0" y="193.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="54.5" y="180.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="64.0" y="193.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="74.5" y="180.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="84.0" y="193.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="94.5" y="180.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="193.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="114.5" y="180.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="193.5" class="hx" font-size="8" text-anchor="middle">1C</text>
+<rect x="134.5" y="180.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="193.5" class="hx" font-size="8" text-anchor="middle">60</text>
+<rect x="154.5" y="180.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="193.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="174.5" y="180.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="193.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="194.5" y="180.5" width="19" height="19" rx="2" fill="#ff8fab"/>
+<text x="204.0" y="193.5" class="hxon" font-size="8" text-anchor="middle">2D</text>
+<rect x="214.5" y="180.5" width="19" height="19" rx="2" fill="#ff8fab"/>
+<text x="224.0" y="193.5" class="hxon" font-size="8" text-anchor="middle">0A</text>
+<rect x="234.5" y="180.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="244.0" y="193.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="254.5" y="180.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="264.0" y="193.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="274.5" y="180.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="193.5" class="hx" font-size="8" text-anchor="middle">7F</text>
+<rect x="294.5" y="180.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="304.0" y="193.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="314.5" y="180.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="324.0" y="193.5" class="hx" font-size="8" text-anchor="middle">7F</text>
+<rect x="334.5" y="180.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="344.0" y="193.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<text x="30" y="214" class="tm2" font-size="8.5" text-anchor="end">144</text>
+<rect x="34.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="44.0" y="213.5" class="hx" font-size="8" text-anchor="middle">7F</text>
+<rect x="54.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="64.0" y="213.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="74.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="84.0" y="213.5" class="hx" font-size="8" text-anchor="middle">01</text>
+<rect x="94.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="213.5" class="hx" font-size="8" text-anchor="middle">45</text>
+<rect x="114.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="213.5" class="hx" font-size="8" text-anchor="middle">01</text>
+<rect x="134.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="213.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="154.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="213.5" class="hx" font-size="8" text-anchor="middle">01</text>
+<rect x="174.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="213.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="194.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="204.0" y="213.5" class="hx" font-size="8" text-anchor="middle">27</text>
+<rect x="214.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="224.0" y="213.5" class="hx" font-size="8" text-anchor="middle">05</text>
+<rect x="234.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="244.0" y="213.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="254.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="264.0" y="213.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="274.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="213.5" class="hx" font-size="8" text-anchor="middle">01</text>
+<rect x="294.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="304.0" y="213.5" class="hx" font-size="8" text-anchor="middle">F4</text>
+<rect x="314.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="324.0" y="213.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="334.5" y="200.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="344.0" y="213.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<text x="30" y="234" class="tm2" font-size="8.5" text-anchor="end">160</text>
+<rect x="34.5" y="220.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="44.0" y="233.5" class="hx" font-size="8" text-anchor="middle">80</text>
+<rect x="54.5" y="220.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="64.0" y="233.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="74.5" y="220.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="84.0" y="233.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="94.5" y="220.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="233.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="114.5" y="220.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="233.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="134.5" y="220.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="233.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="154.5" y="220.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="233.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="174.5" y="220.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="233.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="194.5" y="220.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="204.0" y="233.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="214.5" y="220.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="224.0" y="233.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="234.5" y="220.5" width="19" height="19" rx="2" fill="#8fd19e"/>
+<text x="244.0" y="233.5" class="hxon" font-size="8" text-anchor="middle">1F</text>
+<rect x="254.5" y="220.5" width="19" height="19" rx="2" fill="#8fd19e"/>
+<text x="264.0" y="233.5" class="hxon" font-size="8" text-anchor="middle">4E</text>
+<rect x="274.5" y="220.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="233.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="294.5" y="220.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="304.0" y="233.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="314.5" y="220.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="324.0" y="233.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="334.5" y="220.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="344.0" y="233.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<text x="30" y="254" class="tm2" font-size="8.5" text-anchor="end">176</text>
+<rect x="34.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="44.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="54.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="64.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="74.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="84.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="94.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="114.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="134.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="154.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="174.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="194.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="204.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="214.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="224.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="234.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="244.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="254.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="264.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="274.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="294.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="304.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="314.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="324.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="334.5" y="240.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="344.0" y="253.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<text x="30" y="274" class="tm2" font-size="8.5" text-anchor="end">192</text>
+<rect x="34.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="44.0" y="273.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="54.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="64.0" y="273.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="74.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="84.0" y="273.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="94.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="273.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="114.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="273.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="134.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="273.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="154.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="273.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="174.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="273.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="194.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="204.0" y="273.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="214.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="224.0" y="273.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="234.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="244.0" y="273.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="254.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="264.0" y="273.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="274.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="273.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="294.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="304.0" y="273.5" class="hx" font-size="8" text-anchor="middle">F8</text>
+<rect x="314.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="324.0" y="273.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="334.5" y="260.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="344.0" y="273.5" class="hx" font-size="8" text-anchor="middle">F0</text>
+<text x="30" y="294" class="tm2" font-size="8.5" text-anchor="end">208</text>
+<rect x="34.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="44.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="54.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="64.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="74.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="84.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="94.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="114.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="134.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="154.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="174.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="194.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="204.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="214.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="224.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="234.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="244.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="254.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="264.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="274.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="294.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="304.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="314.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="324.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="334.5" y="280.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="344.0" y="293.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<text x="30" y="314" class="tm2" font-size="8.5" text-anchor="end">224</text>
+<rect x="34.5" y="300.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="44.0" y="313.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="54.5" y="300.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="64.0" y="313.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="74.5" y="300.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="84.0" y="313.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="94.5" y="300.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="313.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="114.5" y="300.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="313.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="134.5" y="300.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="313.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="154.5" y="300.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="164.0" y="313.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="174.5" y="300.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="184.0" y="313.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="194.5" y="300.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="204.0" y="313.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="214.5" y="300.5" width="19" height="19" rx="2" fill="#d7a6f5"/>
+<text x="224.0" y="313.5" class="hxon" font-size="8" text-anchor="middle">32</text>
+<rect x="234.5" y="300.5" width="19" height="19" rx="2" fill="#d7a6f5"/>
+<text x="244.0" y="313.5" class="hxon" font-size="8" text-anchor="middle">6E</text>
+<rect x="254.5" y="300.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="264.0" y="313.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="274.5" y="300.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="284.0" y="313.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="294.5" y="300.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="304.0" y="313.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="314.5" y="300.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="324.0" y="313.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="334.5" y="300.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="344.0" y="313.5" class="hx" font-size="8" text-anchor="middle">01</text>
+<text x="30" y="334" class="tm2" font-size="8.5" text-anchor="end">240</text>
+<rect x="34.5" y="320.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="44.0" y="333.5" class="hx" font-size="8" text-anchor="middle">1A</text>
+<rect x="54.5" y="320.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="64.0" y="333.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="74.5" y="320.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="84.0" y="333.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="94.5" y="320.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="104.0" y="333.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="114.5" y="320.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="124.0" y="333.5" class="hx" font-size="8" text-anchor="middle">00</text>
+<rect x="134.5" y="320.5" width="19" height="19" rx="2" class="cell0"/>
+<text x="144.0" y="333.5" class="hx" font-size="8" text-anchor="middle">00</text>
+</svg><figcaption>1 マス＝1 バイト（16 進）。値は READY 時の実際の応答。</figcaption><ul class="legend"><li><span class="sw" style="background:#c3c9d1"></span>応答の頭（62＝肯定応答・20 2A＝DID）（0〜2 番目） <span class="lv ok">確定</span></li><li><span class="sw" style="background:#8fd19e"></span>駆動用バッテリーの容量（170〜171 番目） <span class="lv ok">確定</span></li><li><span class="sw" style="background:#f7a072"></span>残量（SOC）（58〜59 番目） <span class="lv mid">ほぼ確定</span></li><li><span class="sw" style="background:#7cc4ff"></span>駆動用バッテリーの電流（56〜57 番目） <span class="lv mid">ほぼ確定</span></li><li><span class="sw" style="background:#f2d35b"></span>温度（202A の 14・外気温とは別）（14 番目） <span class="lv cand">保留（定数）</span></li><li><span class="sw" style="background:#d7a6f5"></span>12V（202A の写し・3 つ）（109〜112・233〜234 番目） <span class="lv ok">確定</span></li><li><span class="sw" style="background:#ff8fab"></span>202A の 136〜137（ON・READY で値が入る・充電中は FFFF）（136〜137 番目） <span class="lv cand">候補</span></li><li><span class="sw" style="background:#8ee0d4"></span>セルの最高・最低（80〜83 番目） <span class="lv ok">確定</span></li><li><span class="sw" style="background:#c3c9d1"></span>充電ガンの印（202A の 104）（104 番目） <span class="lv mid">ほぼ確定</span></li></ul></figure></details>
+<h2 id="state"><span class="no">2</span>車の状態と OBD の応答</h2>
+<p>ECU が応答するのは「ON」「READY」「充電中・電源 ON」の時だけです。IG OFF の充電中は NO DATA で、読めるのはアダプタの端子の 12V（ATRV）だけです。</p>
+<figure><svg viewBox="0 0 360 352" role="img" aria-label="電源の状態ごとの 12V と、OBD の応答の有無">
+<defs><marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ahd"/></marker></defs>
+<text x="4" y="16" class="tm2" font-size="11" text-anchor="start">電源の状態（POWER ボタンで切り替わる）</text>
+<rect x="4" y="26" width="78" height="150" rx="8" class="nof"/>
+<text x="43" y="48" class="t" font-size="15" text-anchor="middle" font-weight="700">OFF</text>
+<text x="43" y="64" class="tm2" font-size="10" text-anchor="middle">IG OFF</text>
+<text x="43" y="84" class="tm2" font-size="9.5" text-anchor="middle">12V の電圧</text>
+<text x="43" y="101" class="t" font-size="10.5" text-anchor="middle" font-weight="700">12.5〜12.2V</text>
+<line x1="33.9" y1="132.9" x2="52.1" y2="151.1" class="nom"/><line x1="33.9" y1="151.1" x2="52.1" y2="132.9" class="nom"/>
+<text x="43" y="170" class="t" font-size="10" text-anchor="middle" font-weight="700">応答なし</text>
+<line x1="83" y1="60" x2="93" y2="60" class="ln" marker-end="url(#ah2)"/>
+<rect x="94" y="26" width="78" height="150" rx="8" class="nof"/>
+<text x="133" y="48" class="t" font-size="15" text-anchor="middle" font-weight="700">ACC</text>
+<text x="133" y="64" class="tm2" font-size="10" text-anchor="middle">アクセサリ</text>
+<text x="133" y="84" class="tm2" font-size="9.5" text-anchor="middle">12V の電圧</text>
+<text x="133" y="101" class="t" font-size="12" text-anchor="middle" font-weight="700">12.3V</text>
+<line x1="123.9" y1="132.9" x2="142.1" y2="151.1" class="nom"/><line x1="123.9" y1="151.1" x2="142.1" y2="132.9" class="nom"/>
+<text x="133" y="170" class="t" font-size="10" text-anchor="middle" font-weight="700">応答なし</text>
+<line x1="173" y1="60" x2="183" y2="60" class="ln" marker-end="url(#ah2)"/>
+<rect x="184" y="26" width="78" height="150" rx="8" class="okf"/>
+<text x="223" y="48" class="t" font-size="15" text-anchor="middle" font-weight="700">ON</text>
+<text x="223" y="64" class="tm2" font-size="10" text-anchor="middle">IG ON</text>
+<text x="223" y="84" class="tm2" font-size="9.5" text-anchor="middle">12V の電圧</text>
+<text x="223" y="101" class="t" font-size="12" text-anchor="middle" font-weight="700">12.0V</text>
+<text x="223" y="115" class="tm2" font-size="9" text-anchor="middle">下がり続ける</text>
+<circle cx="223" cy="142" r="13" class="okm"/>
+<text x="223" y="170" class="t" font-size="10" text-anchor="middle" font-weight="700">応答あり</text>
+<line x1="263" y1="60" x2="273" y2="60" class="ln" marker-end="url(#ah2)"/>
+<rect x="274" y="26" width="78" height="150" rx="8" class="okf"/>
+<text x="313" y="48" class="t" font-size="13" text-anchor="middle" font-weight="700">READY</text>
+<text x="313" y="64" class="tm2" font-size="10" text-anchor="middle">走行可能</text>
+<text x="313" y="84" class="tm2" font-size="9.5" text-anchor="middle">12V の電圧</text>
+<text x="313" y="101" class="t" font-size="12" text-anchor="middle" font-weight="700">12.6V</text>
+<text x="313" y="115" class="tm2" font-size="9" text-anchor="middle">負荷時 14.6V</text>
+<circle cx="313" cy="142" r="13" class="okm"/>
+<text x="313" y="170" class="t" font-size="10" text-anchor="middle" font-weight="700">応答あり</text>
+<path d="M223,178 V194 H43 V182" class="ln" marker-end="url(#ah2)"/>
+<text x="133" y="211" class="t" font-size="10.5" text-anchor="middle">ブレーキを踏まずに POWER を押すと</text>
+<text x="133" y="226" class="t" font-size="10.5" text-anchor="middle">OFF → ACC → ON → OFF と回ります</text>
+<text x="313" y="196" class="t" font-size="10" text-anchor="middle">ブレーキを踏んで</text>
+<text x="313" y="210" class="t" font-size="10" text-anchor="middle">POWER で READY</text>
+<text x="4" y="250" class="tm2" font-size="11" text-anchor="start">充電の時</text>
+<rect x="4" y="258" width="112" height="88" rx="8" class="nof"/>
+<text x="60" y="276" class="t" font-size="11" text-anchor="middle" font-weight="700">充電中・電源 OFF</text>
+<text x="60" y="291" class="tm2" font-size="9.5" text-anchor="middle">普通充電・IG OFF</text>
+<text x="12" y="318" class="t" font-size="11.5" text-anchor="start" font-weight="700">13.4V</text>
+<line x1="89.7" y1="305.7" x2="102.3" y2="318.3" class="nom"/><line x1="89.7" y1="318.3" x2="102.3" y2="305.7" class="nom"/>
+<text x="60" y="339" class="t" font-size="10" text-anchor="middle" font-weight="700">応答なし（NO DATA）</text>
+<rect x="124" y="258" width="112" height="88" rx="8" class="okf"/>
+<text x="180" y="276" class="t" font-size="11" text-anchor="middle" font-weight="700">充電中・電源 ON</text>
+<text x="180" y="291" class="tm2" font-size="9.5" text-anchor="middle">普通充電・IG ON</text>
+<text x="132" y="318" class="t" font-size="11.5" text-anchor="start" font-weight="700">13.1V</text>
+<circle cx="216" cy="312" r="9" class="okm"/>
+<text x="180" y="339" class="t" font-size="10" text-anchor="middle" font-weight="700">応答あり</text>
+<rect x="244" y="258" width="112" height="88" rx="8" class="nof"/>
+<text x="300" y="276" class="t" font-size="11" text-anchor="middle" font-weight="700">ガンを挿した直後</text>
+<text x="300" y="291" class="tm2" font-size="9.5" text-anchor="middle">タイマー充電の待ち</text>
+<text x="252" y="318" class="t" font-size="11.5" text-anchor="start" font-weight="700">12.1V（一瞬）</text>
+<line x1="329.7" y1="305.7" x2="342.3" y2="318.3" class="nom"/><line x1="329.7" y1="318.3" x2="342.3" y2="305.7" class="nom"/>
+<text x="300" y="339" class="t" font-size="10" text-anchor="middle" font-weight="700">応答なし（NO DATA）</text>
+</svg><figcaption>緑＝応答あり。赤＝応答なし（NO DATA）。</figcaption></figure>
+<h2 id="cx"><span class="no">3</span>CX と ESP32-S3 で、走行中も自動で記録</h2>
+<figure><svg viewBox="0 0 360 236" role="img" aria-label="ESP32-S3 が CX で読み、止まったら眠らせ、起きたらまた読む一周">
+<defs><marker id="ah5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ahd"/></marker></defs>
+<rect x="4" y="6" width="168" height="104" rx="10" class="c-ai"/>
+<text x="16" y="34" class="t" font-size="12.5" text-anchor="start" font-weight="700">① 自分で読む</text>
+<text x="16" y="62" class="t" font-size="11" text-anchor="start">010D 2 秒・202A 10 秒</text>
+<text x="16" y="84" class="tm2" font-size="11" text-anchor="start">温度など 60 秒</text>
+<rect x="188" y="6" width="168" height="104" rx="10" class="st"/>
+<text x="200" y="34" class="t" font-size="12.5" text-anchor="start" font-weight="700">② 202A が 3 周応答なし</text>
+<text x="200" y="62" class="t" font-size="11" text-anchor="start">車が止まった見込み</text>
+<text x="200" y="84" class="tm2" font-size="11" text-anchor="start">→ STSLEEP</text>
+<rect x="188" y="126" width="168" height="104" rx="10" class="c-hum"/>
+<text x="200" y="154" class="t" font-size="12.5" text-anchor="start" font-weight="700">③ CX がスリープ</text>
+<text x="200" y="182" class="t" font-size="11" text-anchor="start">設定は変えない</text>
+<text x="200" y="204" class="tm2" font-size="11" text-anchor="start">（命令で眠るだけ）</text>
+<rect x="4" y="126" width="168" height="104" rx="10" class="st"/>
+<text x="16" y="154" class="t" font-size="12.5" text-anchor="start" font-weight="700">④ 起きる</text>
+<text x="16" y="182" class="t" font-size="11" text-anchor="start">12V の変化（VCHG）</text>
+<text x="16" y="204" class="tm2" font-size="11" text-anchor="start">か 見回りの接続</text>
+<line x1="174" y1="58" x2="186" y2="58" class="ln" marker-end="url(#ah5)"/>
+<line x1="272" y1="112" x2="272" y2="124" class="ln" marker-end="url(#ah5)"/>
+<line x1="186" y1="178" x2="174" y2="178" class="ln" marker-end="url(#ah5)"/>
+<line x1="88" y1="124" x2="88" y2="112" class="ln" marker-end="url(#ah5)"/>
+</svg></figure>
+<ul><li><b>BLE</b>：サービス FFF0。FFF1 の通知で応答を受け、FFF2 への書き込みで要求します。組めるのは CX の電源が入ってから 5 分の間です（公式）。</li><li><b>MX+ と同じ値</b>：202A の長さは 246 バイトで同じ。2035 の電圧 ÷（96×セルの最高と最低の平均）＝1.0002で、MX+ の時と同じでした。</li><li><b>走行中</b>：車速の応答率 99.9%・12V（ATRV）12.9〜14.5V。記録は ESP32-S3 の PSRAM と flash の区画に貯め、家の Wi-Fi で NAS が引き取ります。</li><li><b>スリープ</b>：STSLEEP で眠った CX が、12V の変化（VCHG）で起きた記録があります。</li></ul>
+<h2 id="how"><span class="no">4</span>調べ方（この車で 4 段）</h2>
+<ol><li><b>ECU の住所の地図を作る</b>：18DAxxF1 の xx を回し、22F187 に応答した ECU を記録</li><li><b>DID を全部要求する（総当たり）</b>：読み出しの要求（UDS 22）を、DID を変えて順に全部送る</li><li><b>予想値と突き合わせる</b>：諸元の容量・電圧、アプリの表示、アメダス</li><li><b>操作で 1 つずつ確かめる</b>：エアコン・ライトの ON/OFF で変化したバイトを探す</li></ol>
+<details class="deep"><summary>命令と考え方</summary><ol>
+<li><b>規約</b>：<code>0100</code> を送り <code>ATDPN</code> で表示。この車は 7（ISO 15765-4 CAN 29bit 500kbps）。11bit の車は住所が <code>7E0</code>〜<code>7E7</code> など。</li>
+<li><b>住所の地図</b>：<code>18DA{xx}F1</code> の xx を 00〜FF で回し、<code>ATSH18DA{xx}F1</code>・<code>ATCRA18DAF1{xx}</code> の後に <code>22F187</code>（部品番号）。応答した xx が ECU。機能の住所 <code>18DB33F1</code> への <code>0100</code> に応答したのは 07 だけ。</li>
+<li><b>総当たり</b>：各 ECU に <code>22</code>＋番号（2000〜20FF・7000〜70FF）。<code>62</code> で始まれば肯定、<code>7F 22 31</code> は requestOutOfRange。長い応答は ISO-TP の複数の枠なので、flow control を <code>ATFCSH</code>・<code>ATFCSD300000</code>・<code>ATFCSM1</code> で明示。</li>
+<li><b>突き合わせ</b>：諸元（82.7Ah・358V → 96 直列）、アプリの容量 80.14Ah＝0x1F4E、メーターの外気温。型＝1 バイトで値−40（温度）、2 バイトで ×0.1 か ×0.01、電流は符号付き。</li>
+<li><b>操作</b>：エアコンやライトを 1 つずつ入れ、前後の応答の差を取って動いたバイトだけを見ます。</li>
+<li><b>近道</b>：Clarity の公開例と同じ住所・同じ DID（18DA01F1・22 202A）で応答し、位置だけが違いました。</li>
+</ol></details>
+<h2 id="lent"><span class="no">5</span>借りた MX+ について</h2>
+<p>送ったのは、読み出しの要求・表示の命令・電源を切れば戻る通信の設定・STSLEEP だけです。保存や書き込みの命令は送っていません。MX+ の中のソフトとスリープ設定は変えていません。</p>
+<details class="deep"><summary>関所の一覧と、スリープの表示</summary>
+<div class="tw"><table><thead><tr><th>種類</th><th>命令</th><th>意味</th></tr></thead><tbody>
+<tr><td><span class="yes">通す</span></td><td><code>01 …</code></td><td>今の値（標準）</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>02 …</code></td><td>故障の時の記録（標準）</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>03 …</code></td><td>故障コード（標準）</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>07 …</code></td><td>保留中の故障コード（標準）</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>09 …</code></td><td>車の情報（標準）</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>0A …</code></td><td>消えない故障コード（標準）</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>19 …</code></td><td>故障コードを読む（UDS）</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>21 …</code></td><td>値を読む（KWP2000 の古い型）</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>22 …</code></td><td>値を読む（UDS の ReadDataByIdentifier）</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>STDI</code></td><td>機器の名前</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>STDIX</code></td><td>機器の詳しい情報</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>STI</code></td><td>チップ（STN）の型番と版</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>STMA</code></td><td>CAN の流れを見る（受けるだけ）</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>STSLCS</code></td><td>スリープ設定を表示</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>STSLEEP</code></td><td>その場でスリープ（設定は変わらない・引数なしの形だけ）</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>STSLLT</code></td><td>直近のスリープ・起床の要因</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>STSLXS</code></td><td>外部の起床入力の状態</td></tr>
+<tr><td><span class="yes">通す</span></td><td><code>AT …</code></td><td>下の 6 つ以外</td></tr>
+<tr><td><span class="nope">止める</span></td><td><code>AT@3</code></td><td>機器の名乗りの書き込み</td></tr>
+<tr><td><span class="nope">止める</span></td><td><code>ATBR</code></td><td>通信の速さの変更</td></tr>
+<tr><td><span class="nope">止める</span></td><td><code>ATCV</code></td><td>電圧の校正の書き込み</td></tr>
+<tr><td><span class="nope">止める</span></td><td><code>ATPB</code></td><td>規約 B の設定</td></tr>
+<tr><td><span class="nope">止める</span></td><td><code>ATPP</code></td><td>設定の保存</td></tr>
+<tr><td><span class="nope">止める</span></td><td><code>ATRTR</code></td><td>CAN に RTR の枠を出す</td></tr>
+<tr><td><span class="nope">止める</span></td><td><code>04・10・11・14・27・2E・2F・31・3E・85 など</code></td><td>上に無い診断は全部（消去・セッション・リセット・書き込みなど）</td></tr>
+</tbody></table></div>
+<pre><code>&gt; STSLLT
+SLEEP: UART
+WAKE:  UART
+&gt; STSLCS
+CTRL MODE:  NATIVE
+PWR_CTRL:   LOW PWR = LOW
+UART SLEEP: ON,  600 s
+UART WAKE:  ON,  0-0 us
+EXT INPUT:  LOW = SLEEP
+EXT SLEEP:  OFF, LOW FOR 3000 ms
+EXT WAKE:   ON,  HIGH FOR 40 ms
+VL SLEEP:   ON,  &lt;13.00V FOR 10800 s
+VL WAKE:    OFF, &gt;13.20V FOR 1 s
+VCHG WAKE:  ON,  0.20V IN 1000 ms</code></pre>
+<p>無通信 10 分でスリープした MX+ を、ESP32 からの接続で起こした直後の応答です。STSLEEP → 接続で起床（SLEEP: CMD / WAKE: UART）の一周も確かめました。</p>
+</details>
+<h2 id="appx"><span class="no">6</span>付録</h2>
+<details class="deep"><summary>読めた値の全部（辞書）</summary>
+<div class="tw"><table><thead><tr><th>値</th><th>確かさ</th><th>ECU</th><th>DID</th><th>位置</th><th>読み方</th></tr></thead><tbody>
+<tr class="ok"><td>駆動用バッテリーの容量</td><td><span class="lv ok">確定</span></td><td>01</td><td><code>202A</code></td><td>170〜171</td><td>2 バイト・×0.01 Ah</td></tr>
+<tr class="ok"><td>駆動用バッテリーの電圧</td><td><span class="lv ok">確定</span></td><td>01</td><td><code>2035</code></td><td>164〜165</td><td>2 バイト・×0.1 V</td></tr>
+<tr class="ok"><td>12V 系の電圧（3 つ）</td><td><span class="lv ok">確定</span></td><td>15</td><td><code>2021</code></td><td>109〜110・111〜112・113〜114</td><td>2 バイト・×0.01 V</td></tr>
+<tr class="ok"><td>外気温（メーターの表示）</td><td><span class="lv ok">確定</span></td><td>60</td><td><code>7028</code></td><td>20</td><td>1 バイト ℃</td></tr>
+<tr class="ok"><td>12V（アダプタの端子）</td><td><span class="lv ok">確定</span></td><td>なし</td><td><code>ATRV</code></td><td></td><td> V</td></tr>
+<tr class="ok"><td>12V（標準の PID）</td><td><span class="lv ok">確定</span></td><td>07</td><td><code>0142</code></td><td></td><td>2 バイト・×0.001 V</td></tr>
+<tr class="ok"><td>車速</td><td><span class="lv ok">確定</span></td><td>07</td><td><code>010D</code></td><td></td><td>1 バイト km/h</td></tr>
+<tr class="ok"><td>バッテリーのモジュールの温度（10 個）</td><td><span class="lv ok">確定</span></td><td>01</td><td><code>202C</code></td><td>62〜63・64〜65・66〜67・68〜69・70〜71・72〜73・74〜75・76〜77・78〜79・80〜81</td><td>2 バイト・×0.1 ℃</td></tr>
+<tr class="ok"><td>ECU 15 の温度（48）</td><td><span class="lv ok">確定</span></td><td>15</td><td><code>2021</code></td><td>48</td><td>1 バイト ℃</td></tr>
+<tr class="ok"><td>12V（DE の値）</td><td><span class="lv ok">確定</span></td><td>DE</td><td><code>2021</code></td><td>113〜114</td><td>2 バイト・×0.01 V</td></tr>
+<tr class="ok"><td>駆動用バッテリーの電圧（DE の値）</td><td><span class="lv ok">確定</span></td><td>DE</td><td><code>2021</code></td><td>37〜38</td><td>2 バイト・×0.1 V</td></tr>
+<tr class="ok"><td>12V（202A の写し・3 つ）</td><td><span class="lv ok">確定</span></td><td>01</td><td><code>202A</code></td><td>109〜110・111〜112・233〜234</td><td>2 バイト・×0.001 V</td></tr>
+<tr class="ok"><td>DC-DC が動いているかの印（2 つ）</td><td><span class="lv ok">確定</span></td><td>01・DE</td><td><code>複数</code></td><td></td><td> </td></tr>
+<tr class="ok"><td>残量（メーターとアプリの表示）</td><td><span class="lv ok">確定</span></td><td>07</td><td><code>015B</code></td><td></td><td>1 バイト・×0.392 %（A×100/255）</td></tr>
+<tr class="ok"><td>総走行距離（オドメーター）</td><td><span class="lv ok">確定</span></td><td>60</td><td><code>7022</code></td><td>8〜11</td><td>4 バイト km</td></tr>
+<tr class="ok"><td>セル電圧（96 個）</td><td><span class="lv ok">確定</span></td><td>01</td><td><code>2028</code></td><td>30〜31・32〜33・34〜35・36〜37・38〜39・40〜41・42〜43・44〜45・46〜47・48〜49・50〜51・52〜53・54〜55・56〜57・58〜59・60〜61・62〜63・64〜65・66〜67・68〜69・70〜71・72〜73・74〜75・76〜77・78〜79・80〜81・82〜83・84〜85・86〜87・88〜89・90〜91・92〜93・94〜95・96〜97・98〜99・100〜101・102〜103・104〜105・106〜107・108〜109・110〜111・112〜113・114〜115・116〜117・118〜119・120〜121・122〜123・124〜125・126〜127・128〜129・130〜131・132〜133・134〜135・136〜137・138〜139・140〜141・142〜143・144〜145・146〜147・148〜149・150〜151・152〜153・154〜155・156〜157・158〜159・160〜161・162〜163・164〜165・166〜167・168〜169・170〜171・172〜173・174〜175・176〜177・178〜179・180〜181・182〜183・184〜185・186〜187・188〜189・190〜191・192〜193・194〜195・196〜197・198〜199・200〜201・202〜203・204〜205・206〜207・208〜209・210〜211・212〜213・214〜215・216〜217・218〜219・220〜221</td><td>2 バイト・×0.0002 V</td></tr>
+<tr class="ok"><td>セルの最高・最低</td><td><span class="lv ok">確定</span></td><td>01</td><td><code>202A</code></td><td>80〜81・82〜83</td><td>2 バイト・×0.0002 V</td></tr>
+<tr class="mid"><td>残量（SOC）</td><td><span class="lv mid">ほぼ確定</span></td><td>01</td><td><code>202A</code></td><td>58〜59</td><td>2 バイト・×0.01 %</td></tr>
+<tr class="mid"><td>残量（SOC）の写し</td><td><span class="lv mid">ほぼ確定</span></td><td>15</td><td><code>2029</code></td><td>62〜63</td><td>2 バイト・×0.01 %</td></tr>
+<tr class="mid"><td>駆動用バッテリーの電流</td><td><span class="lv mid">ほぼ確定</span></td><td>01</td><td><code>202A</code></td><td>56〜57</td><td>2 バイト・符号付き・×0.01 A（＋が放電）</td></tr>
+<tr class="mid"><td>充電ガンの印（202A の 104）</td><td><span class="lv mid">ほぼ確定</span></td><td>01</td><td><code>202A</code></td><td>104</td><td>1 バイト </td></tr>
+<tr class="cand"><td>バッテリーまわりの別の温度（2 つ・候補）</td><td><span class="lv cand">候補</span></td><td>01</td><td><code>202C</code></td><td>204〜205・206〜207</td><td>2 バイト・×0.1 ℃</td></tr>
+<tr class="cand"><td>ECU 15 の温度（63）</td><td><span class="lv cand">候補</span></td><td>15</td><td><code>2021</code></td><td>63</td><td>1 バイト ℃（の見込み）</td></tr>
+<tr class="cand"><td>車内の温度（の候補）</td><td><span class="lv cand">候補</span></td><td>60</td><td><code>7028</code></td><td>18</td><td>1 バイト ℃（の見込み）</td></tr>
+<tr class="cand"><td>202A の 136〜137（ON・READY で値が入る・充電中は FFFF）</td><td><span class="lv cand">候補</span></td><td>01</td><td><code>202A</code></td><td>136〜137</td><td>2 バイト </td></tr>
+<tr class="cand"><td>202B の 65（の候補）</td><td><span class="lv cand">候補</span></td><td>01</td><td><code>202B</code></td><td>65</td><td>1 バイト </td></tr>
+<tr class="cand"><td>2019 の 96 個（控えの値の見込み）</td><td><span class="lv cand">候補</span></td><td>01</td><td><code>2019</code></td><td>30〜31・32〜33・34〜35・36〜37・38〜39・40〜41・42〜43・44〜45・46〜47・48〜49・50〜51・52〜53・54〜55・56〜57・58〜59・60〜61・62〜63・64〜65・66〜67・68〜69・70〜71・72〜73・74〜75・76〜77・78〜79・80〜81・82〜83・84〜85・86〜87・88〜89・90〜91・92〜93・94〜95・96〜97・98〜99・100〜101・102〜103・104〜105・106〜107・108〜109・110〜111・112〜113・114〜115・116〜117・118〜119・120〜121・122〜123・124〜125・126〜127・128〜129・130〜131・132〜133・134〜135・136〜137・138〜139・140〜141・142〜143・144〜145・146〜147・148〜149・150〜151・152〜153・154〜155・156〜157・158〜159・160〜161・162〜163・164〜165・166〜167・168〜169・170〜171・172〜173・174〜175・176〜177・178〜179・180〜181・182〜183・184〜185・186〜187・188〜189・190〜191・192〜193・194〜195・196〜197・198〜199・200〜201・202〜203・204〜205・206〜207・208〜209・210〜211・212〜213・214〜215・216〜217・218〜219・220〜221</td><td>2 バイト・×0.00015 V</td></tr>
+</tbody></table></div></details>
+<details><summary>やり取りの例（ATSH・ATCRA・22202A）</summary>
+<pre><code>&gt; ATSH18DA01F1
+OK
+&gt; ATCRA18DAF101
+OK
+&gt; ATFCSH18DA01F1
+OK
+&gt; ATFCSD300000
+OK
+&gt; ATFCSM1
+OK
+&gt; 22202A
+18 DA F1 01 10 F6 62 20 2A 38 03 3D 
+18 DA F1 01 21 FC C3 FF FF FD 01 E1 
+18 DA F1 01 22 FC 3C 03 33 FE B3 30 
+18 DA F1 01 23 0C 00 00 00 03 F0 00 
+…（全 36 枠）
+18 DA F1 01 23 00 00 55 55 55 55 55</code></pre>
+<p><code>10 F6</code>＝first frame（長さ 0x0F6＝246 バイト）。<code>62 20 2A</code>＝肯定応答と DID。<code>21</code>〜＝consecutive frame の通し番号。</p>
+</details>
+<details><summary>Python の例（TCP 35000 の中継で読む）</summary>
+<pre><code>import re, socket
+
+def ask(s, cmd, wait=8.0):
+    s.sendall((cmd + &quot;\r&quot;).encode())
+    s.settimeout(wait)
+    buf = b&quot;&quot;
+    while not buf.rstrip().endswith(b&quot;&gt;&quot;):
+        buf += s.recv(4096)
+    return buf.decode(errors=&quot;replace&quot;)
+
+def payload(raw):
+    &quot;&quot;&quot;ISO-TP の枠を 1 つの応答に組み直す&quot;&quot;&quot;
+    fr = [[int(x, 16) for x in re.findall(r&quot;\b[0-9A-F]{2}\b&quot;, ln)[4:]]
+          for ln in raw.splitlines() if ln.startswith(&quot;18 DA&quot;)]
+    if fr[0][0] &gt;&gt; 4 == 0:
+        return fr[0][1:1 + (fr[0][0] &amp; 0x0F)]
+    n = ((fr[0][0] &amp; 0x0F) &lt;&lt; 8) | fr[0][1]
+    data = fr[0][2:]
+    for f in fr[1:]:
+        data += f[1:]
+    return data[:n]
+
+s = socket.create_connection((&quot;&lt;ESP32 の住所&gt;&quot;, 35000))
+for c in [&quot;ATE0&quot;, &quot;ATL0&quot;, &quot;ATS1&quot;, &quot;ATH1&quot;, &quot;ATTP7&quot;, &quot;ATSH18DA01F1&quot;, &quot;ATCRA18DAF101&quot;,
+          &quot;ATFCSH18DA01F1&quot;, &quot;ATFCSD300000&quot;, &quot;ATFCSM1&quot;]:
+    ask(s, c)
+p = payload(ask(s, &quot;22202A&quot;))
+assert p[0] == 0x62
+print(&quot;駆動用バッテリーの容量&quot;, round((p[170] &lt;&lt; 8 | p[171]) * 0.01, 2), &quot;Ah&quot;)</code></pre></details>
+<details><summary>使った物と公開情報</summary><ul>
+<li><b>MX+ 用</b>：ESP32（esp32dev）。ESPHome に自作の外部部品（SPP⇔TCP の中継・SSP の Just Works で組む）。</li>
+<li><b>CX 用</b>：ESP32-S3（PSRAM 8MB）。ESPHome に自作の外部部品（BLE⇔TCP の中継・自分読みと貯め・web で記録を渡す）。</li>
+<li><b>車の諸元</b>：Honda N-VAN e:（ZAB-JJ3）・駆動用バッテリー 29.6kWh・82.7Ah・358V（諸元表）・12V バッテリー 44B19L。</li>
+<li><b>公開例</b>：Clarity の利用者の公開（18DA01F1・22 202A・約 250 バイトに容量）。MX+ を ESP32 から読んだ公開例（ferdy-lw/bt-obd-gw）。</li>
+<li><b>進め方</b>：AI（Claude Code）が中継・解析・この頁を作り、別の AI が計画と差分をレビュー。人は車の操作と判断。</li>
+</ul></details>
+<p class="meta">この頁は make_report.py が辞書（sha256 の頭 a5f9481005ab）・CX の集計（0caa78ee7dd5）・生ログから作りました。</p>
+</main></body></html>

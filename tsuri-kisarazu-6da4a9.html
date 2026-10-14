@@ -45,14 +45,20 @@
   <tr><td>堤防</td><td>A〜D の 4 本（間は歩けない）。アジは A、シーバスは D。水深 2〜7m</td></tr>
 </table></div>
 
+<h2>手持ちを持って出る</h2>
+<div class="card"><ul class="chk" data-k="own">
+  <li><label><input type="checkbox"><span>竿とリール<span class="m">前夜にリールが回るか・糸の先が傷んでいないかを見る</span></span></label></li>
+  <li><label><input type="checkbox"><span>クーラーボックス</span></label></li>
+  <li><label><input type="checkbox"><span>ライフジャケット<span class="m">堤防では着用義務</span></span></label></li>
+</ul></div>
+
 <h2>釣具屋で買う</h2>
 <div class="card"><ul class="chk" data-k="shop">
-  <li><label><input type="checkbox"><span>竿とリールのセット（2.7〜3.6m の万能竿か磯竿、糸付き）<span class="m">手持ちがあれば不要。サビキとジグ兼用にするなら 3m 前後</span></span></label></li>
+  <li><label><input type="checkbox"><span>道糸（手持ちのリールの糸が古い・傷んでいる時だけ）<span class="m">先の数 m がザラついていたら巻き替える</span></span></label></li>
   <li><label><input type="checkbox"><span>投げサビキ仕掛け 5〜6 号を 3〜4 組 <span class="g">目安</span></span></label></li>
   <li><label><input type="checkbox"><span>サビキ用のカゴと錘 8〜10 号 <span class="g">目安</span></span></label></li>
   <li><label><input type="checkbox"><span>メタルジグ 20〜40g を 2〜3 本・バイブレーション 1 本 <span class="g">目安</span><span class="m">根掛かりで無くす前提で予備も</span></span></label></li>
   <li><label><input type="checkbox"><span>アミエビ（解凍済みかチューブ）<span class="m">1 日分なので多めに。木更津の釣具屋で前日か当朝に買う</span></span></label></li>
-  <li><label><input type="checkbox"><span>ライフジャケット<span class="m">着用義務。持っていなければ船宿で借りられる（乗船時に申告）</span></span></label></li>
   <li><label><input type="checkbox"><span>柄の長いタモ網<span class="m">足元から海面まで高い。同行者と 1 本で足りる</span></span></label></li>
 </ul></div>
 
@@ -63,7 +69,6 @@
   <li><label><input type="checkbox"><span>ヘッドライト＋電池<span class="m">日の出前の船に乗るなら要る</span></span></label></li>
   <li><label><input type="checkbox"><span>軍手かフィッシンググローブ</span></label></li>
   <li><label><input type="checkbox"><span>タオル 2 枚・ゴミ袋・ジップ袋</span></label></li>
-  <li><label><input type="checkbox"><span>保冷剤（クーラーが無ければ発泡スチロールの箱）</span></label></li>
   <li><label><input type="checkbox"><span>折りたたみの椅子</span></label></li>
   <li><label><input type="checkbox"><span>日焼け止め・帽子</span></label></li>
 </ul></div>
@@ -92,8 +97,9 @@
   var boxes = Array.prototype.slice.call(document.querySelectorAll("ul.chk input"));
   var saved = {};
   try { saved = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { saved = {}; }
-  boxes.forEach(function(b, i){
-    var id = b.closest("ul").dataset.k + i;
+  boxes.forEach(function(b){
+    // 印の鍵は「欄の名＋その欄の中の行の文」＝行を足し引きしても他の行の印がずれない
+    var id = b.closest("ul").dataset.k + ":" + b.nextElementSibling.firstChild.textContent;
     b.checked = !!saved[id];
     b.addEventListener("change", function(){
       saved[id] = b.checked;

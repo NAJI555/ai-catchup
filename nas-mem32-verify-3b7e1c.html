@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>NAS メモリ 32GB 裏取り</title>
+<style>
+:root{
+  --bg:#f6f4ef; --fg:#1f2328; --mute:#5c6470; --line:#d9d4c7; --card:#ffffff;
+  --ok:#1f7a4d; --ok-bg:#e3f3ea; --ng:#b3412a; --ng-bg:#fbe8e2; --warn:#9a6b00; --warn-bg:#fff3d6;
+  --accent:#1e5aa8; --accent-bg:#e4edf9; --step:#cfd8e3; --step-on:#1e5aa8;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#15181c; --fg:#e8e6e1; --mute:#a3a9b3; --line:#343a42; --card:#1e2228;
+  --ok:#6fd39a; --ok-bg:#15301f; --ng:#f08b6e; --ng-bg:#3a1f17; --warn:#f0c15a; --warn-bg:#3a2e10;
+  --accent:#7fb0f0; --accent-bg:#1a2b44; --step:#2c3440; --step-on:#7fb0f0; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#15181c; --fg:#e8e6e1; --mute:#a3a9b3; --line:#343a42; --card:#1e2228;
+  --ok:#6fd39a; --ok-bg:#15301f; --ng:#f08b6e; --ng-bg:#3a1f17; --warn:#f0c15a; --warn-bg:#3a2e10;
+  --accent:#7fb0f0; --accent-bg:#1a2b44; --step:#2c3440; --step-on:#7fb0f0; color-scheme:dark }
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Yu Gothic UI","Noto Sans JP",system-ui,sans-serif;font-size:16px;line-height:1.6;padding:0 16px;padding-block:20px 48px}
+main{max-width:860px;margin:0 auto;display:grid;gap:22px}
+h1{font-size:1.35rem;margin:0 0 4px;text-wrap:balance}
+h2{font-size:1.05rem;margin:0 0 10px;color:var(--accent);letter-spacing:.02em}
+.sub{color:var(--mute);font-size:.9rem;margin:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+.tag{display:inline-block;font-size:.78rem;font-weight:700;padding:2px 10px;border-radius:999px;margin-bottom:6px;letter-spacing:.04em}
+.ok .tag{background:var(--ok-bg);color:var(--ok)} .ng .tag{background:var(--ng-bg);color:var(--ng)} .warn .tag{background:var(--warn-bg);color:var(--warn)} .info .tag{background:var(--accent-bg);color:var(--accent)}
+.card p{margin:4px 0}
+.big{font-size:1.1rem;font-weight:700}
+details{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+summary{cursor:pointer;color:var(--accent);font-size:.92rem}
+blockquote{margin:8px 0;padding:8px 12px;border-left:3px solid var(--line);color:var(--mute);font-size:.9rem;overflow-wrap:anywhere}
+a{color:var(--accent)}
+/* 速度の階段 */
+.ladder{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;margin-top:10px}
+.rung{min-width:0;text-align:center;font-size:.8rem;font-variant-numeric:tabular-nums}
+.rung .bar{background:var(--step);border-radius:6px 6px 0 0;margin:0 auto 4px;width:100%}
+.rung.on .bar{background:var(--step-on)}
+.rung .lbl{display:block;font-weight:700}
+.rung .note{display:block;color:var(--mute);font-size:.7rem;line-height:1.25;min-height:2.6em}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.85rem;color:var(--mute);margin-top:10px}
+.legend b{color:var(--fg)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+ul{margin:6px 0 0;padding-left:1.2em} li{margin:3px 0}
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.steps li{display:grid;grid-template-columns:2.2em 1fr;gap:8px;align-items:start}
+.steps .n{background:var(--accent-bg);color:var(--accent);font-weight:700;border-radius:8px;text-align:center;padding:2px 0;font-variant-numeric:tabular-nums}
+.src{font-size:.85rem;color:var(--mute)} .src li{overflow-wrap:anywhere}
+table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top} th{background:var(--accent-bg)}
+.tbl{overflow-x:auto}
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <h1>NAS のメモリ 32GB：「3200 の品を 2400〜2666 で使う」の裏取り</h1>
+  <p class="sub">UGREEN DXP4800 GT（AMD R2514）× Crucial CT32G4SFD832A 32GB×2 ／ 2026-10-19 07:50 JST ／ 一次資料の原文は repo の <code>nas/調査_20261018_32GBメモリ/verify_01_*.md</code></p>
+</header>
+
+<section class="cards">
+  <div class="card ok"><span class="tag">妥当</span><p class="big">3200 の品を 2400〜2666 に固定して使うのは技術的に正しい</p><p>根拠 3 本（AMD・Crucial・Micron）を一次資料の原文で確認。</p></div>
+  <div class="card ng"><span class="tag">取り下げ 1 件</span><p class="big">「GT は 3200 で動かす」（ComputerBase）は根拠なし</p><p>実測 2 件（別の実機・この NAS）は 2667。計画の「3200 で学習して失敗」は推測に格下げ。</p></div>
+  <div class="card info"><span class="tag">次</span><p class="big">BIOS の設定で速度を 2400→2666 に固定して試す</p><p>計画は変更なし。NJ の手 1 回・60〜75 分・「やろう」で開始。</p></div>
+</section>
+
+<section class="card">
+  <h2>速度の階段で見る</h2>
+  <p class="sub">DDR4 の速度の段（MT/s）。青＝この NAS で使える段。</p>
+  <div class="ladder">
+    <div class="rung on"><div class="bar" style="height:22px"></div><span class="lbl">1600</span><span class="note"></span></div>
+    <div class="rung on"><div class="bar" style="height:30px"></div><span class="lbl">1866</span><span class="note"></span></div>
+    <div class="rung on"><div class="bar" style="height:38px"></div><span class="lbl">2133</span><span class="note">純正 8GB の JEDEC 標準</span></div>
+    <div class="rung on"><div class="bar" style="height:46px"></div><span class="lbl">2400</span><span class="note">設定の本命（組 A）</span></div>
+    <div class="rung on"><div class="bar" style="height:54px"></div><span class="lbl">2666</span><span class="note">AMD の上限 2667／純正 8GB の実測／組 B</span></div>
+    <div class="rung"><div class="bar" style="height:62px"></div><span class="lbl">2933</span><span class="note">上限の外</span></div>
+    <div class="rung"><div class="bar" style="height:70px"></div><span class="lbl">3200</span><span class="note">Crucial の札（SPD）</span></div>
+  </div>
+  <div class="legend">
+    <span><b>AMD</b>：R2514 の最大 DDR4 ＝ 2,667 MT/s</span>
+    <span><b>Crucial</b>：速い品を遅い機械に挿すと一番遅い物の速度で動く</span>
+    <span><b>Micron</b>：3200 のビンは 1600〜2933 の全段に後方互換</span>
+  </div>
+</section>
+
+<section>
+  <h2>根拠 3 本（一次資料・原文）</h2>
+  <div class="cards">
+    <div class="card ok"><span class="tag">AMD</span><p class="big">R2514 の Max DDR4 Rate ＝ 2,667 MT/s</p><p>製品概要 PDF の表。3,200 は上位の R2544。この NAS の設計の上限は元々 2667。</p>
+      <details><summary>表の行</summary><blockquote>Max DDR4 Rate MT/s (up to)：R2544** … 3,200 ／ R2514** … 2,667 ／ **Pre-production OPNs</blockquote><p class="src"><a href="https://www.amd.com/content/dam/amd/en/documents/products/embedded/ryzen/r2000-product-brief.pdf">AMD Ryzen Embedded R2000 Series Product Brief（PDF）</a></p></details></div>
+    <div class="card ok"><span class="tag">Crucial 公式</span><p class="big">速い品を足しても安全・一番遅い物の速度で動く</p><p>モジュールを作った会社の公式サポート頁。</p>
+      <details><summary>原文</summary><blockquote>Memory is designed to be backward compatible within its generation, so generally speaking, you can safely add faster memory to a computer that was designed to run slower memory. However, your system will operate at the speed of the slowest memory module installed.</blockquote><p class="src"><a href="https://www.crucial.com/support/memory-speeds-compatability">RAM Memory Speeds And Compatibility | crucial.com</a></p></details></div>
+    <div class="card ok"><span class="tag">Micron（部品）</span><p class="big">3200 のビン（-062E）は遅いビン全部に yes</p><p>Crucial の中身は Micron 16Gb DDR4。データシート Table 151「Backward Compatibility」。</p>
+      <details><summary>原文と注</summary><blockquote>Table 151: Backward Compatibility — Component Speed Bin -062E（3200）の行：-125（1600）〜-068E（2933）すべて yes。<br>Note 2: This condition exceeds the JEDEC requirement… However, JEDEC SPD compliance may force modules to only support the JEDEC-defined value.</blockquote><p>注 2 の意味：モジュールの SPD が JEDEC の定義した値に絞る事はある→2400・2666 は JEDEC の標準の段なので問題にならない。</p><p class="src"><a href="https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/8827/16gb-ddr4-sdram.pdf">Micron 16Gb: x4, x8, x16 DDR4 SDRAM — Rev. H 8/2021（Digi-Key の写し・PDF 12MB）</a></p></details></div>
+  </div>
+</section>
+
+<section class="card ng">
+  <span class="tag">取り下げ</span>
+  <h2>「GT の BIOS は 3200 の品を 3200 で学習する」は裏が取れなかった</h2>
+  <div class="tbl"><table>
+    <tr><th>言っている物</th><th>中身</th><th>根拠</th></tr>
+    <tr><td>ComputerBase（独・レビュー）</td><td>「8GB の品を UGREEN は 3,200 MHz で動かしている・AMD の公称より速い」</td><td><b>部品名なし・BIOS の画面なし</b>＝文だけ</td></tr>
+    <tr><td>Mighty Gadget（英・DXP2800 GT）</td><td>BIOS Main の写真「8192MB of DDR4 running at 2667 MT/s」</td><td>写真あり</td></tr>
+    <tr><td><b>この NAS</b>（2026-10-18 17:28）</td><td>BIOS Main：Total Memory 8192MB・Memory Speed 2667MHz（純正 8GB）</td><td>自分の機械の実測</td></tr>
+  </table></div>
+  <p>→ Crucial が「3200 で学習して失敗」しているのか「2667 で学習して別の理由で失敗」しているのかは<b>分からない</b>。ただし速度を下げる試しは、どちらでも「学習の条件を AMD の公称（2667）の中へ寄せる」向きなので価値は残る。</p>
+  <details><summary>原文</summary><blockquote>…einer mit einem 8-GB-Modul belegt ist, das Ugreen mit 3.200 MHz ansteuert, also schneller als AMDs offizielle Spezifikationen…</blockquote><p class="src"><a href="https://www.computerbase.de/artikel/storage/ugreen-dxp4800-gt-dxp2800-gt-test.97532/">ComputerBase: Ugreen DXP4800 GT &amp; DXP2800 GT im Test</a> ／ <a href="https://mightygadget.com/ugreen-dxp2800-gt-nas-review/">Mighty Gadget: UGREEN DXP2800 GT review</a></p></details>
+</section>
+
+<section class="two">
+  <div class="card ok"><span class="tag">分かっている事</span>
+    <ul>
+      <li>Crucial 32GB は 1 枚でも 2 枚でも、どちらの口でも<b>メモリ学習で止まる</b>（再現＝系統的・不良ではない）。純正 8GB は両方の口で起動。</li>
+      <li>GT の公式対応表（機種名で引いた一覧）に <b>Kimtigo 32GB・2666</b> が載る＝この BIOS は 2666 の SPD の 32GB を学習できる。</li>
+      <li>同じ核（Picasso）の DeskMini A300M で Crucial 32GB×2（2666 版）＝64GB の実機。Beelink SER3 で 3200 の 32GB×2 が「2666 でしか起動しない」実機。</li>
+      <li>AGESA 1.0.0.7 は AMD の最新。UGREEN は BIOS を配っていない。</li>
+    </ul></div>
+  <div class="card warn"><span class="tag">分からない事</span>
+    <ul>
+      <li>この NAS が Crucial を<b>何 MT/s で学習しようとして</b>失敗しているか（3200 か 2667 か）。</li>
+      <li>GT で 64GB（32GB×2）が見えた実機の<b>型番</b>（reddit の「64GB ECC」は型番なし）。</li>
+      <li>AMD CBS の中の実際の項目（機械を開けないと見えない）。</li>
+      <li>設定で直る種類の失敗か（信号・タイミングの余裕）、直らない種類か（16Gb のアドレス構成等）＝試すまで分からない。</li>
+    </ul></div>
+</section>
+
+<section class="card info">
+  <span class="tag">次の手</span>
+  <h2>BIOS の設定で試す（NJ の手 1 回・60〜75 分・計画は変更なし）</h2>
+  <ol class="steps">
+    <li><span class="n">0</span><span>AI が NAS を止める（LAN から消える）</span></li>
+    <li><span class="n">1</span><span>電源→Ctrl+F12→Enter Setup→Advanced→WatchDog の写真→Ctrl+F1→Crb Advanced→AMD CBS→UMC→DDR4。<b>変える前の各画面を写真</b>（戻す時の正本）</span></li>
+    <li><span class="n">2</span><span>組 A＝<b>Memory Clock Speed だけ 1200（＝2400）</b>。値と単位は写真で AI が読んでから選ぶ。他は触らない</span></li>
+    <li><span class="n">3</span><span>F10→起動中に Ctrl+F12→Main の Memory Speed が新しい値の写真→UGOS 起動→AI が確認→電源ケーブルを抜いて 30 秒→冷間の起動も通る事</span></li>
+    <li><span class="n">4</span><span>8GB を外し 32GB「1」を下の段→電源→<b>テレビを見る</b>→ブザー 2 回でも 5 分待つ→起動＝合格</span></li>
+    <li><span class="n">5</span><span>合格なら AI が <code>free -m</code>（約 31,000MB＝解けた／約 15,500MB＝16GB 扱い）。失敗なら組 B＝1333（＝2666）、時間が残れば組 C＝1066（＝2133）・2 組まで</span></li>
+    <li><span class="n">6</span><span>32GB×1 が通ったら 2 枚目を上の段→BIOS と OS の両方で容量→3 回の再起動と memtester</span></li>
+    <li><span class="n">7</span><span>通らない時：8GB に戻し、写真どおりに<b>手で元の値へ</b>（F9 は使わない）→F10→UGOS</span></li>
+  </ol>
+  <details><summary>残る危険 1 つと戻し方（R1〜R4）</summary>
+    <p>最初の F10 の後に 8GB でも起動しなくなる経路は完全には消せない（設定の経路の不具合・単位の読み違い等）。データは HDD にあって無事（BIOS の設定はディスクに触らない）。</p>
+    <div class="tbl"><table>
+      <tr><th>段</th><th>手</th><th>確度・費用</th></tr>
+      <tr><td>R1</td><td>電気を抜いて自動の復帰を待つ（ケーブル抜き 1 分→電源ボタン 10 秒→ケーブル→電源→5 分待つ→Ctrl+F12 で入れたら写真どおりに手戻し）</td><td>3 割・5 分</td></tr>
+      <tr><td>R2</td><td>メモリを一度抜いて挿し直してから R1 をもう 1 回</td><td>5 分</td></tr>
+      <tr><td>R3</td><td>電池（CR2032）を外して出荷の値へ＝完全分解。1 段ずつ写真→AI が次を指す。半田なら R4</td><td>30〜60 分・保証に触る可能性</td></tr>
+      <tr><td>R4</td><td>UGREEN の修理（保証内）。その間は PC1 で続ける・HDD は手元に</td><td>送料・日数</td></tr>
+    </table></div>
+  </details>
+</section>
+
+<section class="card">
+  <h2>今のメモリを使う路線（買い替えは無し）</h2>
+  <ol class="steps">
+    <li><span class="n">1</span><span><b>BIOS の設定で通す</b>（上の次の手）</span></li>
+    <li><span class="n">2</span><span><b>UGREEN に BIOS を出させる</b>：箱の「最大 64GB」と DMI の「32GB」の矛盾・64GB を確認した型番・16Gb 密度の 32GB を通す設定を書面で要請（1 の結果を証拠に・同じ核の DeskMini A300 が 64GB 公式を添える）</span></li>
+    <li><span class="n">3</span><span>別の機械で使う（家の守りの 2 台目の機械を買う時に DDR4 SO-DIMM 32GB を受ける物を選ぶ）</span></li>
+    <li><span class="n">4</span><span>BIOS を自分で焼く＝最後の手・今は候補に置くだけ</span></li>
+  </ol>
+</section>
+
+<section class="card">
+  <h2>出典</h2>
+  <ul class="src">
+    <li>AMD Ryzen Embedded R2000 Series Product Brief（PDF）— <a href="https://www.amd.com/content/dam/amd/en/documents/products/embedded/ryzen/r2000-product-brief.pdf">amd.com</a>（取得 2026-10-19）</li>
+    <li>Crucial「RAM Memory Speeds And Compatibility」— <a href="https://www.crucial.com/support/memory-speeds-compatability">crucial.com</a>（取得 2026-10-19）</li>
+    <li>Micron「16Gb: x4, x8, x16 DDR4 SDRAM」Rev. H 8/2021 — <a href="https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/8827/16gb-ddr4-sdram.pdf">Digi-Key の写し</a>（取得 2026-10-19）</li>
+    <li>ComputerBase「Ugreen DXP4800 GT &amp; DXP2800 GT im Test」— <a href="https://www.computerbase.de/artikel/storage/ugreen-dxp4800-gt-dxp2800-gt-test.97532/">computerbase.de</a></li>
+    <li>Mighty Gadget「UGREEN DXP2800 GT NAS Review」（2026-06-08）— <a href="https://mightygadget.com/ugreen-dxp2800-gt-nas-review/">mightygadget.com</a></li>
+    <li>UGREEN 対応表（機種名で絞った API の生データ）・Fable の先端調査 3 本・reddit の抜粋 — repo <code>nas/調査_20261018_32GBメモリ/</code></li>
+    <li>DeskMini A300M＋3400G＋Crucial 32GB×2＝64GB — <a href="https://eklausmeier.neocities.org/blog/2020/07-07-asrock-deskmini-a300m-with-amd-ryzen-3400g/">eklausmeier（2020-07）</a>／Beelink SER3（3750H）32GB×2 は 2666 でのみ起動 — <a href="https://www.cnx-software.com/2021/10/21/beelink-ser3-review-a-good-amd-ryzen-7-mini-pc-after-tweaks/">CNX Software（2021-10）</a></li>
+  </ul>
+</section>
+
+</main>
+</body>
+</html>

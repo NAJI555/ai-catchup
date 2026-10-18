@@ -17,6 +17,7 @@
 | `diy-stair-buy-7c91f2.html` | 購入部材リスト・切り出し割付（モバイル版） | 2026-07-12 | `NJ_Life_with_AI/projects/DIY/2段ベッド階段/購入部材リストと切り出し割付.md` |
 | `diy-stair-cut-7c91f2.html` | 切断寸法表（モバイル版） | 2026-07-12 | `NJ_Life_with_AI/projects/DIY/2段ベッド階段/切断寸法表.md` |
 | `diy-stair-build-7c91f2.html` | 組立手順書（モバイル版） | 2026-07-12 | `NJ_Life_with_AI/projects/DIY/2段ベッド階段/組立手順書.md` |
+| `nas-mem32-verify-3b7e1c.html` | NAS（DXP4800 GT）のメモリ 32GB：「3200 の品を 2400〜2666 で使う」の裏取りの結果と BIOS の設定で試す計画（NJ 向けの絵と札・原文は畳む） | 2026-10-19 | `NJ_Life_with_AI/projects/AI環境/PC1_vLLM互換Qwen環境/nas/32GBメモリ_裏取りと計画.html` |
 | `fn-gummy-check-707311.html` | フォートナイト「精霊コレクション」所持チェックリスト（21キャラ×最大6変異＝91体・2人分・キャラ画像付きタイルギャラリー） | 2026-07-25（同日中に3回更新：グミ18種→マトリクス→全91体タイルギャラリー+画像統合・同一ファイル名を維持） | `NJ_Life_with_AI/projects/ゲーム/フォートナイト_グミ精霊チェックリスト/グミ精霊チェックリスト.html` |
 
 ## noindex確認

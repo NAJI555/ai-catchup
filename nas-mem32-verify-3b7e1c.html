@@ -156,6 +156,52 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
 </section>
 
 <section class="card">
+  <h2>当日の手順（NJ の手・1 画面ずつ・10/18 に見た画面から書いた）</h2>
+  <p class="sub">合図「やろう」→ AI が NAS を止める → ここから。所要 60〜75 分。<b>AI とは写真でやりとり</b>（画面を撮って送る→AI が値を読んで次を指す）。10/18 に見ていない画面（AMD CBS の中）は推測で書かず「写真→AI が指す」にしてある。</p>
+
+  <div class="cards">
+    <div class="card info"><span class="tag">用意する物</span>
+      <ul>
+        <li>テレビ（HDMI）と有線の USB キーボード＝10/18 のまま繋いだままなら OK</li>
+        <li>スマホ（写真を撮って送る）</li>
+        <li>Crucial 32GB 2 枚にテープで「1」「2」と番号を書く（どちらを挿したか記録するため）</li>
+        <li>裏フタのドライバー（付属品）</li>
+        <li>続けて取れる時間 45 分以上（日曜 09:30 のような予定をまたがない）</li>
+      </ul></div>
+    <div class="card warn"><span class="tag">時間の決まり</span>
+      <ul>
+        <li><b>BIOS の中に時間の制限はない</b>：10/18 に 10 分いて勝手に再起動しなかった（WatchDog は既定 Disabled）。ただし他の個体で WatchDog が Enabled だと 180 秒で再起動する報告があるので、画面 3 で Disabled を写真で確かめる。</li>
+        <li><b>NJ の時間が切れた時（10/18 の「時間切れ」と同じ）</b>：<br>・まだ F10 で保存していない → Esc で上の階層へ戻り、Save &amp; Exit のタブ →「Discard Changes and Exit」＝変えた物を捨てて抜ける。8GB のまま起動する。何も壊れない。<br>・F10 で保存した後 → 必ず画面 10（手で元の値に戻す）までやってから抜ける。<b>途中の値で放置しない</b>。<br>・<b>32GB を挿したまま止めない</b>＝終わる時は 8GB に戻して起動を見てから。</li>
+        <li>迷ったら手を止めて写真を送る。推測で押さない。</li>
+      </ul></div>
+  </div>
+
+  <ol class="steps" style="margin-top:12px">
+    <li><span class="n">1</span><span><b>電源を入れて BIOS に入る（2 分）</b>：電源ボタン → テレビに何か出たら <b>Ctrl+F12 を連打</b> → 「Please select boot device」の一覧が出る → <b>Enter Setup</b> を選んで Enter → 青い BIOS の画面（Main タブ）。※出ずに UGOS が起動してしまったら、AI に言って止めてもらい、もう 1 回。</span></li>
+    <li><span class="n">2</span><span><b>Main を写真（1 分）</b>：Total Memory 8192MB・Memory Speed 2667MHz が見える画面。これが「変える前」の記録。</span></li>
+    <li><span class="n">3</span><span><b>Advanced タブ → WatchDog Settings（2 分）</b>：→キーで Advanced へ → WatchDog Settings を選んで Enter → <b>写真</b>。Disabled なら Esc で戻る。Enabled なら AI に写真を送って指示を待つ（先に Disabled にする）。</span></li>
+    <li><span class="n">4</span><span><b>隠れた項目を出す（1 分）</b>：Advanced タブのまま <b>Ctrl+F1</b> → 一覧に AMD PBS／Crb Advanced／OEM BIOS VERSION が増える → <b>写真</b>。</span></li>
+    <li><span class="n">5</span><span><b>Crb Advanced → AMD CBS（2 分）</b>：Crb Advanced を選んで Enter → 一覧の下の方に <b>AMD CBS</b> → Enter → <b>ここから先は 10/18 に見ていない画面</b>。入ったらまず<b>写真</b>→AI が次に選ぶ項目を指す（見込み：UMC Common Options → DDR4 Common Options）。</span></li>
+    <li><span class="n">6</span><span><b>変える前の値を全部写真（5 分）</b>：DDR4 Common Options の中の画面を、スクロールして<b>全部</b>撮る（Memory Clock Speed・Enforce POR・Overclock・DRAM Timing など）。この写真が「戻す時の正本」。<b>まだ何も変えない</b>。</span></li>
+    <li><span class="n">7</span><span><b>速度を 1 つだけ変える（5 分）</b>：AI が写真を読んで「どの項目をどの値に」を言う（本命＝Memory Clock Speed を <b>1200</b>＝2400 MT/s の意味。画面の数字は半分の表示なので <b>AI が確認してから</b>選ぶ）。他の項目は触らない。変えた後を<b>写真</b>。※「Accept／Decline」の注意書きが出たら Accept。</span></li>
+    <li><span class="n">8</span><span><b>保存して確かめる（10 分）</b>：<b>F10</b> → Yes → 再起動 → 画面が出たらまた <b>Ctrl+F12 連打</b> → Enter Setup → Main の <b>Memory Speed が新しい値（2400）になっている写真</b> → Esc → Save &amp; Exit → Exit（保存せず抜ける）→ UGOS が起動 → AI が ssh で確認 → AI が止める → <b>電源ケーブルを抜いて 30 秒</b> → 挿して電源 → 起動すれば OK（冷間の起動も通る確認）。</span></li>
+    <li><span class="n">9</span><span><b>32GB を 1 枚挿す（10 分）</b>：AI が止める → 裏フタ → 8GB を外す → <b>32GB「1」を下の段</b> → 電源 → <b>テレビを見る</b>（何か文字が出たら写真）→ ブザー 2 回が鳴っても <b>5 分は待つ</b> → 起動した＝合格（AI が <code>free -m</code> で容量を見る）／5 分たっても画面もネットも出ない＝失敗 → 電源長押し（効かなければケーブル）。<br>失敗なら 8GB に戻して画面 1 から、値を <b>1333</b>（＝2666）でもう 1 回（組 B）。時間が残れば <b>1066</b>（＝2133・組 C）。<b>2 組まで</b>。</span></li>
+    <li><span class="n">10</span><span><b>通らなかった時：元に戻す（7 分）</b>：8GB に戻す → 画面 1 → 画面 5 の経路で DDR4 Common Options → <b>画面 6 の写真と同じ値に手で戻す</b>（F9「既定値に戻す」は使わない＝他の出荷値も消える恐れ）→ F10 → UGOS 起動 → AI が確認して終わり。</span></li>
+    <li><span class="n">11</span><span><b>通った時（10 分）</b>：AI が止める → 32GB「2」を上の段 → 電源 → BIOS の Main（Total Memory）を写真 → 抜けて UGOS → AI が容量を見る → その後の再起動 3 回と memtester は AI が後でやる。</span></li>
+  </ol>
+  <details><summary>キーの早見</summary>
+    <ul>
+      <li><b>Ctrl+F12</b>（電源を入れた直後に連打）＝起動メニュー「Please select boot device」</li>
+      <li><b>Enter Setup</b>＝BIOS に入る</li>
+      <li><b>←→</b>＝タブの移動（Main／Advanced／Chipset／Security／Boot／Save &amp; Exit）、<b>↑↓</b>＝項目、<b>Enter</b>＝開く・選ぶ、<b>Esc</b>＝1 つ戻る</li>
+      <li><b>Ctrl+F1</b>（Advanced タブで）＝隠れた項目（AMD PBS／Crb Advanced／OEM）を出す</li>
+      <li><b>F10</b>＝保存して再起動（Yes で確定）。<b>F9 は押さない</b>。</li>
+      <li>Save &amp; Exit タブ →「Discard Changes and Exit」＝変えた物を捨てて抜ける（時間切れの時はこれ）</li>
+    </ul>
+  </details>
+</section>
+
+<section class="card">
   <h2>今のメモリを使う路線（買い替えは無し）</h2>
   <ol class="steps">
     <li><span class="n">1</span><span><b>BIOS の設定で通す</b>（上の次の手）</span></li>

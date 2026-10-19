@@ -66,18 +66,19 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
 <section class="card">
   <h2>ざっくり言うと（素人向け）</h2>
   <ul>
-    <li><b>何が起きている？</b> 新しいメモリを挿すと、NAS が起動の最初の「メモリとの握手（学習）」でつまずいて、先に進めない。メモリ 2 枚とも・どちらの差し口でも同じ＝メモリの不良ではなく、<b>この NAS の BIOS（起動プログラム）がこの種類のメモリと握手できない</b>。</li>
-    <li><b>買ったメモリは間違いだった？</b> いいえ。速さ（3200）は NAS の上限（2667）より速いが、メモリは<b>遅い相手には遅く合わせる作り</b>（メーカー 3 社の公式資料で確認）。大きさ（32GB）も、同じ頭脳（CPU）を積んだ別の機械で動いている。</li>
-    <li><b>じゃあ原因は？</b> 握手のやり方を決める「手順書」が BIOS の中にある。今日、<b>NAS の BIOS を中から読み出して手順書を全部読んだ</b>。手順書には「2 段重ねの 32GB」の握手の仕方も書いてある＝「手順書に無いから無理」ではなかった。残るのは、手順書を実行する<b>AMD の非公開のプログラム</b>がこのメモリ（最新の大きなチップ 16 個）を扱えていない可能性＝ここは外から覗けない。</li>
-    <li><b>何ができる？</b> ①BIOS の設定で握手の<b>速さをわざと落とす</b>（2400→2133）。手順書を読んだので、どの画面でどの値にするかは全部分かっている。通る見込みは 3 割・壊す向きの変更ではない・NJ の手 60〜75 分。②UGREEN に「BIOS を直して」と頼む（前例が無いので見込み薄・でも材料は揃った）。</li>
-    <li><b>注意 1 つ</b>：NAS には「起動が 3 分止まったら勝手に再起動する番犬」が入っている（今日分かった）。試す前にこれを切る。終わったら戻す。</li>
+    <li><b>何が起きている？</b> 新しいメモリを挿すと、NAS が起動の最初の「メモリとの握手（学習）」でつまずいて、先に進めない。メモリ 2 枚とも・どちらの差し口でも同じ＝メモリの不良の可能性は低く（完全には消せない）、<b>この NAS の起動プログラム（BIOS）とこの種類のメモリの相性</b>を疑っている。</li>
+    <li><b>買ったメモリは間違いだった？</b> 速さ（3200）は NAS の上限（2667）より速いが、メモリは<b>遅い相手には遅く合わせる作り</b>（メーカー 3 社の公式資料で確認）＝速さの選び方は間違いではない。大きさ（32GB）は、同じ系統の頭脳（CPU）を積んだ<b>別の機械</b>では動いている（この NAS で動く証明ではない）。</li>
+    <li><b>じゃあ原因は？</b> 握手のやり方を決める「設定表」が BIOS の中にある。今日、<b>NAS の BIOS を中から読み出して（書き換えなし）設定表の大半を読めた</b>（一部は未解読）。表には「2 ランク（この 32GB の作り）」用の設定もあった＝「表に無いから無理」ではなさそう。残る候補は、表を実行する<b>AMD の非公開のプログラム</b>がこのメモリ（最新の大きなチップ 16 個）を扱えていない可能性（推測）。ほかの可能性も完全には消えていない。</li>
+    <li><b>何ができる？</b> ①BIOS の設定で握手の<b>速さをわざと落とす</b>（2400→2133）。設定表を読んだので、どの画面でどの値にするかは分かっている。理屈は通るが<b>成功率は数字で言えない（低め）</b>・壊す向きの変更ではないが「設定を保存した後に純正 8GB でも起動しない」という残る危険はゼロではない（戻し方は下）・NJ の手 75 分。②UGREEN に「この版で確かめた 64GB の構成・起動しない時の正式な戻し方・この Crucial への対応」を聞く（BIOS を配った前例は無い・材料は揃った）。</li>
+    <li><b>注意 1 つ</b>：NAS には「起動が 3 分止まったら勝手に再起動する番犬」の設定が入っている（今日分かった・握手の段階で実際に効いているかは未確認）。念のため試す前に切り、終わったら戻す。</li>
+    <li><b>NJ が決める事＝許容損失</b>：万一「設定を保存した後に純正 8GB でも起動しない」になった時、戻す手は「電気を抜いて待つ→挿し直す→電池を外す（完全分解・保証に触る）→UGREEN の修理」の順で、<b>最後は修理に出す事まで受け入れるか</b>。データは HDD にあり、NAS が止まる間は PC1 で続けられる。</li>
   </ul>
 </section>
 
 <section class="cards">
   <div class="card ok"><span class="tag">妥当</span><p class="big">3200 の品を 2400〜2666 に固定して使うのは技術的に正しい</p><p>根拠 3 本（AMD・Crucial・Micron）を一次資料の原文で確認。</p></div>
   <div class="card ng"><span class="tag">取り下げ 1 件</span><p class="big">「GT は 3200 で動かす」（ComputerBase）は根拠なし</p><p>実測 2 件（別の実機・この NAS）は 2667。計画の「3200 で学習して失敗」は推測に格下げ。</p></div>
-  <div class="card info"><span class="tag">次</span><p class="big">BIOS の設定で速度を 2400→2133 に固定して試す</p><p>通る見込みは <b>3 割程度（推測）</b>。壊す向きではないので試す価値は残る。NJ の手 1 回・60〜75 分・「やろう」で開始。</p></div>
+  <div class="card info"><span class="tag">次</span><p class="big">BIOS の設定で速度を 2400→2133 に固定して試す</p><p>成功率は<b>数字で言えない（低め）</b>。壊す向きではないので限定の試しの価値は残る。NJ の手 1 回・75 分・「やろう」で開始。</p></div>
 </section>
 
 <section class="card">
@@ -133,15 +134,14 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
       <li>AGESA 1.0.0.7 は AMD の最新。UGREEN は BIOS を配っていない。</li>
       <li><b>NAS の BIOS の中身を読んだ（10/19 12:45・書き込みなし）</b>：AMD CBS に Memory Clock Speed がある（DRAM Timing Configuration → I Accept → Overclock＝Enabled の下・表示は「1200MHz」）・今は Auto。学習のやり直し回数（Fail_CNT）は 5。<b>WatchDog は今 Enabled・180 秒</b>＝起動で止まると 3 分ごとに再起動する→試しの前に切る。BIOS は深圳の ODM 製（UGREEN に伝える名前＝プロジェクト JFP5TH01・版 IFP5N130）。</li>
       <li><b>広げた調査（10/19 12:05・Fable 2 本）</b>：Crucial の対応検索に UGREEN は無い（互換保証で Crucial に頼む線は無い）。UGREEN が BIOS を配った前例なし（持ち主「更新は OS だけ」）＝UGREEN に出させる路線は見込み薄。仕組みの上では核の限界ではなく、メモリの設定表（APCB）は BIOS の中の PSP 側にある。</li>
-      <li><b>設定表（APCB）を解読した（10/19 12:42）</b>：この NAS の表に<b>「2 ランクの 32GB」の行はある</b>（1 枚なら 2667 まで・2933/3200 は 1 ランクだけ）＝「表に無いから通らない」という線は消えた。Crucial（3200・2 ランク）は表どおり 2667 に落として学習されているはず。速度を 2400／2133 に下げると「gear-down 無し」の行に変わるだけなので、見込みは 3 割のまま。残る原因の候補は PSP 側の学習プログラム（ABL）の中＝BIOS の設定では触れない所。</li>
+      <li><b>設定表（APCB）を解読した（10/19 12:42）</b>：この NAS の表に<b>「2 ランクの 32GB」の行はある</b>（1 枚なら 2667 まで・2933/3200 は 1 ランクだけ）＝「表に無いから通らない」という線は消えた。Crucial（3200・2 ランク）は表どおり 2667 に落として学習されているはず。速度を 2400／2133 に下げると「gear-down 無し」の行に変わり、時間の余裕も増える（効くかは試すまで分からない）。残る原因の候補は PSP 側の学習プログラム（ABL）の中＝BIOS の設定では触れない所。</li>
       <li><b>追加調査（10/19 10:35・Fable 2 本）</b>：Crucial の SPD は 2666／2400／2133 の段も申告している（確度 中）。AMD の BIOS の「Auto」は CPU の上限で学習する実例ばかり→<b>この NAS は Crucial を既に 2667 で学習して失敗している読みが自然</b>＝「2666 に固定」は意味が薄い。GT で通った報告は全部 2666 定格の 8Gb 系の品で、2666 の 16GB ECC 1 枚が POST しない例もある。</li>
     </ul></div>
   <div class="card warn"><span class="tag">分からない事</span>
     <ul>
       <li>この NAS が Crucial を<b>何 MT/s で学習しようとして</b>失敗しているか（3200 か 2667 か）。</li>
       <li>GT で 64GB（32GB×2）が見えた実機の<b>型番</b>（reddit の「64GB ECC」は型番なし）。</li>
-      <li>AMD CBS の中の実際の項目（機械を開けないと見えない）。</li>
-      <li>設定で直る種類の失敗か（信号・タイミングの余裕→2400／2133 で通る）、直らない種類か（16Gb の密度・行列の構成・UGREEN 側の設定表＝速度では直らない）＝試すまで分からない。<b>通る見込みは 3 割程度（推測）</b>。</li>
+      <li>設定で直る種類の失敗か（信号・タイミングの余裕→2400／2133 で通る）、直らない種類か（16Gb の密度・行列の構成・UGREEN 側の設定表＝速度では直らない）＝試すまで分からない。<b>成功率は数字で言えない（低め・Astra の再レビューで「3 割」は根拠なしと撤回）</b>。</li>
       <li>同じ部品（CT32G4SFD832A）を同じ核の機械に挿した直接の実例は世界で 0 件。対応表の Kimtigo 32GB の中身（ランク・製造元）も未取得。</li>
     </ul></div>
 </section>
@@ -154,8 +154,8 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
     <li><span class="n">1</span><span>電源→Ctrl+F12→Enter Setup→Advanced→WatchDog の写真→Ctrl+F1→Crb Advanced→AMD CBS→UMC→DDR4。<b>変える前の各画面を写真</b>（戻す時の正本）</span></li>
     <li><span class="n">2</span><span>組 A＝<b>Memory Clock Speed だけ 1200（＝2400）</b>。値と単位は写真で AI が読んでから選ぶ。他は触らない</span></li>
     <li><span class="n">3</span><span>F10→起動中に Ctrl+F12→Main の Memory Speed が新しい値の写真→UGOS 起動→AI が確認→電源ケーブルを抜いて 30 秒→冷間の起動も通る事</span></li>
-    <li><span class="n">4</span><span>8GB を外し 32GB「1」を下の段→電源→<b>テレビを見る</b>→ブザー 2 回でも 5 分待つ→起動＝合格</span></li>
-    <li><span class="n">5</span><span>合格なら AI が <code>free -m</code>（約 31,000MB＝解けた／約 15,500MB＝16GB 扱い）。失敗なら組 B＝1066（＝2133）・2 組まで</span></li>
+    <li><span class="n">4</span><span>AI が止める→ケーブルを抜く→8GB を外し 32GB「1」を下の段→電源→<b>テレビを見る</b>→ブザー 2 回でも 5 分待つ（ブザーの時刻と間隔を記録）→起動＝合格</span></li>
+    <li><span class="n">5</span><span>合格なら AI が <code>free -m</code>（約 31,000MB＝解けた／約 15,500MB＝16GB 扱い）。失敗なら設定が残っているか確認→組 B＝1067MHz（＝2133）・2 組まで</span></li>
     <li><span class="n">6</span><span>32GB×1 が通ったら 2 枚目を上の段→BIOS と OS の両方で容量→3 回の再起動と memtester</span></li>
     <li><span class="n">7</span><span>通らない時：8GB に戻し、写真どおりに<b>手で元の値へ</b>（F9 は使わない）→F10→UGOS</span></li>
   </ol>
@@ -163,7 +163,7 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
     <p>最初の F10 の後に 8GB でも起動しなくなる経路は完全には消せない（設定の経路の不具合・単位の読み違い等）。データは HDD にあって無事（BIOS の設定はディスクに触らない）。</p>
     <div class="tbl"><table>
       <tr><th>段</th><th>手</th><th>確度・費用</th></tr>
-      <tr><td>R1</td><td>電気を抜いて自動の復帰を待つ（ケーブル抜き 1 分→電源ボタン 10 秒→ケーブル→電源→5 分待つ→Ctrl+F12 で入れたら写真どおりに手戻し）</td><td>3 割・5 分</td></tr>
+      <tr><td>R1</td><td>電気を抜いて自動の復帰を待つ（ケーブル抜き 1 分→電源ボタン 10 秒→ケーブル→電源→5 分待つ→Ctrl+F12 で入れたら写真どおりに手戻し）</td><td>確度は不明・5 分</td></tr>
       <tr><td>R2</td><td>メモリを一度抜いて挿し直してから R1 をもう 1 回</td><td>5 分</td></tr>
       <tr><td>R3</td><td>電池（CR2032）を外して出荷の値へ＝完全分解。1 段ずつ写真→AI が次を指す。半田なら R4</td><td>30〜60 分・保証に触る可能性</td></tr>
       <tr><td>R4</td><td>UGREEN の修理（保証内）。その間は PC1 で続ける・HDD は手元に</td><td>送料・日数</td></tr>
@@ -182,7 +182,7 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
         <li>スマホ（写真を撮って送る）</li>
         <li>Crucial 32GB 2 枚にテープで「1」「2」と番号を書く（どちらを挿したか記録するため）</li>
         <li>裏フタのドライバー（付属品）</li>
-        <li>続けて取れる時間 45 分以上（日曜 09:30 のような予定をまたがない）</li>
+        <li>続けて取れる時間 75 分（戻す時間を含む・予定をまたがない）</li>
       </ul></div>
     <div class="card warn"><span class="tag">時間の決まり</span>
       <ul>
@@ -195,15 +195,15 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
   <ol class="steps" style="margin-top:12px">
     <li><span class="n">1</span><span><b>電源を入れて BIOS に入る（2 分）</b>：電源ボタン → テレビに何か出たら <b>Ctrl+F12 を連打</b> → 「Please select boot device」の一覧が出る → <b>Enter Setup</b> を選んで Enter → 青い BIOS の画面（Main タブ）。※出ずに UGOS が起動してしまったら、AI に言って止めてもらい、もう 1 回。</span></li>
     <li><span class="n">2</span><span><b>Main を写真（1 分）</b>：Total Memory 8192MB・Memory Speed 2667MHz が見える画面。これが「変える前」の記録。</span></li>
-    <li><span class="n">3</span><span><b>Advanced タブ → WatchDog Settings（2 分）</b>：→キーで Advanced へ → WatchDog Settings を選んで Enter → <b>写真</b> → <b>Watch Dog Control を Disabled にする</b>（10/19 に NAS の BIOS の中身を読んだ結果、今は <b>Enabled・180 秒</b>＝起動の途中で止まると 180 秒で勝手に再起動する。試しの間だけ切る・終わったら Enabled に戻す）→ Esc で戻る。</span></li>
+    <li><span class="n">3</span><span><b>Advanced タブ → WatchDog Settings（2 分）</b>：→キーで Advanced へ → WatchDog Settings を選んで Enter → <b>写真</b> → <b>Watch Dog Control を Disabled にする</b>（10/19 に NAS の BIOS の中身を読んだ結果、今は <b>Enabled・180 秒</b>。握手の段階で効いているかは未確認＝念のため試しの間だけ切る・終わったら Enabled に戻す。<b>灰色で変えられない時はそのままにして写真</b>）→ Esc で戻る。</span></li>
     <li><span class="n">4</span><span><b>隠れた項目を出す（1 分）</b>：Advanced タブのまま <b>Ctrl+F1</b> → 一覧に AMD PBS／Crb Advanced／OEM BIOS VERSION が増える → <b>写真</b>。</span></li>
     <li><span class="n">5</span><span><b>Crb Advanced → AMD CBS → UMC Common Options → DDR4 Common Options（2 分）</b>：Crb Advanced を選んで Enter → 一覧の下の方に <b>AMD CBS</b> → Enter → <b>UMC Common Options</b> → Enter → <b>DDR4 Common Options</b> → Enter。中に「DRAM Timing Configuration」と「DRAM Controller Configuration」の 2 つがある → <b>写真</b>。（10/19 に NAS の BIOS の中身を読んで確かめた並び。）</span></li>
     <li><span class="n">6</span><span><b>DRAM Timing Configuration → 警告文 → I Accept（2 分）</b>：DRAM Timing Configuration を選んで Enter → AMD の長い警告文（保証の外になる、という定型文）が出る → 下の <b>「I Accept」</b> を選んで Enter → 「Overclock：Auto」だけが見える画面 → <b>写真</b>（変える前の値＝戻す時の正本）。<b>まだ何も変えない</b>。</span></li>
     <li><span class="n">7</span><span><b>速度を 1 つだけ変える（5 分）</b>：<b>Overclock</b> を Auto → <b>Enabled</b> にする → その下に <b>Memory Clock Speed</b>（今は Auto）と Tcl などのタイミングの行が現れる → Memory Clock Speed を Enter → 一覧（Auto／667MHz／800MHz／933MHz／1067MHz／<b>1200MHz</b>／1333MHz／…／2000MHz）から <b>1200MHz</b> を選ぶ（＝DDR4-2400 の意味・画面は MHz の表示）。Tcl 以下は Auto のまま・他は触らない → 変えた後を<b>写真</b>。</span></li>
     <li><span class="n">8</span><span><b>保存して確かめる（10 分）</b>：<b>F10</b> → Yes → 再起動 → 画面が出たらまた <b>Ctrl+F12 連打</b> → Enter Setup → Main の <b>Memory Speed が新しい値（2400）になっている写真</b> → Esc → Save &amp; Exit → Exit（保存せず抜ける）→ UGOS が起動 → AI が ssh で確認 → AI が止める → <b>電源ケーブルを抜いて 30 秒</b> → 挿して電源 → 起動すれば OK（冷間の起動も通る確認）。</span></li>
-    <li><span class="n">9</span><span><b>32GB を 1 枚挿す（10 分）</b>：AI が止める → 裏フタ → 8GB を外す → <b>32GB「1」を下の段</b> → 電源 → <b>テレビを見る</b>（AMI の表では画面は後の段で立つので<b>何も出ない見込み</b>・もし文字が出たら写真）→ <b>ブザーの回数を数える</b>（2 回の後に 4 回が来るか）→ ブザー 2 回が鳴っても <b>5 分は待つ</b>（BIOS は学習を 5 回やり直す設定・WatchDog は切ってあるので勝手な再起動は無い） → 起動した＝合格（AI が <code>free -m</code> で容量を見る）／5 分たっても画面もネットも出ない＝失敗 → 電源長押し（効かなければケーブル）。<br>失敗なら 8GB に戻して画面 1 から、値を <b>1066</b>（＝2133）でもう 1 回（組 B）。<b>2 組まで</b>。（1333＝2666 は Auto と同じ値になる見込みなので試しから外した）</span></li>
-    <li><span class="n">10</span><span><b>通らなかった時：元に戻す（7 分）</b>：8GB に戻す → 画面 1 → 画面 5 の経路で DDR4 Common Options → <b>画面 6 の写真と同じ値に手で戻す</b>（F9「既定値に戻す」は使わない＝他の出荷値も消える恐れ）→ F10 → UGOS 起動 → AI が確認して終わり。</span></li>
-    <li><span class="n">11</span><span><b>通った時（10 分）</b>：AI が止める → 32GB「2」を上の段 → 電源 → BIOS の Main（Total Memory）を写真 → 抜けて UGOS → AI が容量を見る → その後の再起動 3 回と memtester は AI が後でやる。</span></li>
+    <li><span class="n">9</span><span><b>32GB を 1 枚挿す（10 分）</b>：AI が止める → 裏フタ → 8GB を外す → <b>32GB「1」を下の段</b> → 電源 → <b>テレビを見る</b>（AMI の表では画面は後の段で立つので<b>何も出ない見込み</b>・もし文字が出たら写真）→ <b>ブザーの回数を数える</b>（2 回の後に 4 回が来るか）→ ブザー 2 回が鳴っても <b>5 分は待つ</b>（BIOS は学習を 5 回やり直す設定・WatchDog は切ってあるので勝手な再起動は無い） → 起動した＝合格（AI が <code>free -m</code> で容量を見る）／5 分たっても画面もネットも出ない＝失敗 → 電源長押し（効かなければケーブル）。<br>失敗なら AI が止める → ケーブルを抜く → 8GB に戻して画面 1 から → <b>まず画面 6〜7 の所で Overclock が Enabled・Memory Clock Speed が 1200MHz のままかを写真で確認</b>（BIOS は 5 回失敗すると設定を既定に戻す作りの可能性がある・戻っていたらそれ自体が記録）→ 値を <b>1067MHz</b>（＝2133）でもう 1 回（組 B）。<b>2 組まで</b>。（1333＝2666 は Auto と同じ値になる見込みなので試しから外した）</span></li>
+    <li><span class="n">10</span><span><b>通らなかった時：元に戻す（7 分）</b>：AI が止める → ケーブルを抜く → 8GB に戻す → 画面 1 → <b>戻すのは 3 つだけ・この順</b>：①画面 5〜6 の経路で Overclock の下の <b>Memory Clock Speed → Auto</b> ②<b>Overclock → Auto</b>（Clock は Overclock が Auto だと隠れるので先に Clock）③Advanced → WatchDog Settings → <b>Watch Dog Control → Enabled</b>。画面 3・6 の写真と同じになった事を確認（F9「既定値に戻す」は使わない＝他の出荷値も消える恐れ）→ F10 → UGOS 起動 → AI が確認して終わり。<b>8GB でも起動しない時は「戻し方 R1〜R4」</b>（上の畳んだ表）。</span></li>
+    <li><span class="n">11</span><span><b>通った時（10 分）</b>：AI がまず <code>free -m</code> で容量を見る（約 31,000MB なら OK／約 15,500MB＝半分なら 2 枚目へ進まず記録して止める）→ 通った直後は書き込みの仕事を止めて AI が memtester を先に → 問題なければ AI が止める → ケーブルを抜く → 32GB「2」を上の段 → 電源 → BIOS の Main（Total Memory）を写真 → <b>Watch Dog Control を Enabled に戻す</b>（速度の固定はそのまま）→ F10 → UGOS → AI が容量を見る → その後の再起動 3 回と memtester は AI が後でやる。</span></li>
   </ol>
   <details><summary>キーの早見</summary>
     <ul>

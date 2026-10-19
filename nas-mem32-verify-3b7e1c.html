@@ -66,7 +66,7 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
 <section class="cards">
   <div class="card ok"><span class="tag">妥当</span><p class="big">3200 の品を 2400〜2666 に固定して使うのは技術的に正しい</p><p>根拠 3 本（AMD・Crucial・Micron）を一次資料の原文で確認。</p></div>
   <div class="card ng"><span class="tag">取り下げ 1 件</span><p class="big">「GT は 3200 で動かす」（ComputerBase）は根拠なし</p><p>実測 2 件（別の実機・この NAS）は 2667。計画の「3200 で学習して失敗」は推測に格下げ。</p></div>
-  <div class="card info"><span class="tag">次</span><p class="big">BIOS の設定で速度を 2400→2666 に固定して試す</p><p>計画は変更なし。NJ の手 1 回・60〜75 分・「やろう」で開始。</p></div>
+  <div class="card info"><span class="tag">次</span><p class="big">BIOS の設定で速度を 2400→2133 に固定して試す</p><p>通る見込みは <b>3 割程度（推測）</b>。壊す向きではないので試す価値は残る。NJ の手 1 回・60〜75 分・「やろう」で開始。</p></div>
 </section>
 
 <section class="card">
@@ -75,9 +75,9 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
   <div class="ladder">
     <div class="rung on"><div class="bar" style="height:22px"></div><span class="lbl">1600</span><span class="note"></span></div>
     <div class="rung on"><div class="bar" style="height:30px"></div><span class="lbl">1866</span><span class="note"></span></div>
-    <div class="rung on"><div class="bar" style="height:38px"></div><span class="lbl">2133</span><span class="note">純正 8GB の JEDEC 標準</span></div>
+    <div class="rung on"><div class="bar" style="height:38px"></div><span class="lbl">2133</span><span class="note">組 B（保険）</span></div>
     <div class="rung on"><div class="bar" style="height:46px"></div><span class="lbl">2400</span><span class="note">設定の本命（組 A）</span></div>
-    <div class="rung on"><div class="bar" style="height:54px"></div><span class="lbl">2666</span><span class="note">AMD の上限 2667／純正 8GB の実測／組 B</span></div>
+    <div class="rung on"><div class="bar" style="height:54px"></div><span class="lbl">2666</span><span class="note">AMD の上限 2667／純正 8GB の実測／Auto はたぶんここ</span></div>
     <div class="rung"><div class="bar" style="height:62px"></div><span class="lbl">2933</span><span class="note">上限の外</span></div>
     <div class="rung"><div class="bar" style="height:70px"></div><span class="lbl">3200</span><span class="note">Crucial の札（SPD）</span></div>
   </div>
@@ -120,13 +120,15 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
       <li>GT の公式対応表（機種名で引いた一覧）に <b>Kimtigo 32GB・2666</b> が載る＝この BIOS は 2666 の SPD の 32GB を学習できる。</li>
       <li>同じ核（Picasso）の DeskMini A300M で Crucial 32GB×2（2666 版）＝64GB の実機。Beelink SER3 で 3200 の 32GB×2 が「2666 でしか起動しない」実機。</li>
       <li>AGESA 1.0.0.7 は AMD の最新。UGREEN は BIOS を配っていない。</li>
+      <li><b>追加調査（10/19 10:35・Fable 2 本）</b>：Crucial の SPD は 2666／2400／2133 の段も申告している（確度 中）。AMD の BIOS の「Auto」は CPU の上限で学習する実例ばかり→<b>この NAS は Crucial を既に 2667 で学習して失敗している読みが自然</b>＝「2666 に固定」は意味が薄い。GT で通った報告は全部 2666 定格の 8Gb 系の品で、2666 の 16GB ECC 1 枚が POST しない例もある。</li>
     </ul></div>
   <div class="card warn"><span class="tag">分からない事</span>
     <ul>
       <li>この NAS が Crucial を<b>何 MT/s で学習しようとして</b>失敗しているか（3200 か 2667 か）。</li>
       <li>GT で 64GB（32GB×2）が見えた実機の<b>型番</b>（reddit の「64GB ECC」は型番なし）。</li>
       <li>AMD CBS の中の実際の項目（機械を開けないと見えない）。</li>
-      <li>設定で直る種類の失敗か（信号・タイミングの余裕）、直らない種類か（16Gb のアドレス構成等）＝試すまで分からない。</li>
+      <li>設定で直る種類の失敗か（信号・タイミングの余裕→2400／2133 で通る）、直らない種類か（16Gb の密度・行列の構成・UGREEN 側の設定表＝速度では直らない）＝試すまで分からない。<b>通る見込みは 3 割程度（推測）</b>。</li>
+      <li>同じ部品（CT32G4SFD832A）を同じ核の機械に挿した直接の実例は世界で 0 件。対応表の Kimtigo 32GB の中身（ランク・製造元）も未取得。</li>
     </ul></div>
 </section>
 
@@ -139,7 +141,7 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
     <li><span class="n">2</span><span>組 A＝<b>Memory Clock Speed だけ 1200（＝2400）</b>。値と単位は写真で AI が読んでから選ぶ。他は触らない</span></li>
     <li><span class="n">3</span><span>F10→起動中に Ctrl+F12→Main の Memory Speed が新しい値の写真→UGOS 起動→AI が確認→電源ケーブルを抜いて 30 秒→冷間の起動も通る事</span></li>
     <li><span class="n">4</span><span>8GB を外し 32GB「1」を下の段→電源→<b>テレビを見る</b>→ブザー 2 回でも 5 分待つ→起動＝合格</span></li>
-    <li><span class="n">5</span><span>合格なら AI が <code>free -m</code>（約 31,000MB＝解けた／約 15,500MB＝16GB 扱い）。失敗なら組 B＝1333（＝2666）、時間が残れば組 C＝1066（＝2133）・2 組まで</span></li>
+    <li><span class="n">5</span><span>合格なら AI が <code>free -m</code>（約 31,000MB＝解けた／約 15,500MB＝16GB 扱い）。失敗なら組 B＝1066（＝2133）・2 組まで</span></li>
     <li><span class="n">6</span><span>32GB×1 が通ったら 2 枚目を上の段→BIOS と OS の両方で容量→3 回の再起動と memtester</span></li>
     <li><span class="n">7</span><span>通らない時：8GB に戻し、写真どおりに<b>手で元の値へ</b>（F9 は使わない）→F10→UGOS</span></li>
   </ol>
@@ -185,7 +187,7 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
     <li><span class="n">6</span><span><b>変える前の値を全部写真（5 分）</b>：DDR4 Common Options の中の画面を、スクロールして<b>全部</b>撮る（Memory Clock Speed・Enforce POR・Overclock・DRAM Timing など）。この写真が「戻す時の正本」。<b>まだ何も変えない</b>。</span></li>
     <li><span class="n">7</span><span><b>速度を 1 つだけ変える（5 分）</b>：AI が写真を読んで「どの項目をどの値に」を言う（本命＝Memory Clock Speed を <b>1200</b>＝2400 MT/s の意味。画面の数字は半分の表示なので <b>AI が確認してから</b>選ぶ）。他の項目は触らない。変えた後を<b>写真</b>。※「Accept／Decline」の注意書きが出たら Accept。</span></li>
     <li><span class="n">8</span><span><b>保存して確かめる（10 分）</b>：<b>F10</b> → Yes → 再起動 → 画面が出たらまた <b>Ctrl+F12 連打</b> → Enter Setup → Main の <b>Memory Speed が新しい値（2400）になっている写真</b> → Esc → Save &amp; Exit → Exit（保存せず抜ける）→ UGOS が起動 → AI が ssh で確認 → AI が止める → <b>電源ケーブルを抜いて 30 秒</b> → 挿して電源 → 起動すれば OK（冷間の起動も通る確認）。</span></li>
-    <li><span class="n">9</span><span><b>32GB を 1 枚挿す（10 分）</b>：AI が止める → 裏フタ → 8GB を外す → <b>32GB「1」を下の段</b> → 電源 → <b>テレビを見る</b>（何か文字が出たら写真）→ ブザー 2 回が鳴っても <b>5 分は待つ</b> → 起動した＝合格（AI が <code>free -m</code> で容量を見る）／5 分たっても画面もネットも出ない＝失敗 → 電源長押し（効かなければケーブル）。<br>失敗なら 8GB に戻して画面 1 から、値を <b>1333</b>（＝2666）でもう 1 回（組 B）。時間が残れば <b>1066</b>（＝2133・組 C）。<b>2 組まで</b>。</span></li>
+    <li><span class="n">9</span><span><b>32GB を 1 枚挿す（10 分）</b>：AI が止める → 裏フタ → 8GB を外す → <b>32GB「1」を下の段</b> → 電源 → <b>テレビを見る</b>（何か文字が出たら写真）→ ブザー 2 回が鳴っても <b>5 分は待つ</b> → 起動した＝合格（AI が <code>free -m</code> で容量を見る）／5 分たっても画面もネットも出ない＝失敗 → 電源長押し（効かなければケーブル）。<br>失敗なら 8GB に戻して画面 1 から、値を <b>1066</b>（＝2133）でもう 1 回（組 B）。<b>2 組まで</b>。（1333＝2666 は Auto と同じ値になる見込みなので試しから外した）</span></li>
     <li><span class="n">10</span><span><b>通らなかった時：元に戻す（7 分）</b>：8GB に戻す → 画面 1 → 画面 5 の経路で DDR4 Common Options → <b>画面 6 の写真と同じ値に手で戻す</b>（F9「既定値に戻す」は使わない＝他の出荷値も消える恐れ）→ F10 → UGOS 起動 → AI が確認して終わり。</span></li>
     <li><span class="n">11</span><span><b>通った時（10 分）</b>：AI が止める → 32GB「2」を上の段 → 電源 → BIOS の Main（Total Memory）を写真 → 抜けて UGOS → AI が容量を見る → その後の再起動 3 回と memtester は AI が後でやる。</span></li>
   </ol>

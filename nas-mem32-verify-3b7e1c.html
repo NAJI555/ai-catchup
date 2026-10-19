@@ -121,7 +121,8 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
       <li>同じ核（Picasso）の DeskMini A300M で Crucial 32GB×2（2666 版）＝64GB の実機。Beelink SER3 で 3200 の 32GB×2 が「2666 でしか起動しない」実機。</li>
       <li>AGESA 1.0.0.7 は AMD の最新。UGREEN は BIOS を配っていない。</li>
       <li><b>NAS の BIOS の中身を読んだ（10/19 12:45・書き込みなし）</b>：AMD CBS に Memory Clock Speed がある（DRAM Timing Configuration → I Accept → Overclock＝Enabled の下・表示は「1200MHz」）・今は Auto。学習のやり直し回数（Fail_CNT）は 5。<b>WatchDog は今 Enabled・180 秒</b>＝起動で止まると 3 分ごとに再起動する→試しの前に切る。BIOS は深圳の ODM 製（UGREEN に伝える名前＝プロジェクト JFP5TH01・版 IFP5N130）。</li>
-      <li><b>広げた調査（10/19 12:05・Fable 2 本）</b>：Crucial の対応検索に UGREEN は無い（互換保証で Crucial に頼む線は無い）。UGREEN が BIOS を配った前例なし（持ち主「更新は OS だけ」）＝UGREEN に出させる路線は見込み薄。仕組みの上では核の限界ではなく、メモリの設定表（APCB）は BIOS の中の PSP 側にある→今それを解読中。</li>
+      <li><b>広げた調査（10/19 12:05・Fable 2 本）</b>：Crucial の対応検索に UGREEN は無い（互換保証で Crucial に頼む線は無い）。UGREEN が BIOS を配った前例なし（持ち主「更新は OS だけ」）＝UGREEN に出させる路線は見込み薄。仕組みの上では核の限界ではなく、メモリの設定表（APCB）は BIOS の中の PSP 側にある。</li>
+      <li><b>設定表（APCB）を解読した（10/19 12:42）</b>：この NAS の表に<b>「2 ランクの 32GB」の行はある</b>（1 枚なら 2667 まで・2933/3200 は 1 ランクだけ）＝「表に無いから通らない」という線は消えた。Crucial（3200・2 ランク）は表どおり 2667 に落として学習されているはず。速度を 2400／2133 に下げると「gear-down 無し」の行に変わるだけなので、見込みは 3 割のまま。残る原因の候補は PSP 側の学習プログラム（ABL）の中＝BIOS の設定では触れない所。</li>
       <li><b>追加調査（10/19 10:35・Fable 2 本）</b>：Crucial の SPD は 2666／2400／2133 の段も申告している（確度 中）。AMD の BIOS の「Auto」は CPU の上限で学習する実例ばかり→<b>この NAS は Crucial を既に 2667 で学習して失敗している読みが自然</b>＝「2666 に固定」は意味が薄い。GT で通った報告は全部 2666 定格の 8Gb 系の品で、2666 の 16GB ECC 1 枚が POST しない例もある。</li>
     </ul></div>
   <div class="card warn"><span class="tag">分からない事</span>

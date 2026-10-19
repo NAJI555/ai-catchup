@@ -21,10 +21,11 @@
   --accent:#7fb0f0; --accent-bg:#1a2b44; --step:#2c3440; --step-on:#7fb0f0; color-scheme:dark }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Yu Gothic UI","Noto Sans JP",system-ui,sans-serif;font-size:16px;line-height:1.6;padding:0 16px;padding-block:20px 48px}
+body{background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Yu Gothic UI","Noto Sans JP",system-ui,sans-serif;font-size:16px;line-height:1.65;padding:0 16px;padding-block:20px 48px}
 main{max-width:860px;margin:0 auto;display:grid;gap:22px}
 h1{font-size:1.35rem;margin:0 0 4px;text-wrap:balance}
 h2{font-size:1.05rem;margin:0 0 10px;color:var(--accent);letter-spacing:.02em}
+h3{font-size:.98rem;margin:14px 0 6px}
 .sub{color:var(--mute);font-size:.9rem;margin:0}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
@@ -33,214 +34,203 @@ h2{font-size:1.05rem;margin:0 0 10px;color:var(--accent);letter-spacing:.02em}
 .card p{margin:4px 0}
 .big{font-size:1.1rem;font-weight:700}
 details{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
-summary{cursor:pointer;color:var(--accent);font-size:.92rem}
+details.sec{border:1px solid var(--line);border-radius:10px;padding:10px 16px;margin-top:0;background:var(--card)}
+summary{cursor:pointer;color:var(--accent);font-size:.95rem;font-weight:700}
 blockquote{margin:8px 0;padding:8px 12px;border-left:3px solid var(--line);color:var(--mute);font-size:.9rem;overflow-wrap:anywhere}
 a{color:var(--accent)}
-/* 速度の階段 */
 .ladder{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;margin-top:10px}
 .rung{min-width:0;text-align:center;font-size:.8rem;font-variant-numeric:tabular-nums}
 .rung .bar{background:var(--step);border-radius:6px 6px 0 0;margin:0 auto 4px;width:100%}
 .rung.on .bar{background:var(--step-on)}
 .rung .lbl{display:block;font-weight:700}
 .rung .note{display:block;color:var(--mute);font-size:.7rem;line-height:1.25;min-height:2.6em}
-.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.85rem;color:var(--mute);margin-top:10px}
-.legend b{color:var(--fg)}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
-ul{margin:6px 0 0;padding-left:1.2em} li{margin:3px 0}
+ul,ol{margin:6px 0 0;padding-left:1.2em} li{margin:4px 0}
 .steps{list-style:none;padding:0;margin:0;display:grid;gap:8px}
 .steps li{display:grid;grid-template-columns:2.2em 1fr;gap:8px;align-items:start}
 .steps .n{background:var(--accent-bg);color:var(--accent);font-weight:700;border-radius:8px;text-align:center;padding:2px 0;font-variant-numeric:tabular-nums}
 .src{font-size:.85rem;color:var(--mute)} .src li{overflow-wrap:anywhere}
 table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top} th{background:var(--accent-bg)}
 .tbl{overflow-x:auto}
+.kv{display:grid;grid-template-columns:7em 1fr;gap:6px 10px;margin-top:6px}
+.kv b{color:var(--accent)}
 </style>
 </head>
 <body>
 <main>
 
 <header>
-  <h1>NAS のメモリ 32GB：「3200 の品を 2400〜2666 で使う」の裏取り</h1>
-  <p class="sub">UGREEN DXP4800 GT（AMD R2514）× Crucial CT32G4SFD832A 32GB×2 ／ 2026-10-19 07:50 JST ／ 一次資料の原文は repo の <code>nas/調査_20261018_32GBメモリ/verify_01_*.md</code></p>
+  <h1>NAS のメモリ 32GB：何が起きていて、次に何をするか</h1>
+  <p class="sub">UGREEN DXP4800 GT × Crucial 32GB×2 ／ 2026-10-19 19:10 JST 時点（朝の裏取り→昼に NAS の BIOS を読んで解析→夕方に世界と仕組みで裏取り→AI 同士のレビュー 3 回を反映）</p>
 </header>
+
+<section class="card info">
+  <span class="tag">結論 3 行</span>
+  <div class="kv">
+    <b>やる事</b><span>BIOS の設定でメモリとの握手の速さを <b>今の 2667 → 2400、だめなら 2133</b> に落として、32GB が起動するか試す（NJ の手 75 分・手順は下）。並行して UGREEN に質問を送る。</span>
+    <b>見込み</b><span>理屈は通る。でも<b>成功率は低め（数字では言えない）</b>。本当の原因は「メモリのチップの世代と NAS の BIOS の相性」の疑いが濃く、速さを落としても直らない可能性が高い。壊れる向きの変更ではない。</span>
+    <b>NJ が決める事</b><span>①やるか ②万一「設定を保存した後に純正 8GB でも起動しない」になった時、最後は<b>修理に出す事まで受け入れるか</b>（データは HDD にあり無事・その間は PC1 で続けられる）③途中で AMD の「保証の外」という定型の警告を「I Accept」で通る事。返品の期限は 11/17。</span>
+  </div>
+</section>
 
 <section class="card">
   <h2>ざっくり言うと（素人向け）</h2>
   <ul>
-    <li><b>何が起きている？</b> 新しいメモリを挿すと、NAS が起動の最初の「メモリとの握手（学習）」でつまずいて、先に進めない。メモリ 2 枚とも・どちらの差し口でも同じ＝メモリの不良の可能性は低く（完全には消せない）、<b>この NAS の起動プログラム（BIOS）とこの種類のメモリの相性</b>を疑っている。</li>
-    <li><b>買ったメモリは間違いだった？</b> 速さ（3200）は NAS の上限（2667）より速いが、メモリは<b>遅い相手には遅く合わせる作り</b>（メーカー 3 社の公式資料で確認）＝速さの選び方は間違いではない。大きさ（32GB）は、同じ系統の頭脳（CPU）を積んだ<b>別の機械</b>では動いている（この NAS で動く証明ではない）。</li>
-    <li><b>じゃあ原因は？</b> 握手のやり方を決める「設定表」が BIOS の中にある。今日、<b>NAS の BIOS を中から読み出して（書き換えなし）設定表の大半を読めた</b>（一部は未解読）。表には「2 ランク（この 32GB の作り）」用の設定もあった＝「表に無いから無理」ではなさそう。残る候補は、表を実行する<b>AMD の非公開のプログラム</b>がこのメモリ（最新の大きなチップ 16 個）を扱えていない可能性（推測）。ほかの可能性も完全には消えていない。</li>
-    <li><b>何ができる？</b> ①BIOS の設定で握手の<b>速さをわざと落とす</b>（2400→2133）。設定表を読んだので、どの画面でどの値にするかは分かっている。理屈は通るが<b>成功率は数字で言えない（低め）</b>・壊す向きの変更ではないが「設定を保存した後に純正 8GB でも起動しない」という残る危険はゼロではない（戻し方は下）・NJ の手 75 分。②UGREEN に「この版で確かめた 64GB の構成・起動しない時の正式な戻し方・この Crucial への対応」を聞く（BIOS を配った前例は無い・材料は揃った）。</li>
-    <li><b>①の見込みを広く深く調べた結果（10/19 16:00）</b>：理屈は本物（速さを落とすと握手の条件が本当に変わる・設定は奥の学習プログラムまで届く）。でも世界で「速さを落として通った」例は全部「メモリを 4 枚挿した時」の話で、<b>32GB 1 枚で通した例はゼロ</b>。Crucial 自身も同じ頭脳の機械でこの 3200 版を「非対応」と判定している＝<b>本当の原因はチップの世代と NAS の BIOS の相性の疑いが濃い</b>。良い知らせ＝BIOS は 5 回失敗すると元の設定で起動し直す作り＝設定で壊れる道は見当たらない。</li>
-    <li><b>注意 1 つ</b>：NAS には「起動が 3 分止まったら勝手に再起動する番犬」の設定が入っている（今日分かった・握手の段階で実際に効いているかは未確認）。念のため試す前に切り、終わったら戻す。</li>
-    <li><b>NJ が決める事＝許容損失</b>：万一「設定を保存した後に純正 8GB でも起動しない」になった時、戻す手は「電気を抜いて待つ→挿し直す→電池を外す（完全分解・保証に触る）→UGREEN の修理」の順で、<b>最後は修理に出す事まで受け入れるか</b>。データは HDD にあり、NAS が止まる間は PC1 で続けられる。</li>
+    <li><b>何が起きている？</b> 新しいメモリを挿すと、NAS が起動の最初の「メモリとの握手」でつまずいて先に進めない。2 枚とも・どちらの差し口でも同じ＝メモリの不良の可能性は低く（完全には消せない）、<b>この NAS の起動プログラム（BIOS）とこのメモリの相性</b>を疑っている。</li>
+    <li><b>買ったメモリは間違い？</b> 速さ（3200）は NAS の上限（2667）より速いが、メモリは<b>遅い相手には遅く合わせる作り</b>（メーカー 3 社の公式資料で確認）＝速さの選び方は間違いではない。32GB という大きさは、同じ系統の頭脳（CPU）の<b>別の機械</b>では動いている（この NAS で動く証明ではない）。</li>
+    <li><b>原因は？</b> 握手のやり方を決める「設定表」が BIOS の中にある。NAS の BIOS を中から読み出して（書き換えなし）設定表の大半を読めた。表には「この 32GB の作り（2 段構成）」用の設定もあった＝「表に無いから無理」ではなさそう。残る候補は、表を実行する <b>AMD の非公開のプログラム</b>が、このメモリの<b>新しい世代のチップ</b>をうまく扱えていない可能性（推測）。Crucial 自身も、同じ頭脳の別の機械でこの 3200 版を「非対応」と判定している。</li>
+    <li><b>速さを落とすと何が変わる？</b> 速さを落とす設定は、奥の学習プログラムまで本当に届く（確認済み）。2400 以下にすると高速用の特別なモードが外れ、握手の条件は確かに変わる。ただし世界で「速さを落として通った」例は全部「メモリを 4 枚挿した時」の話で、<b>32GB を 1 枚で通した例はゼロ</b>。</li>
+    <li><b>安心材料</b>：BIOS は握手に 5 回失敗すると「回復用の設定（元の Auto）」で起動し直す作り（確度 中）＝設定で壊れる道は見当たらない。それでも万一に備えて戻し方を 4 段で用意してある（下）。</li>
+    <li><b>番犬</b>：NAS には「起動が 3 分止まったら勝手に再起動する番犬」の設定が入っている（握手の段階で効いているかは未確認）。念のため試す前に切り、終わったら戻す。</li>
   </ul>
 </section>
 
-<section class="cards">
-  <div class="card ok"><span class="tag">妥当</span><p class="big">3200 の品を 2400〜2666 に固定して使うのは技術的に正しい</p><p>根拠 3 本（AMD・Crucial・Micron）を一次資料の原文で確認。</p></div>
-  <div class="card ng"><span class="tag">取り下げ 1 件</span><p class="big">「GT は 3200 で動かす」（ComputerBase）は根拠なし</p><p>実測 2 件（別の実機・この NAS）は 2667。計画の「3200 で学習して失敗」は推測に格下げ。</p></div>
-  <div class="card info"><span class="tag">次</span><p class="big">BIOS の設定で速度を 2400→2133 に固定して試す</p><p>成功率は<b>数字で言えない（低め）</b>。壊す向きではないので限定の試しの価値は残る。NJ の手 1 回・75 分・「やろう」で開始。</p></div>
-</section>
-
 <section class="card">
-  <h2>速度の階段で見る</h2>
-  <p class="sub">DDR4 の速度の段（MT/s）。青＝この NAS で使える段。</p>
-  <div class="ladder">
-    <div class="rung on"><div class="bar" style="height:22px"></div><span class="lbl">1600</span><span class="note"></span></div>
-    <div class="rung on"><div class="bar" style="height:30px"></div><span class="lbl">1866</span><span class="note"></span></div>
-    <div class="rung on"><div class="bar" style="height:38px"></div><span class="lbl">2133</span><span class="note">組 B（保険）</span></div>
-    <div class="rung on"><div class="bar" style="height:46px"></div><span class="lbl">2400</span><span class="note">設定の本命（組 A）</span></div>
-    <div class="rung on"><div class="bar" style="height:54px"></div><span class="lbl">2666</span><span class="note">AMD の上限 2667／純正 8GB の実測／Auto はたぶんここ</span></div>
-    <div class="rung"><div class="bar" style="height:62px"></div><span class="lbl">2933</span><span class="note">上限の外</span></div>
-    <div class="rung"><div class="bar" style="height:70px"></div><span class="lbl">3200</span><span class="note">Crucial の札（SPD）</span></div>
-  </div>
-  <div class="legend">
-    <span><b>AMD</b>：R2514 の最大 DDR4 ＝ 2,667 MT/s</span>
-    <span><b>Crucial</b>：速い品を遅い機械に挿すと一番遅い物の速度で動く</span>
-    <span><b>Micron</b>：3200 のビンは 1600〜2933 の全段に後方互換</span>
-  </div>
-</section>
+  <h2>当日の手順（NJ の手・1 画面ずつ）</h2>
+  <p class="sub">合図「やろう」→ AI が NAS を止める → ここから。<b>所要 75 分</b>（1 組目 約 40 分＋2 組目 約 25 分＋戻し 約 7 分）。<b>AI とは写真でやりとり</b>（画面を撮って送る→AI が値を読んで次を指す）。画面の並びは NAS の BIOS を読んで確かめた物。</p>
 
-<section>
-  <h2>根拠 3 本（一次資料・原文）</h2>
   <div class="cards">
-    <div class="card ok"><span class="tag">AMD</span><p class="big">R2514 の Max DDR4 Rate ＝ 2,667 MT/s</p><p>製品概要 PDF の表。3,200 は上位の R2544。この NAS の設計の上限は元々 2667。</p>
-      <details><summary>表の行</summary><blockquote>Max DDR4 Rate MT/s (up to)：R2544** … 3,200 ／ R2514** … 2,667 ／ **Pre-production OPNs</blockquote><p class="src"><a href="https://www.amd.com/content/dam/amd/en/documents/products/embedded/ryzen/r2000-product-brief.pdf">AMD Ryzen Embedded R2000 Series Product Brief（PDF）</a></p></details></div>
-    <div class="card ok"><span class="tag">Crucial 公式</span><p class="big">速い品を足しても安全・一番遅い物の速度で動く</p><p>モジュールを作った会社の公式サポート頁。</p>
-      <details><summary>原文</summary><blockquote>Memory is designed to be backward compatible within its generation, so generally speaking, you can safely add faster memory to a computer that was designed to run slower memory. However, your system will operate at the speed of the slowest memory module installed.</blockquote><p class="src"><a href="https://www.crucial.com/support/memory-speeds-compatability">RAM Memory Speeds And Compatibility | crucial.com</a></p></details></div>
-    <div class="card ok"><span class="tag">Micron（部品）</span><p class="big">3200 のビン（-062E）は遅いビン全部に yes</p><p>Crucial の中身は Micron 16Gb DDR4。データシート Table 151「Backward Compatibility」。</p>
-      <details><summary>原文と注</summary><blockquote>Table 151: Backward Compatibility — Component Speed Bin -062E（3200）の行：-125（1600）〜-068E（2933）すべて yes。<br>Note 2: This condition exceeds the JEDEC requirement… However, JEDEC SPD compliance may force modules to only support the JEDEC-defined value.</blockquote><p>注 2 の意味：モジュールの SPD が JEDEC の定義した値に絞る事はある→2400・2666 は JEDEC の標準の段なので問題にならない。</p><p class="src"><a href="https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/8827/16gb-ddr4-sdram.pdf">Micron 16Gb: x4, x8, x16 DDR4 SDRAM — Rev. H 8/2021（Digi-Key の写し・PDF 12MB）</a></p></details></div>
+    <div class="card info"><span class="tag">用意する物</span>
+      <ul>
+        <li>テレビ（HDMI）と有線の USB キーボード（10/18 のまま繋いであれば OK）</li>
+        <li>スマホ（写真を撮って送る）</li>
+        <li>Crucial 2 枚にテープで「1」「2」と番号（どちらを挿したか記録する）</li>
+        <li>裏フタのドライバー（付属品）</li>
+        <li>続けて取れる時間 75 分（予定をまたがない）</li>
+      </ul></div>
+    <div class="card warn"><span class="tag">時間と安全の決まり</span>
+      <ul>
+        <li><b>BIOS の画面の中に時間の制限はない</b>（10/18 に 10 分いて再起動なし）。番犬（WatchDog）は<b>今 Enabled・180 秒</b>なので、画面 3 で切る。</li>
+        <li><b>NJ の時間が切れた時</b>：まだ F10 で保存していない → Esc で戻り、Save &amp; Exit のタブ →「Discard Changes and Exit」＝変えた物を捨てて抜ける（8GB のまま起動・何も壊れない）。F10 で保存した後 → 画面 10 の戻しまでやってから抜ける。<b>32GB を挿したまま止めない</b>。</li>
+        <li><b>メモリを抜き挿しする時は毎回</b>：AI が止める → 電源ケーブルを抜く → 30 秒 → 交換。</li>
+        <li><b>変える物は 3 つだけ</b>：Watch Dog Control／Overclock／Memory Clock Speed。戻す時はこの逆（画面 10）。</li>
+        <li>迷ったら手を止めて写真を送る。推測で押さない。</li>
+      </ul></div>
   </div>
-</section>
 
-<section class="card ng">
-  <span class="tag">取り下げ</span>
-  <h2>「GT の BIOS は 3200 の品を 3200 で学習する」は裏が取れなかった</h2>
-  <div class="tbl"><table>
-    <tr><th>言っている物</th><th>中身</th><th>根拠</th></tr>
-    <tr><td>ComputerBase（独・レビュー）</td><td>「8GB の品を UGREEN は 3,200 MHz で動かしている・AMD の公称より速い」</td><td><b>部品名なし・BIOS の画面なし</b>＝文だけ</td></tr>
-    <tr><td>Mighty Gadget（英・DXP2800 GT）</td><td>BIOS Main の写真「8192MB of DDR4 running at 2667 MT/s」</td><td>写真あり</td></tr>
-    <tr><td><b>この NAS</b>（2026-10-18 17:28）</td><td>BIOS Main：Total Memory 8192MB・Memory Speed 2667MHz（純正 8GB）</td><td>自分の機械の実測</td></tr>
-  </table></div>
-  <p>→ Crucial が「3200 で学習して失敗」しているのか「2667 で学習して別の理由で失敗」しているのかは<b>分からない</b>。ただし速度を下げる試しは、どちらでも「学習の条件を AMD の公称（2667）の中へ寄せる」向きなので価値は残る。</p>
-  <details><summary>原文</summary><blockquote>…einer mit einem 8-GB-Modul belegt ist, das Ugreen mit 3.200 MHz ansteuert, also schneller als AMDs offizielle Spezifikationen…</blockquote><p class="src"><a href="https://www.computerbase.de/artikel/storage/ugreen-dxp4800-gt-dxp2800-gt-test.97532/">ComputerBase: Ugreen DXP4800 GT &amp; DXP2800 GT im Test</a> ／ <a href="https://mightygadget.com/ugreen-dxp2800-gt-nas-review/">Mighty Gadget: UGREEN DXP2800 GT review</a></p></details>
+  <h3>1 組目＝速さを 2400 に（約 40 分）</h3>
+  <ol class="steps">
+    <li><span class="n">1</span><span><b>電源を入れて BIOS に入る（2 分）</b>：電源ボタン → テレビに何か出たら <b>Ctrl+F12 を連打</b> → 「Please select boot device」の一覧 → <b>Enter Setup</b> を選んで Enter → 青い BIOS の画面（Main タブ）。※出ずに UGOS が起動してしまったら AI に言って止めてもらい、もう 1 回。</span></li>
+    <li><span class="n">2</span><span><b>Main を写真（1 分）</b>：Total Memory 8192MB・Memory Speed 2667MHz が見える画面＝「変える前」の記録。</span></li>
+    <li><span class="n">3</span><span><b>Advanced → WatchDog Settings（2 分）</b>：→キーで Advanced へ → WatchDog Settings を Enter → <b>写真</b> → <b>Watch Dog Control を Disabled にする</b>（灰色で変えられない時はそのままにして写真）→ Esc。</span></li>
+    <li><span class="n">4</span><span><b>隠れた項目を出す（1 分）</b>：Advanced のまま <b>Ctrl+F1</b> → 一覧に AMD PBS／Crb Advanced／OEM BIOS VERSION が増える → <b>写真</b>。</span></li>
+    <li><span class="n">5</span><span><b>Crb Advanced → AMD CBS → UMC Common Options → DDR4 Common Options（2 分）</b>：順に Enter で入る。中に「DRAM Timing Configuration」「DRAM Controller Configuration」の 2 つ → <b>写真</b>。</span></li>
+    <li><span class="n">6</span><span><b>DRAM Timing Configuration → 警告文 → I Accept（2 分）</b>：AMD の長い定型の警告文（保証の外になる）が出る → 下の <b>「I Accept」</b> を Enter → 「Overclock：Auto」だけが見える画面 → <b>写真</b>（変える前の値）。<b>まだ何も変えない</b>。</span></li>
+    <li><span class="n">7</span><span><b>速さを 1 つだけ変える（5 分）</b>：<b>Overclock</b> を Auto → <b>Enabled</b> → 下に <b>Memory Clock Speed</b>（今は Auto）と Tcl などの行が現れる → Memory Clock Speed を Enter → 一覧（Auto／667MHz／…／1067MHz／<b>1200MHz</b>／1333MHz／…／2000MHz）から <b>1200MHz</b> を選ぶ（画面は「半分の数字」で出る決まり＝1200MHz が 2400 の意味。表示はこの通りで確認済み）。Tcl 以下は Auto のまま → 変えた後を<b>写真</b>。</span></li>
+    <li><span class="n">8</span><span><b>保存して確かめる（10 分）</b>：<b>F10</b> → Yes → 再起動（<b>2 回続けて再起動する事がある</b>・2 回目まで待つ）→ 画面が出たら <b>Ctrl+F12 連打</b> → Enter Setup → Main の <b>Memory Speed が 2400 になっている写真</b> → Esc → Save &amp; Exit → Exit（保存せず抜ける）→ UGOS が起動 → AI が ssh で確認 → AI が止める → <b>電源ケーブルを抜いて 30 秒</b> → 挿して電源 → 起動すれば OK（冷えた状態からも通る確認）。</span></li>
+    <li><span class="n">9</span><span><b>32GB を 1 枚挿す（10 分）</b>：AI が止める → ケーブルを抜いて 30 秒 → 裏フタ → 8GB を外す → <b>32GB「1」を下の段</b> → 電源 → <b>テレビを見る</b>（握手の段階では画面は出ない見込み・文字が出たら写真）→ <b>ブザーが鳴った時刻と回数をメモ</b>（2 回の後に 4 回が来るか・何分おきか）→ ブザーが鳴っても <b>5 分は待つ</b>（BIOS は握手を 5 回やり直す）→ 起動した＝合格（AI が容量を見る・約 31,000MB なら OK・約 15,500MB＝半分なら記録して止める）／5 分たっても画面もネットも出ない＝失敗 → 電源長押し（効かなければケーブル）。</span></li>
+  </ol>
+
+  <h3>2 組目＝だめなら 2133 に（約 25 分）</h3>
+  <ol class="steps">
+    <li><span class="n">10a</span><span>AI が止める → ケーブルを抜いて 30 秒 → 8GB に戻す → 画面 1 → 画面 5〜6 の経路で入り、<b>Overclock が Enabled・Memory Clock Speed が 1200MHz のまま残っているか写真</b>（BIOS は 5 回失敗すると設定を回復用の値に戻す作り＝戻っていたらそれ自体が記録）。</span></li>
+    <li><span class="n">10b</span><span>Memory Clock Speed を <b>1067MHz</b>（＝2133 の意味）に → F10 → 画面 8 と同じ確認（Main の Memory Speed が 2133・UGOS 起動・冷えた起動）→ 画面 9 と同じく 32GB「1」を挿して見る。<b>試すのはここまで（2 組）</b>。</span></li>
+  </ol>
+
+  <h3>終わり方（約 7 分）</h3>
+  <ol class="steps">
+    <li><span class="n">11</span><span><b>通らなかった時：元に戻す</b>：AI が止める → ケーブルを抜いて 30 秒 → 8GB に戻す → 画面 1 → <b>戻すのは 3 つ・この順</b>：①画面 5〜6 の経路で <b>Memory Clock Speed → Auto</b> ②<b>Overclock → Auto</b>（Clock は Overclock が Auto だと隠れるので先に Clock）③Advanced → WatchDog Settings → <b>Watch Dog Control → Enabled</b>（画面 3 で変えた時だけ）→ 画面 3・6 の写真と同じになった事を確認（F9「既定値に戻す」は使わない＝他の出荷値も消える恐れ）→ F10 → UGOS 起動 → AI が確認して終わり。<b>8GB でも起動しない時は下の「戻し方 R1〜R4」</b>。</span></li>
+    <li><span class="n">12</span><span><b>通った時</b>：通った直後は書き込みの仕事を止めて AI が memtester（メモリの検査）を先に → 問題なければ AI が止める → ケーブルを抜く → 32GB「2」を上の段 → 電源 → BIOS の Main（Total Memory）を写真 → <b>Watch Dog Control を Enabled に戻す</b>（速さの固定はそのまま）→ F10 → UGOS → AI が容量を見る → その後の再起動 3 回と長い memtester は AI が後でやる。</span></li>
+  </ol>
+
+  <details><summary>戻し方 R1〜R4（万一「純正 8GB でも起動しない」になった時）</summary>
+    <p>設定は HDD のデータに触らない＝データは無事。NAS が止まる間は PC1 で続けられる。</p>
+    <div class="tbl"><table>
+      <tr><th>段</th><th>手</th><th>確度・費用</th></tr>
+      <tr><td>R1</td><td>電気を抜いて自動の復帰を待つ：ケーブルを抜いて 1 分 → 電源ボタンを 10 秒押す → ケーブル → 電源 → 5 分待つ → Ctrl+F12 で BIOS に入れたら写真どおりに手で戻す</td><td>中（5 回失敗で回復用の設定で起動し直す作り）・5 分</td></tr>
+      <tr><td>R2</td><td>メモリを一度抜いて挿し直してから R1 をもう 1 回</td><td>5 分</td></tr>
+      <tr><td>R3</td><td>電池（CR2032）を外して出荷の値へ＝完全分解。1 段ずつ写真 → AI が次を指す。半田付けなら R4</td><td>30〜60 分・保証に触る可能性</td></tr>
+      <tr><td>R4</td><td>UGREEN の修理（保証内）。その間は PC1・HDD は手元に</td><td>送料・日数</td></tr>
+    </table></div>
+    <p>R1・R2 で戻らなければ、R3 の前に AI が UGREEN に「設定で起動しなくなった時の初期化の方法」を聞く（問い合わせ文に入れてある）。</p>
+  </details>
+
+  <details><summary>キーの早見</summary>
+    <ul>
+      <li><b>Ctrl+F12</b>（電源を入れた直後に連打）＝起動メニュー「Please select boot device」／<b>Enter Setup</b>＝BIOS に入る</li>
+      <li><b>←→</b>＝タブの移動、<b>↑↓</b>＝項目、<b>Enter</b>＝開く・選ぶ、<b>Esc</b>＝1 つ戻る／<b>Ctrl+F1</b>（Advanced で）＝隠れた項目を出す</li>
+      <li><b>F10</b>＝保存して再起動（Yes で確定）。<b>F9 は押さない</b>。／Save &amp; Exit →「Discard Changes and Exit」＝変えた物を捨てて抜ける</li>
+    </ul>
+  </details>
 </section>
 
 <section class="two">
   <div class="card ok"><span class="tag">分かっている事</span>
     <ul>
-      <li>Crucial 32GB は 1 枚でも 2 枚でも、どちらの口でも<b>メモリ学習で止まる</b>（再現＝系統的・不良ではない）。純正 8GB は両方の口で起動。</li>
-      <li>GT の公式対応表（機種名で引いた一覧）に <b>Kimtigo 32GB・2666</b> が載る＝この BIOS は 2666 の SPD の 32GB を学習できる。</li>
-      <li>同じ核（Picasso）の DeskMini A300M で Crucial 32GB×2（2666 版）＝64GB の実機。Beelink SER3 で 3200 の 32GB×2 が「2666 でしか起動しない」実機。</li>
-      <li>AGESA 1.0.0.7 は AMD の最新。UGREEN は BIOS を配っていない。</li>
-      <li><b>道 1 の裏取り・広く深く（10/19 16:00・Fable 2 本）</b>：原理は本物＝BIOS の設定は PSP 側の学習プログラムまで届く（像の中の設定表と 10 項目が一致）・2400 以下にすると「gear-down」という高速用のモードが外れる（Micron の原文）＝握手の条件は確かに変わる。ただし世界の実例で「速さを落として通った」4 件は全部「8GB/16GB を 4 枚」の負荷型で、<b>32GB 1 枚を落として通した例は 0</b>。Crucial 自身の対応検索は同じ頭脳の機械で 3200 版を「非対応」と返し、ASRock の対応表には 2666 版だけ＝<b>チップの世代と基板の BIOS の対応が本線の疑い</b>。安心材料＝5 回失敗すると BIOS は「回復用の設定（Auto）」で起動し直す作り＝設定で文鎮になる経路は見当たらない。</li>
-      <li><b>NAS の BIOS の中身を読んだ（10/19 12:45・書き込みなし）</b>：AMD CBS に Memory Clock Speed がある（DRAM Timing Configuration → I Accept → Overclock＝Enabled の下・表示は「1200MHz」）・今は Auto。学習のやり直し回数（Fail_CNT）は 5。<b>WatchDog は今 Enabled・180 秒</b>＝起動で止まると 3 分ごとに再起動する→試しの前に切る。BIOS は深圳の ODM 製（UGREEN に伝える名前＝プロジェクト JFP5TH01・版 IFP5N130）。</li>
-      <li><b>広げた調査（10/19 12:05・Fable 2 本）</b>：Crucial の対応検索に UGREEN は無い（互換保証で Crucial に頼む線は無い）。UGREEN が BIOS を配った前例なし（持ち主「更新は OS だけ」）＝UGREEN に出させる路線は見込み薄。仕組みの上では核の限界ではなく、メモリの設定表（APCB）は BIOS の中の PSP 側にある。</li>
-      <li><b>設定表（APCB）を解読した（10/19 12:42）</b>：この NAS の表に<b>「2 ランクの 32GB」の行はある</b>（1 枚なら 2667 まで・2933/3200 は 1 ランクだけ）＝「表に無いから通らない」という線は消えた。Crucial（3200・2 ランク）は表どおり 2667 に落として学習されているはず。速度を 2400／2133 に下げると「gear-down 無し」の行に変わり、時間の余裕も増える（効くかは試すまで分からない）。残る原因の候補は PSP 側の学習プログラム（ABL）の中＝BIOS の設定では触れない所。</li>
-      <li><b>追加調査（10/19 10:35・Fable 2 本）</b>：Crucial の SPD は 2666／2400／2133 の段も申告している（確度 中）。AMD の BIOS の「Auto」は CPU の上限で学習する実例ばかり→<b>この NAS は Crucial を既に 2667 で学習して失敗している読みが自然</b>＝「2666 に固定」は意味が薄い。GT で通った報告は全部 2666 定格の 8Gb 系の品で、2666 の 16GB ECC 1 枚が POST しない例もある。</li>
+      <li>Crucial 32GB は 1 枚でも 2 枚でも、どちらの口でも<b>握手で止まる</b>（再現する＝不良ではなく相性の疑い）。純正 8GB（1 段構成・2667）は両方の口で起動。</li>
+      <li>速い品を遅い機械に挿しても一番遅い物の速さで動く（AMD・Crucial・Micron の公式資料）。NAS の上限は 2667。</li>
+      <li>この NAS は今、純正 8GB を 2667 で動かしている（実測）。Crucial も同じ 2667 で握手を試みて失敗している読みが自然。</li>
+      <li>NAS の BIOS を中から読んだ（書き換えなし）：速さの設定の項目が実在・今は Auto・握手のやり直しは 5 回・番犬は Enabled 180 秒・設定表に「2 段構成の 32GB」用の行あり（1 枚なら 2667 まで）。</li>
+      <li>同じ系統の頭脳の別の機械（ASRock A300）では Crucial の 2666 版 32GB×2＝64GB が動く。UGREEN の対応表の 32GB は Kimtigo の 2666 品 1 件だけ。UGREEN が BIOS を配った前例は無い。</li>
     </ul></div>
   <div class="card warn"><span class="tag">分からない事</span>
     <ul>
-      <li>この NAS が Crucial を<b>何 MT/s で学習しようとして</b>失敗しているか（3200 か 2667 か）。</li>
-      <li>GT で 64GB（32GB×2）が見えた実機の<b>型番</b>（reddit の「64GB ECC」は型番なし）。</li>
-      <li>設定で直る種類の失敗か（信号・タイミングの余裕→2400／2133 で通る）、直らない種類か（16Gb の密度・行列の構成・UGREEN 側の設定表＝速度では直らない）＝試すまで分からない。<b>成功率は数字で言えない（低め・Astra の再レビューで「3 割」は根拠なしと撤回）</b>。</li>
-      <li>同じ部品（CT32G4SFD832A）を同じ核の機械に挿した直接の実例は世界で 0 件。対応表の Kimtigo 32GB の中身（ランク・製造元）も未取得。</li>
+      <li>速さを落とせば直る種類の失敗か、チップの世代の対応（BIOS の中身）の問題か＝<b>試すまで分からない</b>。世界に 32GB 1 枚を落として通した例は無い。</li>
+      <li>GT で 64GB（32GB×2）が見えた実機の型番（報告は「64GB ECC」の 1 件・型番なし）。</li>
+      <li>番犬が握手の段階で実際に効いているか。握手に 5 回失敗した後の挙動の細部。</li>
     </ul></div>
 </section>
 
-<section class="card info">
-  <span class="tag">次の手</span>
-  <h2>BIOS の設定で試す（NJ の手 1 回・60〜75 分・計画は変更なし）</h2>
+<section class="card">
+  <h2>今のメモリを使う道（買い替えは無し）</h2>
   <ol class="steps">
-    <li><span class="n">0</span><span>AI が NAS を止める（LAN から消える）</span></li>
-    <li><span class="n">1</span><span>電源→Ctrl+F12→Enter Setup→Advanced→WatchDog の写真→Ctrl+F1→Crb Advanced→AMD CBS→UMC→DDR4。<b>変える前の各画面を写真</b>（戻す時の正本）</span></li>
-    <li><span class="n">2</span><span>組 A＝<b>Memory Clock Speed だけ 1200（＝2400）</b>。値と単位は写真で AI が読んでから選ぶ。他は触らない</span></li>
-    <li><span class="n">3</span><span>F10→起動中に Ctrl+F12→Main の Memory Speed が新しい値の写真→UGOS 起動→AI が確認→電源ケーブルを抜いて 30 秒→冷間の起動も通る事</span></li>
-    <li><span class="n">4</span><span>AI が止める→ケーブルを抜く→8GB を外し 32GB「1」を下の段→電源→<b>テレビを見る</b>→ブザー 2 回でも 5 分待つ（ブザーの時刻と間隔を記録）→起動＝合格</span></li>
-    <li><span class="n">5</span><span>合格なら AI が <code>free -m</code>（約 31,000MB＝解けた／約 15,500MB＝16GB 扱い）。失敗なら設定が残っているか確認→組 B＝1067MHz（＝2133）・2 組まで</span></li>
-    <li><span class="n">6</span><span>32GB×1 が通ったら 2 枚目を上の段→BIOS と OS の両方で容量→3 回の再起動と memtester</span></li>
-    <li><span class="n">7</span><span>通らない時：8GB に戻し、写真どおりに<b>手で元の値へ</b>（F9 は使わない）→F10→UGOS</span></li>
+    <li><span class="n">1</span><span><b>BIOS の設定で握手の速さを落とす</b>（上の手順・今ここ）</span></li>
+    <li><span class="n">2</span><span><b>UGREEN に聞く</b>：確認済みの 64GB の構成・BIOS 更新の予定の有無・この Crucial への対応・起動しない時の正式な戻し方（文は用意済み・送るのは NJ の合図）</span></li>
+    <li><span class="n">3</span><span><b>BIOS を自分で直す</b>：読み出した BIOS の学習プログラムを他社の新しい物に差し替えて焼く（書き込み器 約 2,000 円・完全分解・控えがあるので書き戻せる。「Platform Secure Boot」が焼き込まれていれば不可＝やる前に AI が確認）</span></li>
+    <li><span class="n">4</span><span>UGREEN が BIOS を出すまで持っておく（出るか不明・返品期限を過ぎる）</span></li>
   </ol>
-  <details><summary>残る危険 1 つと戻し方（R1〜R4）</summary>
-    <p>最初の F10 の後に 8GB でも起動しなくなる経路は完全には消せない（設定の経路の不具合・単位の読み違い等）。データは HDD にあって無事（BIOS の設定はディスクに触らない）。</p>
-    <div class="tbl"><table>
-      <tr><th>段</th><th>手</th><th>確度・費用</th></tr>
-      <tr><td>R1</td><td>電気を抜いて自動の復帰を待つ（ケーブル抜き 1 分→電源ボタン 10 秒→ケーブル→電源→5 分待つ→Ctrl+F12 で入れたら写真どおりに手戻し）</td><td>確度は不明・5 分</td></tr>
-      <tr><td>R2</td><td>メモリを一度抜いて挿し直してから R1 をもう 1 回</td><td>5 分</td></tr>
-      <tr><td>R3</td><td>電池（CR2032）を外して出荷の値へ＝完全分解。1 段ずつ写真→AI が次を指す。半田なら R4</td><td>30〜60 分・保証に触る可能性</td></tr>
-      <tr><td>R4</td><td>UGREEN の修理（保証内）。その間は PC1 で続ける・HDD は手元に</td><td>送料・日数</td></tr>
-    </table></div>
-  </details>
 </section>
 
-<section class="card">
-  <h2>当日の手順（NJ の手・1 画面ずつ・10/18 に見た画面から書いた）</h2>
-  <p class="sub">合図「やろう」→ AI が NAS を止める → ここから。所要 60〜75 分。<b>AI とは写真でやりとり</b>（画面を撮って送る→AI が値を読んで次を指す）。10/18 に見ていない画面（AMD CBS の中）は推測で書かず「写真→AI が指す」にしてある。</p>
-
-  <div class="cards">
-    <div class="card info"><span class="tag">用意する物</span>
-      <ul>
-        <li>テレビ（HDMI）と有線の USB キーボード＝10/18 のまま繋いだままなら OK</li>
-        <li>スマホ（写真を撮って送る）</li>
-        <li>Crucial 32GB 2 枚にテープで「1」「2」と番号を書く（どちらを挿したか記録するため）</li>
-        <li>裏フタのドライバー（付属品）</li>
-        <li>続けて取れる時間 75 分（戻す時間を含む・予定をまたがない）</li>
-      </ul></div>
-    <div class="card warn"><span class="tag">時間の決まり</span>
-      <ul>
-        <li><b>BIOS の中に時間の制限はない</b>：10/18 に 10 分いて勝手に再起動しなかった（WatchDog は既定 Disabled）。ただし他の個体で WatchDog が Enabled だと 180 秒で再起動する報告があるので、画面 3 で Disabled を写真で確かめる。</li>
-        <li><b>NJ の時間が切れた時（10/18 の「時間切れ」と同じ）</b>：<br>・まだ F10 で保存していない → Esc で上の階層へ戻り、Save &amp; Exit のタブ →「Discard Changes and Exit」＝変えた物を捨てて抜ける。8GB のまま起動する。何も壊れない。<br>・F10 で保存した後 → 必ず画面 10（手で元の値に戻す）までやってから抜ける。<b>途中の値で放置しない</b>。<br>・<b>32GB を挿したまま止めない</b>＝終わる時は 8GB に戻して起動を見てから。</li>
-        <li>迷ったら手を止めて写真を送る。推測で押さない。</li>
-      </ul></div>
+<details class="sec"><summary>技術の裏付け（朝の裏取り：速さの階段・根拠 3 本・取り下げ 1 件）</summary>
+  <p class="sub">DDR4 の速度の段（MT/s）。青＝この NAS で使える段。</p>
+  <div class="ladder">
+    <div class="rung on"><div class="bar" style="height:22px"></div><span class="lbl">1600</span><span class="note"></span></div>
+    <div class="rung on"><div class="bar" style="height:30px"></div><span class="lbl">1866</span><span class="note"></span></div>
+    <div class="rung on"><div class="bar" style="height:38px"></div><span class="lbl">2133</span><span class="note">2 組目（1067MHz）</span></div>
+    <div class="rung on"><div class="bar" style="height:46px"></div><span class="lbl">2400</span><span class="note">1 組目（1200MHz）</span></div>
+    <div class="rung on"><div class="bar" style="height:54px"></div><span class="lbl">2666</span><span class="note">AMD の上限 2667／今の Auto（純正 8GB の実測）</span></div>
+    <div class="rung"><div class="bar" style="height:62px"></div><span class="lbl">2933</span><span class="note">上限の外</span></div>
+    <div class="rung"><div class="bar" style="height:70px"></div><span class="lbl">3200</span><span class="note">Crucial の札（SPD）</span></div>
   </div>
-
-  <ol class="steps" style="margin-top:12px">
-    <li><span class="n">1</span><span><b>電源を入れて BIOS に入る（2 分）</b>：電源ボタン → テレビに何か出たら <b>Ctrl+F12 を連打</b> → 「Please select boot device」の一覧が出る → <b>Enter Setup</b> を選んで Enter → 青い BIOS の画面（Main タブ）。※出ずに UGOS が起動してしまったら、AI に言って止めてもらい、もう 1 回。</span></li>
-    <li><span class="n">2</span><span><b>Main を写真（1 分）</b>：Total Memory 8192MB・Memory Speed 2667MHz が見える画面。これが「変える前」の記録。</span></li>
-    <li><span class="n">3</span><span><b>Advanced タブ → WatchDog Settings（2 分）</b>：→キーで Advanced へ → WatchDog Settings を選んで Enter → <b>写真</b> → <b>Watch Dog Control を Disabled にする</b>（10/19 に NAS の BIOS の中身を読んだ結果、今は <b>Enabled・180 秒</b>。握手の段階で効いているかは未確認＝念のため試しの間だけ切る・終わったら Enabled に戻す。<b>灰色で変えられない時はそのままにして写真</b>）→ Esc で戻る。</span></li>
-    <li><span class="n">4</span><span><b>隠れた項目を出す（1 分）</b>：Advanced タブのまま <b>Ctrl+F1</b> → 一覧に AMD PBS／Crb Advanced／OEM BIOS VERSION が増える → <b>写真</b>。</span></li>
-    <li><span class="n">5</span><span><b>Crb Advanced → AMD CBS → UMC Common Options → DDR4 Common Options（2 分）</b>：Crb Advanced を選んで Enter → 一覧の下の方に <b>AMD CBS</b> → Enter → <b>UMC Common Options</b> → Enter → <b>DDR4 Common Options</b> → Enter。中に「DRAM Timing Configuration」と「DRAM Controller Configuration」の 2 つがある → <b>写真</b>。（10/19 に NAS の BIOS の中身を読んで確かめた並び。）</span></li>
-    <li><span class="n">6</span><span><b>DRAM Timing Configuration → 警告文 → I Accept（2 分）</b>：DRAM Timing Configuration を選んで Enter → AMD の長い警告文（保証の外になる、という定型文）が出る → 下の <b>「I Accept」</b> を選んで Enter → 「Overclock：Auto」だけが見える画面 → <b>写真</b>（変える前の値＝戻す時の正本）。<b>まだ何も変えない</b>。</span></li>
-    <li><span class="n">7</span><span><b>速度を 1 つだけ変える（5 分）</b>：<b>Overclock</b> を Auto → <b>Enabled</b> にする → その下に <b>Memory Clock Speed</b>（今は Auto）と Tcl などのタイミングの行が現れる → Memory Clock Speed を Enter → 一覧（Auto／667MHz／800MHz／933MHz／1067MHz／<b>1200MHz</b>／1333MHz／…／2000MHz）から <b>1200MHz</b> を選ぶ（＝DDR4-2400 の意味・画面は MHz の表示）。Tcl 以下は Auto のまま・他は触らない → 変えた後を<b>写真</b>。</span></li>
-    <li><span class="n">8</span><span><b>保存して確かめる（10 分）</b>：<b>F10</b> → Yes → 再起動（<b>2 回続けて再起動する事がある</b>＝設定表の書き換え→もう 1 回。2 回目まで待つ）→ 画面が出たらまた <b>Ctrl+F12 連打</b> → Enter Setup → Main の <b>Memory Speed が新しい値（2400）になっている写真</b> → Esc → Save &amp; Exit → Exit（保存せず抜ける）→ UGOS が起動 → AI が ssh で確認 → AI が止める → <b>電源ケーブルを抜いて 30 秒</b> → 挿して電源 → 起動すれば OK（冷間の起動も通る確認）。</span></li>
-    <li><span class="n">9</span><span><b>32GB を 1 枚挿す（10 分）</b>：AI が止める → 裏フタ → 8GB を外す → <b>32GB「1」を下の段</b> → 電源 → <b>テレビを見る</b>（AMI の表では画面は後の段で立つので<b>何も出ない見込み</b>・もし文字が出たら写真）→ <b>ブザーの回数を数える</b>（2 回の後に 4 回が来るか）→ ブザー 2 回が鳴っても <b>5 分は待つ</b>（BIOS は学習を 5 回やり直す設定・WatchDog は切ってあるので勝手な再起動は無い） → 起動した＝合格（AI が <code>free -m</code> で容量を見る）／5 分たっても画面もネットも出ない＝失敗 → 電源長押し（効かなければケーブル）。<br>失敗なら AI が止める → ケーブルを抜く → 8GB に戻して画面 1 から → <b>まず画面 6〜7 の所で Overclock が Enabled・Memory Clock Speed が 1200MHz のままかを写真で確認</b>（BIOS は 5 回失敗すると設定を既定に戻す作りの可能性がある・戻っていたらそれ自体が記録）→ 値を <b>1067MHz</b>（＝2133）でもう 1 回（組 B）。<b>2 組まで</b>。（1333＝2666 は Auto と同じ値になる見込みなので試しから外した）</span></li>
-    <li><span class="n">10</span><span><b>通らなかった時：元に戻す（7 分）</b>：AI が止める → ケーブルを抜く → 8GB に戻す → 画面 1 → <b>戻すのは 3 つだけ・この順</b>：①画面 5〜6 の経路で Overclock の下の <b>Memory Clock Speed → Auto</b> ②<b>Overclock → Auto</b>（Clock は Overclock が Auto だと隠れるので先に Clock）③Advanced → WatchDog Settings → <b>Watch Dog Control → Enabled</b>。画面 3・6 の写真と同じになった事を確認（F9「既定値に戻す」は使わない＝他の出荷値も消える恐れ）→ F10 → UGOS 起動 → AI が確認して終わり。<b>8GB でも起動しない時は「戻し方 R1〜R4」</b>（上の畳んだ表）。</span></li>
-    <li><span class="n">11</span><span><b>通った時（10 分）</b>：AI がまず <code>free -m</code> で容量を見る（約 31,000MB なら OK／約 15,500MB＝半分なら 2 枚目へ進まず記録して止める）→ 通った直後は書き込みの仕事を止めて AI が memtester を先に → 問題なければ AI が止める → ケーブルを抜く → 32GB「2」を上の段 → 電源 → BIOS の Main（Total Memory）を写真 → <b>Watch Dog Control を Enabled に戻す</b>（速度の固定はそのまま）→ F10 → UGOS → AI が容量を見る → その後の再起動 3 回と memtester は AI が後でやる。</span></li>
-  </ol>
-  <details><summary>キーの早見</summary>
-    <ul>
-      <li><b>Ctrl+F12</b>（電源を入れた直後に連打）＝起動メニュー「Please select boot device」</li>
-      <li><b>Enter Setup</b>＝BIOS に入る</li>
-      <li><b>←→</b>＝タブの移動（Main／Advanced／Chipset／Security／Boot／Save &amp; Exit）、<b>↑↓</b>＝項目、<b>Enter</b>＝開く・選ぶ、<b>Esc</b>＝1 つ戻る</li>
-      <li><b>Ctrl+F1</b>（Advanced タブで）＝隠れた項目（AMD PBS／Crb Advanced／OEM）を出す</li>
-      <li><b>F10</b>＝保存して再起動（Yes で確定）。<b>F9 は押さない</b>。</li>
-      <li>Save &amp; Exit タブ →「Discard Changes and Exit」＝変えた物を捨てて抜ける（時間切れの時はこれ）</li>
-    </ul>
-  </details>
-</section>
-
-<section class="card">
-  <h2>今のメモリを使う路線（買い替えは無し）</h2>
-  <ol class="steps">
-    <li><span class="n">1</span><span><b>BIOS の設定で通す</b>（上の次の手）</span></li>
-    <li><span class="n">2</span><span><b>UGREEN に BIOS を出させる</b>：箱の「最大 64GB」と DMI の「32GB」の矛盾・64GB を確認した型番・16Gb 密度の 32GB を通す設定を書面で要請（1 の結果を証拠に・同じ核の DeskMini A300 が 64GB 公式を添える）</span></li>
-    <li><span class="n">3</span><span>別の機械で使う（家の守りの 2 台目の機械を買う時に DDR4 SO-DIMM 32GB を受ける物を選ぶ）</span></li>
-    <li><span class="n">4</span><span>BIOS を自分で焼く＝最後の手・今は候補に置くだけ</span></li>
-  </ol>
-</section>
-
-<section class="card">
-  <h2>出典</h2>
-  <ul class="src">
-    <li>AMD Ryzen Embedded R2000 Series Product Brief（PDF）— <a href="https://www.amd.com/content/dam/amd/en/documents/products/embedded/ryzen/r2000-product-brief.pdf">amd.com</a>（取得 2026-10-19）</li>
-    <li>Crucial「RAM Memory Speeds And Compatibility」— <a href="https://www.crucial.com/support/memory-speeds-compatability">crucial.com</a>（取得 2026-10-19）</li>
-    <li>Micron「16Gb: x4, x8, x16 DDR4 SDRAM」Rev. H 8/2021 — <a href="https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/8827/16gb-ddr4-sdram.pdf">Digi-Key の写し</a>（取得 2026-10-19）</li>
-    <li>ComputerBase「Ugreen DXP4800 GT &amp; DXP2800 GT im Test」— <a href="https://www.computerbase.de/artikel/storage/ugreen-dxp4800-gt-dxp2800-gt-test.97532/">computerbase.de</a></li>
-    <li>Mighty Gadget「UGREEN DXP2800 GT NAS Review」（2026-06-08）— <a href="https://mightygadget.com/ugreen-dxp2800-gt-nas-review/">mightygadget.com</a></li>
-    <li>UGREEN 対応表（機種名で絞った API の生データ）・Fable の先端調査 3 本・reddit の抜粋 — repo <code>nas/調査_20261018_32GBメモリ/</code></li>
-    <li>DeskMini A300M＋3400G＋Crucial 32GB×2＝64GB — <a href="https://eklausmeier.neocities.org/blog/2020/07-07-asrock-deskmini-a300m-with-amd-ryzen-3400g/">eklausmeier（2020-07）</a>／Beelink SER3（3750H）32GB×2 は 2666 でのみ起動 — <a href="https://www.cnx-software.com/2021/10/21/beelink-ser3-review-a-good-amd-ryzen-7-mini-pc-after-tweaks/">CNX Software（2021-10）</a></li>
+  <h3>根拠 3 本（一次資料・原文）</h3>
+  <ul>
+    <li><b>AMD</b>：製品概要 PDF の表で R2514 の Max DDR4 Rate＝<b>2,667 MT/s</b>（3,200 は上位の R2544）。<a href="https://www.amd.com/content/dam/amd/en/documents/products/embedded/ryzen/r2000-product-brief.pdf">PDF</a></li>
+    <li><b>Crucial 公式</b>：「Memory is designed to be backward compatible within its generation, so generally speaking, you can safely add faster memory to a computer that was designed to run slower memory. However, your system will operate at the speed of the slowest memory module installed.」<a href="https://www.crucial.com/support/memory-speeds-compatability">crucial.com</a></li>
+    <li><b>Micron（部品）</b>：16Gb DDR4 データシート Rev. H Table 151「Backward Compatibility」＝3200 のビン（-062E）は 1600〜2933 の全ビンに yes。<a href="https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/8827/16gb-ddr4-sdram.pdf">PDF（12MB）</a></li>
   </ul>
-</section>
+  <h3>取り下げ 1 件</h3>
+  <p>ComputerBase「UGREEN は 8GB の品を 3200 で動かしている」は部品名も根拠もなし。別の実機（DXP2800 GT）とこの NAS の BIOS は 2667＝「3200 で握手して失敗」は推測に格下げ→その後の実測（dmidecode）で「Auto＝2667」が確定。</p>
+</details>
+
+<details class="sec"><summary>技術の裏付け（昼：NAS の BIOS を読んだ結果・設定表）</summary>
+  <ul>
+    <li>取り方：UEFI 変数と BIOS の像（/dev/mem の ROM の窓 8MB）を読むだけ。UEFIExtract・IFRExtractor・PSPTool で解析。像は NAS の NJ のホームに保管。</li>
+    <li>AMD CBS → UMC Common Options → DDR4 Common Options → DRAM Timing Configuration → I Accept → <b>Overclock（Auto）</b> → <b>Memory Clock Speed（Auto／667〜2000MHz）</b>・Tcl…／<b>Fail_CNT＝5</b>／DRAM Controller Configuration に Gear Down・Power Down・<b>ECC Enable（既定 Enabled）</b>。「Enforce POR」「Memory Context Restore」の項目は無い。</li>
+    <li>Setup：<b>Watch Dog Control＝Enabled・180 秒</b>（今の値）。OEM BIOS VERSION の表示＝IFP5N130（BIOS 日付 2026-04-29）。</li>
+    <li>設定表（APCB v2）：口は 2 本・SO-DIMM の表に 2 ランクの行（2667＝gear-down＋2T・1600〜2400＝2T・1 枚の 2 ランクは 2667 まで・2933/3200 は 1 ランクだけ）・BusFrequencyLimit 3200・PMU の学習の復旧 有効・Context Restore 有効。CBS の値と設定表の既定が 10 項目一致＝設定は学習プログラム（ABL）まで届く。</li>
+    <li>純正 8GB：dmidecode で Kimtigo KT8GS4NE8・1 ランク・Configured 2667 MT/s。</li>
+  </ul>
+</details>
+
+<details class="sec"><summary>技術の裏付け（夕：世界の実例と仕組み＝道 1 の見込み）</summary>
+  <ul>
+    <li><b>実例（広く）</b>：速度を下げて通った 4 件は全部「8GB/16GB を 4 枚」などの多枚の負荷型。32GB・16Gb 単体を下げて通した直接例 0。下げても駄目 4 件（うち Zen1＋Micron 16Gb ECC×4 が半分しか見えず）。ASRock A300 の QVL に兄弟品 CT32G4SFD8266（2666 版）。Crucial の対応検索は 3400G＋B450 で CT32G4DFD832A（3200 版）を「非対応」。</li>
+    <li><b>仕組み（深く）</b>：Micron 原文「Gear-down mode is only supported at DDR4-2666 and faster」＝2400 以下で gear-down が外れる。Tcl 以下 Auto なら ABL が SPD から JEDEC の規則で計算。Fail_CNT の「recovery mode」＝ABL のノート「Load APCB recovery copy upon OC failure」＝回復用の写し（この NAS では＝Auto）で起動し直す。Crucial は一度も学習に成功していないので Context Restore の使い回しは起きない。F10 の後は再起動が 2 回になり得る。ABL のリリースノート全文に「16Gb」「dual rank」の記述なし。</li>
+    <li><b>判定</b>：道 1 の原理は妥当（高）・効くかは五分以下（低〜中）・文鎮になる経路は見当たらない（中）。</li>
+  </ul>
+</details>
+
+<details class="sec"><summary>出典</summary>
+  <ul class="src">
+    <li>AMD Ryzen Embedded R2000 Series Product Brief — <a href="https://www.amd.com/content/dam/amd/en/documents/products/embedded/ryzen/r2000-product-brief.pdf">amd.com</a>（取得 2026-10-19）</li>
+    <li>Crucial「RAM Memory Speeds And Compatibility」— <a href="https://www.crucial.com/support/memory-speeds-compatability">crucial.com</a>（取得 2026-10-19）</li>
+    <li>Micron「16Gb: x4, x8, x16 DDR4 SDRAM」Rev. H 8/2021 — <a href="https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/8827/16gb-ddr4-sdram.pdf">Digi-Key の写し</a></li>
+    <li>ComputerBase「Ugreen DXP4800 GT &amp; DXP2800 GT im Test」— <a href="https://www.computerbase.de/artikel/storage/ugreen-dxp4800-gt-dxp2800-gt-test.97532/">computerbase.de</a>／Mighty Gadget「UGREEN DXP2800 GT NAS Review」— <a href="https://mightygadget.com/ugreen-dxp2800-gt-nas-review/">mightygadget.com</a></li>
+    <li>DeskMini A300M＋3400G＋Crucial 32GB×2＝64GB — <a href="https://eklausmeier.neocities.org/blog/2020/07-07-asrock-deskmini-a300m-with-amd-ryzen-3400g/">eklausmeier（2020-07）</a>／Beelink SER3 — <a href="https://www.cnx-software.com/2021/10/21/beelink-ser3-review-a-good-amd-ryzen-7-mini-pc-after-tweaks/">CNX Software（2021-10）</a></li>
+    <li>AMD の ABL のリリースノート — <a href="https://raw.githubusercontent.com/amd/firmware_binaries/main/picasso/PSP/AgesaBLReleaseNote.txt">github.com/amd/firmware_binaries</a></li>
+    <li>UGREEN の対応表（機種名で絞った API の生データ）・Fable の調査 10 本・AI 同士のレビュー 3 回・BIOS の像の解析 — repo <code>nas/調査_20261018_32GBメモリ/</code>（README が索引）</li>
+  </ul>
+</details>
 
 </main>
 </body>

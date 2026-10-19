@@ -87,7 +87,7 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
 
 <section class="card">
   <h2>当日の手順（NJ の手・1 画面ずつ）</h2>
-  <p class="sub">合図「やろう」→ AI が NAS を止める → ここから。<b>所要 75 分</b>（1 組目 約 40 分＋2 組目 約 25 分＋戻し 約 7 分）。<b>AI とは写真でやりとり</b>（画面を撮って送る→AI が値を読んで次を指す）。画面の並びは NAS の BIOS を読んで確かめた物。</p>
+  <p class="sub">合図「やろう」→ AI が NAS を止める → ここから。<b>所要 80 分</b>（1 組目 約 45 分＋2 組目 約 25 分＋戻し 約 7 分）。<b>AI とは写真でやりとり</b>（画面を撮って送る→AI が値を読んで次を指す）。画面の並びは NAS の BIOS を読んで確かめた物。</p>
 
   <div class="cards">
     <div class="card info"><span class="tag">用意する物</span>
@@ -108,11 +108,11 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
       </ul></div>
   </div>
 
-  <h3>1 組目＝速さを 2400 に（約 40 分）</h3>
+  <h3>1 組目＝速さを 2400 に（約 45 分）</h3>
   <ol class="steps">
     <li><span class="n">1</span><span><b>電源を入れて BIOS に入る（2 分）</b>：電源ボタン → テレビに何か出たら <b>Ctrl+F12 を連打</b> → 「Please select boot device」の一覧 → <b>Enter Setup</b> を選んで Enter → 青い BIOS の画面（Main タブ）。※出ずに UGOS が起動してしまったら AI に言って止めてもらい、もう 1 回。</span></li>
     <li><span class="n">2</span><span><b>Main を写真（1 分）</b>：Total Memory 8192MB・Memory Speed 2667MHz が見える画面＝「変える前」の記録。</span></li>
-    <li><span class="n">3</span><span><b>Advanced → WatchDog Settings（2 分）</b>：→キーで Advanced へ → WatchDog Settings を Enter → <b>写真</b> → <b>Watch Dog Control を Disabled にする</b>（灰色で変えられない時はそのままにして写真）→ Esc。</span></li>
+    <li><span class="n">3</span><span><b>Advanced → WatchDog Settings → 番犬を切って一度保存（5 分）</b>：→キーで Advanced へ → WatchDog Settings を Enter → <b>写真</b> → <b>Watch Dog Control を Disabled にする</b>（灰色で変えられない時はそのままにして写真・画面 4 へ）→ <b>F10 → Yes</b>（番犬を切った状態を先に保存＝他の GT で「BIOS の画面に居るだけで 3 分で再起動して設定が消えた」例があるため）→ 再起動したら <b>Ctrl+F12 連打 → Enter Setup</b> で BIOS に入り直す。※Ctrl+F12 が効かない時は <b>Ctrl+F2</b>。</span></li>
     <li><span class="n">4</span><span><b>隠れた項目を出す（1 分）</b>：Advanced のまま <b>Ctrl+F1</b> → 一覧に AMD PBS／Crb Advanced／OEM BIOS VERSION が増える → <b>写真</b>。</span></li>
     <li><span class="n">5</span><span><b>Crb Advanced → AMD CBS → UMC Common Options → DDR4 Common Options（2 分）</b>：順に Enter で入る。中に「DRAM Timing Configuration」「DRAM Controller Configuration」の 2 つ → <b>写真</b>。</span></li>
     <li><span class="n">6</span><span><b>DRAM Timing Configuration → 警告文 → I Accept（2 分）</b>：AMD の長い定型の警告文（保証の外になる）が出る → 下の <b>「I Accept」</b> を Enter → 「Overclock：Auto」だけが見える画面 → <b>写真</b>（変える前の値）。<b>まだ何も変えない</b>。</span></li>

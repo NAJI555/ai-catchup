@@ -88,7 +88,7 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
 
 <section class="card">
   <h2>当日の手順（NJ の手・1 画面ずつ）</h2>
-  <p class="sub">合図「やろう」→ AI が NAS を止める → ここから。<b>所要 80 分</b>（1 組目 約 45 分＋2 組目 約 25 分＋戻し 約 7 分）。<b>AI とは写真でやりとり</b>（画面を撮って送る→AI が値を読んで次を指す）。画面の並びは NAS の BIOS を読んで確かめた物。</p>
+  <p class="sub">合図「やろう」→ AI が NAS を止める → ここから。<b>2 日に分けるのがおすすめ</b>（設定の変更と部品の変更を同時にしない）＝<b>1 日目：純正 8GB のまま画面 1〜8（約 40 分）</b>・<b>2 日目：Crucial を挿す画面 9〜12（約 40 分）</b>。1 日目の後は 8GB を 2400 のまま使う（規格内・体感差なし）。一気にやるなら合計 80 分。<b>AI とは写真でやりとり</b>（画面を撮って送る→AI が値を読んで次を指す）。画面の並びは NAS の BIOS を読んで確かめた物。</p>
 
   <div class="cards">
     <div class="card info"><span class="tag">用意する物</span>
@@ -101,7 +101,7 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
       </ul></div>
     <div class="card warn"><span class="tag">時間と安全の決まり</span>
       <ul>
-        <li><b>BIOS の画面の中に時間の制限はない</b>（10/18 に 10 分いて再起動なし）。番犬（WatchDog）は<b>今 Enabled・180 秒</b>なので、画面 3 で切る。</li>
+        <li><b>BIOS の画面の中に時間の制限はない</b>（10/18 に 10 分いて再起動なし）。ウォッチドッグ（番犬＝止まったら自動で再起動させるタイマー）は<b>今 Enabled・180 秒</b>なので、画面 3 で切る。BIOS の 180 秒は「起動の途中〜OS が引き取るまで」に効く物。OS（UGOS）は起動後に自分のウォッチドッグ（20 分）を持つが、BIOS で切った後もそれが働くかは 1 日目に AI が確かめる（この機械でウォッチドッグが実際に再起動させた記録はまだ無い）。</li>
         <li><b>NJ の時間が切れた時</b>：まだ F10 で保存していない → Esc で戻り、Save &amp; Exit のタブ →「Discard Changes and Exit」＝変えた物を捨てて抜ける（8GB のまま起動・何も壊れない）。F10 で保存した後 → 画面 10 の戻しまでやってから抜ける。<b>32GB を挿したまま止めない</b>。</li>
         <li><b>メモリを抜き挿しする時は毎回</b>：AI が止める → 電源ケーブルを抜く → 30 秒 → 交換。</li>
         <li><b>変える物は 3 つだけ</b>：Watch Dog Control／Overclock／Memory Clock Speed。戻す時はこの逆（画面 10）。</li>
@@ -113,12 +113,12 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
   <ol class="steps">
     <li><span class="n">1</span><span><b>電源を入れて BIOS に入る（2 分）</b>：電源ボタン → テレビに何か出たら <b>Ctrl+F12 を連打</b> → 「Please select boot device」の一覧 → <b>Enter Setup</b> を選んで Enter → 青い BIOS の画面（Main タブ）。※出ずに UGOS が起動してしまったら AI に言って止めてもらい、もう 1 回。</span></li>
     <li><span class="n">2</span><span><b>Main を写真（1 分）</b>：Total Memory 8192MB・Memory Speed 2667MHz が見える画面＝「変える前」の記録。</span></li>
-    <li><span class="n">3</span><span><b>Advanced → WatchDog Settings → 番犬を切って一度保存（5 分）</b>：→キーで Advanced へ → WatchDog Settings を Enter → <b>写真</b> → <b>Watch Dog Control を Disabled にする</b>（灰色で変えられない時はそのままにして写真・画面 4 へ）→ <b>F10 → Yes</b>（番犬を切った状態を先に保存＝他の GT で「BIOS の画面に居るだけで 3 分で再起動して設定が消えた」例があるため）→ 再起動したら <b>Ctrl+F12 連打 → Enter Setup</b> で BIOS に入り直す。※Ctrl+F12 が効かない時は <b>Ctrl+F2</b>。</span></li>
+    <li><span class="n">3</span><span><b>Advanced → WatchDog Settings → 番犬を切って一度保存（5 分）</b>：→キーで Advanced へ → WatchDog Settings を Enter → <b>写真</b> → <b>Watch Dog Control を Disabled にする</b>（灰色で変えられない時はそのままにして写真・画面 4 へ）→ <b>F10 → Yes</b>（番犬を切った状態を先に保存＝他の GT で「BIOS の画面に居るだけで 3 分で再起動して設定が消えた」例があるため）→ 再起動したら <b>Ctrl+F12 連打 → Enter Setup</b> で BIOS に入り直す（※Ctrl+F12 が効かない時は <b>Ctrl+F2</b>）→ <b>もう一度 WatchDog Settings を開いて Disabled が残っている写真</b>（戻っていたら AI に言う）。灰色で変えられない時は止めて AI に写真。</span></li>
     <li><span class="n">4</span><span><b>隠れた項目を出す（1 分）</b>：Advanced のまま <b>Ctrl+F1</b> → 一覧に AMD PBS／Crb Advanced／OEM BIOS VERSION が増える → <b>写真</b>。</span></li>
     <li><span class="n">5</span><span><b>Crb Advanced → AMD CBS → UMC Common Options → DDR4 Common Options（2 分）</b>：順に Enter で入る。中に「DRAM Timing Configuration」「DRAM Controller Configuration」の 2 つ → <b>写真</b>。</span></li>
     <li><span class="n">6</span><span><b>DRAM Timing Configuration → 警告文 → I Accept（2 分）</b>：AMD の長い定型の警告文（保証の外になる）が出る → 下の <b>「I Accept」</b> を Enter → 「Overclock：Auto」だけが見える画面 → <b>写真</b>（変える前の値）。<b>まだ何も変えない</b>。</span></li>
     <li><span class="n">7</span><span><b>速さを 1 つだけ変える（5 分）</b>：<b>Overclock</b> を Auto → <b>Enabled</b> → 下に <b>Memory Clock Speed</b>（今は Auto）と Tcl などの行が現れる → Memory Clock Speed を Enter → 一覧（Auto／667MHz／…／1067MHz／<b>1200MHz</b>／1333MHz／…／2000MHz）から <b>1200MHz</b> を選ぶ（画面は「半分の数字」で出る決まり＝1200MHz が 2400 の意味。表示はこの通りで確認済み）。Tcl 以下は Auto のまま → 変えた後を<b>写真</b>。</span></li>
-    <li><span class="n">8</span><span><b>保存して確かめる（10 分）</b>：<b>F10</b> → Yes → 再起動（<b>2 回続けて再起動する事がある</b>・2 回目まで待つ）→ 画面が出たら <b>Ctrl+F12 連打</b> → Enter Setup → Main の <b>Memory Speed が 2400 になっている写真</b> → Esc → Save &amp; Exit → Exit（保存せず抜ける）→ UGOS が起動 → AI が ssh で確認 → AI が止める → <b>電源ケーブルを抜いて 30 秒</b> → 挿して電源 → 起動すれば OK（冷えた状態からも通る確認）。</span></li>
+    <li><span class="n">8</span><span><b>保存して確かめる（10 分）</b>：<b>F10</b> → Yes → 再起動（<b>2 回続けて再起動する事がある</b>・2 回目まで待つ）→ 画面が出たら <b>Ctrl+F12 連打</b> → Enter Setup → Main の <b>Memory Speed が 2400 になっている写真</b> → Esc → Save &amp; Exit → Exit（保存せず抜ける）→ UGOS が起動 → AI が ssh で確認（ここで AI が「OS 側のウォッチドッグが BIOS で切った後も動いているか」を読んで記録）→ AI が止める → <b>電源ケーブルを抜いて 30 秒</b> → 挿して電源 → 起動すれば OK（コールドスタートでも通る確認）。<b>1 日目はここまで</b>。</span></li>
     <li><span class="n">9</span><span><b>32GB を 1 枚挿す（10 分）</b>：AI が止める → ケーブルを抜いて 30 秒 → 裏フタ → 8GB を外す → <b>32GB「1」を下の段</b> → 電源 → <b>テレビを見る</b>（握手の段階では画面は出ない見込み・文字が出たら写真）→ <b>ブザーが鳴った時刻と回数をメモ</b>（2 回の後に 4 回が来るか・何分おきか）→ ブザーが鳴っても <b>5 分は待つ</b>（BIOS は握手を 5 回やり直す）→ 起動した＝合格（AI が容量を見る・約 31,000MB なら OK・約 15,500MB＝半分なら記録して止める）／5 分たっても画面もネットも出ない＝失敗 → 電源長押し（効かなければケーブル）。</span></li>
   </ol>
 

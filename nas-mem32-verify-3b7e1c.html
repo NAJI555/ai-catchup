@@ -54,6 +54,12 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
 .tbl{overflow-x:auto}
 .kv{display:grid;grid-template-columns:7em 1fr;gap:6px 10px;margin-top:6px}
 .kv b{color:var(--accent)}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap}
+.nav a{display:inline-block;padding:8px 14px;border-radius:999px;background:var(--accent-bg);color:var(--accent);font-weight:700;text-decoration:none;font-size:.92rem}
+.nav a.main{background:var(--accent);color:#fff}
+.day{display:inline-block;background:var(--accent);color:#fff;border-radius:8px;padding:2px 10px;font-size:.85rem;margin-right:6px}
+h2.here{font-size:1.25rem}
+section[id]{scroll-margin-top:64px}
 </style>
 </head>
 <body>
@@ -61,34 +67,30 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
 
 <header>
   <h1>NAS のメモリ 32GB：何が起きていて、次に何をするか</h1>
-  <p class="sub">UGREEN DXP4800 GT × Crucial 32GB×2 ／ 2026-10-19 19:10 JST 時点（朝の裏取り→昼に NAS の BIOS を読んで解析→夕方に世界と仕組みで裏取り→AI 同士のレビュー 3 回を反映）</p>
+  <p class="sub">UGREEN DXP4800 GT × Crucial 32GB×2 ／ 2026-10-23 06:50 JST 時点（10/19 裏取りと BIOS の解析・AI 同士のレビュー 4 回・<b>10/21 に NAS の OS を 1.20.0 へ更新済み＝手順の前提は済み</b>）</p>
 </header>
+
+<nav class="nav" aria-label="目次">
+  <a class="main" href="#day1">▶ 手順 1 日目（8GB のまま・約 40 分）</a>
+  <a href="#day2">手順 2 日目（Crucial を挿す・約 40 分）</a>
+  <a href="#modoshi">万一の戻し方</a>
+  <a href="#zakkuri">ざっくり説明</a>
+  <a href="#michi">他の道</a>
+</nav>
 
 <section class="card info">
   <span class="tag">結論 3 行</span>
   <div class="kv">
-    <b>やる事</b><span>BIOS の設定でメモリとの握手の速さを <b>今の 2667 → 2400、だめなら 2133</b> に落として、32GB が起動するか試す（NJ の手 75 分・手順は下）。並行して UGREEN に質問を送る。</span>
+    <b>やる事</b><span>BIOS の設定でメモリとの握手の速さを <b>今の 2667 → 2400、だめなら 2133</b> に落として、32GB が起動するか試す（NJ の手 2 日×40 分・<a href="#day1">手順は次の枠</a>）。並行して UGREEN に質問を送る。</span>
     <b>見込み</b><span>理屈は通る。でも<b>成功率は低め（数字では言えない）</b>。本当の原因は「NAS の BIOS の学習プログラムが<b>この Crucial の組み合わせ</b>（定格 3200・大容量チップ・2 段構成）を通せていない」の疑いが濃い（確度 中）。他社の 32GB が通った記録はあるので望みはゼロではないが、速さを落としても直らない可能性の方が高い。壊れる向きの変更ではない。</span>
     <b>NJ が決める事</b><span>①やるか ②万一「設定を保存した後に純正 8GB でも起動しない」になった時、最後は<b>修理に出す事まで受け入れるか</b>（データは HDD にあり無事・その間は PC1 で続けられる）③途中で AMD の「保証の外」という定型の警告を「I Accept」で通る事。返品の期限は 11/17。</span>
   </div>
 </section>
 
-<section class="card">
-  <h2>ざっくり言うと（素人向け）</h2>
-  <ul>
-    <li><b>何が起きている？</b> 新しいメモリを挿すと、NAS が起動の最初の「メモリとの握手」でつまずいて先に進めない。2 枚とも・どちらの差し口でも同じ＝メモリの不良の可能性は低く（完全には消せない）、<b>この NAS の起動プログラム（BIOS）とこのメモリの相性</b>を疑っている。</li>
-    <li><b>買ったメモリは間違い？</b> 速さ（3200）は NAS の上限（2667）より速いが、メモリは<b>遅い相手には遅く合わせる作り</b>（メーカー 3 社の公式資料で確認）＝速さの選び方は間違いではない。32GB という大きさは、同じ系統の頭脳（CPU）の<b>別の機械</b>では動いている（この NAS で動く証明ではない）。</li>
-    <li><b>原因は？（19:45 に深掘り）</b> 握手のやり方を決める「設定表」が BIOS の中にある。NAS の BIOS を中から読み出して（書き換えなし）設定表の大半を読めた。表には「この 32GB の作り（2 段構成）」用の設定もあり、<b>AMD の参照の設定表と比べても配線や駆動の値は同じ</b>＝基板の配線・電源・メモリの自己申告データ（SPD）の線は消えた。残る本線は、表を実行する <b>AMD の非公開のプログラム（この BIOS に入っている版）が「この Crucial（定格 3200・Micron の大容量チップ・2 段構成）」の組み合わせを通せていない</b>事（確度 中）。<b>32GB が全部駄目なのではない</b>＝この NAS で通った 32GB の記録が 2 つある（対応表の Kimtigo 32GB・定格 2666／reddit の持ち主「64GB の ECC」・型番なし）。Kimtigo と Crucial の違い（チップの会社・定格が 2666 か 3200 か・段の構成）が分かっていないのが残る未知＝だから「定格の違い（速さ）」を設定で試す意味があり、Kimtigo の中身を UGREEN に聞く質問が一番効く。「新しい世代のチップだから」という言い方は弱い（Micron の資料で世代の差は検査機能だけ）。「Crucial が非対応と判定」も根拠が弱いので外した。</li>
-    <li><b>速さを落とすと何が変わる？</b> 速さを落とす設定は、奥の学習プログラムまで本当に届く（確認済み）。2400 以下にすると高速用の特別なモードが外れ、握手の条件は確かに変わる。ただし世界で「速さを落として通った」例は全部「メモリを 4 枚挿した時」の話で、<b>32GB を 1 枚で通した例はゼロ</b>。</li>
-    <li><b>安心材料</b>：BIOS は握手に 5 回失敗すると「回復用の設定（元の Auto）」で起動し直す作り（確度 中）＝設定で壊れる道は見当たらない。それでも万一に備えて戻し方を 4 段で用意してある（下）。</li>
-    <li><b>番犬</b>：NAS には「起動が 3 分止まったら勝手に再起動する番犬」の設定が入っている。<b>他の GT では BIOS の画面に居るだけで 3 分で再起動し、変えた設定が消えた例がある</b>（動画で確認）。だから手順の最初に番犬を切って一度保存してから作業する。終わったら戻す。</li>
-    <li><b>UGREEN の他の機種は？（10/20 に調べた）</b> DDR4 のメモリを使うのは GT の 2 機種だけ。Intel の機種は上限を超える増設も設定なしで通るのに、GT は上限内の 16GB でも起動しない例がある＝<b>GT の握手が UGREEN の中で一番厳しい</b>。UGREEN は公式に「BIOS は出荷時のまま・何も変えていない」と言っている（別機種で頼んだら個別にファームを渡した例が 1 つ＝問い合わせ文で「個別の試験版」を頼む）。</li>
-  </ul>
-</section>
 
-<section class="card">
-  <h2>当日の手順（NJ の手・1 画面ずつ）</h2>
-  <p class="sub">合図「やろう」→ AI が NAS を止める → ここから。<b>2 日に分けるのがおすすめ</b>（設定の変更と部品の変更を同時にしない）＝<b>1 日目：純正 8GB のまま画面 1〜8（約 40 分）</b>・<b>2 日目：Crucial を挿す画面 9〜12（約 40 分）</b>。1 日目の後は 8GB を 2400 のまま使う（規格内・体感差なし）。一気にやるなら合計 80 分。<b>AI とは写真でやりとり</b>（画面を撮って送る→AI が値を読んで次を指す）。画面の並びは NAS の BIOS を読んで確かめた物。</p>
+<section class="card" id="tejun">
+  <h2 class="here">手順はここ（NJ の手・1 画面ずつ・写真で AI とやりとり）</h2>
+  <p class="sub">合図「やろう」→ AI が NAS を止める → ここから。<b>2 日に分ける</b>（設定の変更と部品の変更を同時にしない）。1 日目の後は 8GB を 2400 のまま使う（規格内・体感差なし）。画面を撮って送る→AI が値を読んで次を指す。画面の並びは NAS の BIOS を読んで確かめた物。</p>
 
   <div class="cards">
     <div class="card info"><span class="tag">用意する物</span>
@@ -109,7 +111,7 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
       </ul></div>
   </div>
 
-  <h3>1 組目＝速さを 2400 に（約 45 分）</h3>
+  <h3 id="day1"><span class="day">1 日目</span>純正 8GB のまま、速さを 2400 に（画面 1〜8・約 40 分）</h3>
   <ol class="steps">
     <li><span class="n">1</span><span><b>電源を入れて BIOS に入る（2 分）</b>：電源ボタン → テレビに何か出たら <b>Ctrl+F12 を連打</b> → 「Please select boot device」の一覧 → <b>Enter Setup</b> を選んで Enter → 青い BIOS の画面（Main タブ）。※出ずに UGOS が起動してしまったら AI に言って止めてもらい、もう 1 回。</span></li>
     <li><span class="n">2</span><span><b>Main を写真（1 分）</b>：Total Memory 8192MB・Memory Speed 2667MHz が見える画面＝「変える前」の記録。</span></li>
@@ -119,10 +121,14 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
     <li><span class="n">6</span><span><b>DRAM Timing Configuration → 警告文 → I Accept（2 分）</b>：AMD の長い定型の警告文（保証の外になる）が出る → 下の <b>「I Accept」</b> を Enter → 「Overclock：Auto」だけが見える画面 → <b>写真</b>（変える前の値）。<b>まだ何も変えない</b>。</span></li>
     <li><span class="n">7</span><span><b>速さを 1 つだけ変える（5 分）</b>：<b>Overclock</b> を Auto → <b>Enabled</b> → 下に <b>Memory Clock Speed</b>（今は Auto）と Tcl などの行が現れる → Memory Clock Speed を Enter → 一覧（Auto／667MHz／…／1067MHz／<b>1200MHz</b>／1333MHz／…／2000MHz）から <b>1200MHz</b> を選ぶ（画面は「半分の数字」で出る決まり＝1200MHz が 2400 の意味。表示はこの通りで確認済み）。Tcl 以下は Auto のまま → 変えた後を<b>写真</b>。</span></li>
     <li><span class="n">8</span><span><b>保存して確かめる（10 分）</b>：<b>F10</b> → Yes → 再起動（<b>2 回続けて再起動する事がある</b>・2 回目まで待つ）→ 画面が出たら <b>Ctrl+F12 連打</b> → Enter Setup → Main の <b>Memory Speed が 2400 になっている写真</b> → Esc → Save &amp; Exit → Exit（保存せず抜ける）→ UGOS が起動 → AI が ssh で確認（ここで AI が「OS 側のウォッチドッグが BIOS で切った後も動いているか」を読んで記録）→ AI が止める → <b>電源ケーブルを抜いて 30 秒</b> → 挿して電源 → 起動すれば OK（コールドスタートでも通る確認）。<b>1 日目はここまで</b>。</span></li>
+  </ol>
+
+  <h3 id="day2"><span class="day">2 日目</span>Crucial 32GB を挿して試す（画面 9〜12・約 40 分）</h3>
+  <ol class="steps">
     <li><span class="n">9</span><span><b>32GB を 1 枚挿す（10 分）</b>：AI が止める → ケーブルを抜いて 30 秒 → 裏フタ → 8GB を外す → <b>32GB「1」を下の段</b> → 電源 → <b>テレビを見る</b>（握手の段階では画面は出ない見込み・文字が出たら写真）→ <b>ブザーが鳴った時刻と回数をメモ</b>（2 回の後に 4 回が来るか・何分おきか）→ ブザーが鳴っても <b>5 分は待つ</b>（BIOS は握手を 5 回やり直す）→ 起動した＝合格（AI が容量を見る・約 31,000MB なら OK・約 15,500MB＝半分なら記録して止める）／5 分たっても画面もネットも出ない＝失敗 → 電源長押し（効かなければケーブル）。</span></li>
   </ol>
 
-  <h3>2 組目＝だめなら 2133 に（約 25 分）</h3>
+  <h3>だめなら 2 組目＝2133 に（画面 10・約 25 分）</h3>
   <ol class="steps">
     <li><span class="n">10a</span><span>AI が止める → ケーブルを抜いて 30 秒 → 8GB に戻す → 画面 1 → 画面 5〜6 の経路で入り、<b>Overclock が Enabled・Memory Clock Speed が 1200MHz のまま残っているか写真</b>（BIOS は 5 回失敗すると設定を回復用の値に戻す作り＝戻っていたらそれ自体が記録）。</span></li>
     <li><span class="n">10b</span><span>Memory Clock Speed を <b>1067MHz</b>（＝2133 の意味）に → F10 → 画面 8 と同じ確認（Main の Memory Speed が 2133・UGOS 起動・冷えた起動）→ 画面 9 と同じく 32GB「1」を挿して見る。<b>試すのはここまで（2 組）</b>。</span></li>
@@ -134,7 +140,7 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
     <li><span class="n">12</span><span><b>通った時</b>：通った直後は書き込みの仕事を止めて AI が memtester（メモリの検査）を先に → 問題なければ AI が止める → ケーブルを抜く → 32GB「2」を上の段 → 電源 → BIOS の Main（Total Memory）を写真 → <b>Watch Dog Control を Enabled に戻す</b>（速さの固定はそのまま）→ F10 → UGOS → AI が容量を見る → その後の再起動 3 回と長い memtester は AI が後でやる。</span></li>
   </ol>
 
-  <details><summary>戻し方 R1〜R4（万一「純正 8GB でも起動しない」になった時）</summary>
+  <details id="modoshi"><summary>戻し方 R1〜R4（万一「純正 8GB でも起動しない」になった時）</summary>
     <p>設定は HDD のデータに触らない＝データは無事。NAS が止まる間は PC1 で続けられる。</p>
     <div class="tbl"><table>
       <tr><th>段</th><th>手</th><th>確度・費用</th></tr>
@@ -152,6 +158,20 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
       <li><b>←→</b>＝タブの移動、<b>↑↓</b>＝項目、<b>Enter</b>＝開く・選ぶ、<b>Esc</b>＝1 つ戻る／<b>Ctrl+F1</b>（Advanced で）＝隠れた項目を出す</li>
       <li><b>F10</b>＝保存して再起動（Yes で確定）。<b>F9 は押さない</b>。／Save &amp; Exit →「Discard Changes and Exit」＝変えた物を捨てて抜ける</li>
     </ul>
+  </details>
+</section>
+
+<section class="card" id="zakkuri">
+  <details class="sec"><summary>ざっくり言うと（素人向け・読まなくても手順はできる）</summary>
+  <ul>
+    <li><b>何が起きている？</b> 新しいメモリを挿すと、NAS が起動の最初の「メモリとの握手」でつまずいて先に進めない。2 枚とも・どちらの差し口でも同じ＝メモリの不良の可能性は低く（完全には消せない）、<b>この NAS の起動プログラム（BIOS）とこのメモリの相性</b>を疑っている。</li>
+    <li><b>買ったメモリは間違い？</b> 速さ（3200）は NAS の上限（2667）より速いが、メモリは<b>遅い相手には遅く合わせる作り</b>（メーカー 3 社の公式資料で確認）＝速さの選び方は間違いではない。32GB という大きさは、同じ系統の頭脳（CPU）の<b>別の機械</b>では動いている（この NAS で動く証明ではない）。</li>
+    <li><b>原因は？（19:45 に深掘り）</b> 握手のやり方を決める「設定表」が BIOS の中にある。NAS の BIOS を中から読み出して（書き換えなし）設定表の大半を読めた。表には「この 32GB の作り（2 段構成）」用の設定もあり、<b>AMD の参照の設定表と比べても配線や駆動の値は同じ</b>＝基板の配線・電源・メモリの自己申告データ（SPD）の線は消えた。残る本線は、表を実行する <b>AMD の非公開のプログラム（この BIOS に入っている版）が「この Crucial（定格 3200・Micron の大容量チップ・2 段構成）」の組み合わせを通せていない</b>事（確度 中）。<b>32GB が全部駄目なのではない</b>＝この NAS で通った 32GB の記録が 2 つある（対応表の Kimtigo 32GB・定格 2666／reddit の持ち主「64GB の ECC」・型番なし）。Kimtigo と Crucial の違い（チップの会社・定格が 2666 か 3200 か・段の構成）が分かっていないのが残る未知＝だから「定格の違い（速さ）」を設定で試す意味があり、Kimtigo の中身を UGREEN に聞く質問が一番効く。「新しい世代のチップだから」という言い方は弱い（Micron の資料で世代の差は検査機能だけ）。「Crucial が非対応と判定」も根拠が弱いので外した。</li>
+    <li><b>速さを落とすと何が変わる？</b> 速さを落とす設定は、奥の学習プログラムまで本当に届く（確認済み）。2400 以下にすると高速用の特別なモードが外れ、握手の条件は確かに変わる。ただし世界で「速さを落として通った」例は全部「メモリを 4 枚挿した時」の話で、<b>32GB を 1 枚で通した例はゼロ</b>。</li>
+    <li><b>安心材料</b>：BIOS は握手に 5 回失敗すると「回復用の設定（元の Auto）」で起動し直す作り（確度 中）＝設定で壊れる道は見当たらない。それでも万一に備えて戻し方を 4 段で用意してある（下）。</li>
+    <li><b>番犬</b>：NAS には「起動が 3 分止まったら勝手に再起動する番犬」の設定が入っている。<b>他の GT では BIOS の画面に居るだけで 3 分で再起動し、変えた設定が消えた例がある</b>（動画で確認）。だから手順の最初に番犬を切って一度保存してから作業する。終わったら戻す。</li>
+    <li><b>UGREEN の他の機種は？（10/20 に調べた）</b> DDR4 のメモリを使うのは GT の 2 機種だけ。Intel の機種は上限を超える増設も設定なしで通るのに、GT は上限内の 16GB でも起動しない例がある＝<b>GT の握手が UGREEN の中で一番厳しい</b>。UGREEN は公式に「BIOS は出荷時のまま・何も変えていない」と言っている（別機種で頼んだら個別にファームを渡した例が 1 つ＝問い合わせ文で「個別の試験版」を頼む）。</li>
+  </ul>
   </details>
 </section>
 
@@ -174,7 +194,7 @@ table{border-collapse:collapse;width:100%;font-size:.88rem} td,th{border:1px sol
     </ul></div>
 </section>
 
-<section class="card">
+<section class="card" id="michi">
   <h2>今のメモリを使う道（買い替えは無し）</h2>
   <ol class="steps">
     <li><span class="n">1</span><span><b>BIOS の設定で握手の速さを落とす</b>（上の手順・今ここ）</span></li>
